@@ -80,43 +80,43 @@
                     <td>255800001</td>
                     <td>อาคารเรือนไทย</td>
                     <td>4,000,000 บาท</td> 
-                    <td class="align-center"><a href="projectdt.jsp"><button class="toolbar-button"><span class="mif-pencil"></span></button></a></td>  
+                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
                 </tr>	
                 <tr> 
                     <td>255800002</td>
                     <td>แหล่งเรียนรู้และวิจัย กาซะลองสปา</td>
                     <td>1,000,000 บาท</td> 
-                    <td class="align-center"><button class="toolbar-button"><span class="mif-pencil"></span></button></td>  
+                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
                 </tr>
                 <tr> 
                     <td>255800003</td>
                     <td>ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</td>
                     <td>2,300,000 บาท</td> 
-                    <td class="align-center"><button class="toolbar-button"><span class="mif-pencil"></span></button></td>  
+                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
                 </tr>
                 <tr> 
                     <td>255800004</td>
                     <td>โรงแรม</td>
                     <td>8,000,000 บาท</td> 
-                    <td class="align-center"><button class="toolbar-button"><span class="mif-pencil"></span></button></td>  
+                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
                 </tr>
                  <tr> 
                     <td>255800005</td>
                     <td>ศูนย์บริการ</td>
                     <td>2,500,000 บาท</td> 
-                    <td class="align-center"><button class="toolbar-button"><span class="mif-pencil"></span></button></td>  
+                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
                 </tr>
                 <tr> 
                     <td>255800006</td>
                     <td>สปา & ฟิตเนส</td>
                     <td>2,500,000 บาท</td> 
-                    <td class="align-center"><button class="toolbar-button"><span class="mif-pencil"></span></button></td>  
+                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
                 </tr>
                 <tr> 
                     <td>255800007</td>
                     <td>ศูนย์อาหารและร้านค้า</td>
                     <td>1,500,000 บาท</td> 
-                    <td class="align-center"><button class="toolbar-button"><span class="mif-pencil"></span></button></td>  
+                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
                 </tr>
                 </tbody>
             </table>

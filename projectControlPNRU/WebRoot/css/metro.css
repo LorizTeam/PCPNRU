@@ -3353,14 +3353,14 @@ html {
 body {
   font-family: "Segoe UI", "Open Sans", sans-serif, serif;
   font-size: 0.875rem;
-  line-height: 1.1;
-  font-weight: 400;
+  line-height: 1;
+  font-weight: 100;
   font-style: normal;
 }
 #font .light {
   font-weight: 300;
-  font-style: normal;
-}
+  font-style: normal;F
+}R
 #font .normal {
   font-weight: 400;
   font-style: normal;
@@ -6694,7 +6694,7 @@ a.tag {
 }
 .button {
   padding: 0 1rem;
-  height: 2.125rem;
+  height: 1.5rem;
   text-align: center;
   vertical-align: middle;
   background-color: #ffffff;
@@ -8908,8 +8908,8 @@ div.square-button.big-button {
   position: relative;
   border: 1px #d9d9d9 solid;
   width: 100%;
-  height: 100%;
-  padding: .3125rem;
+ /* height: 100%;
+  padding: .3125rem;*/
   z-index: 0;
 }
 .input-control input:focus,
@@ -17369,7 +17369,7 @@ p [data-hint] {
 }
 .dataTable th,
 .dataTable td {
-  padding: 0.625rem;
+  padding: 0.4rem;
 }
 .dataTable thead {
   border-bottom: 4px solid #999999;
@@ -17398,7 +17398,7 @@ p [data-hint] {
   line-height: 100%;
 }
 .dataTable tbody td {
-  padding: 0.625rem 0.85rem;
+  padding: 0.4rem 0.85rem;
 }
 .dataTable .sortable-column {
   position: relative;
@@ -17740,7 +17740,7 @@ p [data-hint] {
   -webkit-appearance: none;
   appearance: none;
   margin: 0 .125rem;
-  padding: .3125rem;
+ /* padding: .3125rem;*/
   border: 1px #d9d9d9 solid;
 }
 .dataTables_length select:focus {
@@ -17758,7 +17758,7 @@ p [data-hint] {
 .dataTables_filter input {
   -webkit-appearance: none;
   appearance: none;
-  padding: .3125rem;
+/* padding: .3125rem;*/
   border: 1px #d9d9d9 solid;
 }
 .dataTables_filter input:focus {
