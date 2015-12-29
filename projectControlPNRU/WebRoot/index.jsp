@@ -20,7 +20,7 @@
 	</head>
 
 	<body class="">
-		 <div data-include="topmenu.html"></div>
+		<%@ include file='topmenu.jsp' %>
 
  		<div class="container-center">
  			<a href="projecthd.jsp">
@@ -59,10 +59,10 @@
 			<div class="row">
 				<div class="cell" id="chart-area">	
 					<ul class="legend" style="list-style-type: square; float: right ">
-						<li style="color:rgba(220,220,220,1);">งบประมาณ</li>			
-						<li style="color:rgba(151,187,205,1);">รายจ่าย</li>
-						<li style="color:rgba(179, 255, 204,1);">คงเหลือ</li>
-						<li style="color:rgba(255, 217, 179,1);">รายรับ</li>
+						<li style="color:rgba(0, 102, 255,1);">งบประมาณ</li>			
+						<li style="color:rgba(153, 0, 255,1);">รายจ่าย</li>
+						<li style="color:rgba(0, 204, 0,1);">คงเหลือ</li>
+						<li style="color:rgba(255, 102, 0,1);">รายรับ</li>
 						
 					</ul>														
 					<canvas id="bar" height="310" width="1000"></canvas>		
@@ -97,31 +97,31 @@
 			   labels : ["January","February","March","April","May","June","July","August","September","October","December"],
 			   datasets : [
 							{	label: "My First dataset",						
-								fillColor : "rgba(220,220,220,0.5)",
-								strokeColor : "rgba(220,220,220,0.8)",
-								highlightFill: "rgba(220,220,220,0.75)",
-								highlightStroke: "rgba(220,220,220,1)",
+								fillColor : "rgba(0, 102, 255,0.5)",
+								strokeColor : "rgba(0, 102, 255,0.8)",
+								highlightFill: "rgba(0, 102, 255,0.75)",
+								highlightStroke: "rgba(0, 102, 255,1)",
 								data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
 							},
 							{	label: "My First dataset2",
-								fillColor : "rgba(151,187,205,0.5)",
-								strokeColor : "rgba(151,187,205,0.8)",
-								highlightFill : "rgba(151,187,205,0.75)",
-								highlightStroke : "rgba(151,187,205,1)",
+								fillColor : "rgba(153, 0, 255,0.5)",
+								strokeColor : "rgba(153, 0, 255,0.8)",
+								highlightFill : "rgba(153, 0, 255,0.75)",
+								highlightStroke : "rgba(153, 0, 255,1)",
 								data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
 							},
 							{	label: "My First dataset3",
-								fillColor : "rgba(179, 255, 204,0.5)",
-								strokeColor : "rgba(179, 255, 204,0.8)",
-								highlightFill : "rgba(179, 255, 204,0.75)",
-								highlightStroke : "rgba(179, 255, 204,1)",
+								fillColor : "rgba(0, 204, 0,0.5)",
+								strokeColor : "rgba(0, 204, 0,0.8)",
+								highlightFill : "rgba(0, 204, 0,0.75)",
+								highlightStroke : "rgba(0, 204, 0,1)",
 								data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
 							},
 							{	label: "My First dataset4",
-								fillColor : "rgba(255, 217, 179,0.5)",
-								strokeColor : "rgba(255, 217, 179,0.8)",
-								highlightFill : "rgba(255, 217, 179,0.75)",
-								highlightStroke : "rgba(255, 217, 179,1)",
+								fillColor : "rgba(255, 102, 0,0.5)",
+								strokeColor : "rgba(255, 102, 0,0.8)",
+								highlightFill : "rgba(255, 102, 0,0.75)",
+								highlightStroke : "rgba(255, 102, 0,1)",
 								data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
 							}
 							
@@ -140,6 +140,6 @@
 			
 			document.getElementById('legend').appendChild(legendHolder.firstChild);
 		</script>
-		<script src="includehtml1.js"></script>   
+		  
 	</body>
 </html>
