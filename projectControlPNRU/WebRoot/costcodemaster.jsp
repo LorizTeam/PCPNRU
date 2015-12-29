@@ -18,7 +18,7 @@
 	    <script src="js/docs.js"></script>
 	    <script src="js/prettify/run_prettify.js"></script>
 	    <script src="js/ga.js"></script> 
-        <script src="js/jquery.dataTables.min.js"></script>s
+        <script src="js/jquery.dataTables.min.js"></script>
   		
 	</head>
 
@@ -59,7 +59,7 @@
                 <tbody>
                 <tr>  
                     <td>001</td>
-                    <td>เงินเดือนพนักงานธุรการ ประจำโครงการ 1 คน x 13,200 บาท x 12 เดือน = 158,400</td>   
+                    <td>เงินเดือนพนักงานธุรการ</td>   
                 </tr>	
                 <tr>  
                     <td>002</td>

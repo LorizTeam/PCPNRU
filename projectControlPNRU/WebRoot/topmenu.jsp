@@ -9,6 +9,7 @@
             	<li><a href="projecthd.jsp">ร่างรายละเอียด  โครงการ</a></li>
                 <li><a href="projectmaster.jsp">สร้าง ชื่อโครงการ</a></li>   
                 <li><a href="subjobmaster.jsp">สร้าง  กิจกรรม</a></li>
+                <li><a href="childsubjobmaster.jsp">สร้าง  กิจกรรมย่อย</a></li>
                 <li><a href="costcodemaster.jsp">สร้าง รายการค่าใช้จ่ายในแต่ละกิจกรรม</a></li>
             </ul>
         </li>
@@ -25,7 +26,7 @@
                 <li class="divider"></li>
                 <li><a href="" class="dropdown-toggle">รายจ่าย</a>
                     <ul class="d-menu" data-role="dropdown">
-                        <li><a href="requisition.jsp">ทำรายการจ่าย</a></li>
+                        <li><a href="requisition-1.jsp">ทำรายการจ่าย</a></li>
                         <li><a href="select_requisition-1.jsp">รายละเอียดการจ่าย</a></li> 
                     </ul>
                 </li> 
