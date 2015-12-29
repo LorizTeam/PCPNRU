@@ -24,7 +24,6 @@
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
-        <link href="css/metro-responsive.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet"> 
 	 
@@ -33,9 +32,7 @@
 	    <script src="js/docs.js"></script>
 	    <script src="js/prettify/run_prettify.js"></script>
 	    <script src="js/ga.js"></script> 
- 		<script src="js/jquery.dataTables.min.js"></script> 
-        <script src="includehtml.js"></script>    	    
-
+ 		<script src="js/jquery.dataTables.min.js"></script>
 	</head>
 
 	<body>

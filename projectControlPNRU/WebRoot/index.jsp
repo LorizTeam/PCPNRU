@@ -12,7 +12,6 @@
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
-        <link href="css/metro-responsive.css" rel="stylesheet">
 		<link href="css/metro-schemes.min.css"rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" />
 

@@ -27,8 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link href="css/metro.css" rel="stylesheet">
-        <link href="css/metro-icons.css" rel="stylesheet">
-        <link href="css/metro-responsive.css" rel="stylesheet">
+        <link href="css/metro-icons.css" rel="stylesheet">     
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet"> 
 	 
@@ -37,23 +36,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <script src="js/docs.js"></script>
 	    <script src="js/prettify/run_prettify.js"></script>
 	    <script src="js/ga.js"></script> 
- 		<script src="js/jquery.dataTables.min.js"></script> 
-        <script src="includehtml.js"></script>    
+ 		<script src="js/jquery.dataTables.min.js"></script>     
 
   </head>
   
   <body>
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
+	
 	<div class="example" data-text="รายละเอียด">
-	<div class="flex-grid">
+		<div class="flex-grid">
 		  	<div class="row flex-just-center">
-		        <div class="cell colspan2 "> 
-		       	<h2 class="align-right">โครงการ&nbsp;</h2>
+		        <div class="cell colspan1 "> 
+		       		<h4 class="align-right">โครงการ&nbsp;</h4>
 		    	</div>
-		    	<div class="cell colspan5" > 
-		       		 <h3><small class="input-control full-size"> 
-		       		 <select onchange="">
+		    	<div class="cell colspan4" > 
+		       		 <h4><small class="input-control full-size"> 
+			       		 <select onchange="">
 					    	<option>-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
@@ -62,15 +61,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800005 - ศูนย์บริการ</option>
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
-					   </select>
-					   </small></h3>
+						 </select>
+					</small></h4>
 		    	</div>
 		    	<div class="cell colspan1"> 
-		    			<h2 class="align-right">เดือน&nbsp;</h2>  
+		    		<h4 class="align-right">เดือน&nbsp;</h4>  
 		    	</div>
 		    	<div class="cell colspan2">
-		    		<h3><small class="input-control full-size"> 
-					    <select onchange=""> 
+		    		<h4><small class="input-control full-size"> 
+				    	<select onchange=""> 
 					        <option>01 - มกราคม</option>
 					        <option>02 - กุมภาพันธ์</option>
 					        <option>03 - มีนาคม</option>
@@ -84,14 +83,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>11 - พฤศจิกายน</option>
 					        <option>12 - ธันวาคม</option>
 					    </select>
-					</small>
-					</h3>
+					</small></h4>
 		    	</div>
 		    	<div class="cell colspan1"> 
-		    			<h2 class="align-right">ปี&nbsp;</h2>  
+		    		<h4 class="align-right">ปี&nbsp;</h4>  
 		    	</div>
 		    	<div class="cell colspan1">
-		    		<h3><small class="input-control full-size"> 
+		    		<h4><small class="input-control full-size"> 
 					    <select onchange=""> 
 					        <option>2555</option>
 					        <option>2556</option>
@@ -105,19 +103,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>2564</option>
 					        <option>2565</option>
 					        </select> 
-					</small>
-					</h3>
+					</small></h4>
 		    	</div>
 		    </div>
-	</div>
-	<hr/> 
-	<div class="flex-grid">
+		</div>
+		
+		<div class="flex-grid">
 		  	<div class="row flex-just-center">
-		        <div class="cell colspan2"> 
-		       	<h2 align="right">กิจกรรม&nbsp;</h2> 	  
+		        <div class="cell colspan1"> 
+		       		<h4 align="right">กิจกรรม&nbsp;</h4> 	  
 		    	</div> 
 		    	<div class="cell colspan4">
-		    		<h3><small class="input-control full-size"><select onchange="">
+		    		<h4><small class="input-control full-size"><select onchange="">
 					    	<option>-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
@@ -126,14 +123,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800005 - ศูนย์บริการ</option>
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
-					   </select></small>
-					</h3>
+					   </select>
+					</small></h4>
 		    	</div> 
-		        <div class="cell colspan2"> 
-		       	<h2 align="right">กิจกรรมย่อย&nbsp;</h2> 	  
+		        <div class="cell colspan1"> 
+		       		<h4 align="right">กิจกรรมย่อย&nbsp;</h4> 	  
 		    	</div> 
 		    	<div class="cell colspan4">
-		    		<h3><small class="input-control full-size"><select onchange="">
+		    		<h4><small class="input-control full-size">
+			    		<select onchange="">
 					    	<option>-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
@@ -142,19 +140,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800005 - ศูนย์บริการ</option>
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
-					   </select></small>
-					</h3>
+						</select>
+					</small></h4>
 		    	</div>
 		    </div>
-	</div>
-	<hr/> 
-	<div class="flex-grid">
-		  	<div class="row flex-just-left">
-		        <div class="cell colspan2"> 
-		       	<h2 align="right">ค่าใช้จ่าย&nbsp;</h2> 	  
+		</div>
+		
+		<div class="flex-grid">
+		  	<div class="row flex-just-center">
+		        <div class="cell colspan1"> 
+		       		<h4 align="right">ค่าใช้จ่าย&nbsp;</h4> 	  
 		    	</div> 
-		    	<div class="cell colspan10">
-		    		<h3><small class="input-control full-size"><select onchange="">
+		    	<div class="cell colspan4">
+		    		<h4><small class="input-control full-size">
+		    			<select onchange="">
 					    	<option>-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
@@ -163,41 +162,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800005 - ศูนย์บริการ</option>
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
-					   </select></small>
-					</h3>
+					   </select>
+					</small></h4>
 		    	</div>  
-		    </div>
-	</div> 
-	<hr/>
-	<div class="flex-grid">
-		  	<div class="row flex-just-left">
-		        <div class="cell colspan2"> 
-		       	<h2 align="right">จำนวน&nbsp;</h2> 	  
+		    	<div class="cell colspan1"> 
+		       		<h4 align="right">จำนวน&nbsp;</h4> 	  
 		    	</div> 
-		    	<div class="cell colspan3">
-		    		<h3><small class="input-control full-size">
+		    	<div class="cell colspan1">
+		    		<h4><small class="input-control full-size">
 					    <input type="text" id="subjobcode" name="subjobCode"> 
-					</small>
-					</h3>
+					</small></h4>
 		    	</div> 
 		    	<div class="cell colspan1"> 
-		       	<h2 align="right">ราคา&nbsp;</h2> 	  
+		      		<h4 align="right">ราคา&nbsp;</h4> 	  
 		    	</div> 
-		    	<div class="cell colspan3">
-		    		<h3><small class="input-control full-size">
+		    	<div class="cell colspan2">
+		    		<h4><small class="input-control full-size">
 					    <input type="text" id="subjobcode" name="subjobCode"> 
-					</small>
-					</h3>
+					</small></h4>
 		    	</div> 
-		    	<div class="cell colspan3" align="right"><br>
-					  &nbsp;
+		    </div>
+		</div> 
+		
+		<div class="flex-grid">
+		  	<div class="row flex-just-center">
+		    	<div class="cell colspan3" align="center">
 					  <button class="button success" type="submit" name="add">เพิ่ม</button> 
 					  <button class="button success" type="submit" name="update">แก้ไข</button> 
 					  <button class="button success" type="submit" name="delete">ลบ</button>
 				</div> 
 		    </div>
-	</div> 
-	<hr/>
+		</div> 
+	
 	</div> <!-- End of example --> 
 	
 	<div class="example" data-text="รายการ">
