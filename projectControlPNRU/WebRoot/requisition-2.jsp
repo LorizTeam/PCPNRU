@@ -50,7 +50,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        <div class="cell colspan1 "> 
 		       		<h4 class="align-right">โครงการ&nbsp;</h4>
 		    	</div>
-<<<<<<< HEAD:projectControlPNRU/WebRoot/requisition.jsp
 		    	<div class="cell colspan4" > 
 		       		 <h4><small class="input-control full-size"> 
 			       		 <select onchange="">
@@ -64,20 +63,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
 						 </select>
 					</small></h4>
-=======
-		    	<div class="cell colspan5" > 
-		       		 <h3><small class="input-control full-size"> 
-		       		 <select onchange="" disabled> 
-					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option> 
-					   </select>
-					   </small></h3>
->>>>>>> origin/newfeatures:projectControlPNRU/WebRoot/requisition-2.jsp
 		    	</div>
 		    	<div class="cell colspan1"> 
 		    		<h4 class="align-right">เดือน&nbsp;</h4>  
 		    	</div>
 		    	<div class="cell colspan2">
-<<<<<<< HEAD:projectControlPNRU/WebRoot/requisition.jsp
 		    		<h4><small class="input-control full-size"> 
 				    	<select onchange=""> 
 					        <option>01 - มกราคม</option>
@@ -92,11 +82,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>10 - ตุลาคม</option>
 					        <option>11 - พฤศจิกายน</option>
 					        <option>12 - ธันวาคม</option>
-=======
-		    		<h3><small class="input-control full-size"> 
-					    <select onchange="" disabled> 
-					        <option>01 - มกราคม</option> 
->>>>>>> origin/newfeatures:projectControlPNRU/WebRoot/requisition-2.jsp
 					    </select>
 					</small></h4>
 		    	</div>
@@ -104,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<h4 class="align-right">ปี&nbsp;</h4>  
 		    	</div>
 		    	<div class="cell colspan1">
-<<<<<<< HEAD:projectControlPNRU/WebRoot/requisition.jsp
+
 		    		<h4><small class="input-control full-size"> 
 					    <select onchange=""> 
 					        <option>2555</option>
@@ -118,11 +103,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>2563</option>
 					        <option>2564</option>
 					        <option>2565</option>
-=======
-		    		<h3><small class="input-control full-size"> 
-					    <select onchange="" disabled> 
-					        <option>2559</option> 
->>>>>>> origin/newfeatures:projectControlPNRU/WebRoot/requisition-2.jsp
 					        </select> 
 					</small></h4>
 		    	</div>
