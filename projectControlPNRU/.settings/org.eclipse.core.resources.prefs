@@ -1,0 +1,17 @@
+#Mon Dec 28 14:31:54 ICT 2015
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=origin/master
+eclipse.preferences.version=1
+encoding//WebRoot/costcodemaster.jsp=UTF-8
+encoding//WebRoot/projectdt.jsp=UTF-8
+encoding//WebRoot/projecthd.jsp=UTF-8
+encoding//WebRoot/projectmaster.jsp=UTF-8
+encoding//WebRoot/receipt.jsp=UTF-8
+encoding//WebRoot/reportreceive.jsp=UTF-8
+encoding//WebRoot/requisition.jsp=UTF-8
+encoding//WebRoot/subjobmaster.jsp=UTF-8
+encoding//WebRoot/topmenu.jsp=UTF-8
+encoding//src/pnru/action/ProjectMasterAction.java=UTF-8
+encoding//src/pnru/action/SubjobMasterAction.java=UTF-8
+encoding/<project>=UTF-8
