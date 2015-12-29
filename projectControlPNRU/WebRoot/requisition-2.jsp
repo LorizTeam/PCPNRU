@@ -53,15 +53,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>
 		    	<div class="cell colspan5" > 
 		       		 <h3><small class="input-control full-size"> 
-		       		 <select onchange="">
-					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
-					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
-					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-					        <option>521800004 - โรงแรม</option>
-					        <option>521800005 - ศูนย์บริการ</option>
-					        <option>521800006 - สปา & ฟิตเนส</option>
-					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
+		       		 <select onchange="" disabled> 
+					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option> 
 					   </select>
 					   </small></h3>
 		    	</div>
@@ -70,19 +63,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>
 		    	<div class="cell colspan2">
 		    		<h3><small class="input-control full-size"> 
-					    <select onchange=""> 
-					        <option>01 - มกราคม</option>
-					        <option>02 - กุมภาพันธ์</option>
-					        <option>03 - มีนาคม</option>
-					        <option>04 - เมษายน</option>
-					        <option>05 - พฤษภาคม</option>
-					        <option>06 - มิถุนายน</option>
-					        <option>07 - กรกฎาคม</option> 
-					        <option>08 - สิงหาคม</option>
-					        <option>09 - กันยายน</option>
-					        <option>10 - ตุลาคม</option>
-					        <option>11 - พฤศจิกายน</option>
-					        <option>12 - ธันวาคม</option>
+					    <select onchange="" disabled> 
+					        <option>01 - มกราคม</option> 
 					    </select>
 					</small>
 					</h3>
@@ -92,18 +74,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>
 		    	<div class="cell colspan1">
 		    		<h3><small class="input-control full-size"> 
-					    <select onchange=""> 
-					        <option>2555</option>
-					        <option>2556</option>
-					        <option>2557</option>
-					        <option>2558</option>
-					        <option>2559</option>
-					        <option>2560</option>
-					        <option>2561</option>
-					        <option>2562</option>
-					        <option>2563</option>
-					        <option>2564</option>
-					        <option>2565</option>
+					    <select onchange="" disabled> 
+					        <option>2559</option> 
 					        </select> 
 					</small>
 					</h3>
