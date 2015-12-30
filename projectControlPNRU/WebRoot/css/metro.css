@@ -2799,6 +2799,12 @@ a {
   color: #00aff0 !important;
 }
 @font-face {
+	font-family: PraJad;
+	src: url("../fonts/CSPraJad.ttf") format("truetype");
+	font-style: normal;
+	font-weight: 200;
+}
+@font-face {
   font-family: "PT Serif Caption";
   font-style: normal;
   font-weight: 400;
@@ -3356,10 +3362,10 @@ html {
   font-size: 100%;
 }
 body {
-  font-family: "Segoe UI", "Open Sans", sans-serif, serif;
-  font-size: 0.875rem;
-  line-height: 1;
-  font-weight: 100;
+  font-family: "PraJad";
+  font-size: 1rem;
+  line-height: 0.875;
+  font-weight: 200;
   font-style: normal;
 }
 #font .light {
