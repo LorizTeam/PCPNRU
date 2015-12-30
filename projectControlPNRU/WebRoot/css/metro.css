@@ -3678,6 +3678,10 @@ a.tag {
   width: 960px;
   margin: 0 auto;
 }
+.container-fluid {
+  width: 98%;
+  margin: 0 auto;
+}
 .fixed-top,
 .fixed-bottom {
   position: fixed;
