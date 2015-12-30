@@ -8,20 +8,16 @@
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
 		
 		<link rel="shortcut icon" href="/favicon.ico">
-		<link href="css/bootstrap-datepicker3.css" rel="stylesheet"> 
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
-		<link href="css/docs.css" rel="stylesheet">
-		
+		<link href="css/docs.css" rel="stylesheet"> 
 	 
 	 	<script src="js/jquery-2.1.3.min.js"></script> 
 	    <script src="js/metro.js"></script>
 	    <script src="js/docs.js"></script>
 	    <script src="js/prettify/run_prettify.js"></script>
 	    <script src="js/ga.js"></script>
-	    <script src="js/bootstrap-datepicker.js"></script>
-	    <script src="js/bootstrap-datepicker.th.min.js"></script>
   		
 	</head>
 
@@ -48,7 +44,10 @@
 				</div>
 		        <div class="cell"> 
 		        	วันที่โครงการ
-                            <input type="text" id="selectdate">
+					    <div class="input-control text full-size " data-role="datepicker" data-format="dd-mm-yyyy" data-scheme="green" data-locale="th">
+                            <input type="text">
+                            <button class="button"><span class="mif-calendar"></span></button>
+                        </div>
 				</div> 
 				<div class="cell"><br>
 					  <button class="button success">Print</button> 
@@ -196,11 +195,4 @@
 		 </div>  
 		</div>  
 	</body>
-	<script type="text/javascript">
-		$("#selectdate").datepicker({
-			language: 'th',
-			format: 'dd-mm-yyyy',
-			isBuddhist: true
-		});
-	</script>
 </html>

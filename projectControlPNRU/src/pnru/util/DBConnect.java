@@ -22,7 +22,7 @@ public Connection getConnectMYSql()  throws Exception, IOException {
 			String dbPassword = "a654$w85s2S";
 			
 			String jdbcUrl = "jdbc:mysql://" + hostname + ":" +
-			port + "/" + dbName + "?user=" + dbUserName + "&password=" + dbPassword;
+			port + "/" + dbName + "?useUnicode=yes&characterEncoding=UTF-8&user=" + dbUserName + "&password=" + dbPassword;
 
 			conn = DriverManager.getConnection (jdbcUrl);
 			
