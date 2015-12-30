@@ -19,7 +19,7 @@
                 <li class="divider"></li>
                 <li><a href="" class="dropdown-toggle">รายรับ</a>
                     <ul class="d-menu" data-role="dropdown">
-                        <li><a href="">Transection</a></li>
+                        <li><a href="receive.jsp">ทำรายการรับ</a></li>
                         <li><a href="reportreceive.jsp">Report</a></li> 
                     </ul>
                 </li>

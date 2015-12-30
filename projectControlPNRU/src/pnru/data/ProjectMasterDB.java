@@ -73,7 +73,7 @@ public class ProjectMasterDB {
 	public void UpdateProjectMaster(String projectCode, String projectName, String projectCodeHD)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "UPDATE project_master set project_code = '"+projectCode+"', project_name = '"+projectName+"', " +
+		String sqlStmt = "UPDATE project_master set project_code = '"+projectCode+"', project_name = '"+projectName+"' " +
 				"WHERE project_code = '"+projectCodeHD+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
