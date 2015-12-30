@@ -14,6 +14,13 @@
     }
 }(function($, undefined){
 
+	
+	// Buddhist Era value
+    var cDate = new Date();
+    var beYearOffset = 543;
+    var lowwerBEYear = cDate.getUTCFullYear() + (beYearOffset / 2);
+
+    
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
 	}
@@ -901,10 +908,15 @@
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
 				titleFormat = dates[this.o.language].titleFormat || dates['en'].titleFormat,
 				tooltip;
+			if (year > lowwerBEYear) {
+                d = new UTCDate(year - beYearOffset, month, d.getDate());
+                year = d.getUTCFullYear();
+                month = d.getUTCMonth();
+            }
 			if (isNaN(year) || isNaN(month))
 				return;
 			this.picker.find('.datepicker-days thead .datepicker-switch')
-						.text(DPGlobal.formatDate(new UTCDate(year, month), titleFormat, this.o.language));
+						.text(dates[this.o.language].months[month] + ' ' + (year + beYearOffset));
 			this.picker.find('tfoot .today')
 						.text(todaytxt)
 						.toggle(this.o.todayBtn !== false);
@@ -978,7 +990,7 @@
 
 			var months = this.picker.find('.datepicker-months')
 						.find('.datepicker-switch')
-							.text(this.o.maxViewMode < 2 ? 'Months' : year+543)
+							.text(this.o.maxViewMode < 2 ? 'Months' : year+beYearOffset)
 							.end()
 						.find('span').removeClass('active');
 
@@ -1010,7 +1022,7 @@
 			}
 
 			html = '';
-			year = parseInt(year/10, 10) * 10;
+			year = parseInt((year+beYearOffset)/10, 10) * 10;
 			var yearCont = this.picker.find('.datepicker-years')
 								.find('.datepicker-switch')
 									.text(year + '-' + (year + 9))
@@ -1226,6 +1238,9 @@
 		},
 
 		_setDate: function(date, which){
+			if (date.getUTCFullYear() > lowwerBEYear) {
+                date = new UTCDate(date.getUTCFullYear() - beYearOffset, date.getMonth() + 1, date.getDate());
+            }
 			if (!which || which === 'date')
 				this._toggle_multidate(date && new Date(date));
 			if (!which || which  === 'view')
@@ -1816,8 +1831,12 @@
 				return '';
 			if (typeof format === 'string')
 				format = DPGlobal.parseFormat(format);
-			if (format.toDisplay)
-                return format.toDisplay(date, format, language);
+			var year = date.getUTCFullYear();
+            if (year > lowwerBEYear) {
+                date = new UTCDate(date.getUTCFullYear() - beYearOffset, date.getUTCMonth(), date.getDate());
+            } else {
+                year = year + beYearOffset;
+            }
             var val = {
 				d: date.getUTCDate(),
 				D: dates[language].daysShort[date.getUTCDay()],

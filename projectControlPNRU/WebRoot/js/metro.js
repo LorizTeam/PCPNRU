@@ -2344,8 +2344,8 @@ $.widget("metro.calendar", {
 
         this.locales = window.METRO_LOCALES;
 
-        this._year = o.date.getFullYear()+543;
-        this._distance = o.date.getFullYear() - 4;
+        this._year = o.date.getFullYear();
+        this._distance = o.date.getFullYear()- 4;
         this._month = o.date.getMonth();
         this._day = o.date.getDate();
         this._mode = o.startMode;
