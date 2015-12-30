@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>หน้ารับสินค้า</title>
+    <title>หน้ารายละเอียดการรับ</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
-	<div class="example" data-text="รายการรับ">
+	<div class="example" data-text="รายละเอียดการรับ">
 	<div class="flex-grid">
 		  	<div class="row flex-just-center">
 		        <div class="cell colspan2 "> 
@@ -105,7 +105,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div> 
 		    	<div class="cell colspan5">
 		    		<h3><small class="input-control full-size"> 
-					    <input type="text" id="subjobcode" name="subjobCode"> 
+					    <select onchange="">
+					    	<option>-- โปรดเลือก --</option>
+					    	<option>พานุวัฒน์ </option> 
+					    	<option>คุณ พงศธร </option> 
+					    	<option>จิราพร </option>
+					   </select> 
 					</small></h3>
 		    	</div>  
 		    	<div class="cell colspan2"> 
@@ -113,7 +118,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div> 
 		    	<div class="cell colspan2">
 		    		<h3><small class="input-control full-size"> 
-					    <input type="text" id="subjobcode" name="subjobCode"> 
+					    <select onchange="">
+					    	<option>-- โปรดเลือก --</option>
+					    	<option>สมาร์ทไอซีที</option> 
+					    	<option>สมาร์ทฮาดร์แวร์</option> 
+					    	<option>ไอซีทีสมาร์ท</option>
+					   </select>
 					</small></h3>
 		    	</div>  
 		    </div>
@@ -122,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="flex-grid">
 		  	<div class="row flex-just-center"> 
 		    	<div class="cell colspan2" align="center"><br> 
-					  <a href="receive-2.jsp"><button class="button success full-size" type="submit" name="add">ตกลง</button></a> 
+					  <a href="select_receive-2.jsp"><button class="button success full-size" type="submit" name="add">ตกลง</button></a> 
 				</div> 
 		    </div>
 	</div>
