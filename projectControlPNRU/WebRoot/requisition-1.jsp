@@ -48,11 +48,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="example" data-text="เลือกโครงการ">
 	<div class="flex-grid">
 		  	<div class="row flex-just-center">
-		        <div class="cell colspan2 "> 
-		       	<h2 class="align-right">โครงการ&nbsp;</h2>
+		        <div class="cell colspan1 "> 
+		       		<h4 class="align-right">โครงการ&nbsp;</h2>
 		    	</div>
-		    	<div class="cell colspan5" > 
-		       		 <h3><small class="input-control full-size"> 
+		    	<div class="cell colspan4" > 
+		       		 <h4><small class="input-control full-size"> 
 		       		 <select onchange="">
 					    	<option>-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
@@ -63,13 +63,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
 					   </select>
-					   </small></h3>
+					   </small></h4>
 		    	</div>
 		    	<div class="cell colspan1"> 
-		    			<h2 class="align-right">เดือน&nbsp;</h2>  
+		    			<h4 class="align-right">เดือน&nbsp;</h4>  
 		    	</div>
 		    	<div class="cell colspan2">
-		    		<h3><small class="input-control full-size"> 
+		    		<h4><small class="input-control full-size"> 
 					    <select onchange=""> 
 					        <option>01 - มกราคม</option>
 					        <option>02 - กุมภาพันธ์</option>
@@ -85,13 +85,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>12 - ธันวาคม</option>
 					    </select>
 					</small>
-					</h3>
+					</h4>
 		    	</div>
 		    	<div class="cell colspan1"> 
-		    			<h2 class="align-right">ปี&nbsp;</h2>  
+		    			<h4 class="align-right">ปี&nbsp;</h4>  
 		    	</div>
 		    	<div class="cell colspan1">
-		    		<h3><small class="input-control full-size"> 
+		    		<h4><small class="input-control full-size"> 
 					    <select onchange=""> 
 					        <option>2555</option>
 					        <option>2556</option>
@@ -106,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>2565</option>
 					        </select> 
 					</small>
-					</h3>
+					</h4>
 		    	</div>
 		    </div>
 	</div> 
