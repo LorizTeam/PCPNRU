@@ -51,8 +51,9 @@
 				</div>
 		        <div class="cell"> 
 		        	วันที่โครงการ
-					    
-                            <input type="text" id="datepicker">
+					<div class="input-control text full-size">     
+                       <input type="text" id="datepicker">
+                    </div>
 				</div> 
 				<div class="cell"><br>
 					  <button class="button success">Print</button> 
