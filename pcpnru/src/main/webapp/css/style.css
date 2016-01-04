@@ -11,8 +11,18 @@
     opacity: 0;
     -webkit-transform: scale(.8);
     transform: scale(.8);
-}
+} 
 .container-center{
 	margin: 0 auto!important;
 	width: 95%!important;
+}
+.subjob{
+	text-indent:40px;
+}
+.child-subjob{
+	text-indent:70px;
+	color:rgba(0,0,0,0.8);
+}
+.costcode{
+	text-indent:100px;
 }
