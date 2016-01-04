@@ -44,54 +44,55 @@
 			<div class="example"data-text="" >
 			<h3 class="align-center margin30">ประมาณการรายได้ รายจ่าย โครงการ ............</h3>
 			<div class="grid ">	
-				
-				<div class="row cells2 align-center" >
-			  		<div class="cell">
-			  			รายการ
-			  		</div>
-			  		<div class="cell">
-			  			จำนวนเงิน
-			  		</div>
+				<div class="window ">
+					<div class="row cells12 align-center  window-caption bg-cyan fg-white" >
+				  		<div class="cell colspan8">
+				  			รายการ
+				  		</div>
+				  		<div class="cell colspan4">
+				  			จำนวนเงิน
+				  		</div>
+				  	</div>
 			  	</div>
 			 <!-- รายรับ -->	
 				<div class="example" data-text="รายได้">
-				  <div class="container">
+				  
 				  	<!-- ROW -->
-					  <div class="row cells6 " >			  
-					  	<h5 class="cell colspan4">
+					  <div class="row cells12 " >			  
+					  	<h5 class="cell colspan8 subjob">
 					  		ให้บริการนวด	
 					  	</h5>
-					  	<div class="cell colspan2 align-center">
+					  	<div class="cell colspan4 align-center">
 					  		600,000 
 					  	</div>
 					  </div>
 					<!-- ROW --> 
 					<!-- ROW -->  
-					   <div class="row cells6 " >			  
-					  	<h5 class="cell colspan4">
+					   <div class="row cells12 " >			  
+					  	<h5 class="cell colspan8 subjob">
 					  		ให้บริการนวด	อโรม่า
 					  	</h5>
-					  	<div class="cell colspan2 align-center">
+					  	<div class="cell colspan4 align-center">
 					  		200,000
 					  	</div>
 					  </div>
 					  <!-- ROW -->
 					  <!-- ROW -->  
-					   <div class="row cells6 " >			  
-					  	<h5 class="cell colspan4">
+					   <div class="row cells12 " >			  
+					  	<h5 class="cell colspan8 subjob">
 					  		ให้บริการนวดหน้า
 					  	</h5>
-					  	<div class="cell colspan2 align-center">
+					  	<div class="cell colspan4 align-center">
 					  		150,000
 					  	</div>
 					  </div>
 					  <!-- ROW -->
 					  <!-- ROW -->  
-					   <div class="row cells6 " >			  
-					  	<h5 class="cell colspan4">
+					   <div class="row cells12 " >			  
+					  	<h5 class="cell colspan8 subjob">
 					  		ค่าสมาชิกรายปี
 					  	</h5>
-					  	<div class="cell colspan2 align-center">
+					  	<div class="cell colspan4 align-center">
 					  		48,000 
 					  	</div>
 					  </div>
@@ -107,62 +108,66 @@
 					  	</div>
 					  </div>
 					  <!--Totle ROW -->
-					  
-					  
-					  
-				  </div> 
 				</div>
 			<!-- รายรับ -->		
 			<!-- รายจ่าย -->
-				<div class="example" data-text="รายจ่าย">
-				  <div class="container">
+				<div class="window ">
+					<div class="row cells12 align-center  window-caption bg-cyan fg-white" >
+				  		<div class="cell colspan8">
+				  			รายการ
+				  		</div>
+				  		<div class="cell colspan4">
+				  			จำนวนเงิน 
+				  		</div>
+				  	</div>
+			  	</div>
+				<div class="example" data-text="รายจ่าย">				  
 				  	<!-- subjob -->
-					  <div class="row cells6 " >			  
-					  	<h5 class="cell colspan4">
+					  <div class="row cells12 " >			  
+					  	<h5 class="cell colspan8 subjob">
 					  		งบบุคลากร	
 					  	</h5>
-					  	<div class="cell colspan2 align-center">
-					  		
+					  	<div class="cell colspan4 align-center">
 					  	</div>
 					  </div>
 					<!-- subjob --> 
 						<!-- costcode -->
-						  <div class="row cells6 " >			  
-						  	<p class="cell colspan4 costcode">
+						  <div class="row cells12 " >			  
+						  	<p class="cell colspan8 costcode">
 						  		เงินเดือนพนักงานธุรการ ประจำโครงการ 1 คน * 13,200 บาท * 12 เดือน	
 						  	</p>
-						  	<div class="cell colspan2 align-center">
+						  	<div class="cell colspan4 align-center">
 						  		158,400
 						  	</div>
 						  </div>
 						<!-- costcode --> 
 						
 					<!-- subjob -->
-					  <div class="row cells6 " >			  
-					  	<h5 class="cell colspan4">
+					  <div class="row cells12 " >			  
+					  	<h5 class="cell colspan8 subjob">
 					  		งบดำเนินงาน	
 					  	</h5>
-					  	<div class="cell colspan2 align-center">
+					  	<div class="cell colspan4 align-center">
 					  		
 					  	</div>
 					  </div>
 					<!-- subjob --> 
 						<!-- child sub job -->
-						  <div class="row cells6 " >			  
-						  	<h5 class="cell colspan4 child-subjob">
+						  <div class="row cells12 " >			  
+						  	<h5 class="cell colspan8 child-subjob">
 						  		หมวดค่าตอบแทน	
 						  	</h5>
-						  	<div class="cell colspan2 align-center">
+						  	<div class="cell colspan4 align-center">
 						  		
 						  	</div>
 						  </div>
 						<!-- child sub job --> 
 						<!-- costcode -->
-						  <div class="row cells6 " >			  
-						  	<p class="cell colspan4 costcode">
+						  <div class="row cells12 " >			  
+						  	<p class="cell colspan8 costcode">
 						  		พนักงานรายวัน ประจำโครงการ 2 คน * 250 บาท * 300 วัน		
 						  	</p>
-						  	<div class="cell colspan2 align-center">
+						  	<div class="cell colspan4 align-center">
 						  		75,000
 						  	</div>
 						  </div>
@@ -171,21 +176,23 @@
 					
 					
 					  <!--Totle subjob -->  
-					   <div class="row cells6 " >			  
-					  	<div class="cell colspan4 align-right">
+					   <div class="row cells12 " >			  
+					  	<div class="cell colspan8 align-right">
 					  		<h4>รวม</h4>
 					  	</div>
-					  	<div class="cell colspan2 align-center">
+					  	<div class="cell colspan4 align-center">
 					  		<h4>998,000</h4>
 					  	</div>
 					  </div>
 					  <!--Totle subjob -->
 				 <!-- รายจ่าย -->
-					  
-					  
-				  </div> 
-				</div>
-				
+					 	  
+				  </div>
+				   <div class="row " >	
+					  	<div class="cell align-center">
+					  		<a href="projecthd.jsp" class="button">กลับ</a>
+					  	</div>
+					  </div>
 			</div>
 		</div>
 		</div>
