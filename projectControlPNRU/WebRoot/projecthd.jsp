@@ -56,7 +56,7 @@
 					</div>
 				</div>
 				<div class="cell"><br>
-			        	<button class="button success">เพิ่ม</button> <button class="button success">แก้ไข</button> <button class="button success">ลบ</button>
+			        	<button class="button success">จัดทำงบประมาณ</button> <button class="button success">แก้ไขงบประมาณ</button>
 				</div> 
 		    </div>
 		 </div>  
