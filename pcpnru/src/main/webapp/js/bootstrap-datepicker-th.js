@@ -653,12 +653,15 @@
             if (yorient === 'auto') {
                 top_overflow = -scrollTop + top - calendarHeight;
                 bottom_overflow = scrollTop + windowHeight - (top + height + calendarHeight);
-                if (Math.max(top_overflow, bottom_overflow) === bottom_overflow)
+                if (Math.max(top_overflow, bottom_overflow) === bottom_overflow){
                     yorient = 'top';
-                else
+                	this.picker.addClass('datepicker-orient-bottom');
+                }else{
                     yorient = 'bottom';
+                	this.picker.addClass('datepicker-orient-top');
+            	}
             }
-            this.picker.addClass('datepicker-orient-' + yorient);
+            
             if (yorient === 'top')
                 top += height;
             else

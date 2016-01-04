@@ -13,8 +13,7 @@
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet">
 		<link href="css/bootstrap-datepicker3.css" rel="stylesheet"> 
-	 	<link href="css/bootstrap.css" rel="stylesheet">
-	 	<link href="css/bootstrap-theme.css" rel="stylesheet">
+	
 	 	
 	 	<script src="js/jquery-2.1.3.min.js"></script> 
 	    <script src="js/metro.js"></script>
@@ -22,7 +21,7 @@
 	    <script src="js/prettify/run_prettify.js"></script>
 	    <script src="js/ga.js"></script>
 	    <script src="js/bootstrap.js"></script>
-	    
+	     
   		<script src="js/bootstrap-datepicker-th.js"></script>
   		
   		
@@ -48,11 +47,12 @@
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
 					    </select>
 					</div>
-				</div>
+				</div> 
 		        <div class="cell"> 
 		        	วันที่โครงการ
-					    
-                            <input type="text" id="datepicker">
+		        	 <div class="input-control text full-size"> 
+                          <input type="text" id="datepicker">
+                     </div>
 				</div> 
 				<div class="cell"><br>
 					  <button class="button success">Print</button> 
