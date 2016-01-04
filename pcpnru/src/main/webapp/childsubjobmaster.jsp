@@ -67,9 +67,9 @@
 					</div>
 				</div> 
 				<div class="cell"><br>
-					  <button class="button success" type="submit" name="add">เพิ่ม</button> 
-					  <button class="button success" type="submit" name="update">แก้ไข</button> 
-					  <button class="button success" type="submit" name="delete">ลบ</button>
+					<button class="button success" type="submit" name="add">เพิ่ม</button> 
+				  	<button class="button primary" type="submit" name="update">บันทึก</button> 
+				  	<button class="button danger" type="submit" name="delete">ลบ</button>
 				</div> 
 		    </div>
 		 </div>  
