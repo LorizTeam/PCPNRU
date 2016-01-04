@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>หน้าดูรายการเบิกสินค้า</title>
+    <title>หน้ารายละเอียดการรับ</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -48,29 +48,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <thead>
                 <tr>  
                 	<th>เลขที่</th>
-                    <th>ชื่อโครงการ</th>
-                    <th>ชื่อกิจกรรม</th> 
-                    <th>ชื่อกิจกรรมย่อย</th>
                     <th>รายละเอียด</th>
-                    <th>จำนวน</th>
-                    <th>ราคา</th>
-                    <th>ราคารวม</th>
+                    <th>ได้รับเงินจาก</th>
+                    <th>สถานที่</th>
                 </tr>
                 </thead> 
                   
                  <tbody>
                 <tr>  
-                    <td><a href="select_requisition-3.jsp"><button class="toolbar-button"><span class="mif-pencil"></span></button></a> 1</td>
-                    <td>กาซะลอสปา</td>
-                    <td>บุคลากร</td>
-                    <td>เงินเดือน</td>
-                    <td>1 คน x 13,200 บาท x 12</td>
-                    <td>3</td>
-                    <td>15,000 บาท</td>  
-                    <td>45,000 บาท</td> 
-                </tr>	
+                    <td><a href="select_receive-3.jsp"><button class="toolbar-button"><span class="mif-pencil"></span></button></a> 1</td>
+                    <td>ผู้ชาย</td> 
+                    <td>คุณ พงษธง</td>  
+                    <td>สมาร์ทไอซีที</td> 
+                </tr>
+                <tr>  
+                    <td><a href="select_receive-3.jsp"><button class="toolbar-button"><span class="mif-pencil"></span></button></a> 2</td>
+                    <td>ผู้หญิง</td> 
+                    <td>คุณ พานุวัฒน์</td>  
+                    <td>สมาร์ทไอซีที</td> 
+                </tr>
                  
-                </tbody></a>
+                </tbody>
             </table>
         </div> <!-- End of example table --> 
   </body>
