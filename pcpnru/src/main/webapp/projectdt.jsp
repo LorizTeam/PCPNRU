@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>topmenu</title>
+		<title>ประมาณการรายได้ รายจ่าย โครงการ</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -23,23 +23,23 @@
 
 	<body>
 		 
-		 		<%@include file="topmenu.jsp" %>
+		 <%@include file="topmenu.jsp" %>
 		 <div class="container-fluid">
-		 	<button class="command-button primary">
+		 	<a href="projectdt-receive.jsp" class="command-button primary">
 			    <span class="icon mif-chart-dots"></span>
-			  	  รายรับ
+			  	  รายได้
 			    <small>จัดการรายรับของโครงการ</small>
-			</button>
-			<button class="command-button info">
+			</a>
+			<a href="projectdt-charges.jsp" class="command-button info">
 			    <span class="icon mif-coins"></span>
 			  	 ค่าใช้จ่าย
 			    <small>จัดการค่าใช้จ่ายของโครงการ</small>
-			</button>
-			<button class="command-button success">
+			</a>
+			<a href="#" class="command-button success">
 			    <span class="icon mif-printer"></span>
 			  	 พิมพ์
 			    <small>พิมพ์รายงานประมาณการรายได้ รายจ่าย</small>
-			</button>
+			</a>
 
 			<div class="example"data-text="" >
 			<h3 class="align-center margin30">ประมาณการรายได้ รายจ่าย โครงการ ............</h3>
