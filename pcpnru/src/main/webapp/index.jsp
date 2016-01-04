@@ -15,12 +15,12 @@
 		<link href="css/style.css" rel="stylesheet" />
 
         
-	</head>
+	</head> 
 
 	<body class="">
 		<%@ include file='topmenu.jsp' %>
 
- 		<div class="container-center">
+ 		<div class="container-center"> 
  			<a href="projecthd.jsp">
  			<div class="tile tile-wide-x bg-teal fg-white" data-role="tile">
 		    	 <div class="tile-content iconic">

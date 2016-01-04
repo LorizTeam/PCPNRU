@@ -3678,6 +3678,10 @@ a.tag {
   width: 960px;
   margin: 0 auto;
 }
+.container-fluid {
+  width: 98%;
+  margin: 0 auto;
+}
 .fixed-top,
 .fixed-bottom {
   position: fixed;
@@ -8019,7 +8023,7 @@ div.cycle-button,
 a.square-button,
 span.square-button,
 div.square-button {
-  padding-top: .53125rem;
+  padding-top: 0.3rem;
 }
 a.button.big-button,
 span.button.big-button,
