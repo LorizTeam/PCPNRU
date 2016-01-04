@@ -20,8 +20,7 @@
                 <li><a href="" class="dropdown-toggle">รายรับ</a>
                     <ul class="d-menu" data-role="dropdown">
                         <li><a href="receive-1.jsp">ทำรายการรับ</a></li>
-                        <li><a href="select_receive-1.jsp">รายละเอียดการรับ</a></li>
-                        <li><a href="reportreceive.jsp">Report</a></li> 
+                        <li><a href="select_receive-1.jsp">รายละเอียดการรับ</a></li> 
                     </ul>
                 </li>
                 <li class="divider"></li>
@@ -33,7 +32,41 @@
                 </li> 
             </ul>
         </li>  
+        <li>
+			<a href="" class="dropdown-toggle">รายงาน</a>
+            <ul class="d-menu" data-role="dropdown">
+                <li class="divider"></li>
+                <li><a href="" class="dropdown-toggle">รายงานการรับ</a>
+                    <ul class="d-menu" data-role="dropdown"> 
+                        <li><a href="reportreceive.jsp">รายงาน ประจำวัน, เดือน, ไตรมาส, ปี</a></li> 
+                    </ul>
+                </li>
+                <li class="divider"></li>
+                <li><a href="" class="dropdown-toggle">รายงานการจ่าย</a>
+                    <ul class="d-menu" data-role="dropdown"> 
+                        <li><a href="reportreceive.jsp">รายงาน ประจำวัน, เดือน, ไตรมาส, ปี</a></li> 
+                    </ul>
+                </li> 
+            </ul>
+        </li> 
     </ul>
-   
     
+    <div class="app-bar-element place-right">
+        <a class="dropdown-toggle fg-white"><span class="mif-enter"></span> Enter</a>
+        <div class="app-bar-drop-container bg-white fg-dark place-right"
+                data-role="dropdown" data-no-close="true">
+            <div class="padding20">
+                <form> 
+                    <div class="input-control text">
+                        <span class="mif-user-check prepend-icon"></span>
+                        <h5><label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        ADMIN</label></h5>
+                    </div>  
+                    <div class="form-actions">
+                        <button class="button rounded bg-green bg-active fg-white full-size">Logout</button> 
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> 
 </div>

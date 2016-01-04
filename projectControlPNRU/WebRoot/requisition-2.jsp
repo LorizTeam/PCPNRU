@@ -174,10 +174,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <input type="text" id="subjobcode" name="subjobCode"> 
 					</small></h4>
 		    	</div> 
-		    	<div class="cell colspan1"> 
-		      		<h4 align="right">ราคา&nbsp;</h4> 	  
+		    	<div class="cell colspan2"> 
+		      		<h4 align="right">ราคาต่อหน่วย&nbsp;</h4> 	  
 		    	</div> 
-		    	<div class="cell colspan2">
+		    	<div class="cell colspan1">
 		    		<h4><small class="input-control full-size">
 					    <input type="text" id="subjobcode" name="subjobCode"> 
 					</small></h4>
