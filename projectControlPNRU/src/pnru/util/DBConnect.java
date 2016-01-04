@@ -19,7 +19,7 @@ public Connection getConnectMYSql()  throws Exception, IOException {
 			String hostname = "pcpnru.cre4njgwawzc.ap-southeast-1.rds.amazonaws.com";
 			String port = "3306";
 			String dbUserName = "root";
-			String dbPassword = "a654$w85s2S";
+			String dbPassword = "a8s5T5d4";
 			
 			String jdbcUrl = "jdbc:mysql://" + hostname + ":" +
 			port + "/" + dbName + "?useUnicode=yes&characterEncoding=UTF-8&user=" + dbUserName + "&password=" + dbPassword;
