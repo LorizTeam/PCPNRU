@@ -48,10 +48,11 @@
                     </ul>
                 </li> 
             </ul>
-        </li> 
+        </li>
+        <li><a href="employee.jsp">ข้อมูลบุคลากร</a></li> 
     </ul>
-    
-    <div class="app-bar-element place-right">
+     
+    <div class="app-bar-element place-right"> 
         <a class="dropdown-toggle fg-white"><span class="mif-enter"></span> Enter</a>
         <div class="app-bar-drop-container bg-white fg-dark place-right"
                 data-role="dropdown" data-no-close="true">
@@ -63,10 +64,11 @@
                         ADMIN</label></h5>
                     </div>  
                     <div class="form-actions">
-                        <button class="button rounded bg-green bg-active fg-white full-size">Logout</button> 
+                        <a href="profile.jsp" class="button rounded bg-blue bg-active fg-white">Profile</a>&nbsp;<button class="button rounded bg-green bg-active fg-white">Logout</button> 
                     </div>
                 </form>
             </div>
         </div>
     </div> 
+    
 </div>
