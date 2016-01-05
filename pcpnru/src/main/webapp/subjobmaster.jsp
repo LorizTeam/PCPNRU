@@ -54,10 +54,10 @@
 					    <input type="text" id="subjobname" name="subjobName">
 					</div>
 				</div> 
-				<div class="cell"><br>
-					  <button class="button success" type="submit" name="add">เพิ่ม</button> 
-					  <button class="button success" type="submit" name="update">แก้ไข</button> 
-					  <button class="button success" type="submit" name="delete">ลบ</button>
+				<div class="cell colspan2"><br>
+					  <button class="button success" type="submit" name="add">สร้างชื่อกิจกรรม</button> 
+					  <button class="button primary" type="submit" name="update">แก้ไขชื่อกิจกรรม</button> 
+					  <button class="button danger" type="submit" name="delete">ลบชื่อกิจกรรม</button>
 				</div> 
 		    </div>
 		 </div>  

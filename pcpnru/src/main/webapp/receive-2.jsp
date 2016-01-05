@@ -44,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
+	<form action="receive2.action" method="post">
 	<div class="example" data-text="รายการรับ">
 	<div class="flex-grid">
 		  	<div class="row flex-just-center">
@@ -139,6 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <button class="button success" type="submit" name="add">เพิ่ม</button> 
 					  <button class="button success" type="submit" name="update">แก้ไข</button> 
 					  <button class="button success" type="submit" name="delete">ลบ</button>
+					  <button class="button success" type="submit" name="print">พิมพ์</button>
 				</div> 
 		    </div>
 	</div>
@@ -184,6 +186,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </tbody>
             </table>
         </div> <!-- End of example table --> 
-	
+	</form>
   </body>
 </html>
