@@ -17,10 +17,19 @@
       		<result name="success">/projectmaster.jsp</result>
     	</action>
     	
+    	<!-- 		Receive 		 -->   
+    	
+    	<action name="receive1" class="pcpnru.projectAction.Receive1Action" method="execute">
+      		<result name="success">/receive-2.jsp</result>
+      		<result name="error">/receive-1.jsp</result>
+    	</action>
+    	
     	<action name="receive2" class="pcpnru.projectAction.Receive2Action" method="execute">
       		<result name="success">/receive-2.jsp</result>
       		<result name="print">/report/report.jsp</result>
     	</action>
+    	
+    	<!-- 		Receive 		 -->
         
     </package>
  

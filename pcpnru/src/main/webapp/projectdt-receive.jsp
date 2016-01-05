@@ -77,7 +77,7 @@
 					  	<div class="cell colspan4 align-center">
 					  		600,000 
 					  	</div>
-					  	<div class="cell colspan1">
+					  	<div class="cell ">
 				  			<a href="#"><span class="mif-pencil"></span></a>
 				  		</div>
 					  </div>
@@ -90,7 +90,7 @@
 					  	<div class="cell colspan4 align-center">
 					  		200,000
 					  	</div>
-					  	<div class="cell colspan1">
+					  	<div class="cell ">
 				  			<a href="#"><span class="mif-pencil"></span></a>
 				  		</div>
 					  </div>
@@ -103,7 +103,7 @@
 					  	<div class="cell colspan4 align-center">
 					  		150,000
 					  	</div>
-					  	<div class="cell colspan1">
+					  	<div class="cell ">
 				  			<a href="#"><span class="mif-pencil"></span></a>
 				  		</div>
 					  </div>
@@ -116,7 +116,7 @@
 					  	<div class="cell colspan4 align-center">
 					  		48,000 
 					  	</div>
-					  	<div class="cell colspan1 ">
+					  	<div class="cell  ">
 				  			<a href="#"><span class="mif-pencil"></span></a>
 				  		</div>
 					  </div> 

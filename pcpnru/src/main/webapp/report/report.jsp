@@ -8,7 +8,7 @@
 <%
 	DBConnect dbcon = new DBConnect();
 	Connection conn = dbcon.getConnectMYSql();
-	String filejrxml = application.getRealPath("report/report3.jrxml");
+	String filejrxml = application.getRealPath("report/report1.jrxml");
 	
 	File reportFile = new File(filejrxml);
 	if (!reportFile.exists()){

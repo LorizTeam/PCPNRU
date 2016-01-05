@@ -53,22 +53,12 @@
     </ul>
      
     <div class="app-bar-element place-right"> 
-        <a class="dropdown-toggle fg-white"><span class="mif-enter"></span> Enter</a>
-        <div class="app-bar-drop-container bg-white fg-dark place-right"
+        <a class="dropdown-toggle fg-white"> Name user</a>
+        <form class="app-bar-drop-container bg-white fg-dark place-right padding10"
                 data-role="dropdown" data-no-close="true">
-            <div class="padding20">
-                <form> 
-                    <div class="input-control text">
-                        <span class="mif-user-check prepend-icon"></span>
-                        <h5><label>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        ADMIN</label></h5>
-                    </div>  
-                    <div class="form-actions">
-                        <a href="profile.jsp" class="button rounded bg-blue bg-active fg-white">Profile</a>&nbsp;<button class="button rounded bg-green bg-active fg-white">Logout</button> 
-                    </div>
-                </form>
-            </div>
-        </div>
+             <a href="profile.jsp" class="button fullsize primary"><span class="mif-user"></span>Profile</a>
+             <a class="button  danger"><span class="mif-enter"></span>Logout</a> 
+        </form>
     </div> 
     
 </div>
