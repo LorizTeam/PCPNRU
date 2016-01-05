@@ -27,7 +27,7 @@
 		 <br>
 		 <div class="example" data-text="รายละเอียด">
          <div class="grid">
-		  	<div class="row cells4">
+		  	<div class="row cells5">
 		  		<div class="cell"> 
 		        	รหัส รายการค่าใช้จ่าย
 			        <div class="input-control text full-size">
@@ -40,8 +40,10 @@
 					    <input type="text">
 					</div>
 				</div> 
-				<div class="cell"><br>
-					  <button class="button success">เพิ่ม</button> <button class="button success">แก้ไข</button> <button class="button success">ลบ</button> 
+				<div class="cell colspan3"><br>
+					  <button class="button success">สร้างชื่อรายการค่าใช้จ่าย</button> 
+					  <button class="button primary">แก้ไขชื่อรายการค่าใช้จ่าย</button> 
+					  <button class="button danger">ลบชื่อรายการค่าใช้จ่าย</button> 
 				</div> 
 		    </div>
 		 </div>  

@@ -41,7 +41,7 @@
 		 <html:form action="/subjobMaster" method="post">
 		 <div class="example" data-text="รายละเอียด">
          <div class="grid">
-		  	<div class="row cells4">
+		  	<div class="row cells6">
 		  		<div class="cell"> 
 		        	รหัส-ชื่อ กิจกรรม
 			        <div class="input-control text full-size">
@@ -66,10 +66,10 @@
 					    <input type="text" id="subjobname" name="subjobName">
 					</div>
 				</div> 
-				<div class="cell"><br>
-					<button class="button success" type="submit" name="add">เพิ่ม</button> 
-				  	<button class="button primary" type="submit" name="update">บันทึก</button> 
-				  	<button class="button danger" type="submit" name="delete">ลบ</button>
+				<div class="cell colspan3"><br>
+					<button class="button success" type="submit" name="add">สร้างชื่อกิจกรรมย่อย</button> 
+				  	<button class="button primary" type="submit" name="update">แก้ไขชื่อกิจกรรมย่อย</button> 
+				  	<button class="button danger" type="submit" name="delete">ลบชื่อกิจกรรม</button>
 				</div> 
 		    </div>
 		 </div>  
