@@ -53,15 +53,21 @@
         <scope>runtime</scope>
     </dependency>
     <dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-core</artifactId>
-    <version>1.10.19</version>
+	    <groupId>org.mockito</groupId>
+	    <artifactId>mockito-core</artifactId>
+	    <version>1.10.19</version>
 	</dependency>
 	<dependency>
-	<groupId>mysql</groupId>
-	<artifactId>mysql-connector-java</artifactId>
-	<version>5.1.38</version>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>5.1.38</version>
 	</dependency>
+	<dependency>
+		<groupId>net.sf.jasperreports</groupId>
+		<artifactId>jasperreports</artifactId>
+		<version>6.1.0</version>
+	</dependency>
+	
   </dependencies>
   <build>
     <finalName>pcpnru</finalName>
