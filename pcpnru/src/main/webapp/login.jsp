@@ -16,34 +16,37 @@
    
 </head>
 <body class="bg-dark">
+
+	<script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/metro.js"></script>
+    
     <div class="login-form padding20 block-shadow">
-        <form>
+        <form action="index.jsp">
             <h1 class="text-light">Login to service</h1>
             <hr class="thin"/>
             <br />
-            <div class="input-control text full-size" data-role="input">
+            <div class="input-control text full-size">
                 <label for="user_login">User email:</label>
-                <input type="text" name="user_login" id="user_login">
+                <input type="text" name="user_login" id="user_login" required>
                 <button class="button helper-button clear"><span class="mif-cross"></span></button>
             </div>
             <br />
             <br />
-            <div class="input-control password full-size" data-role="input">
+            <div class="input-control password full-size">
                 <label for="user_password">User password:</label>
-                <input type="password" name="user_password" id="user_password">
+                <input type="password" name="user_password" id="user_password" required>
                 <button class="button helper-button reveal"><span class="mif-looks"></span></button>
             </div>
             <br />
             <br />
             <div class="form-actions">
-                <a href="index.jsp"><button type="button" class="button primary">Login to...</button></a>
+                <button type="submit" class="button primary">Login to...</button>
                 <button type="button" class="button link">Cancel</button>
             </div>
         </form>
     </div>
 
- 	<script src="js/jquery-2.1.3.min.js"></script>
-    <script src="js/metro.js"></script>
+ 	
 
     <script>
         $(function(){

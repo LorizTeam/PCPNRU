@@ -17,7 +17,7 @@
         
 	</head> 
 
-	<body class="">
+	<body >
 		<%@ include file='topmenu.jsp' %>
 
  		<div class="container-center"> 
