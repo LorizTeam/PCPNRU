@@ -38,12 +38,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <script src="js/ga.js"></script> 
  		<script src="js/jquery.dataTables.min.js"></script> 
         <script src="includehtml.js"></script>    
-
+		<script src="js/select2.min.js"></script>
   </head>
+  
+  <script>
+        function no_submit(){
+            return false;
+        }
+
+        function notifyOnErrorInput(input){
+            var message = input.data('validateHint');
+            $.Notify({
+                caption: 'Error',
+                content: message,
+                type: 'alert'
+            });
+        }
+    </script>
   
   <body>
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
+	<form action="receive1.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
 	<div class="example" data-text="รายการรับ">
 	<div class="flex-grid">
 		  	<div class="row flex-just-center">
@@ -52,8 +68,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>
 		    	<div class="cell colspan5" > 
 		       		 <h3><small class="input-control full-size"> 
-		       		 <select onchange="">
-					    	<option>-- โปรดเลือก --</option>
+		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="This field can not be empty">
+					    	<option value="">-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
 					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
@@ -62,13 +78,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
 					   </select>
+					   <span class="input-state-error mif-warning"></span>
+                       <span class="input-state-success mif-checkmark"></span>
 					   </small></h3>
 		    	</div>
 		    	<div class="cell colspan2 align-right"><h2>วันที่การรับ&nbsp;</h2></div>
 		    	<div class="cell colspan2">  
 		        		<h3><small>
 					    <div class="input-control text full-size " data-role="datepicker" data-format="dd-mm-yyyy" data-scheme="green">
-                            <input type="text">
+                            <input type="text" name="dateTime" data-validate-func="date" data-validate-hint="Value must be valid date string">
+                            <span class="input-state-error mif-warning"></span>
+                            <span class="input-state-success mif-checkmark"></span>
                             <button class="button"><span class="mif-calendar"></span></button>
                         </div>
                         </small></h3>
@@ -82,8 +102,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div> 
 		    	<div class="cell colspan9">
 		    		<h3><small class="input-control full-size"> 
-					    <select onchange="">
-					    	<option>-- โปรดเลือก --</option>
+					    <select id="cost_code" name="costCode" data-validate-func="required" data-validate-hint="This field can not be empty">
+					    	<option value="">-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
 					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
@@ -92,6 +112,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
 					   </select> 
+					   <span class="input-state-error mif-warning"></span>
+                     	<span class="input-state-success mif-checkmark"></span> 
 					</small></h3>
 		    	</div>   
 		    </div>
@@ -104,7 +126,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div> 
 		    	<div class="cell colspan5">
 		    		<h3><small class="input-control full-size"> 
-					    <input type="text" id="subjobcode" name="subjobCode"> 
+					    <input type="text" id="amountFrom" name="amountFrom" data-validate-func="required" data-validate-hint="This field can not be empty"> 
+					    <span class="input-state-error mif-warning"></span>
+                     	<span class="input-state-success mif-checkmark"></span> 
 					</small></h3>
 		    	</div>  
 		    	<div class="cell colspan2"> 
@@ -112,22 +136,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div> 
 		    	<div class="cell colspan2">
 		    		<h3><small class="input-control full-size"> 
-					    <input type="text" id="subjobcode" name="subjobCode"> 
+					    <input type="text" id="local" name="local" data-validate-func="required" data-validate-hint="This field can not be empty"> 
+					    <span class="input-state-error mif-warning"></span>
+                     	<span class="input-state-success mif-checkmark"></span> 
 					</small></h3>
 		    	</div>  
 		    </div>
 		</div>
-	<hr/> 
+	<hr/>  
 	<div class="flex-grid">
 		  	<div class="row flex-just-center"> 
 		    	<div class="cell colspan2" align="center"><br> 
-					  <a href="receive-2.jsp"><button class="button success full-size" type="submit" name="add">ตกลง</button></a> 
+					  <button class="button success full-size" type="submit" name="ok">ตกลง</button>
 				</div> 
 		    </div>
 	</div>
 	<br/>  
 	<hr/>
 	</div> <!-- End of example --> 
-	
+	</div>
+	</form> 
+	  
   </body>
+  <script>
+    $(function(){
+        $("#project_code").select2();
+        $("#cost_code").select2();
+    });
+</script>
+  
 </html>

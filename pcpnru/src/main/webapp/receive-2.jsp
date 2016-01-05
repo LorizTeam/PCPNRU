@@ -42,105 +42,100 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  
+  	<% 
+  			String projectCode 	= (String) request.getAttribute("projectCode");
+  			String dateTime 	= (String) request.getAttribute("dateTime");
+  			String costCode 	= (String) request.getAttribute("costCode");
+  			String amountFrom 	= (String) request.getAttribute("amountFrom");
+  			String local 		= (String) request.getAttribute("local");
+  	%>
+  
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
 	<form action="receive2.action" method="post">
 	<div class="example" data-text="รายการรับ">
-	<div class="flex-grid">
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2 "> 
-		       	<h4 class="align-right">โครงการ&nbsp;</h4>
-		    	</div>
-		    	<div class="cell colspan5" > 
-		       		 <h4><small class="input-control full-size"> 
-		       		 <select onchange="" disabled>
-					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
-					   </select>
-					   </small></h4>
-		    	</div>
-		    	<div class="cell colspan2 align-right"><h4>วันที่การรับ&nbsp;</h4></div>
+	<div class="grid">
+		  	<div class="row cells10"> 
+		    	<div class="cell colspan3" > 
+		       		 <h4>โครงการ<small class="input-control full-size success"> 
+		       		 	<input type="text" value="<%=projectCode%>" readonly="readonly">
+					 </small></h4>
+		    	</div>   
+		    	<div class="cell colspan3">
+		    		<h4>ค่าใช้จ่าย<small class="input-control full-size success"> 
+					    <input type="text" value="<%=costCode%>" readonly="readonly">
+					</small></h4>
+		    	</div>  
 		    	<div class="cell colspan2">  
-		        		<h4><small>
-					    <div class="input-control text full-size ">
-                            <input type="text" value="11-01-2559" disabled>
-                            <button class="button"><span class="mif-calendar"></span></button>
-                        </div>
-                        </small></h4>
-				</div>
+		        	<h4>วันที่การรับ<small class="input-control full-size success"> 
+                        <input type="text" value="<%=dateTime%>" readonly="readonly"> 
+                    </small></h4>
+				</div> 
+		    	<div class="cell colspan2">  
+		        	<h4>เลขที่เอกสาร<small class="input-control full-size success"> 
+                        <input type="text" value="<%=dateTime%>" readonly="readonly"> 
+                    </small></h4>
+				</div> 
+			</div> 
+	<hr/>
+	<div class="grid">
+		  	<div class="row cells10">  
+		    	<div class="cell colspan3">
+		    		<h4>ได้รับเงินจาก<small class="input-control full-size success"> 
+					    <input type="text" value="<%=amountFrom%>" readonly="readonly">
+					</small></h4>
+		    	</div> 
+		    	<div class="cell colspan3">
+		    		<h4>สถานที่<small class="input-control full-size success"> 
+					    <input type="text" value="<%=local%>" readonly="readonly">
+					</small></h4>
+		    	</div> 
+		    </div>
 	</div> 
 	<hr/>
-	<div class="flex-grid">
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2"> 
-		       		<h4 class="align-right">ค่าใช้จ่าย&nbsp;</h4> 	  
-		    	</div> 
-		    	<div class="cell colspan9">
-		    		<h4><small class="input-control full-size"> 
-					    <select onchange="" disabled> 
-					        <option>521800003 - บริการนวดอโรมา</option> 
-					   </select> 
-					</small></h4>
-		    	</div>   
-		    </div>
-		</div>
-	<hr/>
-	<div class="flex-grid">
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2"> 
-		       		<h4 class="align-right">ได้รับเงินจาก&nbsp;</h4> 	  
-		    	</div> 
-		    	<div class="cell colspan5">
-		    		<h4><small class="input-control full-size"> 
-					    <input type="text" disabled id="subjobcode" name="subjobCode" value="คุณ พานุวัฒน์"> 
-					</small></h4>
-		    	</div>  
-		    	<div class="cell colspan2"> 
-		       		<h4 class="align-right">สถานที่&nbsp;</h4> 	  
-		    	</div> 
-		    	<div class="cell colspan2">
-		    		<h4><small class="input-control full-size"> 
-					    <input type="text" disabled id="subjobcode" name="subjobCode" value="สมาร์ทไอซีที"> 
-					</small></h4>
-		    	</div>  
-		    </div>
-		</div>
-	<hr/>
-	<div class="flex-grid">
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2"> 
-		       		<h4 class="align-right">รายละเอียด&nbsp;</h4> 	  
-		    	</div> 
-		    	<div class="cell colspan4">
-		    		<h4><small class="input-control full-size"> 
+	<div class="grid">
+		  	<div class="row cells10"> 
+		    	<div class="cell colspan10">
+		    		<h4>รายละเอียด<small class="input-control full-size success"> 
 					    <input type="text" id="subjobcode" name="subjobCode"> 
 					</small></h4>
-		    	</div>  
-		    	<div class="cell colspan1"> 
-		       		<h4 class="align-right">จำนวน&nbsp;</h4> 	  
 		    	</div>
-		    	<div class="cell colspan1">
-		    		<h4><small class="input-control full-size"> 
-					    <input type="text" id="subjobcode" name="subjobCode"> 
-					</small></h4>
-		    	</div> 
-		    	<div class="cell colspan2"> 
-		       		<h4 class="align-right">ราคาต่อหน่วย&nbsp;</h4> 	  
-		    	</div> 
-		    	<div class="cell colspan1">
-		    		<h4><small class="input-control full-size"> 
-					    <input type="text" id="subjobcode" name="subjobCode"> 
-					</small></h4>
-		    	</div>  
 		    </div>
 		</div>
+	<hr/>
+	<div class="grid">
+		  	<div class="row cells12">  
+		    	<div class="cell colspan3">
+		    		<h4>จำนวน<small class="input-control full-size success"> 
+					    <input type="text" readonly="readonly">
+					</small></h4>
+		    	</div> 
+		    	<div class="cell colspan3">
+		    		<h4>ราคาต่อหน่วย<small class="input-control full-size success"> 
+					    <input type="text"  readonly="readonly">
+					</small></h4>
+		    	</div> 
+		    	<div class="cell colspan3">
+		    		<h4>ราคารวม<small class="input-control full-size success"> 
+					    <input type="text"  readonly="readonly">
+					</small></h4>
+		    	</div>
+		    	<div class="cell colspan3">
+		    		<h4>ทอน<small class="input-control full-size success"> 
+					    <input type="text"  readonly="readonly">
+					</small></h4>
+		    	</div>
+		    </div>
+	</div> 
 	<hr/>
 	<div class="flex-grid">
 		  	<div class="row flex-just-center">
 		    	<div class="cell colspan3" align="center">
 					  <button class="button success" type="submit" name="add">เพิ่ม</button> 
-					  <button class="button success" type="submit" name="update">แก้ไข</button> 
-					  <button class="button success" type="submit" name="delete">ลบ</button>
-					  <button class="button success" type="submit" name="print">พิมพ์</button>
+					  <button class="button primary" type="submit" name="update">แก้ไข</button> 
+					  <button class="button danger" type="submit" name="delete">ลบ</button>
+					  <button class="button warning" type="submit" name="print"><span class="mif-print mif-lg fg-black"></span></button>
 				</div> 
 		    </div>
 	</div>
