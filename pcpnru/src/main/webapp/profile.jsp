@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Profile</title>
+		<title>ข้อมูลส่วนตัว</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -29,94 +29,77 @@
          <div class="flex-grid">
 		  	<!-- open row -->
 		  	<div class="row flex-just-center">
-		        <div class="cell colspan5 "> 
-		       	<h3 class="align-right">รหัส&nbsp;</h3>
-		    	</div>
-		    	<div class="cell colspan6" > 
-		       		 <h3><small class="input-control"> 
-		       		 <input type="text">
-					   </small></h3>
+		        <div class="cell colspan2 "> 
+			       	รหัส 
+			    	<div class="input-control text full-size"> 
+			       		 <input type="text">
+					</div>
 		    	</div> 
 			</div>
 			<!-- close row -->
 			<!-- open row -->
 		  	<div class="row flex-just-center">
-		        <div class="cell colspan5 "> 
-		       	<h3 class="align-right">ชื่อ&nbsp;</h3>
-		    	</div>
-		    	<div class="cell colspan6" > 
-		       		 <h3><small class="input-control"> 
-		       		 <input type="text">
-					   </small></h3>
+		         <div class="cell colspan2 "> 
+			       	ชื่อ 
+			    	<div class="input-control text full-size"> 
+			       		 <input type="text">
+					</div>
 		    	</div> 
 			</div>
 			<!-- close row -->
 			<!-- open row -->
 		  	<div class="row flex-just-center">
-		        <div class="cell colspan5 "> 
-		       	<h3 class="align-right">นามสกุล&nbsp;</h3>
-		    	</div>
-		    	<div class="cell colspan6" > 
-		       		 <h3><small class="input-control"> 
-		       		 <input type="text">
-					   </small></h3>
+		         <div class="cell colspan2 "> 
+			       	นามสกุล 
+			    	<div class="input-control text full-size"> 
+			       		 <input type="text">
+					</div>
 		    	</div> 
 			</div>
 			<!-- close row -->
 			<!-- open row -->
 		  	<div class="row flex-just-center">
-		        <div class="cell colspan5 "> 
-		       	<h3 class="align-right">วันเกิด&nbsp;</h3>
-		    	</div>
-		    	<div class="cell colspan6" > 
-		       		 <h3><small class="input-control"> 
-		       		 <input type="text">
-					   </small></h3>
+		       <div class="cell colspan2 "> 
+			     	  วันเกิด 
+			    	<div class="input-control text full-size"> 
+			       		 <input type="text">
+					</div>
 		    	</div> 
 			</div>
 			<!-- close row -->
 			<!-- open row -->
 		  	<div class="row flex-just-center">
-		        <div class="cell colspan5 "> 
-		       	<h3 class="align-right">เบอร์โทรศัพท์&nbsp;</h3>
-		    	</div>
-		    	<div class="cell colspan6" > 
-		       		 <h3><small class="input-control"> 
-		       		 <input type="text">
-					   </small></h3>
+		         <div class="cell colspan2 "> 
+			       	เบอร์โทรศัพท์ 
+			    	<div class="input-control text full-size"> 
+			       		 <input type="text">
+					</div>
 		    	</div> 
 			</div>
 			<!-- close row -->
 			<!-- open row -->
 		  	<div class="row flex-just-center">
-		        <div class="cell colspan5 "> 
-		       	<h3 class="align-right">ที่อยู่&nbsp;</h3>
-		    	</div>
-		    	<div class="cell colspan6" > 
-		       		 <h3><small class="input-control"> 
-		       		 <input type="text">
-					   </small></h3>
+		         <div class="cell colspan2 "> 
+			       	ที่อยู่ 
+			    	<div class="input-control text full-size"> 
+			       		 <input type="text">
+					</div>
 		    	</div> 
 			</div>
 			<!-- close row -->
 			<!-- open row -->
 		  	<div class="row flex-just-center">
-		        <div class="cell colspan5 "> 
-		       	<h3 class="align-right">ตำแหน่งงาน&nbsp;</h3>
-		    	</div>
-		    	<div class="cell colspan6" > 
-		       		 <h3><small class="input-control"> 
-		       		 <input type="text">
-					   </small></h3>
+		        <div class="cell colspan2 "> 
+			       	ตำแหน่งงาน 
+			    	<div class="input-control text full-size"> 
+			       		 <input type="text">
+					</div>
 		    	</div> 
 			</div>
 			<!-- close row -->
 			<!-- open row -->
-		  	<div class="row flex-just-center">
-		        
-		        <div class="cell colspan5 ">  
-		    	</div>
-		    	<div class="cell colspan6" > 
+		  	<div class="row flex-just-center">		        
+		        <div class="cell colspan2 align-center">  
 		       		 <button class="button success" >ตกลง</button>
 		       		 <button class="button danger" >ยกเลิก</button>
 		    	</div>  

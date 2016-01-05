@@ -3722,7 +3722,7 @@ a.tag {
 .grid .row {
   width: 100%;
   display: block;
-  margin: 0 0 2.12765% 0;
+  margin: 0 0 1% 0;
 }
 .grid .row:before,
 .grid .row:after {
@@ -6720,7 +6720,7 @@ a.tag {
   outline: none;
   font-size: .875rem;
   line-height: 1;
-  margin: .15625rem 0;
+/*  margin: .15625rem 0;*/
   position: relative;
 }
 .button.default {
@@ -8832,7 +8832,7 @@ div.square-button.big-button {
   height: 2.125rem;
   position: relative;
   vertical-align: middle;
-  margin: .325rem 0;
+  /*margin: .325rem 0;*/
   line-height: 1;
 }
 .input-control[data-role=select] {
