@@ -3722,7 +3722,7 @@ a.tag {
 .grid .row {
   width: 100%;
   display: block;
-  margin: 0 0 1% 0;
+ /* margin: 0 0 1% 0;  */
 }
 .grid .row:before,
 .grid .row:after {

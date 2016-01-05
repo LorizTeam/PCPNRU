@@ -58,78 +58,67 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="grid">
 		  	<div class="row cells10"> 
 		    	<div class="cell colspan3" > 
-		       		 <h4>โครงการ<small class="input-control full-size success"> 
+		       		  โครงการ<div class="input-control full-size success"> 
 		       		 	<input type="text" value="<%=projectCode%>" readonly="readonly">
-					 </small></h4>
+					 </div> 
 		    	</div>   
 		    	<div class="cell colspan3">
-		    		<h4>ค่าใช้จ่าย<small class="input-control full-size success"> 
+		    		 ค่าใช้จ่าย<div class="input-control full-size success"> 
 					    <input type="text" value="<%=costCode%>" readonly="readonly">
-					</small></h4>
+					</div> 
 		    	</div>  
 		    	<div class="cell colspan2">  
-		        	<h4>วันที่การรับ<small class="input-control full-size success"> 
+		        	 วันที่การรับ<div class="input-control full-size success"> 
                         <input type="text" value="<%=dateTime%>" readonly="readonly"> 
-                    </small></h4>
+                    </div> 
 				</div> 
 		    	<div class="cell colspan2">  
-		        	<h4>เลขที่เอกสาร<small class="input-control full-size success"> 
+		        	เลขที่เอกสาร<div class="input-control full-size success"> 
                         <input type="text" value="<%=dateTime%>" readonly="readonly"> 
-                    </small></h4>
+                    </div>
 				</div> 
-			</div> 
-	<hr/>
-	<div class="grid">
+			</div>  
 		  	<div class="row cells10">  
 		    	<div class="cell colspan3">
-		    		<h4>ได้รับเงินจาก<small class="input-control full-size success"> 
+		    		ได้รับเงินจาก<div class="input-control full-size success"> 
 					    <input type="text" value="<%=amountFrom%>" readonly="readonly">
-					</small></h4>
+					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
-		    		<h4>สถานที่<small class="input-control full-size success"> 
+		    		สถานที่<div class="input-control full-size success"> 
 					    <input type="text" value="<%=local%>" readonly="readonly">
-					</small></h4>
+					</div>
 		    	</div> 
-		    </div>
-	</div> 
-	<hr/>
-	<div class="grid">
+		    </div>  
 		  	<div class="row cells10"> 
 		    	<div class="cell colspan10">
-		    		<h4>รายละเอียด<small class="input-control full-size success"> 
+		    		รายละเอียด<div class="input-control full-size success"> 
 					    <input type="text" id="subjobcode" name="subjobCode"> 
-					</small></h4>
+					</div>
 		    	</div>
-		    </div>
-		</div>
-	<hr/>
-	<div class="grid">
+		    </div>  
 		  	<div class="row cells12">  
 		    	<div class="cell colspan3">
-		    		<h4>จำนวน<small class="input-control full-size success"> 
+		    		จำนวน<div class="input-control full-size success"> 
 					    <input type="text" readonly="readonly">
-					</small></h4>
+					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
-		    		<h4>ราคาต่อหน่วย<small class="input-control full-size success"> 
+		    		ราคาต่อหน่วย<div class="input-control full-size success"> 
 					    <input type="text"  readonly="readonly">
-					</small></h4>
+					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
-		    		<h4>ราคารวม<small class="input-control full-size success"> 
+		    		ราคารวม<div class="input-control full-size success"> 
 					    <input type="text"  readonly="readonly">
-					</small></h4>
+					</div>
 		    	</div>
 		    	<div class="cell colspan3">
-		    		<h4>ทอน<small class="input-control full-size success"> 
+		    		ทอน<div class="input-control full-size success"> 
 					    <input type="text"  readonly="readonly">
-					</small></h4>
+					</div>
 		    	</div>
-		    </div>
-	</div> 
-	<hr/>
-	<div class="flex-grid">
+		    </div>  
 		  	<div class="row flex-just-center">
 		    	<div class="cell colspan3" align="center">
 					  <button class="button success" type="submit" name="add">เพิ่ม</button> 
@@ -137,8 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <button class="button danger" type="submit" name="delete">ลบ</button>
 					  <button class="button warning" type="submit" name="print"><span class="mif-print mif-lg fg-black"></span></button>
 				</div> 
-		    </div>
-	</div>
+		    </div> 
 	<br/>  
 	<hr/>
 	</div> <!-- End of example --> 
