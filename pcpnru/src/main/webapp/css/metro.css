@@ -3722,7 +3722,7 @@ a.tag {
 .grid .row {
   width: 100%;
   display: block;
- /* margin: 0 0 1% 0;  */
+  margin: 0 0 1% 0;  
 }
 .grid .row:before,
 .grid .row:after {
@@ -8828,8 +8828,8 @@ div.square-button.big-button {
 }
 .input-control {
   display: inline-block;
-  min-height: 2.125rem;
-  height: 2.125rem;
+ /* min-height: 2.125rem;
+  height: 2.125rem;*/
   position: relative;
   vertical-align: middle;
   /*margin: .325rem 0;*/
@@ -17079,7 +17079,6 @@ p [data-hint] {
   box-sizing: border-box;
   cursor: pointer;
   display: block;
-  min-height: 2.125rem;
   -webkit-user-select: none;
       -ms-user-select: none;
           user-select: none;
@@ -17142,7 +17141,6 @@ p [data-hint] {
   padding: 0;
 }
 .select2-results__option {
-  padding: 6px;
   -webkit-user-select: none;
       -ms-user-select: none;
           user-select: none;
@@ -17155,7 +17153,6 @@ p [data-hint] {
 }
 .select2-search--dropdown {
   display: block;
-  padding: 4px;
 }
 .select2-search--dropdown .select2-search__field {
   padding: 4px;

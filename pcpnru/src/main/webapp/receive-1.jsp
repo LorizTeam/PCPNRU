@@ -27,18 +27,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
-        <link href="css/metro-responsive.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
-		<link href="css/docs.css" rel="stylesheet"> 
-	 
+	 	<link href="css/select2.css" rel="stylesheet">
+		<link href="css/bootstrap-datepicker3.css" rel="stylesheet"> 
+	 	
 		<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
-	    <script src="js/docs.js"></script>
-	    <script src="js/prettify/run_prettify.js"></script>
-	    <script src="js/ga.js"></script> 
- 		<script src="js/jquery.dataTables.min.js"></script> 
-        <script src="includehtml.js"></script>    
-		<script src="js/select2.min.js"></script>
+ 		<script src="js/jquery.dataTables.min.js"></script>   
+		<script src="js/select2.js"></script>
+  		<script src="js/bootstrap-datepicker-th.js"></script>
   </head>
   
   <script>
@@ -61,14 +58,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br>
 	<form action="receive1.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
 	<div class="example" data-text="รายการรับ">
-	<div class="flex-grid">
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2 "> 
-		       	<h2 class="align-right">โครงการ&nbsp;</h2>
-		    	</div>
-		    	<div class="cell colspan5" > 
-		       		 <h3><small class="input-control full-size"> 
-		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="This field can not be empty">
+		<div class="grid">
+		  	<div class="row cells12">
+		       
+		    	<div class="cell colspan5 offset2" > 
+		    		 โครงการ
+		       		 <div class="input-control full-size"> 
+		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
 					    	<option value="">-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
@@ -78,31 +74,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
 					   </select>
-					   <span class="input-state-error mif-warning"></span>
-                       <span class="input-state-success mif-checkmark"></span>
-					   </small></h3>
+	                      <span class="input-state-success mif-checkmark"></span>
+					   </div>
 		    	</div>
-		    	<div class="cell colspan2 align-right"><h2>วันที่การรับ&nbsp;</h2></div>
 		    	<div class="cell colspan2">  
-		        		<h3><small>
-					    <div class="input-control text full-size " data-role="datepicker" data-format="dd-mm-yyyy" data-scheme="green">
-                            <input type="text" name="dateTime" data-validate-func="date" data-validate-hint="Value must be valid date string">
-                            <span class="input-state-error mif-warning"></span>
-                            <span class="input-state-success mif-checkmark"></span>
-                            <button class="button"><span class="mif-calendar"></span></button>
-                        </div>
-                        </small></h3>
-				</div>
-	</div> 
-	<hr/>
-	<div class="flex-grid">
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2"> 
-		       		<h2 class="align-right">ค่าใช้จ่าย&nbsp;</h2> 	  
-		    	</div> 
-		    	<div class="cell colspan9">
-		    		<h3><small class="input-control full-size"> 
-					    <select id="cost_code" name="costCode" data-validate-func="required" data-validate-hint="This field can not be empty">
+	        		วันที่รับ
+				    <div class="input-control text full-size " >
+                          <input type="text"id="datepicker"   data-validate-func="required" data-validate-hint="กรุณาเลือกวันที่รับ">
+                          <span class="input-state-success mif-checkmark"></span>
+                   	</div>
+	               </div>
+	           </div>
+		  	<div class="row cells12">
+		       
+		    	<div class="cell colspan7  offset2">
+		    		ค่าใช้จ่าย<div class="input-control full-size"> 
+					    <select id="cost_code" name="costCode" data-validate-func="required" data-validate-hint="กรุณาเลือกประเภทค่าใช้จ่าย">
 					    	<option value="">-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
@@ -112,49 +99,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
 					   </select> 
-					   <span class="input-state-error mif-warning"></span>
-                     	<span class="input-state-success mif-checkmark"></span> 
-					</small></h3>
+	                    	<span class="input-state-success mif-checkmark"></span> 
+					</div>
 		    	</div>   
 		    </div>
-		</div>
-	<hr/>
-	<div class="flex-grid">
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2"> 
-		       		<h2 class="align-right">ได้รับเงินจาก&nbsp;</h2> 	  
-		    	</div> 
-		    	<div class="cell colspan5">
-		    		<h3><small class="input-control full-size"> 
-					    <input type="text" id="amountFrom" name="amountFrom" data-validate-func="required" data-validate-hint="This field can not be empty"> 
-					    <span class="input-state-error mif-warning"></span>
-                     	<span class="input-state-success mif-checkmark"></span> 
-					</small></h3>
-		    	</div>  
-		    	<div class="cell colspan2"> 
-		       		<h2 class="align-right">สถานที่&nbsp;</h2> 	  
-		    	</div> 
-		    	<div class="cell colspan2">
-		    		<h3><small class="input-control full-size"> 
-					    <input type="text" id="local" name="local" data-validate-func="required" data-validate-hint="This field can not be empty"> 
-					    <span class="input-state-error mif-warning"></span>
-                     	<span class="input-state-success mif-checkmark"></span> 
-					</small></h3>
+	
+		  	<div class="row cells12">
+		       <div class="cell colspan4  offset2">
+		    		ชื่อลูกค้า
+		    		<div class="input-control full-size"> 
+					    <input type="text" id="amountFrom" name="amountFrom" data-validate-func="required" data-validate-hint="กรุณากรอกชื่อูกค้า"> 
+					 	<span class="input-state-success mif-checkmark"></span> 
+					</div>
+		    	</div>
+		    	<div class="cell colspan3">
+		    		สถานที่
+		    		<div class="input-control full-size"> 
+					    <input type="text" id="local" name="local" data-validate-func="required" data-validate-hint="กรุณาใส่สถานที่รับ"> 
+					    <span class="input-state-success mif-checkmark"></span> 
+					</div>
 		    	</div>  
 		    </div>
-		</div>
-	<hr/>  
-	<div class="flex-grid">
-		  	<div class="row flex-just-center"> 
-		    	<div class="cell colspan2" align="center"><br> 
+		
+		  	<div class="row cells12"> 
+		    	<div class="cell colspan2  offset2" align="center"><br> 
 					  <button class="button success full-size" type="submit" name="ok">ตกลง</button>
 				</div> 
 		    </div>
-	</div>
-	<br/>  
-	<hr/>
+		</div>
+	
 	</div> <!-- End of example --> 
-	</div>
+
 	</form> 
 	  
   </body>
@@ -163,6 +138,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         $("#project_code").select2();
         $("#cost_code").select2();
     });
+
+    $(function(){
+        $("#datepicker").datepicker();
+        language: "th"
+    });
 </script>
-  
 </html>
