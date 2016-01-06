@@ -2,4 +2,5 @@ eclipse.preferences.version=1
 encoding//src/main/java/pcpnru/projectAction/ProjectMasterAction.java=UTF-8
 encoding//src/main/java/pcpnru/projectAction/Receive1Action.java=UTF-8
 encoding//src/main/java/pcpnru/projectAction/Receive2Action.java=UTF-8
+encoding//src/main/java/pcpnru/projectAction/ReceiveReportAction.java=UTF-8
 encoding//src/main/java/pcpnru/projectAction/SubjobMasterAction.java=UTF-8

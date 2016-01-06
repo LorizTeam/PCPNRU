@@ -8,6 +8,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import pcpnru.projectData.CostCodeMasterDB;
 import pcpnru.projectData.ProjectMasterDB;
 import pcpnru.projectData.Receive1DB;
 import pcpnru.utilities.DateUtil;
@@ -26,10 +27,11 @@ public class Receive1Action extends ActionSupport {
 		if(ok!=null){ 
 			
 			DateUtil dateUtil = new DateUtil(); 
-			String docDate	= dateUtil.CnvToDDMMYYYYThaiYear(dateUtil.CnvToYYYYMMDD(dateUtil.curDate(), '-')); //01/11/2557
-			String day 		= docDate.substring(0,2); // 01
-			String month 	= docDate.substring(3,5); // 12
-			String year 	= docDate.substring(6); // 2559
+			String date	= dateUtil.CnvToDDMMYYYYThaiYear(dateUtil.CnvToYYYYMMDD(dateUtil.curDate(), '-')); //01/11/2557
+			String docDate	= dateUtil.CnvToYYYYMMDD(dateUtil.curDate(), '-');
+			String day 		= date.substring(0,2); // 01
+			String month 	= date.substring(3,5); // 12
+			String year 	= date.substring(6); // 2559
 			
 			String projectCode 	= request.getParameter("projectCode");
 			String dateTime 	= request.getParameter("dateTime");
@@ -47,13 +49,17 @@ public class Receive1Action extends ActionSupport {
 			request.setAttribute("costCode", costCode);
 			request.setAttribute("amountFrom", amountFrom);
 			request.setAttribute("local", local);
-			
+			 
+			forwardText = "success";
+		}else{ 
 			ProjectMasterDB projectMasterDB = new ProjectMasterDB();
 			List projectMasterList = projectMasterDB.GetProjectMasterList("", "");
 			request.setAttribute("projectMasterList", projectMasterList);
 			
-			forwardText = "success";
-		}else{ 
+			CostCodeMasterDB costCodeMasterDB = new CostCodeMasterDB();
+			List costCodeMasterList = costCodeMasterDB.GetCostCodeMasterList("", "");
+			request.setAttribute("costCodeMasterList", costCodeMasterList);
+			
 			forwardText = "error";
 		}
 		return forwardText;

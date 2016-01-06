@@ -10,6 +10,8 @@
 	Connection conn = dbcon.getConnectMYSql();
 	String filejrxml = application.getRealPath("report/report1.jrxml");
 	
+	String docNoHD = (String) request.getAttribute("docNoHD");
+	
 	File reportFile = new File(filejrxml);
 	if (!reportFile.exists()){
 		System.out.println("File Not found");
@@ -21,9 +23,9 @@
 	JasperReport jr= JasperCompileManager.compileReport(filejrxml);
 	
 	Map prm = new HashMap();
+	prm.put("prmdocno", docNoHD.trim());
 	
-	
-	JasperPrint jasperPrint = JasperFillManager.fillReport(jr,prm, conn);
+	JasperPrint jasperPrint = JasperFillManager.fillReport(jr, prm, conn);
 	
 	OutputStream outStream = response.getOutputStream();
 	JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);

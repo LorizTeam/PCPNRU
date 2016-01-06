@@ -25,7 +25,7 @@ public class Receive1DB {
 		try {
 			conn = agent.getConnectMYSql();
 			
-			String sqlStmt = "SELECT max(SUBSTRING(docno, 1,4)) as lno FROM runningdocno "+
+			String sqlStmt = "SELECT max(SUBSTRING(docno, 5,10)) as lno FROM runningdocno "+
 					"WHERE SUBSTRING(docno, 1,4) = '"+year+"' limit 1 ";
 			pStmt = conn.createStatement();
 			rs = pStmt.executeQuery(sqlStmt);		
@@ -38,16 +38,14 @@ public class Receive1DB {
 			}
 			
 			if (requestno.length() == 1) {
-				requestno = "000000" + requestno; 
-			} else if (requestno.length() == 2) {
 				requestno = "00000" + requestno; 
-			} else if (requestno.length() == 3) {
+			} else if (requestno.length() == 2) {
 				requestno = "0000" + requestno; 
-			} else if (requestno.length() == 4) {
+			} else if (requestno.length() == 3) {
 				requestno = "000" + requestno; 
-			} else if (requestno.length() == 5) {
+			} else if (requestno.length() == 4) {
 				requestno = "00" + requestno; 
-			} else if (requestno.length() == 6) {
+			} else if (requestno.length() == 5) {
 				requestno = "0" + requestno; 
 			} 
 			 
@@ -87,8 +85,14 @@ public class Receive1DB {
 	public void AddReceiveHD(String docNo, String projectCode, String costCode, String docDate, String day, String month, String year, String amountFrom, String local)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
+		String[] parts = projectCode.split(" - ");
+		String pjCode = parts[0]; 
+		 
+		String[] parts1 = costCode.split(" - ");
+		String cCode = parts1[0];   
+		
 		String sqlStmt = "INSERT IGNORE INTO receivehd(docno, projectcode, costcode, docdate, day, month, year, amountfrom, local) " +
-		"VALUES ('"+docNo+"', '"+projectCode+"''"+costCode+"', '"+docDate+"''"+day+"', '"+month+"', '"+year+"', '"+amountFrom+"', '"+local+"')";
+		"VALUES ('"+docNo+"', '"+pjCode+"', '"+cCode+"', '"+docDate+"', '"+day+"', '"+month+"', '"+year+"', '"+amountFrom+"', '"+local+"')";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);

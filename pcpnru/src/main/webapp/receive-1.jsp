@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page import="pcpnru.projectModel.*" %>
+<%@ page import="pcpnru.projectData.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -54,6 +56,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </script>
   
   <body>
+  
+  	<%
+	  	List projectMasterList1 = null;
+		if (request.getAttribute("projectMasterList") == null) {
+			ProjectMasterDB projM = new ProjectMasterDB();
+			projectMasterList1 = projM.GetProjectMasterList("", "");
+		}else{
+			projectMasterList1 = (List) request.getAttribute("projectMasterList");
+		}
+		List costCodeMasterList1 = null;
+		if (request.getAttribute("costCodeMasterList") == null) {
+			CostCodeMasterDB ccM = new CostCodeMasterDB();
+			costCodeMasterList1 = ccM.GetCostCodeMasterList("", "");
+		}else{
+			costCodeMasterList1 = (List) request.getAttribute("costCodeMasterList");
+		}
+  	%>
+  
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
 	<form action="receive1.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
@@ -65,14 +85,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		 โครงการ
 		       		 <div class="input-control full-size"> 
 		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
-					    	<option value="">-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
-					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
-					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-					        <option>521800004 - โรงแรม</option>
-					        <option>521800005 - ศูนย์บริการ</option>
-					        <option>521800006 - สปา & ฟิตเนส</option>
-					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
+					   <%
+					   	List projectMasterList = projectMasterList1;
+		        		if (projectMasterList != null) {
+			        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
+			        			ProjectMasterForm pjInfo = (ProjectMasterForm) iterPj.next();
+	      				%>  
+			      			<option value="<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>" >
+			       			 	<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>
+			       			</option>
+							<%		} 
+								}
+							%>
 					   </select>
 	                      <span class="input-state-success mif-checkmark"></span>
 					   </div>
@@ -80,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan2">  
 	        		วันที่รับ
 				    <div class="input-control text full-size " >
-                          <input type="text"id="datepicker"   data-validate-func="required" data-validate-hint="กรุณาเลือกวันที่รับ">
+                          <input type="text" name="dateTime" id="datepicker"   data-validate-func="required" data-validate-hint="กรุณาเลือกวันที่รับ">
                           <span class="input-state-success mif-checkmark"></span>
                    	</div>
 	               </div>
@@ -90,14 +114,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan7  offset2">
 		    		ค่าใช้จ่าย<div class="input-control full-size"> 
 					    <select id="cost_code" name="costCode" data-validate-func="required" data-validate-hint="กรุณาเลือกประเภทค่าใช้จ่าย">
-					    	<option value="">-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
-					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
-					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-					        <option>521800004 - โรงแรม</option>
-					        <option>521800005 - ศูนย์บริการ</option>
-					        <option>521800006 - สปา & ฟิตเนส</option>
-					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
+					    	<%
+					   	List costCodeMasterList = costCodeMasterList1;
+		        		if (costCodeMasterList != null) {
+			        		for (Iterator iterCc = costCodeMasterList.iterator(); iterCc.hasNext();) {
+			        			CostCodeMasterForm ccInfo = (CostCodeMasterForm) iterCc.next();
+	      				%>  
+			      			<option value="<%=ccInfo.getCostCode()%> - <%=ccInfo.getCostName()%>">
+			       			 	<%=ccInfo.getCostCode()%> - <%=ccInfo.getCostName()%>
+			       			</option>
+							<%		} 
+								}
+							%>
 					   </select> 
 	                    	<span class="input-state-success mif-checkmark"></span> 
 					</div>

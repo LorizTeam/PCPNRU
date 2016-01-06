@@ -3,15 +3,64 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="prmdocno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM project_master]]>
+		<![CDATA[SELECT * FROM receivehd a inner join receivedt b on(a.docno = b.docno)
+where a.docno = $P{prmdocno} order by itemno]]>
 	</queryString>
-	<field name="project_code" class="java.lang.String">
+	<field name="docno" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="project_name" class="java.lang.String">
+	<field name="projectcode" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="costcode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="docdate" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="day" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="month" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="year" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amountfrom" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="local" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="receiveamount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="changeamount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="itemno" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amount" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="amounttotal" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="sumamount" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{amounttotal}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -125,11 +174,77 @@
 				<text><![CDATA[ได้รับเงินจาก]]></text>
 			</staticText>
 			<line>
-				<reportElement x="101" y="171" width="689" height="1" uuid="21b4116d-7274-434f-9dc2-cc8148a36cfa"/>
+				<reportElement x="101" y="171" width="513" height="1" uuid="21b4116d-7274-434f-9dc2-cc8148a36cfa"/>
 				<graphicElement>
 					<pen lineWidth="1.5" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement x="650" y="80" width="152" height="23" uuid="c923e8fb-4c86-4cf8-9eb6-a8d00ed9e94a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{local}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="108" y="149" width="506" height="23" uuid="26a501d1-cfce-4527-8037-9ae044aaf00a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amountfrom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="46" y="103" width="32" height="23" uuid="8a7e6ba8-241d-4c75-b041-f98f564c869a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{day}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="102" width="71" height="23" uuid="754ca3f8-1110-4e4b-93e3-8d739ac8a99a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[( $F{month}.equals("01") ? "มกราคม" :
+( $F{month}.equals("02") ? "กุมภาพันธ์" :
+( $F{month}.equals("03") ? "มีนาคม" :
+( $F{month}.equals("04") ? "เมษายน" :
+( $F{month}.equals("05") ? "พฤษภาคม" :
+( $F{month}.equals("06") ? "มิถุนายน" :
+( $F{month}.equals("07") ? "กรกฎาคม" :
+( $F{month}.equals("08") ? "สิงหาคม" :
+( $F{month}.equals("09") ? "กันยายน" :
+( $F{month}.equals("10") ? "ตุลาคม" :
+( $F{month}.equals("11") ? "พฤศจิกายน" : "ธันวาคม" )))))))))))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="264" y="103" width="55" height="23" uuid="2428b710-cb23-4684-957e-3c5388ab401a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{year}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="721" y="145" width="41" height="26" uuid="14445757-401e-4d36-9ca1-553fe0d5b24f"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="16" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ราคา]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="624" y="145" width="52" height="26" uuid="919f79ce-4e1b-4a49-bd1e-48b6877114a4"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="16" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[จำนวน]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="735" y="2" width="67" height="21" uuid="c4ef624e-bca0-4a96-b095-02bd793719d4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="10" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{docno}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -138,17 +253,41 @@
 	<detail>
 		<band height="43" splitType="Stretch">
 			<line>
+				<reportElement x="624" y="0" width="1" height="43" uuid="05ffda15-05e2-4ceb-a57b-fbb471c8111f"/>
+			</line>
+			<line>
 				<reportElement x="683" y="0" width="1" height="43" uuid="4f7a8e4f-59eb-4810-8cb1-36eae62a564b"/>
 			</line>
 			<line>
 				<reportElement x="801" y="0" width="1" height="43" uuid="e8fdba35-9f18-4a53-8439-a14ae11dc137"/>
 			</line>
 			<line>
-				<reportElement x="4" y="40" width="797" height="1" uuid="7cae363b-b94f-4e9c-9ef3-b5522f283e17"/>
+				<reportElement x="4" y="41" width="797" height="1" uuid="7cae363b-b94f-4e9c-9ef3-b5522f283e17"/>
 				<graphicElement>
 					<pen lineWidth="1.5" lineStyle="Dotted"/>
 				</graphicElement>
 			</line>
+			<textField>
+				<reportElement x="17" y="16" width="597" height="23" uuid="23912265-77a5-4e57-9cf8-8d6f125344db"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="697" y="16" width="93" height="23" uuid="6f5daef8-7d87-4f0f-8840-919ead10f166"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amounttotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="628" y="17" width="48" height="23" uuid="aecf1a4f-2c99-42f6-b7e7-89c4c5a19f4b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<columnFooter>
@@ -195,6 +334,13 @@
 				</textElement>
 				<text><![CDATA[ผู้รับเงิน]]></text>
 			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="684" y="12" width="106" height="23" uuid="110a3e18-b27d-4a87-b227-f36920573bd0"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="16" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sumamount}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
