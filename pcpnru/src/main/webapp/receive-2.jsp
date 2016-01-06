@@ -26,20 +26,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link href="css/metro.css" rel="stylesheet">
-        <link href="css/metro-icons.css" rel="stylesheet">
-        <link href="css/metro-responsive.css" rel="stylesheet">
-		<link href="css/metro-schemes.css" rel="stylesheet">
-		<link href="css/docs.css" rel="stylesheet"> 
+        <link href="css/metro-icons.css" rel="stylesheet"> 
+		<link href="css/metro-schemes.css" rel="stylesheet"> 
 	 
 		<script src="js/jquery-2.1.3.min.js"></script>
-	    <script src="js/metro.js"></script>
-	    <script src="js/docs.js"></script>
-	    <script src="js/prettify/run_prettify.js"></script>
-	    <script src="js/ga.js"></script> 
- 		<script src="js/jquery.dataTables.min.js"></script> 
-        <script src="includehtml.js"></script>    
+	    <script src="js/metro.js"></script> 
+ 		<script src="js/jquery.dataTables.min.js"></script>  
 
   </head>
+  
+  <script>
+        function no_submit(){
+            return false;
+        }
+
+        function notifyOnErrorInput(input){
+            var message = input.data('validateHint');
+            $.Notify({
+                caption: 'Error',
+                content: message,
+                type: 'alert'
+            });
+        }
+    </script>
   
   <body>
   
@@ -52,10 +61,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	%>
   
     <div><%@include file="topmenu.jsp" %></div>
-	<br>
-	<form action="receive2.action" method="post">
+	<br> 
 	<div class="example" data-text="รายการรับ">
 	<div class="grid">
+	<form action="receive2.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
 		  	<div class="row cells10"> 
 		    	<div class="cell colspan3" > 
 		       		  โครงการ<div class="input-control full-size success"> 
@@ -100,33 +109,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	<div class="row cells12">  
 		    	<div class="cell colspan3">
 		    		จำนวน<div class="input-control full-size success"> 
-					    <input type="text" readonly="readonly">
+					    <input type="text" data-validate-func="required" data-validate-hint="This field can not be empty">
+						<span class="input-state-error mif-warning"></span>
+                       <span class="input-state-success mif-checkmark"></span>
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
 		    		ราคาต่อหน่วย<div class="input-control full-size success"> 
-					    <input type="text"  readonly="readonly">
+					    <input type="text" >
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
 		    		ราคารวม<div class="input-control full-size success"> 
-					    <input type="text"  readonly="readonly">
+					    <input type="text" >
 					</div>
-		    	</div>
-		    	<div class="cell colspan3">
-		    		ทอน<div class="input-control full-size success"> 
-					    <input type="text"  readonly="readonly">
-					</div>
-		    	</div>
+		    	</div> 
 		    </div>  
+		    </form>
+		    <br>
+		    <form action="receive2.action" method="post">
 		  	<div class="row flex-just-center">
 		    	<div class="cell colspan3" align="center">
 					  <button class="button success" type="submit" name="add">เพิ่ม</button> 
 					  <button class="button primary" type="submit" name="update">แก้ไข</button> 
 					  <button class="button danger" type="submit" name="delete">ลบ</button>
-					  <button class="button warning" type="submit" name="print"><span class="mif-print mif-lg fg-black"></span></button>
 				</div> 
-		    </div> 
+		    </div>
+		    <br>
+		    <div class="row cells12">  
+		    	<div class="cell colspan3">
+		    		จำนวนเงินที่ได้รับ<div class="input-control full-size success"> 
+					    <input type="text" data-validate-func="required" data-validate-hint="This field can not be empty">
+						<span class="input-state-error mif-warning"></span>
+                       <span class="input-state-success mif-checkmark"></span>
+					</div>
+		    	</div> 
+		    	<div class="cell colspan3">
+		    		ทอน<div class="input-control full-size success"> 
+					    <input type="text" >
+					</div>
+		    	</div>  <br>
+		    	<div class="cell colspan3"> 
+					  <button class="button warning full-size" type="submit" name="print"><span class="mif-print mif-lg fg-black"></span></button>
+				</div>
+		    </div>    
+		    </form>
 	<br/>  
 	<hr/>
 	</div> <!-- End of example --> 
@@ -169,6 +196,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </tbody>
             </table>
         </div> <!-- End of example table --> 
-	</form>
+	
   </body>
 </html>
