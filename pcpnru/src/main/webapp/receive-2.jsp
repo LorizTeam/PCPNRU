@@ -52,7 +52,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   
-  	<% 
+  	<% 		
+  			String docNo		= (String) request.getAttribute("docNo");
   			String projectCode 	= (String) request.getAttribute("projectCode");
   			String dateTime 	= (String) request.getAttribute("dateTime");
   			String costCode 	= (String) request.getAttribute("costCode");
@@ -83,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div> 
 		    	<div class="cell colspan2">  
 		        	เลขที่เอกสาร<div class="input-control full-size success"> 
-                        <input type="text" value="<%=dateTime%>" readonly="readonly"> 
+                        <input type="text" value="<%=docNo%>" readonly="readonly"> 
                     </div>
 				</div> 
 			</div>  
