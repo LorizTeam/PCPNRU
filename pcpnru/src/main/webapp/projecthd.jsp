@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>topmenu</title>
+		<title>ร่างรายละเอียดโครงกา</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -12,26 +12,27 @@
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet"> 
-	 
+	 	<link href="css/select2.css" rel="stylesheet">
+		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
 	    <script src="js/docs.js"></script>
 	    <script src="js/prettify/run_prettify.js"></script>
 	    <script src="js/ga.js"></script> 
         <script src="js/jquery.dataTables.min.js"></script>
-  
+  		<script src="js/select2.js"></script>
 	</head>
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <br>
+		 <h3 class="align-center">ร่างรายละเอียดโครงการ</h3>
 		 <div class="example" data-text="รายละเอียด">
          <div class="grid">
-		  	<div class="row cells4">
-		        <div class="cell"> 
+		  	<div class="row cells12">
+		        <div class="cell colspan4"> 
 		        	รหัส-ชื่อ โครงการ
 			        <div class="input-control text full-size">
-					    <select onchange="">
+					    <select id="project_code" onchange="">
 					    	<option>-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
@@ -43,19 +44,19 @@
 					    </select>
 					</div>
 				</div>
-		        <div class="cell"> 
+		        <div class="cell colspan3"> 
 		        	เป้าหมาย
 			        <div class="input-control text full-size">
 					    <input type="text">
 					</div>
 				</div>
-		        <div class="cell"> 
+		        <div class="cell colspan2"> 
 		        	ปี
 			        <div class="input-control text full-size">
 					    <input type="text">
 					</div>
 				</div>
-				<div class="cell"><br>
+				<div class="cell colspan3"><br>
 			        	<button class="button success">จัดทำงบประมาณ</button> <button class="button primary">แก้ไขงบประมาณ</button>
 				</div> 
 		    </div>
@@ -129,9 +130,12 @@
         </div> <!-- End of example table -->  
          
    		<script>
-        $(function(){
-            $('#table_project').dataTable();
-        });
+	   		$(function(){
+		        $("#project_code").select2();
+		    });
+	        $(function(){
+	            $('#table_project').dataTable();
+	        });
     	</script>
 	</body>
 </html>

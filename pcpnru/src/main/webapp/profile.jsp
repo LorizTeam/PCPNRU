@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>ข้อมูลส่วนตัว</title>
+		<title>แก้ไขข้อมูลส่วนตัว</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -24,90 +24,88 @@
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <br>
+		 <h3 class="align-center">ข้อมูลส่วนตัว</h3>
 		 <div class="example" data-text="ข้อมูลส่วนตัว">
-         <div class="flex-grid">
-		  	<!-- open row -->
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2 "> 
-			       	รหัส 
+         <div class="grid ">
+		  	<div class="row cells12 ">
+		        <div class="cell colspan4 offset4"> 
+			       	ชื่อผู้ใช้งาน (Username) 
 			    	<div class="input-control text full-size"> 
 			       		 <input type="text">
 					</div>
+		    	</div>
+		    </div> 
+		  	<div class="row cells12 ">
+		        <div class="cell colspan4 offset4"> 
+			       	รหัสผ่าน 
+			    	<div class="input-control password full-size"> 
+			       		 <input type="password">
+					</div>
 		    	</div> 
-			</div>
-			<!-- close row -->
-			<!-- open row -->
-		  	<div class="row flex-just-center">
-		         <div class="cell colspan2 "> 
+		    </div>
+		  	<div class="row cells12 ">
+		        <div class="cell colspan4 offset4"> 
+			       	ยืนยัน รหัสผ่าน  
+			    	<div class="input-control password full-size"> 
+			       		 <input type="password">
+					</div>
+		    	</div>
+		    </div>
+		    <div class="row cells12 "> 
+		         <div class="cell colspan4 offset4"> 
 			       	ชื่อ 
 			    	<div class="input-control text full-size"> 
 			       		 <input type="text">
 					</div>
-		    	</div> 
-			</div>
-			<!-- close row -->
-			<!-- open row -->
-		  	<div class="row flex-just-center">
-		         <div class="cell colspan2 "> 
+		    	</div>
+		    </div>
+		    <div class="row cells12 ">
+		         <div class="cell colspan4 offset4"> 
 			       	นามสกุล 
 			    	<div class="input-control text full-size"> 
 			       		 <input type="text">
 					</div>
-		    	</div> 
-			</div>
-			<!-- close row -->
-			<!-- open row -->
-		  	<div class="row flex-just-center">
-		       <div class="cell colspan2 "> 
+		    	</div>
+		    </div>
+		    <div class="row cells12 ">
+		       <div class="cell colspan4 offset4"> 
 			     	  วันเกิด 
 			    	<div class="input-control text full-size"> 
 			       		 <input type="text">
 					</div>
 		    	</div> 
 			</div>
-			<!-- close row -->
-			<!-- open row -->
-		  	<div class="row flex-just-center">
-		         <div class="cell colspan2 "> 
+			<div class="row cells12 ">
+		         <div class="cell colspan4  offset4 "> 
 			       	เบอร์โทรศัพท์ 
 			    	<div class="input-control text full-size"> 
 			       		 <input type="text">
 					</div>
 		    	</div> 
 			</div>
-			<!-- close row -->
-			<!-- open row -->
-		  	<div class="row flex-just-center">
-		         <div class="cell colspan2 "> 
+		  	<div class="row cells12 ">
+		         <div class="cell colspan4  offset4 "> 
 			       	ที่อยู่ 
 			    	<div class="input-control text full-size"> 
 			       		 <input type="text">
 					</div>
 		    	</div> 
 			</div>
-			<!-- close row -->
-			<!-- open row -->
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2 "> 
+		  	<div class="row cells12">
+		        <div class="cell colspan4  offset4"> 
 			       	ตำแหน่งงาน 
 			    	<div class="input-control text full-size"> 
 			       		 <input type="text">
 					</div>
 		    	</div> 
 			</div>
-			<!-- close row -->
-			<!-- open row -->
-		  	<div class="row flex-just-center">		        
-		        <div class="cell colspan2 align-center">  
+		  	<div class="row ">		        
+		        <div class="cell align-center">  
 		       		 <button class="button success" >ตกลง</button>
 		       		 <button class="button danger" >ยกเลิก</button>
-		    	</div>  
-		    	
+		    	</div>
 			</div>
-			<!-- close row -->
-		  </div>
 		</div>  
-	 
+	 </div>
 	</body>
 </html>

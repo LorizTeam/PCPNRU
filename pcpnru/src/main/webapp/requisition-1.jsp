@@ -30,17 +30,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
-        <link href="css/metro-responsive.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
-		<link href="css/docs.css" rel="stylesheet"> 
 	 
 		<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
-	    <script src="js/docs.js"></script>
-	    <script src="js/prettify/run_prettify.js"></script>
-	    <script src="js/ga.js"></script> 
  		<script src="js/jquery.dataTables.min.js"></script> 
-        <script src="includehtml.js"></script>    
 
   </head>
   
@@ -48,13 +42,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
 	<div class="example" data-text="เลือกโครงการ">
-	<div class="flex-grid">
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan1 "> 
-		       		<h4 class="align-right">โครงการ&nbsp;</h2>
-		    	</div>
-		    	<div class="cell colspan4" > 
-		       		 <h4><small class="input-control full-size"> 
+		<div class="grid">
+		  	<div class="row cells12">
+		    	<div class="cell colspan4 offset2" >
+					โครงการ
+					<div class="input-control full-size"> 
 		       		 <select onchange="">
 					    	<option>-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
@@ -65,13 +57,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
 					   </select>
-					   </small></h4>
-		    	</div>
-		    	<div class="cell colspan1"> 
-		    			<h4 class="align-right">เดือน&nbsp;</h4>  
+					 </div>
 		    	</div>
 		    	<div class="cell colspan2">
-		    		<h4><small class="input-control full-size"> 
+		    		เดือน
+		    		<div class="input-control full-size"> 
 					    <select onchange=""> 
 					        <option>01 - มกราคม</option>
 					        <option>02 - กุมภาพันธ์</option>
@@ -86,14 +76,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>11 - พฤศจิกายน</option>
 					        <option>12 - ธันวาคม</option>
 					    </select>
-					</small>
-					</h4>
+					</div>
 		    	</div>
-		    	<div class="cell colspan1"> 
-		    			<h4 class="align-right">ปี&nbsp;</h4>  
-		    	</div>
-		    	<div class="cell colspan1">
-		    		<h4><small class="input-control full-size"> 
+		    	<div class="cell colspan2">
+		    		ปี
+		    		<div class="input-control full-size"> 
 					    <select onchange=""> 
 					        <option>2555</option>
 					        <option>2556</option>
@@ -106,22 +93,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>2563</option>
 					        <option>2564</option>
 					        <option>2565</option>
-					        </select> 
-					</small>
-					</h4>
+					    </select> 
+					</div>
 		    	</div>
 		    </div>
-	</div> 
-	<hr/>
-	<div class="flex-grid">
+		</div>
+		<div class="flex-grid">
 		  	<div class="row flex-just-center"> 
 		    	<div class="cell colspan2" align="center"><br> 
 					  <a href="requisition-2.jsp"><button class="button success full-size" type="submit" name="add">ตกลง</button></a> 
 				</div> 
 		    </div>
-	</div>
-	<br/>  
-	<hr/>
+		</div>
 	</div> <!-- End of example --> 
 	
   </body>

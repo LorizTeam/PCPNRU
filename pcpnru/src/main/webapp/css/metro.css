@@ -17184,7 +17184,7 @@ p [data-hint] {
 }
 .select2-container--default .select2-selection--single {
   background-color: #fff;
-  border: 1px solid #aaa;
+  border: 1px solid #d9d9d9;
 }
 .select2-container--default .select2-selection--single .select2-selection__rendered {
   color: #444;

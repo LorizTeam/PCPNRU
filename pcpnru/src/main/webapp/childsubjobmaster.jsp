@@ -24,25 +24,21 @@
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
-		<link href="css/docs.css" rel="stylesheet"> 
 	 
 		<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
-	    <script src="js/docs.js"></script>
-	    <script src="js/prettify/run_prettify.js"></script>
-	    <script src="js/ga.js"></script> 
  		<script src="js/jquery.dataTables.min.js"></script>    
 
 	</head>
 
 	<body>
 		 <%@include file="topmenu.jsp" %>
-		 <br>
+		 <h3 class="align-center">สร้างชื่อกิจกรรมย่อย</h3>
 		 <html:form action="/subjobMaster" method="post">
 		 <div class="example" data-text="รายละเอียด">
          <div class="grid">
-		  	<div class="row cells6">
-		  		<div class="cell"> 
+		  	<div class="row cells12">
+		  		<div class="cell colspan2"> 
 		        	รหัส-ชื่อ กิจกรรม
 			        <div class="input-control text full-size">
 					    <select onchange="">
@@ -53,20 +49,20 @@
 					    </select>
 					</div>
 				</div>
-		  		<div class="cell"> 
-		        	รหัส-ชื่อ กิจกรรมย่อย
+		  		<div class="cell  colspan2"> 
+		        	รหัสกิจกรรมย่อย
 			        <div class="input-control text full-size">
 					    <input type="text" id="subjobcode" name="subjobCode">
 					</div>
 					<input type="hidden" id="subjobcodehd" name="subjobCodeHD">
 				</div>
-		        <div class="cell"> 
+		        <div class="cell  colspan3"> 
 		        	ชื่อกิจกรรมย่อย
 			        <div class="input-control text full-size"> 
 					    <input type="text" id="subjobname" name="subjobName">
 					</div>
 				</div> 
-				<div class="cell colspan3"><br>
+				<div class="cell colspan5"><br>
 					<button class="button success" type="submit" name="add">สร้างชื่อกิจกรรมย่อย</button> 
 				  	<button class="button primary" type="submit" name="update">แก้ไขชื่อกิจกรรมย่อย</button> 
 				  	<button class="button danger" type="submit" name="delete">ลบชื่อกิจกรรม</button>

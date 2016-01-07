@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>สร้างโครงการ</title>
+		<title>สร้างชื่อโครงการ</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -37,25 +37,25 @@
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <br>
+		 <h3 class="align-center">สร้างชื่อโครงการ</h3>
 		 <form action="projectMaster.action" method="post">
 		 <div class="example" data-text="รายละเอียด">
          <div class="grid">
-		  	<div class="row cells4">
-		        <div class="cell"> 
+		  	<div class="row cells12">
+		        <div class="cell colspan3"> 
 		        	รหัสโครงการ
 			        <div class="input-control text full-size">
 					    <input type="text" name="projectCode" id="projectcode" required>
 					</div>
 					<input type="hidden" name="projectCodeHD" id="projectcodehd">
 				</div>
-		        <div class="cell"> 
+		        <div class="cell colspan5"> 
 		        	ชื่อโครงการ
 			        <div class="input-control text full-size">
 					    <input type="text" name="projectName" id="projectname" required>
 					</div>
 				</div> 
-				<div class="cell colspan2"><br>
+				<div class="cell colspan4"><br>
 					<button class="button success" type="submit" name="add">สร้างชื่อโครงการ</button> 
 				  	<button class="button primary" type="submit" name="update">แก้ไขชื่อโครงการ</button> 
 				  	<button class="button danger" type="submit" name="delete">ลบชื่อโครงการ</button>

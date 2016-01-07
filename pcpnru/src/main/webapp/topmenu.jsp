@@ -16,14 +16,12 @@
         <li>
 			<a href="" class="dropdown-toggle">รายรับ-รายจ่าย</a>
             <ul class="d-menu" data-role="dropdown">
-                <li class="divider"></li>
                 <li><a href="" class="dropdown-toggle">รายรับ</a>
                     <ul class="d-menu" data-role="dropdown">
                         <li><a href="receive-1.jsp">ทำรายการรับ</a></li>
                         <li><a href="select_receive-1.jsp">รายละเอียดการรับ</a></li> 
                     </ul>
                 </li>
-                <li class="divider"></li>
                 <li><a href="" class="dropdown-toggle">รายจ่าย</a>
                     <ul class="d-menu" data-role="dropdown">
                         <li><a href="requisition-1.jsp">ทำรายการจ่าย</a></li>
@@ -35,13 +33,11 @@
         <li>
 			<a href="" class="dropdown-toggle">รายงาน</a>
             <ul class="d-menu" data-role="dropdown">
-                <li class="divider"></li>
                 <li><a href="" class="dropdown-toggle">รายงานการรับ</a>
                     <ul class="d-menu" data-role="dropdown"> 
                         <li><a href="reportreceive.jsp">รายงาน ประจำวัน, เดือน, ไตรมาส, ปี</a></li> 
                     </ul>
                 </li>
-                <li class="divider"></li>
                 <li><a href="" class="dropdown-toggle">รายงานการจ่าย</a>
                     <ul class="d-menu" data-role="dropdown"> 
                         <li><a href="reportreceive.jsp">รายงาน ประจำวัน, เดือน, ไตรมาส, ปี</a></li> 

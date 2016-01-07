@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>สร้าง กิจกรรม</title>
+		<title>สร้าง รายการค่าใช้จ่าย</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -11,36 +11,31 @@
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
-		<link href="css/docs.css" rel="stylesheet"> 
-	 
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
-	    <script src="js/docs.js"></script>
-	    <script src="js/prettify/run_prettify.js"></script>
-	    <script src="js/ga.js"></script> 
         <script src="js/jquery.dataTables.min.js"></script>
   		
 	</head>
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <br>
+		 <h3 class="align-center">สร้าง รายการค่าใช้จ่าย</h3>
 		 <div class="example" data-text="รายละเอียด">
          <div class="grid">
-		  	<div class="row cells5">
-		  		<div class="cell"> 
+		  	<div class="row cells12">
+		  		<div class="cell colspan2"> 
 		        	รหัส รายการค่าใช้จ่าย
 			        <div class="input-control text full-size">
 					    <input type="text">
 					</div>
 				</div>
-		        <div class="cell"> 
-		        	รหัส รายการค่าใช้จ่าย
+		        <div class="cell colspan4"> 
+		        	 รายการค่าใช้จ่าย
 			        <div class="input-control text full-size">
 					    <input type="text">
 					</div>
 				</div> 
-				<div class="cell colspan3"><br>
+				<div class="cell colspan6"><br>
 					  <button class="button success">สร้างชื่อรายการค่าใช้จ่าย</button> 
 					  <button class="button primary">แก้ไขชื่อรายการค่าใช้จ่าย</button> 
 					  <button class="button danger">ลบชื่อรายการค่าใช้จ่าย</button> 

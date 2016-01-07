@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  		<script src="js/jquery.dataTables.min.js"></script>
   		<script src="js/bootstrap-datepicker-th.js"></script>
 		<script src="js/select2.js"></script>
-
+		
   </head>
   
   <body>
