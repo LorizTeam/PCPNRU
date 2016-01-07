@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,20 +24,20 @@
     <script src="js/metro.js"></script>
     
     <div class="login-form padding20 block-shadow">
-        <form action="index.jsp">
+        <form action="login.action" method="post">
             <h1 class="text-light">Login to service</h1>
             <hr class="thin"/>
             <br />
             <div class="input-control text full-size">
                 <label for="user_login">User email:</label>
-                <input type="text" name="user_login" id="user_login" required>
+                <s:textfield name="empmodel.username" required=""/>
                 <button class="button helper-button clear"><span class="mif-cross"></span></button>
             </div>
             <br />
             <br />
             <div class="input-control password full-size">
                 <label for="user_password">User password:</label>
-                <input type="password" name="user_password" id="user_password" required>
+                <s:password name="empmodel.password" required=""/>
                 <button class="button helper-button reveal"><span class="mif-looks"></span></button>
             </div>
             <br />
