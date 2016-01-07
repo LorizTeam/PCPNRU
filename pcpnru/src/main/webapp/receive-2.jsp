@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %> 
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.projectData.*" %>
@@ -50,6 +50,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 type: 'alert'
             });
         }
+        function sumAmount(){
+        	var qty = document.getElementById("qty").value;
+        	var amount = document.getElementById("amount").value; 
+        	
+        	var amountTotal = qty*amount;
+        	document.getElementById("amountTotal").value = amountTotal;
+        }
+        function changeCoin(){
+        	var amtt = document.getElementById("amtt").value;
+        	var receiveAmt = document.getElementById("receiveAmt").value; 
+        	
+        	var amtt = amtt.replace(",", ""); 
+        	var receiveAmt = receiveAmt.replace(",", "");
+        	
+        	var changeCoin = receiveAmt-amtt;
+        	document.getElementById("change").value = changeCoin;
+        	if(receiveAmt==0){
+        		document.getElementById("change").value = '';
+        	}
+        }
+        function printreceive() { 
+        	
+        	var chk1 = document.getElementById("receiveAmt").value; 
+        	if(chk1!=''){
+        	
+        	var para = document.getElementById("docNoHD").value; 
+        	
+    		var load = window.open('/pcpnru/receiveReport.action?'+ 
+    				
+    				'&docNoHD='+para
+    				,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
+        	}
+        }
     </script>
   
   <body>
@@ -60,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			String dateTime 	= (String) request.getAttribute("dateTime");
   			String costCode 	= (String) request.getAttribute("costCode");
   			String amountFrom 	= (String) request.getAttribute("amountFrom");
-  			String local 		= (String) request.getAttribute("local");
+  			String local 		= (String) request.getAttribute("local"); 
   			
   			List ReceiveList1 = null;
   			if (request.getAttribute("ReceiveList") == null) {
@@ -121,14 +154,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan3">
 		    		จำนวน<div class="input-control full-size success">
 		    			<input type="hidden" id="itemNo" name="itemNo"> 
-					    <input type="text" id="qty" name="qty" data-validate-func="required" data-validate-hint="This field can not be empty">
+					    <input type="text" id="qty" name="qty" onkeyup="sumAmount();" data-validate-func="required" data-validate-hint="This field can not be empty">
 						<span class="input-state-error mif-warning"></span>
                        <span class="input-state-success mif-checkmark"></span>
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
 		    		ราคาต่อหน่วย<div class="input-control full-size success"> 
-					    <input type="text" id="amount" name="amount">
+					    <input type="text" id="amount" name="amount" onkeyup="sumAmount();">
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
@@ -136,40 +169,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <input type="text" id="amountTotal" name="amountTotal">
 					</div>
 		    	</div> 
-		    </div>   
-		    <br> 
-		  	<div class="row flex-just-center">
-		    	<div class="cell colspan3" align="center">
+		    	<div class="cell colspan3" align="center"><br>
 					  <button class="button success" type="submit" name="add">เพิ่ม</button> 
 					  <button class="button primary" type="submit" name="update">แก้ไข</button> 
 					  <button class="button danger" type="submit" name="delete">ลบ</button>
-				</div> 
-		    </div>
-		    </form>
-		    <br>
-		    <form action="receiveReport.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
-		    <div class="row cells12">  
-		    	<div class="cell colspan3">
-		    		จำนวนเงินที่ได้รับ<div class="input-control full-size success"> 
-					    <input type="text" data-validate-func="required" data-validate-hint="This field can not be empty">
-						<span class="input-state-error mif-warning"></span>
-                       <span class="input-state-success mif-checkmark"></span>
-					</div>
-		    	</div> 
-		    	<div class="cell colspan3">
-		    		ทอน<div class="input-control full-size success"> 
-					    <input type="text" >
-					</div>
-		    	</div>  <br>
-		    	<div class="cell colspan3"> 
-		    		  <input type="hidden" name="docNoHD" value="<%=docNo%>">
-					  <button class="button warning full-size" type="submit" name="print"><span class="mif-print mif-lg fg-black"></span></button>
 				</div>
 		    </div>    
-		    </form>
-	<br/>  
-	<hr/>
-	</div> <!-- End of example --> 
+		    </form> 
+		</div> <!-- End of example --> 
 	</div>
 	
 	<div class="example" data-text="รายการ">
@@ -198,10 +205,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <td class="tdqty" align="center"><%=revL.getQty()%></td>  
                     <td class="tdamount" align="center"><%=revL.getAmount()%></td>
                     <td class="tdamountTotal" align="center"><%=revL.getAmountTotal()%></td>
-                </tr> 
-                <% 	} %>
-                
-                <%} else { %> 
+                </tr>  
+                <% 	} %> 
+	                
+                <% }  else { %> 
                 	<tr> 
                     <td colspan="5">ไม่พบข้อมูล</td> 
                 	</tr> 
@@ -209,6 +216,40 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </tbody>
             </table>
         </div> <!-- End of example table --> 
+        
+    <div class="example" data-text="รายการเงินรวม">
+	<div class="grid">
+	<form action="receiveReport.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
+		    <div class="row cells12"> 
+		     	<div class="cell colspan3">
+		    		จำนวนเงินรวม<div class="input-control full-size success">  
+					    <input type="text" id="amtt" name="amtt" data-validate-func="required" data-validate-hint="This field can not be empty">
+						<span class="input-state-error mif-warning"></span>
+                       <span class="input-state-success mif-checkmark"></span>
+					</div>
+		    	</div> 
+		    	<div class="cell colspan3">
+		    		จำนวนเงินที่ได้รับ<div class="input-control full-size success"> 
+					    <input type="text" id="receiveAmt" name="receiveAmt" onkeyup="changeCoin();" data-validate-func="required" data-validate-hint="This field can not be empty">
+						<span class="input-state-error mif-warning"></span>
+                       <span class="input-state-success mif-checkmark"></span>
+					</div>
+		    	</div> 
+		    	<div class="cell colspan3">
+		    		จำนวนเงินทอน<div class="input-control full-size success"> 
+					    <input type="text" id="change" name="change" >
+					</div>
+		    	</div>  <br>
+		    	<div class="cell colspan3"> 
+		    		  <input type="hidden" id="docNoHD" name="docNoHD" value="<%=docNo%>">
+		    		  <a href="javascript:printreceive();" class="button warning full-size"><span class="mif-print mif-lg fg-black"></span></a>
+					   
+				</div>
+		    </div>    
+		    </form>
+	 </div>
+	</div> <!-- End of example -->
+	
         
 	<script type="text/javascript">
   	$(document).ready(function() {

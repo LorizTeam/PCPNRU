@@ -8,12 +8,16 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import pcpnru.projectData.Receive1DB;
+ 
 import pcpnru.projectData.Receive2DB;
+import pcpnru.projectModel.ReceiveForm;
 
 
 public class Receive2Action extends ActionSupport {
 	
+	private ReceiveForm receivef;
+ 
+	@Override
 	public String execute() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
 	
@@ -44,7 +48,7 @@ public class Receive2Action extends ActionSupport {
 		if(add!=null){
 			Receive2DB receive2DB = new Receive2DB();
 			receive2DB.AddReceiveDT(docNo, description, qty, amount, amountTotal);
-			
+			String amtt	= receive2DB.getSumAmount(docNo);
 			// HD
 			request.setAttribute("docNo", docNo);
 			request.setAttribute("projectCode", projectCode);
@@ -52,7 +56,9 @@ public class Receive2Action extends ActionSupport {
 			request.setAttribute("costCode", costCode);
 			request.setAttribute("amountFrom", amountFrom);
 			request.setAttribute("local", local); 
-			
+			 
+		//	String test = receivef.getAmtt();
+		//	System.out.print(test);
 			forwardText = "success";
 		}
 		if(update!=null){
@@ -89,4 +95,14 @@ public class Receive2Action extends ActionSupport {
 		 
 		return forwardText;
 	}
+
+	public ReceiveForm getReceivef() {
+		return receivef;
+	}
+
+	public void setReceivef(ReceiveForm receivef) {
+		this.receivef = receivef;
+	}
+
+	 
 }
