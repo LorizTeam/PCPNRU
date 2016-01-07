@@ -30,11 +30,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet"> 
 		<link href="css/metro-schemes.css" rel="stylesheet"> 
+	 	<link href="css/sweetalert.css" rel="stylesheet" />
 	 
 		<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script> 
  		<script src="js/jquery.dataTables.min.js"></script>  
-		
+		<script src="js/sweetalert.min.js"></script>
   </head>
   
   <script>
@@ -85,6 +86,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
         	}
         }
+        function printRev(tdocNo, tamtt){
+    		swal({  title: "ยืนยันการพิมพ์เอกสาร ?",   
+    				text: "หากคุณต้องการพิมพ์เอกสารให้กดปุ่มยืนยัน !",   
+    				type: "warning",   
+    				showCancelButton: true,   
+    				confirmButtonColor: "#DD6B55",   
+    				confirmButtonText: "ยืนยัน, ฉันต้องการพิมพ์เอกสาร !",   
+    				cancelButtonText: "ไม่, ฉันไม่ต้องการพิมพ์เอกสาร !",   
+    				closeOnConfirm: false,   
+    				closeOnCancel: false,
+    				showLoaderOnConfirm: true
+    			},
+    				 
+    		function (isConfirm){
+    		  	if (isConfirm) {
+    			setTimeout(function(){
+    				var load = window.open("/pcpnru/receiveReport.action?docNoHD="+tdocNo+"&amtt="+tamtt 
+    						,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
+    			swal("พิมพ์เอกสารสำเร็จแล้ว!", "โปรดตรวจสอบรายละเอียดของเอกสารอีกครั้งเพื่อความถูกต้อง !", "success");
+    			} 
+    			 , 1000);
+     
+    			}else {    
+    			 swal("ยกเลิกการพิมพ์เอกสาร", "คุณสามารถพิมพ์เอกสารได้อีกครั้งหลังจากปิดหน้าต่างนี้ !", "error");   
+    			}
+    		});
+    		
+    		}
     </script>
   
   <body>
@@ -245,7 +274,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>  <br>
 		    	<div class="cell colspan3"> 
 		    		  <input type="hidden" id="docNoHD" name="docNoHD" value="<%=docNo%>">
-		    		  <a href="javascript:printreceive();" class="button warning full-size"><span class="mif-print mif-lg fg-black"></span></a>
+		    		  <a href="javascript:printRev('<%=docNo%>','<%=amtt%>');" class="button warning full-size"><span class="mif-print mif-lg fg-black"></span></a>
 					   
 				</div>
 		    </div>    
