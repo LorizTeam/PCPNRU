@@ -11,7 +11,6 @@
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
-		<link href="css/docs.css" rel="stylesheet">
 		<link href="css/bootstrap-datepicker3.css" rel="stylesheet"> 
 	
 	 	

@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>หน้ารายละเอียดการรับ</title>
+    <title>รายละเอียดรายรับ</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -27,32 +27,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
-        <link href="css/metro-responsive.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
-		<link href="css/docs.css" rel="stylesheet"> 
+		<link href="css/bootstrap-datepicker3.css" rel="stylesheet">
+	 	<link href="css/select2.css" rel="stylesheet"> 
 	 
 		<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
-	    <script src="js/docs.js"></script>
-	    <script src="js/prettify/run_prettify.js"></script>
-	    <script src="js/ga.js"></script> 
- 		<script src="js/jquery.dataTables.min.js"></script> 
-        <script src="includehtml.js"></script>    
+ 		<script src="js/jquery.dataTables.min.js"></script>
+  		<script src="js/bootstrap-datepicker-th.js"></script>
+		<script src="js/select2.js"></script>
 
   </head>
   
   <body>
     <div><%@include file="topmenu.jsp" %></div>
-	<br>
-	<div class="example" data-text="รายละเอียดการรับ">
-	<div class="flex-grid">
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2 "> 
-		       	<h2 class="align-right">โครงการ&nbsp;</h2>
-		    	</div>
-		    	<div class="cell colspan5" > 
-		       		 <h3><small class="input-control full-size"> 
-		       		 <select onchange="">
+	<h3 class="align-center">รายละเอียดรายรับ</h3>
+	<div class="example" data-text="รายละเอียดรายรับ">
+		<div class="grid">
+		  	<div class="row cells12">
+		    	<div class="cell colspan5 offset2" > 
+		    		โครงการ
+		       		 <div class="input-control full-size"> 
+		       		 <select onchange="" id="project_code">
 					    	<option>-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
@@ -62,27 +58,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
 					   </select>
-					   </small></h3>
+					   </div>
 		    	</div>
-		    	<div class="cell colspan2 align-right"><h2>วันที่การรับ&nbsp;</h2></div>
 		    	<div class="cell colspan2">  
-		        		<h3><small>
-					    <div class="input-control text full-size " data-role="datepicker" data-format="dd-mm-yyyy" data-scheme="green">
-                            <input type="text">
-                            <button class="button"><span class="mif-calendar"></span></button>
+		        		วันที่การรับ
+					    <div class="input-control text full-size ">
+                            <input type="text" required id="datepicker">
                         </div>
-                        </small></h3>
+                        
 				</div>
-	</div> 
-	<hr/>
-	<div class="flex-grid">
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2"> 
-		       		<h2 class="align-right">ค่าใช้จ่าย&nbsp;</h2> 	  
-		    	</div> 
-		    	<div class="cell colspan9">
-		    		<h3><small class="input-control full-size"> 
-					    <select onchange="">
+			</div> 
+		<div class="grid">
+		  	<div class="row cells12">
+		    	<div class="cell colspan7 offset2">
+		    		ค่าใช้จ่าย
+		    		<div class="input-control full-size"> 
+					    <select onchange="" id="cost_code">
 					    	<option>-- โปรดเลือก --</option>
 					        <option>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
@@ -92,52 +83,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>521800006 - สปา & ฟิตเนส</option>
 					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
 					   </select> 
-					</small></h3>
+					</div>
 		    	</div>   
 		    </div>
-		</div>
-	<hr/>
-	<div class="flex-grid">
-		  	<div class="row flex-just-center">
-		        <div class="cell colspan2"> 
-		       		<h2 class="align-right">ได้รับเงินจาก&nbsp;</h2> 	  
-		    	</div> 
-		    	<div class="cell colspan5">
-		    		<h3><small class="input-control full-size"> 
-					    <select onchange="">
+		  	<div class="row cells12">
+		    	<div class="cell colspan4 offset2">
+		    		ชื่อลูกค้า
+		    		<div class="input-control full-size"> 
+					    <select onchange=""id="cus_name">
 					    	<option>-- โปรดเลือก --</option>
-					    	<option>พานุวัฒน์ </option> 
+					    	<option>พานุวัฒน์ </option>  
 					    	<option>คุณ พงศธร </option> 
 					    	<option>จิราพร </option>
 					   </select> 
-					</small></h3>
-		    	</div>  
-		    	<div class="cell colspan2"> 
-		       		<h2 class="align-right">สถานที่&nbsp;</h2> 	  
-		    	</div> 
-		    	<div class="cell colspan2">
-		    		<h3><small class="input-control full-size"> 
-					    <select onchange="">
+					</div>
+		    	</div>
+		    	<div class="cell colspan3">
+		    		สถานที่
+		    		<div class="input-control full-size"> 
+					    <select onchange="" id="location">
 					    	<option>-- โปรดเลือก --</option>
 					    	<option>สมาร์ทไอซีที</option> 
 					    	<option>สมาร์ทฮาดร์แวร์</option> 
 					    	<option>ไอซีทีสมาร์ท</option>
 					   </select>
-					</small></h3>
+					</div>
 		    	</div>  
 		    </div>
 		</div>
-	<hr/> 
-	<div class="flex-grid">
-		  	<div class="row flex-just-center"> 
-		    	<div class="cell colspan2" align="center"><br> 
-					  <a href="select_receive-2.jsp"><button class="button success full-size" type="submit" name="add">ตกลง</button></a> 
-				</div> 
-		    </div>
-	</div>
-	<br/>  
-	<hr/>
+	  	<div class="row cells12"> 
+	    	<div class="cell colspan2 offset2" align="center"><br> 
+				 <button class="button success full-size" type="submit" name="add">ตกลง</button>
+			</div> 
+	    </div>
+		
+		<br/>  
+		</div>
 	</div> <!-- End of example --> 
-	
+	<script>
+		$(function(){
+	        $("#project_code").select2();
+	        $("#cost_code").select2();
+	        $("#cus_name").select2();
+	        $("#location").select2();
+	    });
+	    $(function(){
+	        $("#datepicker").datepicker();
+	        language: "th"
+	    });
+	</script>
   </body>
 </html>
