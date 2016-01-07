@@ -11,11 +11,22 @@ import com.opensymphony.xwork2.ActionSupport;
 import pcpnru.projectData.CostCodeMasterDB;
 import pcpnru.projectData.ProjectMasterDB;
 import pcpnru.projectData.Receive1DB;
+import pcpnru.projectModel.ReceiveForm;
 import pcpnru.utilities.DateUtil;
 
 
 public class Receive1Action extends ActionSupport {
 	
+	private ReceiveForm receiveform;
+	
+	public ReceiveForm getReceiveform() {
+		return receiveform;
+	}
+
+	public void setReceiveform(ReceiveForm receiveform) {
+		this.receiveform = receiveform;
+	}
+
 	public String execute() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
 	
@@ -36,7 +47,9 @@ public class Receive1Action extends ActionSupport {
 			String projectCode 	= request.getParameter("projectCode");
 			String dateTime 	= request.getParameter("dateTime");
 			String costCode 	= request.getParameter("costCode");
-			String amountFrom 	= request.getParameter("amountFrom");
+			String amountFrom 	= receiveform.getAmountfrom();
+			
+			System.out.println(amountFrom);
 			String local 		= request.getParameter("local");
 			
 			Receive1DB receive1DB = new Receive1DB();

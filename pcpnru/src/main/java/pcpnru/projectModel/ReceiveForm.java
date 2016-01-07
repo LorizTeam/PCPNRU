@@ -1,6 +1,9 @@
 package pcpnru.projectModel;
 
 public class ReceiveForm{
+	
+	private String amountfrom;
+	
 
 	private String docNo;
 	private String itemNo; 
@@ -107,5 +110,12 @@ public class ReceiveForm{
 	public void setAmtt(String amtt) {
 		this.amtt = amtt;
 	} 
- 
+	
+	public String getAmountfrom() {
+		return amountfrom;
+	}
+
+	public void setAmountfrom(String amountfrom) {
+		this.amountfrom = amountfrom;
+	}
 }

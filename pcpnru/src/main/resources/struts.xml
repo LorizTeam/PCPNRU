@@ -39,7 +39,7 @@
         
         <!-- 		Login 		 -->
         <action name="login" class="pcpnru.projectAction.LoginAction" method="execute">
-      		<result name="success">/login.jsp</result>
+      		<result name="success">/index.jsp</result>
     	</action>
         
         <!-- 		Login 		 -->
