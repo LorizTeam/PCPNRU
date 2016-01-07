@@ -49,7 +49,23 @@
                 </li> 
             </ul>
         </li>
-        <li><a href="employee.jsp">ข้อมูลบุคลากร</a></li> 
+        <li>
+        	<a href="" class="dropdown-toggle">ข้อมูลบุคลากร</a>
+        	<ul class="d-menu" data-role="dropdown">
+                <li class="divider"></li>
+                <li><a href="">จัดการข้อมูลบุคลากร</a>
+                </li>
+                
+                <li class="divider"></li>
+                <li><a href="" class="dropdown-toggle">จัดการข้อมูลตำแหน่งงาน</a>
+                    <ul class="d-menu" data-role="dropdown"> 
+                        <li><a href="">จัดการข้อมูลตำแหน่งงาน</a></li>
+                        <li><a href="">จัดการการเข้าถึงของตำแหน่ง</a></li> 
+                    </ul>
+                </li>
+                
+            </ul>
+        </li> 
     </ul>
      
     <div class="app-bar-element place-right"> 
