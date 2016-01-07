@@ -8,6 +8,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import pcpnru.projectData.Receive1DB;
 import pcpnru.projectData.Receive2DB;
+import pcpnru.projectData.ThaiBaht;
 import pcpnru.projectModel.ReceiveForm;
 
 
@@ -27,30 +28,12 @@ public class ReceiveReportAction extends ActionSupport {
  
 		if(docNoHD!=null){
 			//String amtt		= receive.getAmtt();
-			String amtt		= request.getParameter("amtt");
-			amtt = amtt.replace(",", "");
-			amtt = Integer.toString(Integer.parseInt(amtt));
-			String text = "", valueText = ""; 
+			String amtt		= request.getParameter("amtt"); 
 			
-			for(int i=0,j=1; i<amtt.length(); i++,j++){ 
-				
-				String vAmt = amtt.substring(i, j);
-				
-				switch (Integer.parseInt(vAmt)) {
-				case 0: text = "ศูนย์"; break;
-				case 1: text = "หนึ่ง"; break;
-				case 2: text = "สอง"; break;
-				case 3: text = "สาม"; break;
-				case 4: text = "สี่"; break;
-				case 5: text = "ห้า"; break;
-				case 6: text = "หก"; break;
-				case 7: text = "เจ็ด"; break;
-				case 8: text = "แปด"; break;
-				case 9: text = "เก้า"; break;
-				}
-				valueText = valueText+text;
-			}
-			
+			ThaiBaht thaiBaht = new ThaiBaht();
+			String valueTHB = thaiBaht.getText(amtt);
+			 
+			request.setAttribute("valueTHB", valueTHB);
 			request.setAttribute("docNoHD", docNoHD);
 			forwardText = "print";
 		}else{ 

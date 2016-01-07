@@ -56,6 +56,7 @@ public class Receive2Action extends ActionSupport {
 			request.setAttribute("costCode", costCode);
 			request.setAttribute("amountFrom", amountFrom);
 			request.setAttribute("local", local); 
+			request.setAttribute("amtt", amtt); 
 			 
 		//	String test = receivef.getAmtt();
 		//	System.out.print(test);
@@ -65,6 +66,7 @@ public class Receive2Action extends ActionSupport {
 			Receive2DB receive2DB = new Receive2DB();
 			 
 			receive2DB.UpdateReceive(docNo, itemNo, description, qty, amount, amountTotal);
+			String amtt	= receive2DB.getSumAmount(docNo);
 			// HD
 			request.setAttribute("docNo", docNo);
 			request.setAttribute("projectCode", projectCode);
@@ -72,6 +74,7 @@ public class Receive2Action extends ActionSupport {
 			request.setAttribute("costCode", costCode);
 			request.setAttribute("amountFrom", amountFrom);
 			request.setAttribute("local", local);
+			request.setAttribute("amtt", amtt); 
 			
 			forwardText = "success";
 		}
@@ -79,6 +82,7 @@ public class Receive2Action extends ActionSupport {
 			Receive2DB receive2DB = new Receive2DB(); 
 			
 			receive2DB.DeleteReceiveDT(docNo, itemNo);
+			String amtt	= receive2DB.getSumAmount(docNo);
 			// HD
 			request.setAttribute("docNo", docNo);
 			request.setAttribute("projectCode", projectCode);
@@ -86,6 +90,7 @@ public class Receive2Action extends ActionSupport {
 			request.setAttribute("costCode", costCode);
 			request.setAttribute("amountFrom", amountFrom);
 			request.setAttribute("local", local);
+			request.setAttribute("amtt", amtt);
 			
 			forwardText = "success";
 		}

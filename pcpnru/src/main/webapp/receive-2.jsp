@@ -75,11 +75,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	var chk1 = document.getElementById("receiveAmt").value; 
         	if(chk1!=''){
         	
-        	var para = document.getElementById("docNoHD").value; 
+        	var para1 = document.getElementById("docNoHD").value; 
+        	var para2 = document.getElementById("amtt").value;
         	
     		var load = window.open('/pcpnru/receiveReport.action?'+ 
     				
-    				'&docNoHD='+para
+    				'&docNoHD='+para1+
+    				'&amtt='+para2
     				,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
         	}
         }
@@ -94,6 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			String costCode 	= (String) request.getAttribute("costCode");
   			String amountFrom 	= (String) request.getAttribute("amountFrom");
   			String local 		= (String) request.getAttribute("local"); 
+  			String amtt 		= (String) request.getAttribute("amtt");
   			
   			List ReceiveList1 = null;
   			if (request.getAttribute("ReceiveList") == null) {
@@ -223,7 +226,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <div class="row cells12"> 
 		     	<div class="cell colspan3">
 		    		จำนวนเงินรวม<div class="input-control full-size success">  
-					    <input type="text" id="amtt" name="amtt" data-validate-func="required" data-validate-hint="This field can not be empty">
+					    <input type="text" id="amtt" name="amtt" value="<%=amtt%>" data-validate-func="required" data-validate-hint="This field can not be empty">
 						<span class="input-state-error mif-warning"></span>
                        <span class="input-state-success mif-checkmark"></span>
 					</div>

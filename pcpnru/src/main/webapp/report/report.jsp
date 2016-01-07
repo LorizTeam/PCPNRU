@@ -11,6 +11,7 @@
 	String filejrxml = application.getRealPath("report/report1.jrxml");
 	
 	String docNoHD = (String) request.getAttribute("docNoHD");
+	String valueTHB = (String) request.getAttribute("valueTHB");
 	
 	File reportFile = new File(filejrxml);
 	if (!reportFile.exists()){
@@ -24,6 +25,7 @@
 	
 	Map prm = new HashMap();
 	prm.put("prmdocno", docNoHD.trim());
+	prm.put("prmthb", valueTHB);
 	
 	JasperPrint jasperPrint = JasperFillManager.fillReport(jr, prm, conn);
 	
