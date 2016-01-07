@@ -122,24 +122,28 @@ public class Receive2DB {
 		pStmt.close();
 		conn.close();
 	}
-	public boolean getCheckMaster(String materialCode) throws Exception {
+	public String getSumAmount(String docNo) throws Exception {
 	
-	boolean chkCustomer = false;
+	String amountTotal = "";
+	DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
+	DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
+	
 	conn = agent.getConnectMYSql();
  	
- 	String sqlStmt = "SELECT material_code " +
-	"FROM material_master WHERE material_code = '"+materialCode+"' ";
+ 	String sqlStmt = "SELECT sum(amounttotal) as att " +
+	"FROM receivedt WHERE docno = '"+docNo+"' Group by docno ";
  	
  	pStmt = conn.createStatement();
 	rs = pStmt.executeQuery(sqlStmt);	
 	
 	while (rs.next()) {
-		chkCustomer = true;
+		amountTotal = rs.getString("att"); 
 	}
+	amountTotal 	= df2.format(Float.parseFloat(amountTotal));
 	
 	rs.close();
 	pStmt.close();
 	
-	return chkCustomer;
+	return amountTotal;
 	}
 }

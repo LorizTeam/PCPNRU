@@ -9,13 +9,13 @@ public class ReceiveForm{
 	private String amount; 
 	private String amountTotal;
 	
+	private String amtt;
+	
 	private String add;
 	private String update;
 	private String delete;
 	
-	public ReceiveForm() {
-		super();
-		// TODO Auto-generated constructor stub
+	public ReceiveForm() { 
 	}
 
 	public ReceiveForm(String docNo, String itemNo, String description, String qty, String amount, String amountTotal) {
@@ -98,6 +98,14 @@ public class ReceiveForm{
 
 	public void setDelete(String delete) {
 		this.delete = delete;
+	}
+
+	public String getAmtt() {
+		return amtt;
+	}
+
+	public void setAmtt(String amtt) {
+		this.amtt = amtt;
 	} 
  
 }
