@@ -54,10 +54,10 @@
 				</div> 
 		        <div class="cell"> 
 		        	วันที่โครงการ
-		        	 <div class="input-daterange" id="datepicker">
-					    <input type="text" class="input-sm form-control" id="start" name="start" size="10" />
-					    <span class="input-group-addon">to</span>
-					    <input type="text" class="input-sm form-control" id="endstart" name="endstart" size="10" />
+		        	 <div class="input-daterange " id="daterange">
+					    <input type="text" id="start" name="start" size="10" />
+					    <span class="input-group-addon"> - </span>
+					    <input type="text" id="endstart" name="endstart" size="10" />
 					</div>
 				</div> 
 				<div class="cell"><br>
@@ -209,7 +209,7 @@
 	    $(function(){
 	        $("#datepicker").datepicker();
 	        language: "th"
-	    });
+	   
 	    
 	    $("#monthyear").datepicker({
 	    	format: "mm-yyyy",
@@ -237,7 +237,8 @@
 	        autoclose: true,
 	        todayHighlight: true
 	    });
-	    $("#.input-daterange").datepicker({
+	    
+	    $(".input-daterange").datepicker({
 	        format: "dd-mm-yyyy",
 	        startDate: "-0d",
 	        maxViewMode: 1,
@@ -246,6 +247,6 @@
 	        autoclose: true,
 	        todayHighlight: true
 	    });
-	    
+	    });
 	</script>
 </html>

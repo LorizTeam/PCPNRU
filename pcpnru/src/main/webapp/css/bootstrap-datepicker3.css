@@ -788,10 +788,10 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
   text-align: center;
 }
 .input-daterange input:first-child {
-  border-radius: 3px 0 0 3px;
+     border: 1px #d9d9d9 solid;
 }
 .input-daterange input:last-child {
-  border-radius: 0 3px 3px 0;
+      border: 1px #d9d9d9 solid;
 }
 .input-daterange .input-group-addon {
   width: auto;
@@ -802,8 +802,6 @@ fieldset[disabled] .datepicker table tr td span.active.disabled:hover.focus {
   text-align: center;
   text-shadow: 0 1px 0 #fff;
   vertical-align: middle;
-  background-color: #eeeeee;
-  border: solid #cccccc;
   border-width: 1px 0;
   margin-left: -5px;
   margin-right: -5px;
