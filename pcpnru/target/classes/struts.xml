@@ -8,12 +8,13 @@
     <constant name="struts.devMode" value="true" />
  
     <package name="pcpnru" extends="struts-default">
-    
-    	<action name="kk">
-            <result>/index.jsp</result>
-        </action>
  		
+<<<<<<< HEAD
  		<!-- 		ProjectMaster 		 -->
+=======
+ 		
+ 		<!-- 							MASTER 							-->
+>>>>>>> origin/newfeatures
         <action name="projectMaster" class="pcpnru.projectAction.ProjectMasterAction" method="execute">
       		<result name="success">/projectmaster.jsp</result>
     	</action>
@@ -30,6 +31,13 @@
       		<result name="success">/childsubjobmaster.jsp</result>
     	</action>
     	<!-- 		ChildSubjobMaster 		 -->
+    	
+    	<action name="costcodeMaster" class="pcpnru.projectAction.CosecodeMasterAction" method="execute">
+      		<result name="success">/costcodemaster.jsp</result>
+    	</action>
+    	
+    	<!-- 							MASTER 							-->
+    	
     	
     	<!-- 		Receive 		 -->   
     	

@@ -68,6 +68,10 @@ public class CostCodeMasterForm {
 	public void setDelete(String delete) {
 		this.delete = delete;
 	}
-	
+	public void reset(){
+		this.costCodeHD = "";
+		this.costCode = ""; 
+		this.costName = "";
+	}
 	
 }
