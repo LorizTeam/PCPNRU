@@ -58,33 +58,33 @@ public class CostCodeMasterDB {
 		return costCodeMasterList;
 	 }
 	
-	public void AddProjectMaster(String projectCode, String projectName)  throws Exception{
+	public void AddCostCodeMaster(String costCode, String costName)  throws Exception{
+		
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "INSERT IGNORE INTO project_master(project_code, project_name) " +
-		"VALUES ('"+projectCode+"', '"+projectName+"')";
+		String sqlStmt = "INSERT INTO `costcode_master` (`costcode`, `costname`) VALUES ('"+costCode+"', '"+costName+"')";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();
 		conn.close();
 	}
-	public void UpdateProjectMaster(String projectCode, String projectName, String projectCodeHD)  throws Exception{
+	public void UpdateCostCodeMaster(String costCode, String costName, String costCodeHD)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "UPDATE project_master set project_code = '"+projectCode+"', project_name = '"+projectName+"' " +
-				"WHERE project_code = '"+projectCodeHD+"'";
+		String sqlStmt = "UPDATE costcode_master set costcode = '"+costCode+"', costname = '"+costName+"' " +
+				"WHERE costcode = '"+costCodeHD+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();
 		conn.close();
 	}
-	public void DeleteProjectMaster(String projectCode)  throws Exception{
+	public void DeleteCostCodeMaster(String costCode)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "DELETE From project_master "+
-		"WHERE project_code = '"+projectCode+"'";
+		String sqlStmt = "DELETE From costcode_master "+
+		"WHERE costCode = '"+costCode+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
