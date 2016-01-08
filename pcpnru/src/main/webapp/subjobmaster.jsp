@@ -4,13 +4,8 @@
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.utilities.*" %>
 <%
-	List subjobMasterList1 = null;
-	if (request.getAttribute("SubjobMasterList") == null) {
 	SubjobMasterDB subjM = new SubjobMasterDB();
-	subjobMasterList1 = subjM.GetSubjobMasterList("","");
-	}else{
-	subjobMasterList1 = (List) request.getAttribute("subjobMasterList");
-	}
+	List subjobMasterList = subjM.GetSubjobMasterList("","");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,21 +32,21 @@
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
 		 <h3 class="align-center">สร้างชื่อกิจกรรม</h3>
-		 <html:form action="/subjobMaster" method="post">
+		 <form action="subjobMaster.action" method="post">
 		 <div class="example" data-text="รายละเอียด">
          <div class="grid">
 		  	<div class="row cells12">
 		  		<div class="cell colspan3"> 
 		        	รหัส-ชื่อ กิจกรรม
-			        <div class="input-control text full-size">
-					    <input type="text" id="subjobcode" name="subjobCode">
-					</div>
-					<input type="hidden" id="subjobcodehd" name="subjobCodeHD">
+			        <div class="input-control text full-size"> 
+					    <s:textfield id="subjobcode" name="subjobMaster.subjobCode" required="" />
+					    <s:hidden id="subjobcodehd" name="subjobMaster.subjobCodeHD" />
+					</div> 
 				</div>
 		        <div class="cell colspan5"> 
 		        	ชื่อกิจกรรม
 			        <div class="input-control text full-size"> 
-					    <input type="text" id="subjobname" name="subjobName">
+					    <s:textfield id="subjobname" name="subjobMaster.subjobName" required="" />
 					</div>
 				</div> 
 				<div class="cell colspan4"><br>
@@ -62,7 +57,7 @@
 		    </div>
 		 </div>  
 		</div>  
-		 
+		
         <div class="example" data-text="รายการ">
             <table id="table_subjob" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
@@ -74,8 +69,7 @@
                 </thead> 
                   
                 <tbody>
-                <%	if (subjobMasterList1 != null) {
-						List subjobMasterList = subjobMasterList1;
+                <%	if (subjobMasterList != null) {
 						int x = 0;
 						for (Iterator iter = subjobMasterList.iterator(); iter.hasNext();) {
 						x++; 
@@ -95,9 +89,9 @@
                 <%	} %>
                 </tbody>
             </table>
-        </div> <!-- End of example table -->  
-        </html:form>
-     
+        </div> <!-- End of example table --> 
+     	</form>
+     	
    		<script>
         $(document).ready(function() {
     	var table = $('#table_subjob').DataTable(); 

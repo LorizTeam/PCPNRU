@@ -21,6 +21,12 @@ public class ProjectMasterForm {
 		this.projectName = projectName;
 	}
 	
+	public void reset() {
+		this.projectCode = "";
+		this.projectCodeHD = "";
+		this.projectName = "";
+	}
+	
 	public String getProjectCodeHD() {
 		return projectCodeHD;
 	}

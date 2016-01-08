@@ -72,9 +72,9 @@ public class SubjobMasterDB {
 	public void UpdateSubjobMaster(String subjobCode, String subjobName, String subjobCodeHD)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "UPDATE subjob_master set subjob_code = '"+subjobCode+"', subjob_name = '"+subjobName+"', " +
+		String sqlStmt = "UPDATE subjob_master set subjob_code = '"+subjobCode+"', subjob_name = '"+subjobName+"' " +
 				"WHERE subjob_code = '"+subjobCodeHD+"'";
-		//System.out.println(sqlStmt);
+		//System.out.println(sqlStmt); 
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();

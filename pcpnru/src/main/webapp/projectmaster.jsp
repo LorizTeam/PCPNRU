@@ -3,14 +3,10 @@
 <%@ page import="pcpnru.projectData.*" %>
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.utilities.*" %>
-<%
-	List projectMasterList1 = null;
-	if (request.getAttribute("projectMasterList") == null) {
+<% 
 	ProjectMasterDB projM = new ProjectMasterDB();
-	projectMasterList1 = projM.GetProjectMasterList("","");
-	}else{
-	projectMasterList1 = (List) request.getAttribute("projectMasterList");
-	}
+	List projectMasterList = projM.GetProjectMasterList("","");
+	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,21 +40,21 @@
 		  	<div class="row cells12">
 		        <div class="cell colspan3"> 
 		        	รหัสโครงการ
-			        <div class="input-control text full-size">
-					    <input type="text" name="projectCode" id="projectcode" required>
-					</div>
-					<input type="hidden" name="projectCodeHD" id="projectcodehd">
+			        <div class="input-control text full-size"> 
+					    <s:textfield id="projectcode" name="projectMaster.projectCode" required="" />
+					    <s:hidden id="projectcodehd" name="projectMaster.projectCodeHD" />
+					</div>  
 				</div>
 		        <div class="cell colspan5"> 
 		        	ชื่อโครงการ
-			        <div class="input-control text full-size">
-					    <input type="text" name="projectName" id="projectname" required>
+			        <div class="input-control text full-size"> 
+					    <s:textfield id="projectname" name="projectMaster.projectName" required="" />
 					</div>
 				</div> 
 				<div class="cell colspan4"><br>
 					<button class="button success" type="submit" name="add">สร้างชื่อโครงการ</button> 
 				  	<button class="button primary" type="submit" name="update">แก้ไขชื่อโครงการ</button> 
-				  	<button class="button danger" type="submit" name="delete">ลบชื่อโครงการ</button>
+				  	<button class="button danger" type="submit" name="delete">ลบชื่อโครงการ</button> 
 				</div> 
 		    </div>
 		 </div>  
@@ -75,8 +71,7 @@
                 </thead> 
                   
                 <tbody>
-                <%	if (projectMasterList1 != null) {
-						List projectMasterList = projectMasterList1;
+                <%	if (projectMasterList != null) { 
 						int x = 0;
 						for (Iterator iter = projectMasterList.iterator(); iter.hasNext();) {
 						x++; 

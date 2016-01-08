@@ -4,13 +4,11 @@
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.utilities.*" %>
 <%
-	List subjobMasterList1 = null;
-	if (request.getAttribute("SubjobMasterList") == null) {
+	ChildSubjobMasterDB childsubjM = new ChildSubjobMasterDB();
+	List childSubjobMasterList = childsubjM.GetChildSubjobMasterList("","","");
+	
 	SubjobMasterDB subjM = new SubjobMasterDB();
-	subjobMasterList1 = subjM.GetSubjobMasterList("","");
-	}else{
-	subjobMasterList1 = (List) request.getAttribute("subjobMasterList");
-	}
+	List subjobMasterList = subjM.GetSubjobMasterList("","");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,32 +32,40 @@
 	<body>
 		 <%@include file="topmenu.jsp" %>
 		 <h3 class="align-center">สร้างชื่อกิจกรรมย่อย</h3>
-		 <html:form action="/subjobMaster" method="post">
+		 <form action="childSubjobMaster.action" method="post">
 		 <div class="example" data-text="รายละเอียด">
          <div class="grid">
 		  	<div class="row cells12">
 		  		<div class="cell colspan2"> 
 		        	รหัส-ชื่อ กิจกรรม
 			        <div class="input-control text full-size">
-					    <select onchange="">
-					    	<option>-- โปรดเลือก --</option>
-					        <option>0001 - งบบุคลากร</option>
-					        <option>0001 - งบดำเนินการ</option>
-					        <option>0001 - หมวดรายจ่ายอื่น ๆ</option>
-					    </select>
+					    <select id="subjobcode" name="subjobcode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
+						   <option value="">โปรดเลือก</option>
+						   <% 
+			        		if (subjobMasterList != null) {
+				        		for (Iterator iterSj = subjobMasterList.iterator(); iterSj.hasNext();) {
+				        			SubjobMasterForm sjInfo = (SubjobMasterForm) iterSj.next();
+		      				%>  
+			      			<option value="<%=sjInfo.getSubjobCode()%> - <%=sjInfo.getSubjobName()%>" >
+			       			 	<%=sjInfo.getSubjobCode()%> - <%=sjInfo.getSubjobName()%>
+			       			</option>
+							<%		} 
+			        			}
+							%>
+					   </select>
 					</div>
 				</div>
 		  		<div class="cell  colspan2"> 
 		        	รหัสกิจกรรมย่อย
-			        <div class="input-control text full-size">
-					    <input type="text" id="subjobcode" name="subjobCode">
-					</div>
-					<input type="hidden" id="subjobcodehd" name="subjobCodeHD">
+			        <div class="input-control text full-size"> 
+					    <s:textfield id="childsubjobcode" name="childSubjobMaster.childsubjobcode" required="" />
+					    <s:hidden id="childsubjobcodehd" name="childSubjobMaster.childsubjobcodehd" />
+					</div> 
 				</div>
 		        <div class="cell  colspan3"> 
 		        	ชื่อกิจกรรมย่อย
 			        <div class="input-control text full-size"> 
-					    <input type="text" id="subjobname" name="subjobName">
+			       	 	<s:textfield id="childsubjobname" name="childSubjobMaster.childsubjobname" required="" /> 
 					</div>
 				</div> 
 				<div class="cell colspan5"><br>
@@ -72,57 +78,60 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ">
-            <table id="table_subjob" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_childsubjob" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr> 
                 	<th>เลขที่</th>
-                    <th>รหัส-กิจกรรม</th>
-                    <th>ชื่อ-กิจกรรม</th> 
+                    <th>รหัส-ชื่อ กิจกรรม</th>
+                    <th>รหัส-กิจกรรมย่อย</th> 
+                    <th>ชื่อ-กิจกรรมย่อย</th>
                 </tr>
                 </thead> 
                   
                 <tbody>
-                <%	if (subjobMasterList1 != null) {
-						List subjobMasterList = subjobMasterList1;
+                <%	if (childSubjobMasterList != null) {
 						int x = 0;
-						for (Iterator iter = subjobMasterList.iterator(); iter.hasNext();) {
+						for (Iterator iter = childSubjobMasterList.iterator(); iter.hasNext();) {
 						x++; 
-						SubjobMasterForm subjMaster = (SubjobMasterForm) iter.next();
+						ChildSubjobMasterForm cSubjMaster = (ChildSubjobMasterForm) iter.next();
 				%>
                 <tr> 
                     <td align="center"><%=x%></td>
-                    <td class="tdsubjobcode" align="center"><%=subjMaster.getSubjobCode()%></td>
-                    <td class="tdsubjobname" align="center"><%=subjMaster.getSubjobName()%></td>  
+                    <td class="tdsubjobcode" align="center"><%=cSubjMaster.getSubjobcode()%> - <%=cSubjMaster.getSubjobname()%></td>
+                    <td class="tdchildsubjobcode" align="center"><%=cSubjMaster.getChildsubjobcode()%></td>  
+                    <td class="tdchildsubjobname" align="center"><%=cSubjMaster.getChildsubjobname()%></td> 
                 </tr>	  
                 <% 	} %>
                 
                 <%} else { %> 
                 	<tr> 
-                    <td colspan="3">ไม่พบข้อมูล</td> 
+                    <td colspan="4">ไม่พบข้อมูล</td> 
                 	</tr> 
                 <%	} %>
                 </tbody>
             </table>
         </div> <!-- End of example table -->  
-        </html:form>
+        </form>
      
    		<script>
         $(document).ready(function() {
-    	var table = $('#table_subjob').DataTable(); 
-		$('#table_subjob tbody').on( 'click', 'tr', function () { 
+    	var table = $('#table_childsubjob').DataTable(); 
+		$('#table_childsubjob tbody').on( 'click', 'tr', function () { 
 	        if ( $(this).hasClass('selected') ) {
 	            $(this).removeClass('selected');
 	            $("#subjobcode").val("");
-	            $("#subjobcodehd").val("");
-	            $("#subjobname").val("");
+	            $("#childsubjobcode").val("");
+	            $("#childsubjobcodehd").val("");
+	            $("#childsubjobname").val("");
 	        }
 	        else {
 	            table.$('tr.selected').removeClass('selected');
 	            $(this).addClass('selected');
 	            var $index = $(this).index();
 	            $("#subjobcode").val($(".tdsubjobcode").eq($index).text());
-	            $("#subjobcodehd").val($(".tdsubjobcode").eq($index).text());
-	            $("#subjobname").val($(".tdsubjobname").eq($index).text());
+	            $("#childsubjobcode").val($(".tdchildsubjobcode").eq($index).text());
+	            $("#childsubjobcodehd").val($(".tdchildsubjobcode").eq($index).text());
+	            $("#childsubjobname").val($(".tdchildsubjobname").eq($index).text());
 	        }
 	    });
 	} );

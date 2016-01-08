@@ -20,6 +20,12 @@ public class SubjobMasterForm{
 		this.subjobCode = subjobCode;
 		this.subjobName = subjobName;
 	}
+	
+	public void reset() {
+		this.subjobCode = "";
+		this.subjobCodeHD = "";
+		this.subjobName = "";
+	}
 
 	public String getSubjobCodeHD() {
 		return subjobCodeHD;

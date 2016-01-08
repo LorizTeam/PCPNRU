@@ -13,9 +13,23 @@
             <result>/index.jsp</result>
         </action>
  		
+ 		<!-- 		ProjectMaster 		 -->
         <action name="projectMaster" class="pcpnru.projectAction.ProjectMasterAction" method="execute">
       		<result name="success">/projectmaster.jsp</result>
     	</action>
+    	<!-- 		ProjectMaster 		 -->
+    	
+    	<!-- 		SubjobMaster 		 -->
+        <action name="subjobMaster" class="pcpnru.projectAction.SubjobMasterAction" method="execute">
+      		<result name="success">/subjobmaster.jsp</result>
+    	</action>
+    	<!-- 		SubjobMaster 		 -->
+    	
+    	<!-- 		ChildSubjobMaster 		 -->
+        <action name="childSubjobMaster" class="pcpnru.projectAction.ChildSubjobMasterAction" method="execute">
+      		<result name="success">/childsubjobmaster.jsp</result>
+    	</action>
+    	<!-- 		ChildSubjobMaster 		 -->
     	
     	<!-- 		Receive 		 -->   
     	
