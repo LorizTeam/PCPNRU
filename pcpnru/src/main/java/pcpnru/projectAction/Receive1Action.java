@@ -138,22 +138,26 @@ public class Receive1Action extends ActionSupport {
 			String projectCode 	= request.getParameter("projectCode");
 			String dateTime 	= request.getParameter("dateTime");
 			String costCode 	= request.getParameter("costCode");
-			String amountFrom 	= receiveform.getAmountfrom();
+			String amountfrom 	= receiveform.getAmountfrom();
 			
-			System.out.println(amountFrom);
-			String local 		= request.getParameter("local");
+			System.out.println(amountfrom);
+			String local 		= receiveform.getLocal();
 			
 			Receive1DB receive1DB = new Receive1DB();
 			String docNo = receive1DB.SelectUpdateDocNo(year);
-			receive1DB.AddReceiveHD(docNo, projectCode, costCode, docDate, day, month, year, amountFrom, local); 
+			receive1DB.AddReceiveHD(docNo, projectCode, costCode, docDate, day, month, year, amountfrom, local); 
 			
 			request.setAttribute("docNo", docNo);
 			request.setAttribute("projectCode", projectCode);
 			request.setAttribute("dateTime", dateTime);
 			request.setAttribute("costCode", costCode);
-			request.setAttribute("amountFrom", amountFrom);
-			request.setAttribute("local", local);
+		//	request.setAttribute("amountFrom", amountFrom);
+		//	request.setAttribute("local", local);
 			 
+			receiveform.setAmountfrom(amountfrom);
+			receiveform.setLocal(local);
+			receiveform.setAmtt("0");
+			
 			forwardText = "success";
 		}else{ 
 			

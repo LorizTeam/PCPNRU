@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
         	}
         }
-        function printRev(tdocNo, tamtt){
+        function printRev(tdocNo){
     		swal({  title: "ยืนยันการพิมพ์เอกสาร ?",   
     				text: "หากคุณต้องการพิมพ์เอกสารให้กดปุ่มยืนยัน !",   
     				type: "warning",   
@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		function (isConfirm){
     		  	if (isConfirm) {
     			setTimeout(function(){
-    				var load = window.open("/pcpnru/receiveReport.action?docNoHD="+tdocNo+"&amtt="+tamtt 
+    				var load = window.open("/pcpnru/receiveReport.action?docNoHD="+tdocNo+"&amtt="+document.getElementById("amtt").value 
     						,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
     			swal("พิมพ์เอกสารสำเร็จแล้ว!", "โปรดตรวจสอบรายละเอียดของเอกสารอีกครั้งเพื่อความถูกต้อง !", "success");
     			} 
@@ -123,10 +123,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			String projectCode 	= (String) request.getAttribute("projectCode");
   			String dateTime 	= (String) request.getAttribute("dateTime");
   			String costCode 	= (String) request.getAttribute("costCode");
-  			String amountFrom 	= (String) request.getAttribute("amountFrom");
-  			String local 		= (String) request.getAttribute("local"); 
+  		//	String amountFrom 	= (String) request.getAttribute("amountFrom");
+  		//	String local 		= (String) request.getAttribute("local"); 
   			String amtt 		= (String) request.getAttribute("amtt");
-  			
+  			if(amtt==null) amtt = "0";
+  			 
   			List ReceiveList1 = null;
   			if (request.getAttribute("ReceiveList") == null) {
   				Receive2DB rcM = new Receive2DB();
@@ -166,12 +167,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	<div class="row cells10">  
 		    	<div class="cell colspan3">
 		    		ได้รับเงินจาก<div class="input-control full-size success"> 
-					    <input type="text" name="amountFrom" value="<%=amountFrom%>" readonly="readonly">
+					    <s:textfield name="receiveform.amountfrom" readonly="readonly" />
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
 		    		สถานที่<div class="input-control full-size success"> 
-					    <input type="text" name="local" value="<%=local%>" readonly="readonly">
+					    <s:textfield name="receiveform.local" readonly="readonly" />
 					</div>
 		    	</div> 
 		    </div>  
@@ -198,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div> 
 		    	<div class="cell colspan3">
 		    		ราคารวม<div class="input-control full-size success"> 
-					    <input type="text" id="amountTotal" name="amountTotal">
+					    <s:textfield id="amountTotal" name="amountTotal" />
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3" align="center"><br>
@@ -255,7 +256,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    <div class="row cells12"> 
 		     	<div class="cell colspan3">
 		    		จำนวนเงินรวม<div class="input-control full-size success">  
-					    <input type="text" id="amtt" name="amtt" value="<%=amtt%>" data-validate-func="required" data-validate-hint="This field can not be empty">
+						<s:textfield id="amtt" name="receiveform.amtt" data-validate-func="required" data-validate-hint="This field can not be empty" readonly="readonly" />
 						<span class="input-state-error mif-warning"></span>
                        <span class="input-state-success mif-checkmark"></span>
 					</div>
@@ -274,7 +275,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>  <br>
 		    	<div class="cell colspan3"> 
 		    		  <input type="hidden" id="docNoHD" name="docNoHD" value="<%=docNo%>">
-		    		  <a href="javascript:printRev('<%=docNo%>','<%=amtt%>');" class="button warning full-size"><span class="mif-print mif-lg fg-black"></span></a>
+		    		  <a href="javascript:printRev('<%=docNo%>');" class="button warning full-size"><span class="mif-print mif-lg fg-black"></span></a>
 					   
 				</div>
 		    </div>    

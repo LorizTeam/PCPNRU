@@ -142,8 +142,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>
 		    	<div class="cell colspan3">
 		    		สถานที่
-		    		<div class="input-control full-size"> 
-					    <input type="text" id="local" name="local" data-validate-func="required" data-validate-hint="กรุณาใส่สถานที่รับ"> 
+		    		<div class="input-control full-size">  
+					    <s:textfield id="local" name="receiveform.local" data-validate-func="required" data-validate-hint="กรุณาใส่สถานที่รับ" /> 
 					    <span class="input-state-success mif-checkmark"></span> 
 					</div>
 		    	</div>  

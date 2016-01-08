@@ -1,8 +1,10 @@
-<%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%> 
+<%@ page import="pcpnru.projectModel.*" %>
+<%@ page import="pcpnru.projectData.*" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>topmenu</title>
+		<title>หน้าออกรายงาน</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -13,7 +15,6 @@
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/bootstrap-datepicker3.css" rel="stylesheet"> 
 	
-	 	
 	 	<script src="js/jquery-2.1.3.min.js"></script> 
 	    <script src="js/metro.js"></script>
   		<script src="js/bootstrap-datepicker-th.js"></script>
@@ -22,31 +23,42 @@
 	</head>
 
 	<body>
+	<%
+			ProjectMasterDB projM = new ProjectMasterDB();
+			List projectMasterList = projM.GetProjectMasterList("", "");
+		
+  	%>
+	
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <br>
-		 <div class="example" data-text="รายวัน">
+		 <h3 class="align-center">หน้าออกรายงาน</h3>
+		 <div class="example" data-text="ช่วงวัน">
          <div class="grid">
 		  	<div class="row cells4">
 		        <div class="cell"> 
 		        	รหัส-ชื่อ โครงการ
 			        <div class="input-control text full-size">
 					    <select onchange="">
-					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
-					        <option>521800002 - กาสลอง</option>
-					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-					        <option>521800004 - โรงแรม</option>
-					        <option>521800005 - ศูนย์บริการ</option>
-					        <option>521800006 - สปา & ฟิตเนส</option>
-					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
+					    	<%
+			        		if (projectMasterList != null) {
+				        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
+				        			ProjectMasterForm pjInfo = (ProjectMasterForm) iterPj.next();
+		      				%>  
+				      			<option value="<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>" >
+				       			 	<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>
+				       			</option>
+								<%		} 
+									}
+								%> 
 					    </select>
 					</div>
 				</div> 
 		        <div class="cell"> 
 		        	วันที่โครงการ
-		        	 <div class="input-control text full-size"> 
-                          <input type="text" id="datepicker">
-                     </div>
+		        	 <div class="input-daterange" id="datepicker">
+					    <input type="text" class="input-sm form-control" id="start" name="start" size="10" />
+					    <span class="input-group-addon">to</span>
+					    <input type="text" class="input-sm form-control" id="endstart" name="endstart" size="10" />
+					</div>
 				</div> 
 				<div class="cell"><br>
 					  <button class="button success">Print</button> 
@@ -54,6 +66,39 @@
 		    </div>
 		 </div>  
 		</div>  
+		<div class="example" data-text="รายวัน">
+         <div class="grid">
+		  	<div class="row cells4">
+		        <div class="cell"> 
+		        	รหัส-ชื่อ โครงการ
+			        <div class="input-control text full-size">
+					    <select onchange="">
+					    	<%
+			        		if (projectMasterList != null) {
+				        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
+				        			ProjectMasterForm pjInfo = (ProjectMasterForm) iterPj.next();
+		      				%>  
+				      			<option value="<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>" >
+				       			 	<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>
+				       			</option>
+								<%		} 
+									}
+								%> 
+					    </select>
+					</div>
+				</div> 
+		        <div class="cell"> 
+		        	วันที่โครงการ
+		        	<div class="input-control text full-size">
+		        	 <input type="text" id="date">
+		        	 </div>
+				</div> 
+				<div class="cell"><br>
+					  <button class="button success">Print</button> 
+				</div> 
+		    </div>
+		 </div>  
+		</div>
 		<div class="example" data-text="รายเดือน">
          <div class="grid">
 		  	<div class="row cells4">
@@ -61,52 +106,24 @@
 		        	รหัส-ชื่อ โครงการ
 			        <div class="input-control text full-size">
 					    <select onchange="">
-					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
-					        <option>521800002 - กาสลอง</option>
-					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-					        <option>521800004 - โรงแรม</option>
-					        <option>521800005 - ศูนย์บริการ</option>
-					        <option>521800006 - สปา & ฟิตเนส</option>
-					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
+					    	<%
+			        		if (projectMasterList != null) {
+				        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
+				        			ProjectMasterForm pjInfo = (ProjectMasterForm) iterPj.next();
+		      				%>  
+				      			<option value="<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>" >
+				       			 	<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>
+				       			</option>
+								<%		} 
+									}
+								%> 
 					    </select>
 					</div>
-				</div>
-		        <div class="cell"> 
-		        		เดือน
-					    <div class="input-control text full-size">
-                           <select onchange=""> 
-					        <option>01 - มกราคม</option>
-					        <option>02 - กุมภาพันธ์</option>
-					        <option>03 - มีนาคม</option>
-					        <option>04 - เมษายน</option>
-					        <option>05 - พฤษภาคม</option>
-					        <option>06 - มิถุนายน</option>
-					        <option>07 - กรกฎาคม</option> 
-					        <option>08 - สิงหาคม</option>
-					        <option>09 - กันยายน</option>
-					        <option>10 - ตุลาคม</option>
-					        <option>11 - พฤศจิกายน</option>
-					        <option>12 - ธันวาคม</option>
-					    </select> 
-                        </div> 
 				</div> 
 				<div class="cell">
-						ปี
+						เดือน-ปี
 					    <div class="input-control text full-size">
-                           <select onchange=""> 
-					        <option>2555</option>
-					        <option>2556</option>
-					        <option>2557</option>
-					        <option>2558</option>
-					        <option>2559</option>
-					        <option>2560</option>
-					        <option>2561</option>
-					        <option>2562</option>
-					        <option>2563</option>
-					        <option>2564</option>
-					        <option>2565</option>
-					        </select> 
+                           <input type="text" id="monthyear"> 
                         </div>
 				</div>
 				<div class="cell"><br>
@@ -122,14 +139,17 @@
 		        	รหัส-ชื่อ โครงการ
 			        <div class="input-control text full-size">
 					    <select onchange="">
-					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
-					        <option>521800002 - กาสลอง</option>
-					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-					        <option>521800004 - โรงแรม</option>
-					        <option>521800005 - ศูนย์บริการ</option>
-					        <option>521800006 - สปา & ฟิตเนส</option>
-					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
+					    	<%
+			        		if (projectMasterList != null) {
+				        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
+				        			ProjectMasterForm pjInfo = (ProjectMasterForm) iterPj.next();
+		      				%>  
+				      			<option value="<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>" >
+				       			 	<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>
+				       			</option>
+								<%		} 
+									}
+								%> 
 					    </select>
 					</div>
 				</div>  
@@ -157,33 +177,24 @@
 		        	รหัส-ชื่อ โครงการ
 			        <div class="input-control text full-size">
 					    <select onchange="">
-					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
-					        <option>521800002 - กาสลอง</option>
-					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-					        <option>521800004 - โรงแรม</option>
-					        <option>521800005 - ศูนย์บริการ</option>
-					        <option>521800006 - สปา & ฟิตเนส</option>
-					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
+					    	<%
+			        		if (projectMasterList != null) {
+				        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
+				        			ProjectMasterForm pjInfo = (ProjectMasterForm) iterPj.next();
+		      				%>  
+				      			<option value="<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>" >
+				       			 	<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>
+				       			</option>
+								<%		} 
+									}
+								%> 
 					    </select>
 					</div>
 				</div>  
 				<div class="cell">
 						ปี
 					    <div class="input-control text full-size">
-                           <select onchange=""> 
-					        <option>2555</option>
-					        <option>2556</option>
-					        <option>2557</option>
-					        <option>2558</option>
-					        <option>2559</option>
-					        <option>2560</option>
-					        <option>2561</option>
-					        <option>2562</option>
-					        <option>2563</option>
-					        <option>2564</option>
-					        <option>2565</option>
-					        </select> 
+                            <input type="text" id="year">
                         </div>
 				</div>
 				<div class="cell"><br>
@@ -199,5 +210,42 @@
 	        $("#datepicker").datepicker();
 	        language: "th"
 	    });
+	    
+	    $("#monthyear").datepicker({
+	    	format: "mm-yyyy",
+	        startView: 2,
+	        minViewMode: 1,
+	        todayBtn: true,
+	        clearBtn: true,
+	        autoclose: true,
+	        todayHighlight: true
+	    });
+	    $("#year").datepicker({
+		    format: "yyyy",
+	        startView: 2,
+	        minViewMode: 2,
+	        todayBtn: true,
+	        clearBtn: true,
+	        autoclose: true,
+	        todayHighlight: true
+	    });
+	    $("#date").datepicker({
+	        format: "dd-mm-yyyy",
+	        maxViewMode: 1,
+	        todayBtn: true,
+	        clearBtn: true,
+	        autoclose: true,
+	        todayHighlight: true
+	    });
+	    $("#.input-daterange").datepicker({
+	        format: "dd-mm-yyyy",
+	        startDate: "-0d",
+	        maxViewMode: 1,
+	        todayBtn: true,
+	        clearBtn: true,
+	        autoclose: true,
+	        todayHighlight: true
+	    });
+	    
 	</script>
 </html>

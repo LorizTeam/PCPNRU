@@ -15,8 +15,15 @@ import pcpnru.projectModel.ReceiveForm;
 
 public class Receive2Action extends ActionSupport {
 	
-	private ReceiveForm receivef;
+	private ReceiveForm receiveform;
  
+	public ReceiveForm getReceiveform() {
+		return receiveform;
+	} 
+	public void setReceiveform(ReceiveForm receiveform) {
+		this.receiveform = receiveform;
+	}
+
 	@Override
 	public String execute() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -26,8 +33,10 @@ public class Receive2Action extends ActionSupport {
 		String projectCode 	= request.getParameter("projectCode");
 		String dateTime 	= request.getParameter("dateTime");
 		String costCode 	= request.getParameter("costCode");
-		String amountFrom 	= request.getParameter("amountFrom");
-		String local 		= request.getParameter("local");
+		//String amountFrom 	= request.getParameter("amountFrom");
+		String amountfrom 	= receiveform.getAmountfrom();
+		//String local 		= request.getParameter("local");
+		String local 		= receiveform.getLocal();
 		// DT 
 		String itemNo 	= request.getParameter("itemNo").trim();
 		String description 	= request.getParameter("description");
@@ -53,10 +62,10 @@ public class Receive2Action extends ActionSupport {
 			request.setAttribute("docNo", docNo);
 			request.setAttribute("projectCode", projectCode);
 			request.setAttribute("dateTime", dateTime);
-			request.setAttribute("costCode", costCode);
-			request.setAttribute("amountFrom", amountFrom);
-			request.setAttribute("local", local); 
-			request.setAttribute("amtt", amtt); 
+			request.setAttribute("costCode", costCode); 
+			receiveform.setAmountfrom(amountfrom);
+			receiveform.setLocal(local); 
+			receiveform.setAmtt(amtt);
 			 
 		//	String test = receivef.getAmtt();
 		//	System.out.print(test);
@@ -72,9 +81,9 @@ public class Receive2Action extends ActionSupport {
 			request.setAttribute("projectCode", projectCode);
 			request.setAttribute("dateTime", dateTime);
 			request.setAttribute("costCode", costCode);
-			request.setAttribute("amountFrom", amountFrom);
-			request.setAttribute("local", local);
-			request.setAttribute("amtt", amtt); 
+			receiveform.setAmountfrom(amountfrom);
+			receiveform.setLocal(local); 
+			receiveform.setAmtt(amtt);
 			
 			forwardText = "success";
 		}
@@ -88,9 +97,9 @@ public class Receive2Action extends ActionSupport {
 			request.setAttribute("projectCode", projectCode);
 			request.setAttribute("dateTime", dateTime);
 			request.setAttribute("costCode", costCode);
-			request.setAttribute("amountFrom", amountFrom);
-			request.setAttribute("local", local);
-			request.setAttribute("amtt", amtt);
+			receiveform.setAmountfrom(amountfrom);
+			receiveform.setLocal(local); 
+			receiveform.setAmtt(amtt);
 			
 			forwardText = "success";
 		}
@@ -100,14 +109,6 @@ public class Receive2Action extends ActionSupport {
 		 
 		return forwardText;
 	}
-
-	public ReceiveForm getReceivef() {
-		return receivef;
-	}
-
-	public void setReceivef(ReceiveForm receivef) {
-		this.receivef = receivef;
-	}
-
+ 
 	 
 }

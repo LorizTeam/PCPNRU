@@ -3,7 +3,7 @@ package pcpnru.projectModel;
 public class ReceiveForm{
 	
 	private String amountfrom;
-	
+	private String local; 
 
 	private String docNo;
 	private String itemNo; 
@@ -117,5 +117,13 @@ public class ReceiveForm{
 
 	public void setAmountfrom(String amountfrom) {
 		this.amountfrom = amountfrom;
+	}
+
+	public String getLocal() {
+		return local;
+	}
+
+	public void setLocal(String local) {
+		this.local = local;
 	}
 }
