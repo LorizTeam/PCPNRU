@@ -8,13 +8,9 @@
     <constant name="struts.devMode" value="true" />
  
     <package name="pcpnru" extends="struts-default">
- 		
-<<<<<<< HEAD
- 		<!-- 		ProjectMaster 		 -->
-=======
- 		
+ 			
  		<!-- 							MASTER 							-->
->>>>>>> origin/newfeatures
+
         <action name="projectMaster" class="pcpnru.projectAction.ProjectMasterAction" method="execute">
       		<result name="success">/projectmaster.jsp</result>
     	</action>
