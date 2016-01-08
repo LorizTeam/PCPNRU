@@ -1,5 +1,6 @@
 package pcpnru.projectAction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import pcpnru.projectData.CostCodeMasterDB;
 import pcpnru.projectData.ProjectMasterDB;
 import pcpnru.projectData.Receive1DB;
+import pcpnru.projectModel.ProjectMasterForm;
 import pcpnru.projectModel.ReceiveForm;
 import pcpnru.utilities.DateUtil;
 
@@ -18,7 +20,35 @@ import pcpnru.utilities.DateUtil;
 public class Receive1Action extends ActionSupport {
 	
 	private ReceiveForm receiveform;
+	private List projectMasterList = new ArrayList();
+	private ProjectMasterForm ProjectMasterForm;
+	ProjectMasterDB projectMasterDB = new ProjectMasterDB();
 	
+	public ProjectMasterForm getProjectMasterForm() {
+		return ProjectMasterForm;
+	}
+
+	public void setProjectMasterForm(ProjectMasterForm projectMasterForm) {
+		ProjectMasterForm = projectMasterForm;
+	}
+
+	public List getProjectMasterList() {
+		try {
+			
+			projectMasterList = projectMasterDB.GetProjectMasterList("", "");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("In getProject MasterList: "+projectMasterList);
+		return projectMasterList;
+	}
+
+	public void setProjectMasterList(List projectMasterList) {
+		this.projectMasterList = projectMasterList;
+	}
+
 	public ReceiveForm getReceiveform() {
 		return receiveform;
 	}
@@ -26,10 +56,71 @@ public class Receive1Action extends ActionSupport {
 	public void setReceiveform(ReceiveForm receiveform) {
 		this.receiveform = receiveform;
 	}
-
+	
+	
+	private String countryId;
+	 
+	  private List<Object> countryList = new ArrayList<Object>();
+	 
+	  public void SelectTagExample(){
+	      countryList.add(new CountryVO("IndiaKey", "India"));
+	      countryList.add(new CountryVO("USAKey", "USA"));
+	      countryList.add(new CountryVO("UKKey", "UK"));
+	     System.out.println("In Constructor: "+countryList);
+	  }
+	  public String getCountryId() {
+	   return countryId;
+	  }
+	 
+	  public void setCountryId(String countryId) {
+	   this.countryId = countryId;
+	  }
+	 
+	  public List<Object> getCountryList() {
+	      System.out.println("In getCountryList(): "+ countryList);
+	      return countryList;
+	    
+	  }
+	 
+	  public void setCountryList(List<Object> countryList) {
+	      System.out.println("In setCountryList(): "+ countryList);
+	   this.countryList = countryList;
+	  } 
+	 
+	//inner class
+	public class CountryVO {  
+	        String countryKey;
+	        String countryName;
+	   
+	        public String getCountryKey() {
+	        return countryKey;
+	    }
+	 
+	    public void setCountryKey(String countryKey) {
+	        this.countryKey = countryKey;
+	    }
+	 
+	    public String getCountryName() {
+	        return countryName;
+	    }
+	 
+	    public void setCountryName(String countryName) {
+	        this.countryName = countryName;
+	    }
+	     
+	     public CountryVO(String countryKey,String countryName) {  
+	                 super();  
+	                this.countryKey=countryKey;
+	                this.countryName = countryName;
+	             } 
+	    
+	 }  
+	
 	public String execute() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
-	
+		
+		
+		
 		String ok 				= request.getParameter("ok");
 		String alertMassage			= "";
 		 
@@ -65,13 +156,19 @@ public class Receive1Action extends ActionSupport {
 			 
 			forwardText = "success";
 		}else{ 
-			ProjectMasterDB projectMasterDB = new ProjectMasterDB();
+			
+			setProjectMasterList(getProjectMasterList());
+			
 			List projectMasterList = projectMasterDB.GetProjectMasterList("", "");
+			
 			request.setAttribute("projectMasterList", projectMasterList);
 			
 			CostCodeMasterDB costCodeMasterDB = new CostCodeMasterDB();
 			List costCodeMasterList = costCodeMasterDB.GetCostCodeMasterList("", "");
 			request.setAttribute("costCodeMasterList", costCodeMasterList);
+			
+			SelectTagExample();
+			setCountryList(getCountryList());
 			
 			forwardText = "error";
 		}

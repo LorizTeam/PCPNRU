@@ -168,8 +168,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     });
 
     $(function(){
-        $("#datepicker").datepicker();
-        language: "th"
+        $("#datepicker").datepicker({
+        	autoclose:true
+        	
+        });
+        
     });
 </script>
 </html>
