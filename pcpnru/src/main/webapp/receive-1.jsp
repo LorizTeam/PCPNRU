@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan5 offset2" > 
 		    		 โครงการ
 		       		 <div class="input-control full-size"> 
-		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
+		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ" onchange="">
 					   <%
 					   	List projectMasterList = projectMasterList1;
 		        		if (projectMasterList != null) {
@@ -115,18 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan7  offset2">
 		    		ค่าใช้จ่าย<div class="input-control full-size"> 
 					    <select id="cost_code" name="costCode" data-validate-func="required" data-validate-hint="กรุณาเลือกประเภทค่าใช้จ่าย">
-					    	<%
-					   	List costCodeMasterList = costCodeMasterList1;
-		        		if (costCodeMasterList != null) {
-			        		for (Iterator iterCc = costCodeMasterList.iterator(); iterCc.hasNext();) {
-			        			CostCodeMasterForm ccInfo = (CostCodeMasterForm) iterCc.next();
-	      				%>  
-			      			<option value="<%=ccInfo.getCostCode()%> - <%=ccInfo.getCostName()%>">
-			       			 	<%=ccInfo.getCostCode()%> - <%=ccInfo.getCostName()%>
-			       			</option>
-							<%		} 
-								}
-							%>
+					    	 
 					   </select> 
 	                    	<span class="input-state-success mif-checkmark"></span> 
 					</div>
@@ -164,15 +153,42 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </body>
   <script>
     $(function(){
+    	
         $("#project_code").select2();
-        $("#cost_code").select2();
-    });
-
-    $(function(){
+       // $("#cost_code").select2();
+        
         $("#datepicker").datepicker({
         	autoclose:true,todayBtn: "linked"
         	
         });
+        
+        $( "#project_code" ).change(function() {
+  		  
+			var project_code = $("#project_code").val();
+			var out = '<option value="">โปรดเลือก</option>';
+			
+			$.ajax({  // select history
+			  	 
+	          type: "post",
+	          url: "ajax_receive-1.jsp", //this is my servlet 
+	          data: {projectCode:project_code},
+	          async:true, 
+	          success: function(result){
+	          
+	          obj = JSON.parse(result);
+	          	// alert(obj)
+	          for(var i = 0 ; i < obj.length; i++){
+					out +=  
+					'<option value="'+obj[i].costcode+' - '+obj[i].costname+'">'+
+					   obj[i].costcode+' - '+obj[i].costname+
+					'</option>'; 
+				}  
+				$("#cost_code").html(out);
+	          }
+	       });
+			
+		});
+        
         
     });
 </script>
