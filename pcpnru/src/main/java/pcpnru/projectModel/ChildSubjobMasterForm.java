@@ -3,6 +3,7 @@ package pcpnru.projectModel;
 public class ChildSubjobMasterForm{
 
 	private String childsubjobcodehd;
+	private String subjobcodehd;
 	private String subjobcode;
 	private String subjobname;
 	private String childsubjobcode; 
@@ -103,6 +104,14 @@ public class ChildSubjobMasterForm{
 
 	public void setDateTime(String dateTime) {
 		this.dateTime = dateTime;
+	}
+
+	public String getSubjobcodehd() {
+		return subjobcodehd;
+	}
+
+	public void setSubjobcodehd(String subjobcodehd) {
+		this.subjobcodehd = subjobcodehd;
 	}
 
 	

@@ -27,11 +27,14 @@ public class ChildSubjobMasterAction extends ActionSupport {
 		ChildSubjobMasterDB childSubjobMasterDB = new ChildSubjobMasterDB();
 		
 		String subjobcode		= request.getParameter("subjobcode");
+		String subjobcodehd		= childSubjobMaster.getSubjobcodehd();
 		String childsubjobcode 	= childSubjobMaster.getChildsubjobcode();
 		String childsubjobname 	= childSubjobMaster.getChildsubjobname();
  
 		String[] sj = subjobcode.split(" - ");
 		subjobcode = sj[0].trim();
+		String[] sjhd = subjobcodehd.split(" - ");
+		subjobcodehd = sjhd[0].trim();
 		
 		String add 					= request.getParameter("add");
 		String update 				= request.getParameter("update");
@@ -49,7 +52,7 @@ public class ChildSubjobMasterAction extends ActionSupport {
 		if(update!=null){
 	   		String childsubjobcodehd 	= childSubjobMaster.getChildsubjobcodehd();
 			if(!subjobcode.equals("")&&!childsubjobcode.equals("")&&!childsubjobname.equals("")&&!childsubjobcodehd.equals("")){
-				childSubjobMasterDB.UpdateChildSubjobMaster(subjobcode, childsubjobcode, childsubjobname, childsubjobcodehd);
+				childSubjobMasterDB.UpdateChildSubjobMaster(subjobcode, childsubjobcode, childsubjobname, subjobcodehd, childsubjobcodehd);
 				childSubjobMaster.reset();
 			}else{
 				alertMassage = "กรุณา กรอก ข้อมูลให้ครบถ้วน";

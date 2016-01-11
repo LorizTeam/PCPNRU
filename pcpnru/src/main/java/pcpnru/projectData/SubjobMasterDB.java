@@ -64,6 +64,39 @@ public class SubjobMasterDB {
 		}
 		return subjobMasterList;
 	 }
+	public List SubjobDropDown(String subjobCode, String subjobName) 
+			throws Exception { //30-05-2014
+				List subjobDropDown = new ArrayList();
+				String dateTime = "";
+				DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
+				DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
+				try {
+				
+					conn = agent.getConnectMYSql();
+					
+					String sqlStmt = "SELECT subjob_code, subjob_name " +
+					"FROM subjob_master " +
+					"WHERE "; 
+					
+					sqlStmt = sqlStmt + "subjob_code <> '' order by subjob_code";
+					
+					//System.out.println(sqlStmt);				
+					pStmt = conn.createStatement();
+					rs = pStmt.executeQuery(sqlStmt);	
+					while (rs.next()) {
+						subjobCode 	= rs.getString("subjob_code");
+						if (rs.getString("subjob_name") != null) 		subjobName = rs.getString("subjob_name"); else subjobName = "";
+						 
+						subjobDropDown.add(new SubjobMasterForm(subjobCode, subjobName));
+					}
+					rs.close();
+					pStmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				    throw new Exception(e.getMessage());
+				}
+				return subjobDropDown;
+			 }
 	
 	public void AddSubjobMaster(String subjobCode, String subjobName)  throws Exception{
 		conn = agent.getConnectMYSql();
@@ -85,6 +118,14 @@ public class SubjobMasterDB {
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();
+		
+		sqlStmt = "UPDATE childsubjob_master set subjobcode = '"+subjobCode+"' " +
+				"WHERE subjobcode = '"+subjobCodeHD+"'";
+		//System.out.println(sqlStmt); 
+		pStmt = conn.createStatement();
+		pStmt.executeUpdate(sqlStmt);
+		pStmt.close();
+		
 		conn.close();
 	}
 	public void DeleteSubjobMaster(String subjobCode)  throws Exception{

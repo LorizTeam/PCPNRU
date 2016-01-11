@@ -8,7 +8,7 @@
 	List childSubjobMasterList = childsubjM.GetChildSubjobMasterList("","","");
 	
 	SubjobMasterDB subjM = new SubjobMasterDB();
-	List subjobMasterList = subjM.GetSubjobMasterList("","");
+	List subjobDropDown = subjM.SubjobDropDown("","");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +42,8 @@
 					    <select id="subjobcode" name="subjobcode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
 						   <option value="">โปรดเลือก</option>
 						   <% 
-			        		if (subjobMasterList != null) {
-				        		for (Iterator iterSj = subjobMasterList.iterator(); iterSj.hasNext();) {
+			        		if (subjobDropDown != null) {
+				        		for (Iterator iterSj = subjobDropDown.iterator(); iterSj.hasNext();) {
 				        			SubjobMasterForm sjInfo = (SubjobMasterForm) iterSj.next();
 		      				%>  
 			      			<option value="<%=sjInfo.getSubjobCode()%> - <%=sjInfo.getSubjobName()%>" >
@@ -54,6 +54,7 @@
 							%>
 					   </select>
 					</div>
+					<s:hidden id="subjobcodehd" name="childSubjobMaster.subjobcodehd" />
 				</div>
 		  		<div class="cell  colspan2"> 
 		        	รหัสกิจกรรมย่อย
@@ -122,6 +123,7 @@
 	        if ( $(this).hasClass('selected') ) {
 	            $(this).removeClass('selected');
 	            $("#subjobcode").val("");
+	            $("#subjobcodehd").val("");
 	            $("#childsubjobcode").val("");
 	            $("#childsubjobcodehd").val("");
 	            $("#childsubjobname").val("");
@@ -131,6 +133,7 @@
 	            $(this).addClass('selected');
 	            var $index = $(this).index();
 	            $("#subjobcode").val($(".tdsubjobcode").eq($index).text());
+	            $("#subjobcodehd").val($(".tdsubjobcode").eq($index).text());
 	            $("#childsubjobcode").val($(".tdchildsubjobcode").eq($index).text());
 	            $("#childsubjobcodehd").val($(".tdchildsubjobcode").eq($index).text());
 	            $("#childsubjobname").val($(".tdchildsubjobname").eq($index).text());
