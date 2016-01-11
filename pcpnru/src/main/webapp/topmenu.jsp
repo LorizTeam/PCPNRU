@@ -42,7 +42,8 @@
                     <ul class="d-menu" data-role="dropdown"> 
                         <li><a href="reportreceive.jsp">รายงาน ประจำวัน, เดือน, ไตรมาส, ปี</a></li> 
                     </ul>
-                </li> 
+                </li>
+                <li><a href="analyze.pdf">วิเคราะห์งบ</a></li> 
             </ul>
         </li>
         <li>

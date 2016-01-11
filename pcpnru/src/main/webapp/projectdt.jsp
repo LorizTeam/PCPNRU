@@ -35,7 +35,7 @@
 			  	 ค่าใช้จ่าย
 			    <small>จัดการค่าใช้จ่ายของโครงการ</small>
 			</a>
-			<a href="#" class="command-button success">
+			<a href="projectplan.pdf" class="command-button success">
 			    <span class="icon mif-printer"></span>
 			  	 พิมพ์
 			    <small>พิมพ์รายงานประมาณการรายได้ รายจ่าย</small>

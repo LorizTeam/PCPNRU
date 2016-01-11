@@ -185,7 +185,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>
 		    </div>  
 		  	<div class="row cells12">  
-		    	<div class="cell colspan3">
+		    	<div class="cell colspan2">
 		    		จำนวน<div class="input-control full-size success">
 		    			<input type="hidden" id="itemNo" name="itemNo"> 
 					    <input type="text" id="qty" name="qty" onkeyup="sumAmount();" data-validate-func="required" data-validate-hint="This field can not be empty">
@@ -193,20 +193,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                        <span class="input-state-success mif-checkmark"></span>
 					</div>
 		    	</div> 
-		    	<div class="cell colspan3">
+		    	<div class="cell colspan2">
 		    		ราคาต่อหน่วย<div class="input-control full-size success"> 
 					    <input type="text" id="amount" name="amount" onkeyup="sumAmount();">
 					</div>
 		    	</div> 
-		    	<div class="cell colspan3">
+		    	<div class="cell colspan2">
 		    		ราคารวม<div class="input-control full-size success"> 
 					    <s:textfield id="amountTotal" name="amountTotal" />
 					</div>
 		    	</div> 
-		    	<div class="cell colspan3" align="center"><br>
-					  <button class="button success" type="submit" name="add">เพิ่ม</button> 
-					  <button class="button primary" type="submit" name="update">แก้ไข</button> 
-					  <button class="button danger" type="submit" name="delete">ลบ</button>
+		    	<div class="cell colspan6" align="center"><br>
+					  <button class="button success" type="submit" name="add">บันทึกรายได้</button> 
+					  <button class="button primary" type="submit" name="update">แก้ไขรายการ</button> 
+					  <button class="button danger" type="submit" name="delete">ลบรายการ</button>
 				</div>
 		    </div>    
 		    </form> 

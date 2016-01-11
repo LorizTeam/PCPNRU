@@ -244,10 +244,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<div class="flex-grid">
 		  	<div class="row flex-just-center">
-		    	<div class="cell colspan3" align="center">
-					  <button class="button success" type="submit" name="add">เพิ่ม</button> 
-					  <button class="button success" type="submit" name="update">แก้ไข</button> 
-					  <button class="button success" type="submit" name="delete">ลบ</button>
+		    	<div class="cell colspan12" align="center">
+					  <button class="button success" type="submit" name="add">บันทึกการเบิก</button> 
+					  <button class="button success" type="submit" name="update">แก้ไขรายการ</button> 
+					  <button class="button success" type="submit" name="delete">ลบรายการ</button>
 				</div> 
 		    </div>
 		</div> 
