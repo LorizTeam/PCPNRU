@@ -29,6 +29,7 @@ public class ChildSubjobMasterForm{
 	}
 	
 	public void reset() {
+		this.subjobcodehd = "";
 		this.childsubjobcodehd = ""; 
 		this.childsubjobcode = "";
 		this.childsubjobname = "";
