@@ -67,6 +67,7 @@
                 	<th>เลขที่</th>
                     <th>รหัส-โครงการ</th>
                     <th>ชื่อ-โครงการ</th> 
+                    <th>วันเวลา-โครงการ</th>
                 </tr>
                 </thead> 
                   
@@ -80,7 +81,8 @@
                 <tr> 
                     <td align="center"><%=x%></td>
                     <td class="tdprojectcode" align="center"><%=projMaster.getProjectCode()%></td>
-                    <td class="tdprojectname" align="center"><%=projMaster.getProjectName()%></td>  
+                    <td class="tdprojectname" align="center"><%=projMaster.getProjectName()%></td>
+                    <td align="center"><%=projMaster.getDateTime()%></td>  
                 </tr>	  
                 <% 	} %>
                 

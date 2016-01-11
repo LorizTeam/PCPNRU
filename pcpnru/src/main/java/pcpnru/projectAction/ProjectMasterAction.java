@@ -8,6 +8,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import pcpnru.projectData.*;
 import pcpnru.projectModel.*;
+import pcpnru.utilities.DateUtil;
  
 
 public class ProjectMasterAction extends ActionSupport {
@@ -34,8 +35,11 @@ public class ProjectMasterAction extends ActionSupport {
 		String delete 				= request.getParameter("delete");
 		String alertMassage			= "";
 		 
+		DateUtil dateUtil = new DateUtil();
+		String dateTime = dateUtil.curDateTime();
+		
 		if(add!=null){ 
-			if(!projectCode.equals("")&&!projectName.equals("")){ 
+			if(!projectCode.equals("")&&!projectName.equals("")){
 				projectMasterDB.AddProjectMaster(projectCode, projectName);
 				projectMaster.reset(); 
 			}else{
@@ -44,7 +48,7 @@ public class ProjectMasterAction extends ActionSupport {
 		}
 		if(update!=null){
 	   		String projectCodeHD 	= projectMaster.getProjectCodeHD();
-	   		if(!projectCode.equals("")&&!projectName.equals("")&&!projectCodeHD.equals("")){ 
+	   		if(!projectCode.equals("")&&!projectName.equals("")&&!projectCodeHD.equals("")){
 	   			projectMasterDB.UpdateProjectMaster(projectCode, projectName, projectCodeHD);
 	   			projectMaster.reset(); 
 	   		}else{

@@ -58,6 +58,7 @@
                 <tr>  
                     <th>รหัส-รายการค่าใช้จ่าย</th>
                     <th>ชื่อ-รายการค่าใช้จ่าย</th> 
+                    <th>วันเวลา-รายการค่าใช้จ่าย</th>
                 </tr>
                 </thead> 
                   
@@ -77,6 +78,7 @@
         			<tr>  
                     <td class="tdcostCode" align="center"><%=ccInfo.getCostCode()%></td>
                     <td class="tdcostName" align="center"><%=ccInfo.getCostName()%></td>   
+                    <td align="center"><%=ccInfo.getDateTime()%></td>
                 	</tr>
         		<%		
         			}

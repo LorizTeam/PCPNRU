@@ -5,6 +5,7 @@ public class ProjectMasterForm {
 	private String projectCodeHD;
 	private String projectCode; 
 	private String projectName;
+	private String dateTime;
 	
 	private String add;
 	private String update;
@@ -15,10 +16,11 @@ public class ProjectMasterForm {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProjectMasterForm(String projectCode, String projectName) {
+	public ProjectMasterForm(String projectCode, String projectName, String dateTime) {
 		super();
 		this.projectCode = projectCode;
 		this.projectName = projectName;
+		this.dateTime	= dateTime;
 	}
 	
 	public void reset() {
@@ -73,6 +75,14 @@ public class ProjectMasterForm {
 
 	public void setDelete(String delete) {
 		this.delete = delete;
+	}
+
+	public String getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
 	}
 	 
 }

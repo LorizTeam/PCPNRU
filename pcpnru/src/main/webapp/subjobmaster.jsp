@@ -65,6 +65,7 @@
                 	<th>เลขที่</th>
                     <th>รหัส-กิจกรรม</th>
                     <th>ชื่อ-กิจกรรม</th> 
+                    <th>วันที่-กิจกรรม</th> 
                 </tr>
                 </thead> 
                   
@@ -79,6 +80,7 @@
                     <td align="center"><%=x%></td>
                     <td class="tdsubjobcode" align="center"><%=subjMaster.getSubjobCode()%></td>
                     <td class="tdsubjobname" align="center"><%=subjMaster.getSubjobName()%></td>  
+                    <td align="center"><%=subjMaster.getDateTime()%></td>
                 </tr>	  
                 <% 	} %>
                 

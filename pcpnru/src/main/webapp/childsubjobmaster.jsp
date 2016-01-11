@@ -85,6 +85,7 @@
                     <th>รหัส-ชื่อ กิจกรรม</th>
                     <th>รหัส-กิจกรรมย่อย</th> 
                     <th>ชื่อ-กิจกรรมย่อย</th>
+                    <th>วันที่-กิจกรรมย่อย</th> 
                 </tr>
                 </thead> 
                   
@@ -100,6 +101,7 @@
                     <td class="tdsubjobcode" align="center"><%=cSubjMaster.getSubjobcode()%> - <%=cSubjMaster.getSubjobname()%></td>
                     <td class="tdchildsubjobcode" align="center"><%=cSubjMaster.getChildsubjobcode()%></td>  
                     <td class="tdchildsubjobname" align="center"><%=cSubjMaster.getChildsubjobname()%></td> 
+                    <td align="center"><%=cSubjMaster.getDateTime()%></td>
                 </tr>	  
                 <% 	} %>
                 
