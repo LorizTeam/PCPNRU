@@ -21,64 +21,45 @@
 		<%@ include file='topmenu.jsp' %>
 
  		<div class="container-center"> 
- 			<a href="projecthd.jsp">
- 			<div class="tile tile-wide-x bg-teal fg-white" data-role="tile">
-		    	 <div class="tile-content iconic">
-                    <span class="icon mif-books"></span>
-                    <span class="tile-label">โครงการ</span>
-                </div>
-		    </div></a>		
-		    <div class="tile tile-wide-x bg-teal fg-white" data-role="tile">
-		    	<div class="tile-content iconic">
-		    		<span class="icon mif-clipboard"></span>
-                    <span class="tile-label">เบิกงบประมาณ</span>
-		    	</div>
-		    </div>		
-		    <div class="tile tile-wide-x bg-teal fg-white" data-role="tile">
-		    	<div class="tile-content iconic">
-		    		<span class="icon mif-dollar"></span>
-                    <span class="tile-label">รายรับ</span>
-		    	</div>
-		    </div>		
-		    <div class="tile tile-wide-x bg-teal fg-white" data-role="tile">
-		    	<div class="tile-content iconic">
-		    		<span class="icon mif-chart-line"></span>
-                    <span class="tile-label">รายงานสรุป</span>
-		    	</div>
-		    </div>
-	    		  	
- 		</div>        	
- 		<br><br><br><br><br><br><br><br><br>
-    	<h3 class="align-center fg-emerald"></h3>
+ 			<a href="projecthd.jsp"  class="command-button bg-teal fg-white">
+                <span class="icon mif-books"></span>
+              	  โครงการ
+			    <small>ดูรายละเอียดของแต่ละโครงการ</small>
+		    </a>		
+		    <a class="command-button bg-teal fg-white" >
+		    	<span class="icon mif-clipboard"></span>
+            	เบิกงบประมาณ
+            	 <small>ทำรายการ การเบิกงบประมาณ</small>
+		    </a>		
+	    	<a class="command-button bg-teal fg-white">
+	    		<span class="icon mif-dollar"></span>
+	    		รายได้
+	    		<small>ทำรายการ รายได้ของโครงการ</small>
+	    	</a>
+	    	<a class="command-button bg-teal fg-white">
+	    		<span class="icon mif-chart-line"></span>
+	    		รายงานสรุป
+	    		<small>ดูรายงานสรุปของแต่ละโครงการ</small>
+	    	</a>
+ 		</div>
 		<div class="container-center">
-			
-		<div class="grid">
-			
-			<div class="row">
-				<div class="cell" id="chart-area">	
-					<ul class="legend" style="list-style-type: square; float: right ">
-						<li style="color:rgba(0, 102, 255,1);">งบประมาณ</li>			
-						<li style="color:rgba(153, 0, 255,1);">รายจ่าย</li>
-						<li style="color:rgba(0, 204, 0,1);">คงเหลือ</li>
-						<li style="color:rgba(255, 102, 0,1);">รายรับ</li>
-						
-					</ul>														
-					<canvas id="bar" height="310" width="1000"></canvas>		
-					
-				</div>			
+			<div class="grid">
+				<div class="row">
+					<div class="cell" id="chart-area">	
+						<ul class="legend" style="list-style-type: square; float: right ">
+							<li style="color:rgba(0, 102, 255,1);">งบประมาณ</li>			
+							<li style="color:rgba(153, 0, 255,1);">รายจ่าย</li>
+							<li style="color:rgba(0, 204, 0,1);">คงเหลือ</li>
+							<li style="color:rgba(255, 102, 0,1);">รายรับ</li>
+						</ul>														
+						<canvas id="bar" height="310" width="1000"></canvas>
+					</div>			
+				</div>
 			</div>
-		</div>
-			
-			
-			
 		</div>
 
             
-            
-            
-            
-            
-              
+   
         <script src="js/jquery-2.1.3.min.js"></script>
         <script src="js/metro.js"></script>
             

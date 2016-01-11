@@ -32,24 +32,24 @@
 			
 			<div class="example" data-text="เพิ่ม">
 	         <div class="grid">
-			  	<div class="row cells4">
+			  	<div class="row cells7">
 			        
-			        <div class="cell"> 
+			        <div class="cell colspan2"> 
 			        	รายการ
 			        	 <div class="input-control text full-size"> 
 	                          <input type="text" >
 	                     </div>
 					</div> 
-					<div class="cell"> 
+					<div class="cell colspan2"> 
 			        	จำนวนเงิน
 			        	 <div class="input-control text full-size"> 
 	                          <input type="text" >
 	                     </div>
-					</div> 
-					<div class="cell"><br>
-						  <button class="button success">เพิ่ม</button> 
-						  <button class="button primary">บันทึก</button> 
-						  <button class="button danger">ลบ</button> 
+					</div>  
+					<div class="cell colspan3"><br>
+						  <button class="button success">เพิ่มประมาณการรายได้</button> 
+						  <button class="button primary">บันทึกการแก้ไข</button> 
+						  <button class="button danger">ลบรายการ</button> 
 					</div> 
 			    </div>
 			 </div>  
