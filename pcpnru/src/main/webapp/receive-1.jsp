@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>หน้ารับสินค้า</title>
+    <title>บันทึกรายได้</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -77,7 +77,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
 	<form action="receive1.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
-	<div class="example" data-text="รายการรับ">
+	<h3 class="align-center">บันทึกรายได้</h3>
+	<div class="example" data-text="รายได้">
 		<div class="grid">
 		  	<div class="row cells12">
 		       

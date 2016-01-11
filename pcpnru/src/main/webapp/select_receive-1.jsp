@@ -41,8 +41,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <div><%@include file="topmenu.jsp" %></div>
-	<h3 class="align-center">รายละเอียดรายรับ</h3>
-	<div class="example" data-text="รายละเอียดรายรับ">
+	<h3 class="align-center">รายละเอียดรายได้</h3>
+	<div class="example" data-text="รายละเอียดรายได้">
 		<div class="grid">
 		  	<div class="row cells12">
 		    	<div class="cell colspan5 offset2" > 

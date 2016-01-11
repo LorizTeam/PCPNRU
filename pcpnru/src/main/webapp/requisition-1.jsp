@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>หน้าเบิกสินค้า</title>
+    <title>หน้าเบิกงบประมาณ</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
     <div><%@include file="topmenu.jsp" %></div>
-	<br>
+	<h3 class="align-center">การเบิกงบประมาณ</h3>
 	<div class="example" data-text="เลือกโครงการ">
 		<div class="grid">
 		  	<div class="row cells12">
@@ -101,7 +101,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="flex-grid">
 		  	<div class="row flex-just-center"> 
 		    	<div class="cell colspan2" align="center"><br> 
-					  <a href="requisition-2.jsp"><button class="button success full-size" type="submit" name="add">ตกลง</button></a> 
+					  <a href="requisition-2.jsp"><button class="button success full-size" type="submit" name="add">เบิกงบประมาณ</button></a> 
 				</div> 
 		    </div>
 		</div>
