@@ -61,16 +61,15 @@
                 </li>
                 
             </ul>
+        </li>
+         <li>
+			<a href="" class="dropdown-toggle">Name User</a>
+            <ul class="d-menu" data-role="dropdown">
+                <li><a href="profile.jsp"><span class="mif-user"></span>Profile</a></li>
+                <li><a ><span class="mif-enter"></span>Logout</a></li> 
+            </ul>
         </li> 
     </ul>
      
-    <div class="app-bar-element place-right"> 
-        <a class="dropdown-toggle fg-white"> Name user</a>
-        <form class="app-bar-drop-container bg-white fg-dark place-right padding10"
-                data-role="dropdown" data-no-close="true">
-             <a href="profile.jsp" class="button fullsize primary"><span class="mif-user"></span>Profile</a>
-             <a class="button  danger"><span class="mif-enter"></span>Logout</a> 
-        </form>
-    </div> 
     
 </div>
