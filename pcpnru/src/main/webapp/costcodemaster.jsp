@@ -56,6 +56,7 @@
             <table id="table_project" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  
+                	<th>ลำดับ</th>
                     <th>รหัส-รายการค่าใช้จ่าย</th>
                     <th>ชื่อ-รายการค่าใช้จ่าย</th> 
                     <th>วันเวลา-รายการค่าใช้จ่าย</th>
@@ -67,6 +68,7 @@
                 List costCodeMasterList = null;
                 CostCodeMasterDB ccM = new CostCodeMasterDB();
         		costCodeMasterList = ccM.GetCostCodeMasterList("", "");
+        		int x = 1;
         		if(costCodeMasterList != null){
         			
         			Iterator costcodeIterate = costCodeMasterList.iterator();
@@ -75,18 +77,20 @@
         				
         				
         		%>
-        			<tr>  
+        			<tr>
+        			<td align="center"><%=x%></td>  
                     <td class="tdcostCode" align="center"><%=ccInfo.getCostCode()%></td>
                     <td class="tdcostName" align="center"><%=ccInfo.getCostName()%></td>   
                     <td align="center"><%=ccInfo.getDateTime()%></td>
                 	</tr>
         		<%		
+        		x++;
         			}
         			
         		}else{
         		%>
         			<tr>  
-                    <td colspan="2" align="center">No data found</td>   
+                    <td colspan="2" align="center">ไม่พบข้อมูล</td>   
                 	</tr>
         		<%
         		}

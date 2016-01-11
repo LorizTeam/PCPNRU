@@ -86,6 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		 โครงการ
 		       		 <div class="input-control full-size"> 
 		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ" onchange="">
+					   <option value="" >กรุณาเลือกโครงการ</option>
 					   <%
 					   	List projectMasterList = projectMasterList1;
 		        		if (projectMasterList != null) {
@@ -115,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan7  offset2">
 		    		ค่าใช้จ่าย<div class="input-control full-size"> 
 					    <select id="cost_code" name="costCode" data-validate-func="required" data-validate-hint="กรุณาเลือกประเภทค่าใช้จ่าย">
-					    	 
+					   	<option value="">กรุณาเลือกรายการค่าใช้จ่าย</option>
 					   </select> 
 	                    	<span class="input-state-success mif-checkmark"></span> 
 					</div>
@@ -158,32 +159,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        // $("#cost_code").select2();
         
         $("#datepicker").datepicker({
-        	autoclose:true,todayBtn: "linked"
+        	autoclose:true,todayBtn: "linked",todayHighlight: true,setDate:"2016-11-12"
         	
         });
         
         $( "#project_code" ).change(function() {
   		  
 			var project_code = $("#project_code").val();
-			var out = '<option value="">โปรดเลือก</option>';
+			var out = '';
 			
 			$.ajax({  // select history
 			  	 
 	          type: "post",
 	          url: "ajax_receive-1.jsp", //this is my servlet 
 	          data: {projectCode:project_code},
-	          async:true, 
+	          async:false, 
 	          success: function(result){
 	          
 	          obj = JSON.parse(result);
 	          	// alert(obj)
-	          for(var i = 0 ; i < obj.length; i++){
-					out +=  
-					'<option value="'+obj[i].costcode+' - '+obj[i].costname+'">'+
-					   obj[i].costcode+' - '+obj[i].costname+
-					'</option>'; 
-				}  
-				$("#cost_code").html(out);
+	          	
+	          	var value = obj;
+	          if( Object.keys(obj).length === 0){
+	        	  $("#cost_code").html('<option value="">กรุณาเลือกรายการค่าใช้จ่าย</option>');
+	          }else{
+		          for(var i = 0 ; i < obj.length; i++){
+						out +=  
+						'<option value="'+obj[i].costcode+' - '+obj[i].costname+'">'+
+						   obj[i].costcode+' - '+obj[i].costname+
+						'</option>'; 
+					}  
+					$("#cost_code").html(out);
+		          }
 	          }
 	       });
 			

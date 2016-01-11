@@ -30,17 +30,18 @@
                 <span class="icon mif-books"></span>
               	  โครงการ
 			    <small>ดูรายละเอียดของแต่ละโครงการ</small>
-		    </a>		
-		    <a class="command-button bg-teal fg-white" >
+		    </a>
+		    <a href="receive-1.jsp" class="command-button bg-teal fg-white">
+	    		<span class="icon mif-dollar"></span>
+	    		รายได้
+	    		<small>ทำรายการ รายได้ของโครงการ</small>
+	    	</a>		
+		    <a href="requisition-1.jsp" class="command-button bg-teal fg-white" >
 		    	<span class="icon mif-clipboard"></span>
             	เบิกงบประมาณ
             	 <small>ทำรายการ การเบิกงบประมาณ</small>
 		    </a>		
-	    	<a class="command-button bg-teal fg-white">
-	    		<span class="icon mif-dollar"></span>
-	    		รายได้
-	    		<small>ทำรายการ รายได้ของโครงการ</small>
-	    	</a>
+	    	
 	    	<a class="command-button bg-teal fg-white">
 	    		<span class="icon mif-chart-line"></span>
 	    		รายงานสรุป
