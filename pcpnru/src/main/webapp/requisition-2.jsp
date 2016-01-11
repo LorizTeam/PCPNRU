@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		       		 <h4><small class="input-control full-size"> 
 			       		 <select onchange="">
 					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
+					        <option selected>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
 					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
 					        <option>521800004 - โรงแรม</option>
@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan2">
 		    		<h4><small class="input-control full-size"> 
 				    	<select onchange=""> 
-					        <option>01 - มกราคม</option>
+					        <option selected>01 - มกราคม</option>
 					        <option>02 - กุมภาพันธ์</option>
 					        <option>03 - มีนาคม</option>
 					        <option>04 - เมษายน</option>
@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					        <option>2556</option>
 					        <option>2557</option>
 					        <option>2558</option>
-					        <option>2559</option>
+					        <option selected>2559</option>
 					        <option>2560</option>
 					        <option>2561</option>
 					        <option>2562</option>
@@ -119,7 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan4">
 		    		<h4><small class="input-control full-size"><select onchange="">
 					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
+					        <option selected>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
 					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
 					        <option>521800004 - โรงแรม</option>
@@ -136,7 +136,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<h4><small class="input-control full-size">
 			    		<select onchange="">
 					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
+					        <option selected>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
 					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
 					        <option>521800004 - โรงแรม</option>
@@ -151,6 +151,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<div class="flex-grid">
 		  	<div class="row flex-just-center">
+		        <div class="cell colspan2"> 
+		       		<h4>ดำเนินการในการจัด&nbsp;</h4> 	  
+		    	</div> 
+		    	<div class="cell colspan1">
+		    		<!-- Small radio button -->
+					<label class="input-control radio small-check" >
+					    <input type="radio" name="type">
+					    <span class="check"></span>
+					    <span class="caption">ซื้อ</span>
+					</label>
+					
+					<label class="input-control radio small-check" >
+					    <input type="radio" name="type">
+					    <span class="check"></span>
+					    <span class="caption">จ้าง</span>
+					</label>
+		    	</div>
+		    	
+		    	 
+		    	<div class="cell colspan1"> 
+		      		<h4 align="right">คำอธิบาย&nbsp;</h4> 	  
+		    	</div> 
+		    	<div class="cell colspan6">
+		    		<h4><small class="input-control full-size">
+					    <input type="text" id="subjobcode" name="subjobCode"> 
+					</small></h4>
+		    	</div>
+		    	
+		    </div>
+		</div>
+				
+		<div class="flex-grid">
+		  	<div class="row flex-just-center">
 		        <div class="cell colspan1"> 
 		       		<h4 align="right">ค่าใช้จ่าย&nbsp;</h4> 	  
 		    	</div> 
@@ -158,7 +191,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<h4><small class="input-control full-size">
 		    			<select onchange="">
 					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
+					        <option selected>521800001 - อาคารเรือนไทย</option>
 					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
 					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
 					        <option>521800004 - โรงแรม</option>
@@ -186,6 +219,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div> 
 		    </div>
 		</div> 
+		
+		<div class="flex-grid">
+		  	<div class="row flex-just-center">
+		        <div class="cell colspan2"> 
+		       		<h4 align="left">คงเหลือ ยกมา&nbsp;</h4> 	  
+		    	</div>
+		    	<div class="cell colspan3">
+		    		<h4><small class="input-control full-size">
+					    <input type="text" id="frombalance" name="frombalance" value="455,000.00"> 
+					</small></h4>
+		    	</div>
+		    	
+		    	<div class="cell colspan2"> 
+		       		<h4 align="left">คงเหลือ ยกไป&nbsp;</h4> 	  
+		    	</div>
+		    	<div class="cell colspan3">
+		    		<h4><small class="input-control full-size">
+					    <input type="text" id="tobalance" name="tofrombalance" value="400,000.00"> 
+					</small></h4>
+		    	</div>
+		    </div>
+		</div>
 		
 		<div class="flex-grid">
 		  	<div class="row flex-just-center">

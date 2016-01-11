@@ -38,6 +38,7 @@ public class CosecodeMasterAction extends ActionSupport {
 		if(add != null){
 			try {
 				costcodemasterdb.AddCostCodeMaster(costCode, costName);
+				costcodemasterform.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -45,13 +46,15 @@ public class CosecodeMasterAction extends ActionSupport {
 		}else if(update != null){
 			try {
 				costcodemasterdb.UpdateCostCodeMaster(costCode, costName, costCodeHD);
+				costcodemasterform.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else if(delete != null){
 			try {
-				costcodemasterdb.DeleteCostCodeMaster(costCode);;
+				costcodemasterdb.DeleteCostCodeMaster(costCode);
+				costcodemasterform.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

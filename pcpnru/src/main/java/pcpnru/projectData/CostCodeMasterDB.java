@@ -70,7 +70,7 @@ public class CostCodeMasterDB {
 		conn = agent.getConnectMYSql();
 		
 		String dateTime = "";
-		String sqlStmt = "INSERT INTO `costcode_master` (`costcode`, `costname`, datetime VALUES ('"+costCode+"', '"+costName+"', now())";
+		String sqlStmt = "INSERT INTO `costcode_master` (`costcode`, `costname`, datetime) VALUES ('"+costCode+"', '"+costName+"', now())";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);

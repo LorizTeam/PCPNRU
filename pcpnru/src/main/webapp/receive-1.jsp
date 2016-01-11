@@ -76,9 +76,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
-	<form action="receive1.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
 	<h3 class="align-center">บันทึกรายได้</h3>
-	<div class="example" data-text="รายได้">
+	<form action="receive1.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
+	<div class="example" data-text="รายการรับ">
 		<div class="grid">
 		  	<div class="row cells12">
 		       
@@ -170,7 +170,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     $(function(){
         $("#datepicker").datepicker({
-        	autoclose:true
+        	autoclose:true,todayBtn: "linked"
         	
         });
         

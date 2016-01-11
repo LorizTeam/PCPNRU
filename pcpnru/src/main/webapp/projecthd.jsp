@@ -57,7 +57,7 @@
 					</div>
 				</div>
 				<div class="cell colspan3"><br>
-			        	<button class="button success">จัดทำงบประมาณ</button> <button class="button primary">แก้ไขงบประมาณ</button>
+			        	<a class="button success" href="projectdt.jsp">จัดทำงบประมาณ</a> <button class="button primary">แก้ไขงบประมาณ</button>
 				</div> 
 		    </div>
 		 </div>  

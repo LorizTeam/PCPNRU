@@ -139,6 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
     <div><%@include file="topmenu.jsp" %></div>
 	<br> 
+	<h3 class="align-center">บันทึกรายได้</h3>
 	<div class="example" data-text="รายการรับ">
 	<div class="grid">
 	<form action="receive2.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
