@@ -62,13 +62,8 @@
                 
             </ul>
         </li>
-         <li>
-			<a href="" class="dropdown-toggle">Name User</a>
-            <ul class="d-menu" data-role="dropdown">
-                <li><a href="profile.jsp"><span class="mif-user"></span>Profile</a></li>
-                <li><a ><span class="mif-enter"></span>Logout</a></li> 
-            </ul>
-        </li> 
+         <li><a href="profile.jsp" ><span class="mif-user"></span> ข้อมูลส่วนตัว</a></li> 
+         <li><a href="" ><span class="mif-switch"></span> ออกจากระบบ</a></li> 
     </ul>
      
     
