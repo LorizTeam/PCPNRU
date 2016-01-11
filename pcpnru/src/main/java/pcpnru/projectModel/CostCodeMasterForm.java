@@ -5,6 +5,7 @@ public class CostCodeMasterForm {
 	private String costCodeHD;
 	private String costCode; 
 	private String costName;
+	private String dateTime;
 	
 	private String add;
 	private String update;
@@ -15,10 +16,11 @@ public class CostCodeMasterForm {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CostCodeMasterForm(String costCode, String costName) {
+	public CostCodeMasterForm(String costCode, String costName, String dateTime) {
 		super();
 		this.costCode = costCode;
 		this.costName = costName;
+		this.dateTime = dateTime;
 	}
 
 	public String getCostCodeHD() {
@@ -72,6 +74,14 @@ public class CostCodeMasterForm {
 		this.costCodeHD = "";
 		this.costCode = ""; 
 		this.costName = "";
+	}
+
+	public String getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
 	}
 	
 }

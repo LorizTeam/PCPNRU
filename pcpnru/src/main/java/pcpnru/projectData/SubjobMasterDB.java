@@ -23,20 +23,20 @@ public class SubjobMasterDB {
 	public List GetSubjobMasterList(String subjobCode, String subjobName) 
 	throws Exception { //30-05-2014
 		List subjobMasterList = new ArrayList();
-		String amount = "", unit = "";
+		String dateTime = "";
 		DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
 		DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
 		try {
 		
 			conn = agent.getConnectMYSql();
 			
-			String sqlStmt = "SELECT subjob_code, subjob_name " +
+			String sqlStmt = "SELECT subjob_code, subjob_name, DATE_FORMAT(datetime,'%d-%m-%Y %H:%i') as datetime " +
 			"FROM subjob_master " +
 			"WHERE "; 
 			if(!subjobCode.equals("")) sqlStmt = sqlStmt+ "subjob_code like '"+subjobCode+"%' AND ";
 			if(!subjobName.equals("")) sqlStmt = sqlStmt+ "subjob_name like '"+subjobName+"%' AND ";
 			
-			sqlStmt = sqlStmt + "subjob_code <> '' order by subjob_code, subjob_name";
+			sqlStmt = sqlStmt + "subjob_code <> '' order by datetime desc, subjob_code";
 			
 			//System.out.println(sqlStmt);				
 			pStmt = conn.createStatement();
@@ -44,10 +44,17 @@ public class SubjobMasterDB {
 			while (rs.next()) {
 				subjobCode 	= rs.getString("subjob_code");
 				if (rs.getString("subjob_name") != null) 		subjobName = rs.getString("subjob_name"); else subjobName = "";
-				 
+				
+				dateTime		= rs.getString("datetime");
+				String day 		= dateTime.substring(0, 2);
+				String month 	= dateTime.substring(3, 5);
+				String year 	= Integer.toString((Integer.parseInt(dateTime.substring(6, 10))+543));
+					
+				String time 	= dateTime.substring(11);
+				dateTime		= day+"-"+month+"-"+year+" "+time; 
 			//	amount 			= df2.format(Float.parseFloat(amount));
 				
-				subjobMasterList.add(new SubjobMasterForm(subjobCode, subjobName));
+				subjobMasterList.add(new SubjobMasterForm(subjobCode, subjobName, dateTime));
 			}
 			rs.close();
 			pStmt.close();
@@ -61,8 +68,8 @@ public class SubjobMasterDB {
 	public void AddSubjobMaster(String subjobCode, String subjobName)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "INSERT IGNORE INTO subjob_master(subjob_code, subjob_name) " +
-		"VALUES ('"+subjobCode+"', '"+subjobName+"')";
+		String sqlStmt = "INSERT IGNORE INTO subjob_master(subjob_code, subjob_name, datetime) " +
+		"VALUES ('"+subjobCode+"', '"+subjobName+"', now())";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -72,7 +79,7 @@ public class SubjobMasterDB {
 	public void UpdateSubjobMaster(String subjobCode, String subjobName, String subjobCodeHD)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "UPDATE subjob_master set subjob_code = '"+subjobCode+"', subjob_name = '"+subjobName+"' " +
+		String sqlStmt = "UPDATE subjob_master set subjob_code = '"+subjobCode+"', subjob_name = '"+subjobName+"', datetime = now() " +
 				"WHERE subjob_code = '"+subjobCodeHD+"'";
 		//System.out.println(sqlStmt); 
 		pStmt = conn.createStatement();

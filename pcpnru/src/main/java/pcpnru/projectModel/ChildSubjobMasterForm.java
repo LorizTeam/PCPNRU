@@ -7,6 +7,7 @@ public class ChildSubjobMasterForm{
 	private String subjobname;
 	private String childsubjobcode; 
 	private String childsubjobname;
+	private String dateTime;
 	
 	private String add;
 	private String update;
@@ -17,12 +18,13 @@ public class ChildSubjobMasterForm{
 		// TODO Auto-generated constructor stub
 	}
 
-	public ChildSubjobMasterForm(String subjobcode, String subjobname, String childsubjobcode, String childsubjobname) {
+	public ChildSubjobMasterForm(String subjobcode, String subjobname, String childsubjobcode, String childsubjobname, String dateTime) {
 		super();
 		this.subjobcode = subjobcode;
 		this.subjobname = subjobname;
 		this.childsubjobcode = childsubjobcode;
 		this.childsubjobname = childsubjobname;
+		this.dateTime	= dateTime;
 	}
 	
 	public void reset() {
@@ -93,6 +95,14 @@ public class ChildSubjobMasterForm{
 
 	public void setSubjobname(String subjobname) {
 		this.subjobname = subjobname;
+	}
+
+	public String getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
 	}
 
 	

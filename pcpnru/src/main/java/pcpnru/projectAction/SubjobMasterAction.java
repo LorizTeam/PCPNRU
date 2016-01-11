@@ -8,6 +8,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import pcpnru.projectData.*;
 import pcpnru.projectModel.*;
+import pcpnru.utilities.DateUtil;
  
 
 public class SubjobMasterAction extends ActionSupport {
@@ -33,7 +34,10 @@ public class SubjobMasterAction extends ActionSupport {
 		String update 				= request.getParameter("update");
 		String delete 				= request.getParameter("delete");
 		String alertMassage			= "";
-	  
+		
+		DateUtil dateUtil = new DateUtil();
+		String dateTime = dateUtil.curDateTime();
+		
 		if(add!=null){
 			if(!subjobCode.equals("")&&!subjobName.equals("")){ 
 				subjobMasterDB.AddSubjobMaster(subjobCode, subjobName);

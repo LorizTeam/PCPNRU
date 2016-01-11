@@ -23,21 +23,21 @@ public class ChildSubjobMasterDB {
 	public List GetChildSubjobMasterList(String subjobcode, String childsubjobcode, String childsubjobname) 
 	throws Exception { //30-05-2014
 		List childSubjobMasterList = new ArrayList();
-		String amount = "", unit = "", subjobname = "";
+		String subjobname = "", dateTime = "";
 		DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
 		DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
 		try {
 		
 			conn = agent.getConnectMYSql();
 			
-			String sqlStmt = "SELECT subjobcode, subjob_name, childsubjobcode, childsubjobname " +
+			String sqlStmt = "SELECT subjobcode, subjob_name, childsubjobcode, childsubjobname, DATE_FORMAT(childsubjob_master.datetime,'%d-%m-%Y %H:%i') as datetime " +
 			"FROM childsubjob_master left join subjob_master on(subjobcode = subjob_code) " +
 			"WHERE "; 
 			if(!subjobcode.equals("")) sqlStmt = sqlStmt+ "subjobcode like '"+subjobcode+"%' AND ";
 			if(!childsubjobcode.equals("")) sqlStmt = sqlStmt+ "childsubjobcode like '"+childsubjobcode+"%' AND ";
 			if(!childsubjobname.equals("")) sqlStmt = sqlStmt+ "childsubjobname like '"+childsubjobname+"%' AND ";
 			
-			sqlStmt = sqlStmt + "childsubjobcode <> '' order by subjobcode, childsubjobcode, childsubjobname";
+			sqlStmt = sqlStmt + "childsubjobcode <> '' order by childsubjob_master.datetime desc";
 			
 			//System.out.println(sqlStmt);				
 			pStmt = conn.createStatement();
@@ -48,9 +48,16 @@ public class ChildSubjobMasterDB {
 				childsubjobcode 	= rs.getString("childsubjobcode");
 				if (rs.getString("childsubjobname") != null) childsubjobname = rs.getString("childsubjobname"); else childsubjobname = "";
 				 
+				dateTime		= rs.getString("datetime");  
+				String day 		= dateTime.substring(0, 2);
+				String month 	= dateTime.substring(3, 5);
+				String year 	= Integer.toString((Integer.parseInt(dateTime.substring(6, 10))+543));
+					
+				String time 	= dateTime.substring(11);
+				dateTime		= day+"-"+month+"-"+year+" "+time; 
 			//	amount 			= df2.format(Float.parseFloat(amount));
 				
-				childSubjobMasterList.add(new ChildSubjobMasterForm(subjobcode, subjobname, childsubjobcode, childsubjobname));
+				childSubjobMasterList.add(new ChildSubjobMasterForm(subjobcode, subjobname, childsubjobcode, childsubjobname, dateTime));
 			}
 			rs.close();
 			pStmt.close();
@@ -64,8 +71,8 @@ public class ChildSubjobMasterDB {
 	public void AddChildSubjobMaster(String subjobcode, String childsubjobcode, String childsubjobname)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "INSERT IGNORE INTO childsubjob_master(subjobcode, childsubjobcode, childsubjobname) " +
-		"VALUES ('"+subjobcode+"', '"+childsubjobcode+"', '"+childsubjobname+"')";
+		String sqlStmt = "INSERT IGNORE INTO childsubjob_master(subjobcode, childsubjobcode, datetime) " +
+		"VALUES ('"+subjobcode+"', '"+childsubjobcode+"', '"+childsubjobname+"', now())";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -75,7 +82,7 @@ public class ChildSubjobMasterDB {
 	public void UpdateChildSubjobMaster(String subjobcode, String childsubjobcode, String childsubjobname, String childsubjobcodehd)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "UPDATE childsubjob_master set childsubjobcode = '"+childsubjobcode+"', childsubjobname = '"+childsubjobname+"' " +
+		String sqlStmt = "UPDATE childsubjob_master set childsubjobcode = '"+childsubjobcode+"', childsubjobname = '"+childsubjobname+"', datetime = now() " +
 				"WHERE subjobcode = '"+subjobcode+"' and childsubjobcode = '"+childsubjobcodehd+"'";
 		//System.out.println(sqlStmt); 
 		pStmt = conn.createStatement();
