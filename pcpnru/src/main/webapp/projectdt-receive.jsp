@@ -32,21 +32,24 @@
 			
 			<div class="example" data-text="เพิ่ม">
 	         <div class="grid">
-			  	<div class="row cells7">
+			  	<div class="row cells12">
 			        
-			        <div class="cell colspan2"> 
+			        <div class="cell colspan4"> 
 			        	รายการ
 			        	 <div class="input-control text full-size"> 
 	                          <input type="text" >
 	                     </div>
 					</div> 
+					<div class="cell ">คำนวน<br>
+			        	 <button class="button primary mif-calculator2" onclick="showCharm('right')"></button> 
+					</div>
 					<div class="cell colspan2"> 
 			        	จำนวนเงิน
 			        	 <div class="input-control text full-size"> 
 	                          <input type="text" >
-	                     </div>
+	                     </div> 
 					</div>  
-					<div class="cell colspan3"><br>
+					<div class="cell colspan5"><br>
 						  <button class="button success">เพิ่มประมาณการรายได้</button> 
 						  <button class="button primary">บันทึกการแก้ไข</button> 
 						  <button class="button danger">ลบรายการ</button> 
@@ -54,6 +57,75 @@
 			    </div>
 			 </div>  
 			</div>  
+			<div  class="charm right-side bg-gray" data-role="charm" data-position="right" id="right-charm" style="max-width:50%">
+				<span class="charm-closer"></span>
+				<h3 class="text-light">เพิ่มการคำนวน</h3>
+				<div class="grid">
+					<div class="row cells2">
+						<div class="cell">จำนวน
+				        	<div class="input-control text full-size"> 
+		                    	<input type="text" >
+		                    </div>
+						</div> 
+						<div class="cell"> 
+				        	หน่วยนับ
+					        <div class="input-control text full-size">
+							    <select onchange="" class="align-center">
+							    	<option>------- โปรดเลือก -------</option>
+							        <option>บาท</option>
+							        <option>คน</option>
+							        <option>วัน</option>
+							        <option>เดือน</option> 
+							    </select>
+							</div>
+						</div> 
+					</div>
+					
+					
+			<!-- เพิ่ม operation -->
+					<div class="row cells2">
+						<div class="cell">
+					        <div class="input-control text full-size ">
+							    <select onchange="" class="align-center">
+							    	<option>---- Operation ----</option>
+							        <option> + </option>
+							        <option> - </option>
+							        <option> * </option>
+							        <option> / </option> 
+							    </select>
+							</div>
+							
+						</div> 
+					</div>
+					<div class="row cells2">
+						<div class="cell">จำนวน
+				        	<div class="input-control text full-size"> 
+		                    	<input type="text" >
+		                    </div>
+						</div> 
+						<div class="cell"> 
+				        	หน่วยนับ
+					        <div class="input-control text full-size">
+							    <select onchange="" class="align-center">
+							    	<option>------- โปรดเลือก -------</option>
+							        <option>บาท</option>
+							        <option>คน</option>
+							        <option>วัน</option>
+							        <option>เดือน</option> 
+							    </select>
+							</div>
+							
+						</div>
+						 
+					</div>
+					<div class="row">
+						<div class="cell align-center">
+							<a href="#" class="button success">เพิ่ม</a>
+						</div>
+					</div>
+			<!-- เพิ่ม operation -->
+				</div>
+			</div>
 			<div class="grid ">	
 				<div class="window ">
 					<div class="row cells12 align-center  window-caption bg-cyan fg-white" >
@@ -145,5 +217,15 @@
 			</div>
 		</div>
 		</div>
+		<script>
+			function showCharm(id){
+	            var  charm = $("#right-charm").data("charm");
+	            if (charm.element.data("opened") === true) {
+	                charm.close();
+	            } else {
+	                charm.open();
+	            }
+	        }
+		</script>
 	</body>
 </html>
