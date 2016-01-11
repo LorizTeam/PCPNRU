@@ -14,18 +14,18 @@
             </ul>
         </li>
         <li>
-			<a href="" class="dropdown-toggle">รายรับ-รายจ่าย</a>
+			<a href="" class="dropdown-toggle">บันทึกรายได้-รายจ่าย</a>
             <ul class="d-menu" data-role="dropdown">
-                <li><a href="" class="dropdown-toggle">รายรับ</a>
+                <li><a href="" class="dropdown-toggle">รายได้</a>
                     <ul class="d-menu" data-role="dropdown">
-                        <li><a href="receive-1.jsp">ทำรายการรับ</a></li>
-                        <li><a href="select_receive-1.jsp">รายละเอียดการรับ</a></li> 
+                        <li><a href="receive-1.jsp">บันทึกรายได้</a></li>
+                        <li><a href="select_receive-1.jsp">รายละเอียดรายได้</a></li> 
                     </ul>
                 </li>
                 <li><a href="" class="dropdown-toggle">รายจ่าย</a>
                     <ul class="d-menu" data-role="dropdown">
-                        <li><a href="requisition-1.jsp">ทำรายการจ่าย</a></li>
-                        <li><a href="select_requisition-1.jsp">รายละเอียดการจ่าย</a></li> 
+                        <li><a href="requisition-1.jsp">เบิกงบประมาณ</a></li>
+                        <li><a href="select_requisition-1.jsp">รายละเอียดการเบิกงบประมาณ</a></li> 
                     </ul>
                 </li> 
             </ul>
