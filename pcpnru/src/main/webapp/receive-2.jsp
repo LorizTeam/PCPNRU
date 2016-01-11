@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		function (isConfirm){
     		  	if (isConfirm) {
     			setTimeout(function(){
-    				var load = window.open("/pcpnru/receiveReport.action?docNoHD="+tdocNo+"&amtt="+document.getElementById("amtt").value 
+    				var load = window.open("/pcpnru/receiveReport.action?docNoHD="+tdocNo+"" 
     						,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
     			swal("พิมพ์เอกสารสำเร็จแล้ว!", "โปรดตรวจสอบรายละเอียดของเอกสารอีกครั้งเพื่อความถูกต้อง !", "success");
     			} 

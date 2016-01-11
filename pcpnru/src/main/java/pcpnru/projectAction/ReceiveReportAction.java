@@ -6,6 +6,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import pcpnru.projectData.Receive2DB;
 import pcpnru.projectData.ThaiBaht;
 import pcpnru.projectModel.ReceiveForm;
 
@@ -24,7 +25,7 @@ public class ReceiveReportAction extends ActionSupport {
 	public String execute() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
-		
+		Receive2DB receive2DB = new Receive2DB();
 		String docNoHD		= request.getParameter("docNoHD");
 		 
 		String alertMassage			= "";
@@ -33,7 +34,8 @@ public class ReceiveReportAction extends ActionSupport {
  
 		if(docNoHD!=null){
 			//String amtt		= receive.getAmtt();
-			String amtt		= request.getParameter("amtt"); 
+			//String amtt		= request.getParameter("amtt"); 
+			String amtt	= receive2DB.SumReceive(docNoHD);
 			
 			ThaiBaht thaiBaht = new ThaiBaht();
 			String valueTHB = thaiBaht.getText(amtt);

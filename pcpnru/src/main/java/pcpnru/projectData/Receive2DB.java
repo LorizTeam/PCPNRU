@@ -146,4 +146,37 @@ public class Receive2DB {
 	
 	return amountTotal;
 	}
+	public String SumReceive(String docNo) 
+			throws Exception { //30-05-2014
+				 
+				String itemNo  = "", description = "", qty = "", amount = "", amountTotal = "";
+				
+				DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
+				DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
+				try {
+				
+					conn = agent.getConnectMYSql();
+					
+					String sqlStmt = "SELECT sum(amounttotal) as sumamt " +
+					"FROM receivedt WHERE docno = '"+docNo+"' ";
+					
+					sqlStmt = sqlStmt + "group by docno order by itemno";
+					
+					//System.out.println(sqlStmt);				
+					pStmt = conn.createStatement();
+					rs = pStmt.executeQuery(sqlStmt);	
+					while (rs.next()) {
+						 
+						amountTotal 	= rs.getString("sumamt");
+						
+						amountTotal 	= df2.format(Float.parseFloat(amountTotal)); 
+					}
+					rs.close();
+					pStmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				    throw new Exception(e.getMessage());
+				}
+				return amountTotal;
+			 }
 }
