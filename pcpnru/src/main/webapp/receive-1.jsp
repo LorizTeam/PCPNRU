@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan5 offset2" > 
 		    		 โครงการ
 		       		 <div class="input-control full-size"> 
-		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ" onchange="">
+		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
 					   <option value="" >กรุณาเลือกโครงการ</option>
 					   <%
 					   	List projectMasterList = projectMasterList1;

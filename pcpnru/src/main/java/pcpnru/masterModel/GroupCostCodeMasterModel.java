@@ -1,48 +1,34 @@
-package pcpnru.projectModel;
+package pcpnru.masterModel;
 
-public class CostCodeMasterForm {
+public class GroupCostCodeMasterModel {
 
 	private String costCodeHD;
 	private String costCode; 
 	private String costName;
 	private String dateTime;
-	private String percentprice,gcostcode,gcostcode_name;
+	private String standardprice,fundprice;
+	
+	
 	
 
 	private String add;
 	private String update;
 	private String delete;
 	
-	public CostCodeMasterForm() {
+	public GroupCostCodeMasterModel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CostCodeMasterForm(String costCode, String costName, String dateTime,String gcostcode,String gcostcode_name) {
+	public GroupCostCodeMasterModel(String costCode, String costName,String standardprice,String fundprice, String dateTime) {
 		super();
 		this.costCode = costCode;
 		this.costName = costName;
+		this.standardprice = standardprice;
+		this.fundprice = fundprice;
 		this.dateTime = dateTime;
-		this.gcostcode = gcostcode;
-		this.gcostcode_name = gcostcode_name;
 	}
 
-
-	public String getGcostcode() {
-		return gcostcode;
-	}
-
-	public void setGcostcode(String gcostcode) {
-		this.gcostcode = gcostcode;
-	}
-
-	public String getGcostcode_name() {
-		return gcostcode_name;
-	}
-
-	public void setGcostcode_name(String gcostcode_name) {
-		this.gcostcode_name = gcostcode_name;
-	}
 	public String getCostCodeHD() {
 		return costCodeHD;
 	}
@@ -94,6 +80,8 @@ public class CostCodeMasterForm {
 		this.costCodeHD = "";
 		this.costCode = ""; 
 		this.costName = "";
+		this.standardprice = "";
+		this.fundprice = "";
 	}
 
 	public String getDateTime() {
@@ -103,11 +91,19 @@ public class CostCodeMasterForm {
 	public void setDateTime(String dateTime) {
 		this.dateTime = dateTime;
 	}
-	public String getPercentprice() {
-		return percentprice;
+	public String getStandardprice() {
+		return standardprice;
 	}
 
-	public void setPercentprice(String percentprice) {
-		this.percentprice = percentprice;
+	public void setStandardprice(String standardprice) {
+		this.standardprice = standardprice;
+	}
+
+	public String getFundprice() {
+		return fundprice;
+	}
+
+	public void setFundprice(String fundprice) {
+		this.fundprice = fundprice;
 	}
 }

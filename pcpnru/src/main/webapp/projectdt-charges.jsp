@@ -161,7 +161,7 @@
 						<!-- costcode -->
 						  <div class="row cells12 " >			  
 						  	<p class="cell colspan7 costcode">
-						  		เงินเดือนพนักงานธุรการ ประจำโครงการ 1 คน * 13,200 บาท * 12 เดือน	
+						  		เงินเดือนพนักงานธุรการ ประจำโครงการ 1 คน * 13,200 บาท * 12 เดือน (เพิ่มงบกลาง 5,000)
 						  	</p>
 						  	<div class="cell colspan4 align-center">
 						  		158,400
@@ -186,6 +186,32 @@
 						  <div class="row cells12 " >			  
 						  	<h5 class="cell colspan7 child-subjob">
 						  		หมวดค่าตอบแทน	
+						  	</h5>
+						  	<div class="cell colspan4 align-center">
+						  		
+						  	</div>
+						  </div>
+						<!-- child sub job --> 
+						<!-- costcode -->
+						  <div class="row cells12 " >			  
+						  	<p class="cell colspan7 costcode">
+						  		พนักงานรายวัน ประจำโครงการ 2 คน * 250 บาท * 300 วัน		
+						  	</p>
+						  	<div class="cell colspan4 align-center">
+						  		75,000
+						  	</div>
+						  	<div class="cell ">
+					  			<a href="#"><span class="mif-pencil"></span></a>
+					  		</div>
+						  </div>
+						<!-- costcode --> 
+					<!-- subjob -->
+					
+					<!-- subjob --> 
+						<!-- child sub job -->
+						  <div class="row cells12 " >			  
+						  	<h5 class="cell colspan7 child-subjob">
+						  		หมวดงบกลาง	
 						  	</h5>
 						  	<div class="cell colspan4 align-center">
 						  		
