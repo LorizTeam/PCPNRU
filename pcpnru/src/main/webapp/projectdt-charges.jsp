@@ -17,10 +17,10 @@
 	    <script src="js/metro.js"></script>
 	</head>
 
-	<body>
+	<body ng-app="controllerCalculator" >
 		 
 		 <%@include file="topmenu.jsp" %>
-		 <div class="container-fluid">
+		 <div class="container-fluid"  ng-controller="SettingsController">
 			<div class="example"data-text="" >
 				<h3 class="align-center margin30">ประมาณค่าใช้จ่าย ของโครงการ ............</h3>
 				<div class="example" data-text="เพิ่ม">
@@ -43,7 +43,7 @@
 					        <div class="cell colspan3"> 
 					        	รายการ
 					        	<div class="input-control text full-size"> 
-			                    	<input type="text" >
+			                    	<input type="text"   ng-model="name">
 			                    </div>
 							</div> 
 							<div class="cell ">คำนวน<br>
@@ -62,78 +62,91 @@
 								 <button class="button ">ยกเลิก</button>
 								 <button class="button danger">ลบ</button> </div>
 					    </div>
-					    <div  class="charm right-side bg-gray" data-role="charm" data-position="right" id="right-charm" style="max-width:50%">
-							<span class="charm-closer"></span>
-							<h3 class="text-light">เพิ่มการคำนวน</h3>
-							<div class="grid">
-								<div class="row cells2">
-									<div class="cell">จำนวน
-							        	<div class="input-control text full-size"> 
-					                    	<input type="text" >
-					                    </div>
-									</div> 
-									<div class="cell"> 
-							        	หน่วยนับ
-								        <div class="input-control text full-size">
-										    <select onchange="" class="align-center">
-										    	<option>------- โปรดเลือก -------</option>
-										        <option>บาท</option>
-										        <option>คน</option>
-										        <option>วัน</option>
-										        <option>เดือน</option> 
-										    </select>
-										</div>
-									</div> 
-								</div>
-								
-								
-						<!-- เพิ่ม operation -->
-								<div class="row cells2">
-									<div class="cell">
-								        <div class="input-control text full-size ">
-										    <select onchange="" class="align-center">
-										    	<option>---- Operation ----</option>
-										        <option> + </option>
-										        <option> - </option>
-										        <option> * </option>
-										        <option> / </option> 
-										    </select>
-										</div>
-										
-									</div> 
-								</div>
-								<div class="row cells2">
-									<div class="cell">จำนวน
-							        	<div class="input-control text full-size"> 
-					                    	<input type="text" >
-					                    </div>
-									</div> 
-									<div class="cell"> 
-							        	หน่วยนับ
-								        <div class="input-control text full-size">
-										    <select onchange="" class="align-center">
-										    	<option>------- โปรดเลือก -------</option>
-										        <option>บาท</option>
-										        <option>คน</option>
-										        <option>วัน</option>
-										        <option>เดือน</option> 
-										    </select>
-										</div>
-										
-									</div>
-									 
-								</div>
-								<div class="row">
-									<div class="cell align-center">
-										<a href="#" class="button success">เพิ่ม</a>
-									</div>
-								</div>
-						<!-- เพิ่ม operation -->
-						
-						
-						
+			<div  class="charm right-side bg-gray" data-role="charm" data-position="right" id="right-charm" style="max-width:50%">
+				<span class="charm-closer"></span>
+				<h3 class="text-light">เพิ่มการคำนวน</h3>
+				<div class="grid">
+					<div class="row cells2 example bg-gray">
+						<div class="cell">จำนวน
+				        	<div class="input-control text full-size"> 
+		                    	<input type="text"ng-model="value1" >
+		                    </div>
+						</div> 
+						<div class="cell"> 
+				        	หน่วยนับ
+					        <div class="input-control text full-size">
+							    <select onchange="" class="align-center" ng-model="type1">
+							        <option>บาท</option>
+							        <option>คน</option> 
+							        <option>วัน</option>
+							        <option>เดือน</option> 
+							    </select>
 							</div>
+						</div> 
+					</div>
+					
+					
+			<!-- เพิ่ม operation -->
+			<div ng-repeat="cal in calculator "class="example bg-gray">
+					<div class="row cells4" >
+						<div class="cell">
+					        <div class="input-control text full-size ">
+							    <select class="align-center" ng-model="cal.operation" id="select_{{$index}}">
+							        <option> + </option>
+							        <option> - </option>
+							        <option> * </option>
+							        <option> / </option> 
+							    </select>
+							</div>
+							
 						</div>
+						<div class="cell colspan3 align-right">
+						      <button class="button danger" ng-click="removeContact(cal)">X</button>
+					      </div> 
+					</div>
+					<div class="row cells2">
+						<div class="cell">จำนวน
+				        	<div class="input-control text full-size"> 
+		                    	<input type="text" ng-model="cal.value" aria-labelledby="select_{{$index}}">
+		                    </div>
+						</div> 
+						<div class="cell"> 
+				        	หน่วยนับ
+					        <div class="input-control text full-size">
+							    <select onchange="" class="align-center" ng-model="cal.type" id="select_{{$index}}">
+							        <option>บาท</option>
+							        <option>คน</option>
+							        <option>วัน</option>
+							        <option>เดือน</option> 
+							    </select>
+							</div>
+							
+						</div>
+						 
+					</div>
+					
+			<!-- เพิ่ม operation -->
+				</div>
+				<div class="row" >
+						<div class="cell align-center">
+							<a href="#" class="button success"ng-click="addContact()">เพิ่มตัวคำนวน</a>
+						</div>
+					</div>
+				</div>
+				<div class="example bg-gray">
+					<div class="row"  >
+						{{name+' '+value1+' '+type1+' '}}
+						 <span ng-repeat="cal in calculator">
+						   {{ cal.operation+' '+cal.value+' '+cal.type+' ' }}
+						 </span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="cell align-center">
+							<a href="#" class="button primary">บันทึกการคำนวน</a>
+						</div>
+				</div>
+			</div>
 					</div>  
 				</div>  
 				<div class="grid ">	
@@ -264,5 +277,7 @@
 	            }
 	        }
 		</script>
+		<script src="js/angular.min.js"></script>
+		<script src="js/app.js"></script>
 	</body>
 </html>

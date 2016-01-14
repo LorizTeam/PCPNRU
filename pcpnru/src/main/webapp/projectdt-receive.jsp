@@ -21,10 +21,10 @@
   	
 	</head>
 
-	<body>
+	<body ng-app="controllerCalculator" >
 		 
 		 		<%@include file="topmenu.jsp" %>
-		 <div class="container-fluid">
+		 <div class="container-fluid" ng-controller="SettingsController">
 		 	
 
 			<div class="example"data-text="" >
@@ -37,7 +37,7 @@
 			        <div class="cell colspan4"> 
 			        	รายการ
 			        	 <div class="input-control text full-size"> 
-	                          <input type="text" >
+	                          <input type="text"  ng-model="name">
 	                     </div>
 					</div> 
 					<div class="cell ">คำนวน<br>
@@ -61,19 +61,18 @@
 				<span class="charm-closer"></span>
 				<h3 class="text-light">เพิ่มการคำนวน</h3>
 				<div class="grid">
-					<div class="row cells2">
+					<div class="row cells2 example bg-gray">
 						<div class="cell">จำนวน
 				        	<div class="input-control text full-size"> 
-		                    	<input type="text" >
+		                    	<input type="text"ng-model="value1" >
 		                    </div>
 						</div> 
 						<div class="cell"> 
 				        	หน่วยนับ
 					        <div class="input-control text full-size">
-							    <select onchange="" class="align-center">
-							    	<option>------- โปรดเลือก -------</option>
+							    <select onchange="" class="align-center" ng-model="type1">
 							        <option>บาท</option>
-							        <option>คน</option>
+							        <option>คน</option> 
 							        <option>วัน</option>
 							        <option>เดือน</option> 
 							    </select>
@@ -83,11 +82,11 @@
 					
 					
 			<!-- เพิ่ม operation -->
-					<div class="row cells2">
+			<div ng-repeat="cal in calculator "class="example bg-gray">
+					<div class="row cells4" >
 						<div class="cell">
 					        <div class="input-control text full-size ">
-							    <select onchange="" class="align-center">
-							    	<option>---- Operation ----</option>
+							    <select class="align-center" ng-model="cal.operation" id="select_{{$index}}">
 							        <option> + </option>
 							        <option> - </option>
 							        <option> * </option>
@@ -95,19 +94,21 @@
 							    </select>
 							</div>
 							
-						</div> 
+						</div>
+						<div class="cell colspan3 align-right">
+						      <button class="button danger" ng-click="removeContact(cal)">X</button>
+					      </div> 
 					</div>
 					<div class="row cells2">
 						<div class="cell">จำนวน
 				        	<div class="input-control text full-size"> 
-		                    	<input type="text" >
+		                    	<input type="text" ng-model="cal.value" aria-labelledby="select_{{$index}}">
 		                    </div>
 						</div> 
 						<div class="cell"> 
 				        	หน่วยนับ
 					        <div class="input-control text full-size">
-							    <select onchange="" class="align-center">
-							    	<option>------- โปรดเลือก -------</option>
+							    <select onchange="" class="align-center" ng-model="cal.type" id="select_{{$index}}">
 							        <option>บาท</option>
 							        <option>คน</option>
 							        <option>วัน</option>
@@ -118,12 +119,27 @@
 						</div>
 						 
 					</div>
-					<div class="row">
+					
+			<!-- เพิ่ม operation -->
+				</div>
+				<div class="row" >
 						<div class="cell align-center">
-							<a href="#" class="button success">เพิ่ม</a>
+							<a href="#" class="button success"ng-click="addContact()">เพิ่มตัวคำนวน</a>
 						</div>
 					</div>
-			<!-- เพิ่ม operation -->
+				</div>
+				<div class="example bg-gray">
+					<div class="row"  >
+						{{name+' '+value1+' '+type1+' '}}
+						 <span ng-repeat="cal in calculator">
+						   {{ cal.operation+' '+cal.value+' '+cal.type+' ' }}
+						 </span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="cell align-center">
+							<a href="#" class="button primary">บันทึกการคำนวน</a>
+						</div>
 				</div>
 			</div>
 			<div class="grid ">	
@@ -227,5 +243,7 @@
 	            }
 	        }
 		</script>
+		<script src="js/angular.min.js"></script>
+		<script src="js/app.js"></script>
 	</body>
 </html>
