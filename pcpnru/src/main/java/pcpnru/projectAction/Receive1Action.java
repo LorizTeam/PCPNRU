@@ -168,7 +168,7 @@ public class Receive1Action extends ActionSupport {
 			request.setAttribute("projectMasterList", projectMasterList);
 			
 			CostCodeMasterDB costCodeMasterDB = new CostCodeMasterDB();
-			List costCodeMasterList = costCodeMasterDB.GetCostCodeMasterList("", "");
+			List costCodeMasterList = costCodeMasterDB.GetCostCodeMasterList("", "","");
 			request.setAttribute("costCodeMasterList", costCodeMasterList);
 			
 			SelectTagExample();
