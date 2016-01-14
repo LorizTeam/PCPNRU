@@ -65,8 +65,8 @@ public class Receive2Action extends ActionSupport {
 			request.setAttribute("costCode", costCode); 
 			receiveform.setAmountfrom(amountfrom);
 			receiveform.setLocal(local); 
-			receiveform.setAmtt(amtt);
-			 
+			//receiveform.setAmtt(amtt);
+			request.setAttribute("amtt", amtt);
 		//	String test = receivef.getAmtt();
 		//	System.out.print(test);
 			forwardText = "success";
@@ -83,7 +83,8 @@ public class Receive2Action extends ActionSupport {
 			request.setAttribute("costCode", costCode);
 			receiveform.setAmountfrom(amountfrom);
 			receiveform.setLocal(local); 
-			receiveform.setAmtt(amtt);
+			request.setAttribute("amtt", amtt);
+			//receiveform.setAmtt(amtt);
 			
 			forwardText = "success";
 		}
@@ -99,7 +100,8 @@ public class Receive2Action extends ActionSupport {
 			request.setAttribute("costCode", costCode);
 			receiveform.setAmountfrom(amountfrom);
 			receiveform.setLocal(local); 
-			receiveform.setAmtt(amtt);
+			//receiveform.setAmtt(amtt);
+			request.setAttribute("amtt", amtt);
 			
 			forwardText = "success";
 		}

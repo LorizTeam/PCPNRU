@@ -51,13 +51,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 type: 'alert'
             });
         }
-        function sumAmount(){
-        	var qty = document.getElementById("qty").value;
-        	var amount = document.getElementById("amount").value; 
-        	
-        	var amountTotal = qty*amount;
-        	document.getElementById("amountTotal").value = amountTotal;
-        }
         function changeCoin(){
         	var amtt = document.getElementById("amtt").value;
         	var receiveAmt = document.getElementById("receiveAmt").value; 
@@ -116,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		}
     </script>
   
-  <body>
+  <body ng-app="">
   
   	<% 		
   			String docNo		= (String) request.getAttribute("docNo");
@@ -140,67 +133,68 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div><%@include file="topmenu.jsp" %></div>
 	<br> 
 	<h3 class="align-center">บันทึกรายได้</h3>
+	<div ng-init="n1,n2,total,desc,i_no">
 	<div class="example" data-text="รายการรับ">
 	<div class="grid">
 	<form action="receive2.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
 		  	<div class="row cells10"> 
 		    	<div class="cell colspan3" > 
-		       		  โครงการ<div class="input-control full-size success"> 
+		       		  โครงการ<div class="input-control full-size "> 
 		       		 	<input type="text" name="projectCode" value="<%=projectCode%>" readonly="readonly">
 					 </div> 
 		    	</div>   
 		    	<div class="cell colspan3">
-		    		 ค่าใช้จ่าย<div class="input-control full-size success"> 
+		    		 ค่าใช้จ่าย<div class="input-control full-size "> 
 		    		 	<input type="text" name="costCode" value="<%=costCode%>" readonly="readonly">  
 					</div> 
 		    	</div>  
 		    	<div class="cell colspan2">  
-		        	 วันที่การรับ<div class="input-control full-size success"> 
+		        	 วันที่การรับ<div class="input-control full-size "> 
                         <input type="text" name="dateTime" value="<%=dateTime%>" readonly="readonly"> 
                     </div> 
 				</div> 
 		    	<div class="cell colspan2">  
-		        	เลขที่เอกสาร<div class="input-control full-size success"> 
+		        	เลขที่เอกสาร<div class="input-control full-size "> 
                         <input type="text" name="docNo" value="<%=docNo%>" readonly="readonly"> 
                     </div>
 				</div> 
 			</div>  
 		  	<div class="row cells10">  
 		    	<div class="cell colspan3">
-		    		ได้รับเงินจาก<div class="input-control full-size success"> 
+		    		ได้รับเงินจาก<div class="input-control full-size "> 
 					    <s:textfield name="receiveform.amountfrom" readonly="readonly" />
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
-		    		สถานที่<div class="input-control full-size success"> 
+		    		สถานที่<div class="input-control full-size "> 
 					    <s:textfield name="receiveform.local" readonly="readonly" />
 					</div>
 		    	</div> 
 		    </div>  
 		  	<div class="row cells10"> 
 		    	<div class="cell colspan10">
-		    		รายละเอียด<div class="input-control full-size success"> 
-					    <input type="text" id="description" name="description"> 
+		    		รายละเอียด<div class="input-control full-size "> 
+					    <input type="text" ng-model="desc" id="description" name="description"> 
 					</div>
 		    	</div>
 		    </div>  
-		  	<div class="row cells12">  
+		  	<div class="row cells12" >  
 		    	<div class="cell colspan3">
-		    		จำนวน<div class="input-control full-size success">
-		    			<input type="hidden" id="itemNo" name="itemNo"> 
-					    <input type="text" id="qty" name="qty" onkeyup="sumAmount();" data-validate-func="required" data-validate-hint="This field can not be empty">
-						<span class="input-state-error mif-warning"></span>
-                       <span class="input-state-success mif-checkmark"></span>
+		    		จำนวน<div class="input-control full-size ">
+		    			<input type="text"ng-hide="true" ng-model="i_no" id="itemNo" name="itemNo"> 
+					    <input type="number" id="qty" name="qty"ng-keyup="total=n1*n2" ng-model="n1"  data-validate-func="required" data-validate-hint="This field can not be empty">
+
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
-		    		ราคาต่อหน่วย<div class="input-control full-size success"> 
-					    <input type="text" id="amount" name="amount" onkeyup="sumAmount();">
+		    		ราคาต่อหน่วย<div class="input-control full-size "> 
+					    <input type="number" id="amount"ng-keyup="total=n1*n2" ng-model="n2" name="amount" data-validate-func="required" data-validate-hint="This field can not be empty">
 					</div>
 		    	</div> 
-		    	<div class="cell colspan3">
-		    		ราคารวม<div class="input-control full-size success"> 
-					    <s:textfield id="amountTotal" name="amountTotal" />
+		    	<div class="cell colspan3"> 
+		    		ราคารวม<div class="input-control full-size ">
+		    		<h3 class="no-margin">{{total | currency:"฿"}}</h3>
+					    <s:hidden id="amountTotal" name="amountTotal" value="{{total}}"/>
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3" align="center"><br>
@@ -233,12 +227,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						x++; 
 						ReceiveForm revL = (ReceiveForm) iter.next();
 				%>
-                <tr>  
+                <tr ng-click="
+                	n1=<%=revL.getQty()%>;
+                	 n2=<%=revL.getAmount()%>;
+                	 total=<%=revL.getAmountTotal()%>;
+                	 desc='<%=revL.getDescription()%>';
+                	 i_no='<%=revL.getItemNo()%>';
+                	 ">  
                     <td class="tditemno" align="center"><%=revL.getItemNo()%> </td>
                     <td class="tddescription" align="center"><%=revL.getDescription()%></td>
-                    <td class="tdqty" align="center"><%=revL.getQty()%></td>  
-                    <td class="tdamount" align="center"><%=revL.getAmount()%></td>
-                    <td class="tdamountTotal" align="center"><%=revL.getAmountTotal()%></td>
+                    <td class="tdqty" align="center">{{<%=revL.getQty()%>| number:0}}</td>  
+                    <td class="tdamount" align="center">{{<%=revL.getAmount()%> | currency:"฿"}}</td>
+                    <td class="tdamountTotal" align="center">{{<%=revL.getAmountTotal()%> | currency:"฿"}}</td>
                 </tr>  
                 <% 	} %> 
 	                
@@ -250,33 +250,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </tbody>
             </table>
         </div> <!-- End of example table --> 
-        
+      </div>  
     <div class="example" data-text="รายการเงินรวม">
-	<div class="grid">
+	<div class="grid" ng-init="total_b=<%=amtt%>">
 	<form action="receiveReport.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
-		    <div class="row cells12"> 
+		    <div class="row cells12" ng-init="receive=0"> 
 		     	<div class="cell colspan3">
-		    		จำนวนเงินรวม<div class="input-control full-size success">  
-						<s:textfield id="amtt" name="receiveform.amtt" data-validate-func="required" data-validate-hint="This field can not be empty" readonly="readonly" />
-						<span class="input-state-error mif-warning"></span>
-                       <span class="input-state-success mif-checkmark"></span>
+		    		จำนวนเงินรวม<div class="input-control full-size "> 
+		    		<h3 class="no-margin">{{total_b | currency:"฿"}}</h3>
+		    		<input type="hidden" id="amtt"ng-model="total_b"  name="receiveform.amtt" data-validate-func="required" data-validate-hint="This field can not be empty" readonly="readonly" />					</div>
+		    	</div> 
+		    	<div class="cell colspan3">
+		    		จำนวนเงินที่ได้รับ<div class="input-control full-size "> 
+					    <input type="number"ng-model="receive" id="receiveAmt" name="receiveAmt" data-validate-func="required" data-validate-hint="This field can not be empty">
+						
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
-		    		จำนวนเงินที่ได้รับ<div class="input-control full-size success"> 
-					    <input type="text" id="receiveAmt" name="receiveAmt" onkeyup="changeCoin();" data-validate-func="required" data-validate-hint="This field can not be empty">
-						<span class="input-state-error mif-warning"></span>
-                       <span class="input-state-success mif-checkmark"></span>
-					</div>
-		    	</div> 
-		    	<div class="cell colspan3">
-		    		จำนวนเงินทอน<div class="input-control full-size success"> 
-					    <input type="text" id="change" name="change" >
+		    		จำนวนเงินทอน<div class="input-control full-size "> 
+		    		<h3 class="no-margin">{{receive-total_b | currency:"฿"}}</h3>
 					</div>
 		    	</div>  <br>
 		    	<div class="cell colspan3"> 
 		    		  <input type="hidden" id="docNoHD" name="docNoHD" value="<%=docNo%>">
-		    		  <a href="javascript:printRev('<%=docNo%>');" class="button warning full-size"><span class="mif-print mif-lg fg-black"></span></a>
+		    		  <a href="javascript:printRev('<%=docNo%>');" class="button warning full-size"><span class="mif-print mif-lg fg-white"></span></a>
 					   
 				</div>
 		    </div>    
@@ -284,32 +281,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 </div>
 	</div> <!-- End of example -->
 	
-        
-	<script type="text/javascript">
-  	$(document).ready(function() {
-    	var table = $('#table_receive').DataTable(); 
-		$('#table_receive tbody').on( 'click', 'tr', function () { 
-	        if ( $(this).hasClass('selected') ) {
-	            $(this).removeClass('selected');
-	            $("#description").val("");
-	            $("#qty").val("");
-	            $("#amount").val("");
-	            $("#amountTotal").val("");
-	            $("#itemno").val("");
-	        }
-	        else {
-	            table.$('tr.selected').removeClass('selected');
-	            $(this).addClass('selected');
-	            var $index = $(this).index();
-	            $("#description").val($(".tddescription").eq($index).text());
-	            $("#qty").val($(".tdqty").eq($index).text());
-	            $("#amount").val($(".tdamount").eq($index).text());
-	            $("#amountTotal").val($(".tdamountTotal").eq($index).text());
-	            $("#itemNo").val($(".tditemno").eq($index).text());
-	        }
-	    });
-	} );
-  </script>
-  
+  <script src="js/angular.min.js"></script>
   </body>
 </html>

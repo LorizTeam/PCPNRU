@@ -26,8 +26,6 @@ public class Receive2DB {
 				 
 				String itemNo  = "", description = "", qty = "", amount = "", amountTotal = "";
 				
-				DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
-				DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
 				try {
 				
 					conn = agent.getConnectMYSql();
@@ -49,9 +47,7 @@ public class Receive2DB {
 						amountTotal 	= rs.getString("amounttotal");
 						
 						itemNo			= Integer.toString(Integer.parseInt(itemNo));
-						qty 			= df1.format(Float.parseFloat(qty));
-						amount 			= df2.format(Float.parseFloat(amount));
-						amountTotal 	= df2.format(Float.parseFloat(amountTotal));
+					
 						
 						ReceiveList.add(new ReceiveForm(docNo, itemNo, description, qty, amount, amountTotal));
 					}
@@ -125,8 +121,6 @@ public class Receive2DB {
 	public String getSumAmount(String docNo) throws Exception {
 	
 	String amountTotal = "";
-	DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
-	DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
 	
 	conn = agent.getConnectMYSql();
  	
@@ -139,7 +133,7 @@ public class Receive2DB {
 	while (rs.next()) {
 		amountTotal = rs.getString("att"); 
 	}
-	amountTotal 	= df2.format(Float.parseFloat(amountTotal));
+	
 	
 	rs.close();
 	pStmt.close();
@@ -151,8 +145,6 @@ public class Receive2DB {
 				 
 				String itemNo  = "", description = "", qty = "", amount = "", amountTotal = "";
 				
-				DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
-				DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
 				try {
 				
 					conn = agent.getConnectMYSql();
@@ -169,7 +161,7 @@ public class Receive2DB {
 						 
 						amountTotal 	= rs.getString("sumamt");
 						
-						amountTotal 	= df2.format(Float.parseFloat(amountTotal)); 
+					
 					}
 					rs.close();
 					pStmt.close();
