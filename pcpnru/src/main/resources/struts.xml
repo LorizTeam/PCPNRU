@@ -28,8 +28,12 @@
     	</action>
     	<!-- 		ChildSubjobMaster 		 -->
     	
-    	<action name="costcodeMaster" class="pcpnru.projectAction.CosecodeMasterAction" method="execute">
+    	<action name="costcodeMaster" class="pcpnru.projectAction.CostcodeMasterAction" method="execute">
       		<result name="success">/costcodemaster.jsp</result>
+    	</action>
+    	
+    	<action name="groupcostcodeMaster" class="pcpnru.masterAction.GroupcostcodeAction" method="execute">
+      		<result name="success">/groupcostcode-receive.jsp</result>
     	</action>
     	
     	<!-- 							MASTER 							-->

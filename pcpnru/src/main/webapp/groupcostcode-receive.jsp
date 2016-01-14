@@ -1,14 +1,12 @@
 <%@page import="com.mysql.jdbc.IterateBlock"%>
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%@ page import="pcpnru.projectModel.*" %>
-<%@ page import="pcpnru.projectData.*" %>
-<%@ page import="pcpnru.masterData.*" %>
 <%@ page import="pcpnru.masterModel.*" %>
+<%@ page import="pcpnru.masterData.*" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>สร้าง รายการค่าใช้จ่าย</title>
+		<title>สร้าง กลุ่มรายการค่าใช้จ่าย</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -17,74 +15,54 @@
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
-		<link href="css/select2.css" rel="stylesheet">
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
-        <script src="js/select2.js"></script>
   		
 	</head>
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <h3 class="align-center">สร้าง รายการค่าใช้จ่าย</h3>
+		 <h3 class="align-center">สร้าง รายการค่าใช้จ่าย-รายได้</h3>
 		 <div class="example" data-text="รายละเอียด">
-		 <form action="costcodeMaster.action" method="post">
+		 <form action="groupcostcodeMaster.action" method="post">
 	         <div class="grid">
 			  	<div class="row cells12">
-			  	
 			  		<div class="cell colspan2"> 
-			        	รหัส กลุ่มค่าใช้จ่าย
+			        	รหัส กลุ่มรายการค่าใช้จ่าย
 				        <div class="input-control text full-size">
-						    <select name="gcostcode" id="gcostcode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
-						    <option value="">กรุณาเลือกกล่มค่าใช้จ่าย</option>
-						    <%
-						    GroupcostcodeMasterDB groupmaster = new GroupcostcodeMasterDB();
-						    Iterator groupmaster_iterate = groupmaster.GetGroupCostCodeMasterList("", "").iterator();
-						    while(groupmaster_iterate.hasNext()){
-						    	GroupCostCodeMasterModel groupmodel =(GroupCostCodeMasterModel) groupmaster_iterate.next();
-						    %>
-						    	<option value="<%=groupmodel.getCostCode()%>"><%=groupmodel.getCostName()%></option>
-						    <%	
-						    }
-						    %>
-						    
-						    </select>
-						    
+						    <s:textfield name="groupcostcodemastermodel.costCode" id="costCode" required=""/>
+						    <s:hidden name="groupcostcodemastermodel.costCodeHD" id="costCodeHD"/>
 						</div>
 					</div>
-					
-			  		<div class="cell colspan2"> 
-			        	รหัส รายการค่าใช้จ่าย
+			        <div class="cell colspan4"> 
+			        	 รายการค่าใช้จ่าย
 				        <div class="input-control text full-size">
-						    <s:textfield name="costcodemasterform.costCode" id="costCode" required=""/>
-						    <s:hidden name="costcodemasterform.costCodeHD" id="costCodeHD"/>
-						</div>
-					</div>
-			        <div class="cell colspan2"> 
-			        	 ชื่อรายการค่าใช้จ่าย
-				        <div class="input-control text full-size">
-						    <s:textfield name="costcodemasterform.costName" id="costName" required=""/>
+						    <s:textfield name="groupcostcodemastermodel.costName" id="costName" required=""/>
 						</div>
 					</div>
 					<div class="cell colspan2"> 
-			        	 กำหนดราคาค่าใช้จ่าย
+			        	 ราคากลาง
 				        <div class="input-control text full-size">
-						    <s:textfield type="number" name="costcodemasterform.percentprice" id="percentprice" required=""/>%
+						    <s:textfield type="number" name="groupcostcodemastermodel.standardprice" id="standardprice" required=""/>
 						</div>
-						
-					</div>  
-					
+					</div>
+					<div class="cell colspan2"> 
+			        	ราคาทุน
+				        <div class="input-control text full-size">
+						    <s:textfield type="number" name="groupcostcodemastermodel.fundprice" id="fundprice" required=""/>
+						</div>
+					</div> 
+					 
 			    </div>
-			    <div class="row">
-			    	<div class="cell align-center"><br>
+			    <div>
+			    <div class="cell align-center"><br>
 						  <button class="button success" name="add">สร้างชื่อรายการค่าใช้จ่าย</button> 
 						  <button class="button primary" name="update">แก้ไขชื่อรายการค่าใช้จ่าย</button> 
 						  <button class="button danger" name="delete">ลบชื่อรายการค่าใช้จ่าย</button> 
-					</div>
+				</div>
 			    </div>
-			     
 			 </div>
 		 </form>  
 		</div>  
@@ -94,35 +72,35 @@
                 <thead>
                 <tr>  
                 	<th>ลำดับ</th>
-                	<th>กลุ่มค่าใช้จ่าย</th>
                     <th>รหัส-รายการค่าใช้จ่าย</th>
                     <th>ชื่อ-รายการค่าใช้จ่าย</th>
-                    <th>กำหนดราคา</th> 
+                    <th>ราคากลาง</th> 
+                    <th>ราคาทุน</th>  
                     <th>วันเวลา-รายการค่าใช้จ่าย</th>
                 </tr>
                 </thead> 
                   
                 <tbody>
                 <%
-                List costCodeMasterList = null;
-                CostCodeMasterDB ccM = new CostCodeMasterDB();
-        		costCodeMasterList = ccM.GetCostCodeMasterList("", "","");
+                List groupcostCodeMasterList = null;
+                GroupcostcodeMasterDB ccM = new GroupcostcodeMasterDB();
+        		groupcostCodeMasterList = ccM.GetGroupCostCodeMasterList("", "");
         		int x = 1;
-        		if(costCodeMasterList != null){
+        		if(groupcostCodeMasterList != null){
         			
-        			Iterator costcodeIterate = costCodeMasterList.iterator();
+        			Iterator costcodeIterate = groupcostCodeMasterList.iterator();
         			while(costcodeIterate.hasNext()){
-        				CostCodeMasterForm ccInfo = (CostCodeMasterForm) costcodeIterate.next();
+        				GroupCostCodeMasterModel gccInfo = (GroupCostCodeMasterModel) costcodeIterate.next();
         				
         				
         		%>
         			<tr>
-        			<td align="center"><%=x%></td>
-        			<td class="tdgcostcode" align="center"><%=ccInfo.getGcostcode()%> - <%=ccInfo.getGcostcode_name()%></td> 
-                    <td class="tdcostCode" align="center"><%=ccInfo.getCostCode()%></td>
-                    <td class="tdcostName" align="center"><%=ccInfo.getCostName()%></td>  
-                    <td class="tdpercentprice" align="center"><%=ccInfo.getCostCode()%></td> 
-                    <td align="center"><%=ccInfo.getDateTime()%></td>
+        			<td align="center"><%=x%></td>  
+                    <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
+                    <td class="tdcostName" align="center"><%=gccInfo.getCostName()%></td>
+                    <td class="tdstandardprice" align="center"><%=gccInfo.getStandardprice() %></td>
+                    <td class="tdfundprice" align="center"><%=gccInfo.getFundprice() %></td>   
+                    <td align="center"><%=gccInfo.getDateTime()%></td>
                 	</tr>
         		<%		
         		x++;
@@ -131,7 +109,7 @@
         		}else{
         		%>
         			<tr>  
-                    <td colspan="2" align="center">ไม่พบข้อมูล</td>   
+                    <td colspan="6" align="center">ไม่พบข้อมูล</td>   
                 	</tr>
         		<%
         		}
@@ -142,9 +120,6 @@
          
    		<script>
         $(function(){
-        	
-        	var selectgcostcode = $("#gcostcode").select2();
-        	
         	var table = $('#table_project').dataTable();
             $('#table_project tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {
@@ -152,9 +127,8 @@
     	            $("#costCode").val("");
     	            $("#costCodeHD").val("");
     	            $("#costName").val("");
-    	            $("#gcostcode").val("");
-    	            selectgcostcode.val("").trigger("change");
-    	            $("#percentprice").val("");
+    	            $("#standardprice").val("");
+    	            $("#fundprice").val("");
     	        }
     	        else {
     	            table.$('tr.selected').removeClass('selected');
@@ -163,11 +137,8 @@
     	            $("#costCode").val($(".tdcostCode").eq($index).text());
     	            $("#costCodeHD").val($(".tdcostCode").eq($index).text());
     	            $("#costName").val($(".tdcostName").eq($index).text());
-    	            
-    	            var forsplit = $(".tdgcostcode").eq($index).text().split(" - ");
-    	            selectgcostcode.val(forsplit[0]).trigger("change");
-    	            
-    	            $("#percentprice").val($(".tdpercentprice").eq($index).text());
+    	            $("#standardprice").val($(".tdstandardprice").eq($index).text());
+    	            $("#fundprice").val($(".tdfundprice").eq($index).text());
     	        }
     	    });
         });

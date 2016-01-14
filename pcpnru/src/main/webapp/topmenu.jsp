@@ -10,7 +10,15 @@
                 <li><a href="projectmaster.jsp">สร้าง ชื่อโครงการ</a></li>   
                 <li><a href="subjobmaster.jsp">สร้าง  กิจกรรม</a></li>
                 <li><a href="childsubjobmaster.jsp">สร้าง  กิจกรรมย่อย</a></li>
-                <li><a href="costcodemaster.jsp">สร้าง รายการค่าใช้จ่ายในแต่ละกิจกรรม</a></li>
+                <li><a href="" class="dropdown-toggle">สร้าง รายละเอียดค่าใช้จ่าย</a>
+                    <ul class="d-menu" data-role="dropdown">
+                        <li><a href="groupcostcode-receive.jsp">กลุ่มรายได้</a></li>
+                        <li><a href="groupcostcode-requisition.jsp">กลุ่มรายจ่าย</a></li>
+                        <li><a href="costcodemaster.jsp">กำหนดค่าใช้จ่าย</a></li> 
+                    </ul>
+                </li>
+                
+                
             </ul>
         </li>
         <li>
@@ -42,7 +50,8 @@
                     <ul class="d-menu" data-role="dropdown"> 
                         <li><a href="reportreceive.jsp">รายงาน ประจำวัน, เดือน, ไตรมาส, ปี</a></li> 
                     </ul>
-                </li> 
+                </li>
+                <li><a href="analyze.pdf">วิเคราะห์งบ</a></li> 
             </ul>
         </li>
         <li>
