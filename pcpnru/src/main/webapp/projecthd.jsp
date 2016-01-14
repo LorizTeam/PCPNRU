@@ -1,4 +1,7 @@
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %> 
+<%@ page import="pcpnru.projectModel.*" %>
+<%@ page import="pcpnru.projectData.*" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -17,53 +20,64 @@
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
 	    <script src="js/docs.js"></script>
-	    <script src="js/prettify/run_prettify.js"></script>
-	    <script src="js/ga.js"></script> 
         <script src="js/jquery.dataTables.min.js"></script>
   		<script src="js/select2.js"></script>
+  		<script src="js/angular.min.js"></script>
 	</head>
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
 		 <h3 class="align-center">ร่างรายละเอียดโครงการ</h3>
 		 <div class="example" data-text="รายละเอียด">
+		 <form action="projecthd.action" method="post">
          <div class="grid">
 		  	<div class="row cells12">
 		        <div class="cell colspan4"> 
 		        	รหัส-ชื่อ โครงการ
 			        <div class="input-control text full-size">
-					    <select id="project_code" onchange="">
-					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
-					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
-					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-					        <option>521800004 - โรงแรม</option>
-					        <option>521800005 - ศูนย์บริการ</option>
-					        <option>521800006 - สปา & ฟิตเนส</option>
-					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
+					    <select id="project_code" name="project_code" required>
+					    	<option value="">-- โปรดเลือก --</option>
+					    	<%
+					    	ProjectMasterDB projM = new ProjectMasterDB();
+					    	Iterator projectmasterIterate = projM.GetProjectMasterList("", "").iterator();
+					    	while(projectmasterIterate.hasNext()){
+					    		ProjectMasterForm projectmasterForm = (ProjectMasterForm) projectmasterIterate.next();
+					    	%>
+					    	<option value="<%=projectmasterForm.getProjectCode()%>"><%=projectmasterForm.getProjectCode()%> - <%=projectmasterForm.getProjectName()%></option>
+					    	
+					    	<%
+					    	}
+					    	%>
 					    </select>
 					</div>
 				</div>
 		        <div class="cell colspan3"> 
 		        	เป้าหมาย
 			        <div class="input-control text full-size">
-					    <input type="text">
+			        
+					    <input type="text" name="target" id="target" required/>
 					</div>
 				</div>
 		        <div class="cell colspan2"> 
 		        	ปี
 			        <div class="input-control text full-size">
-					    <input type="text">
+					    <input type="text" name="year" id="year" required/>
 					</div>
 				</div>
-				<div class="cell colspan3"><br>
-			        	<a class="button success" href="projectdt.jsp">จัดทำงบประมาณ</a> <button class="button primary">แก้ไขงบประมาณ</button>
+				
+		    </div>
+		    <div class="row cells12">
+		    	<div class="cell colspan12 align-center"><br>
+			        	<button class="button success" type="submit" name="submit">จัดทำงบประมาณ</button> 
+			        	<button class="button primary" type="submit"  name="update">แก้ไขงบประมาณ</button>
+			        	<button class="button danger" type="submit"  name="delete">ลบงบประมาณ</button>
 				</div> 
 		    </div>
-		 </div>  
+		 </div>
+		 </form>  
 		</div>  
 		 
-        <div class="example" data-text="รายการ">
+        <div class="example" data-text="รายการ" ng-app="" ng-init="">
             <table id="table_project" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr> 
@@ -76,66 +90,57 @@
                 </thead> 
                   
                 <tbody>
-                <tr> 
-                    <td>255800001</td>
-                    <td>อาคารเรือนไทย</td>
-                    <td>2558</td>
-                    <td>4,000,000 บาท</td> 
+                <%
+                ProjectData pjdata = new ProjectData();
+                Iterator pjIterate = pjdata.GetProjectHDList().iterator();
+                while(pjIterate.hasNext()){
+                	ProjectModel pjmodel = (ProjectModel) pjIterate.next();
+               	%>
+               	<tr> 
+                    <td class="tdproject_code"><%=pjmodel.getProject_code() %></td>
+                    <td ><%=pjmodel.getProject_name() %></td>
+                    <td class="tdyear"><%=pjmodel.getYear() %></td>
+                    <td class="tdtarget">{{<%=pjmodel.getTarget() %> | currency:"฿"}}</td> 
                     <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
-                </tr>	
-                <tr> 
-                    <td>255800002</td>
-                    <td>แหล่งเรียนรู้และวิจัย กาซะลองสปา</td>
-                    <td>2558</td>
-                    <td>1,000,000 บาท</td> 
-                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
-                </tr>
-                <tr> 
-                    <td>255800003</td>
-                    <td>ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</td>
-                    <td>2558</td>
-                    <td>2,300,000 บาท</td> 
-                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
-                </tr>
-                <tr> 
-                    <td>255800004</td>
-                    <td>โรงแรม</td>
-                    <td>2558</td>
-                    <td>8,000,000 บาท</td> 
-                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
-                </tr>
-                 <tr> 
-                    <td>255800005</td>
-                    <td>ศูนย์บริการ</td>
-                    <td>2558</td>
-                    <td>2,500,000 บาท</td> 
-                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
-                </tr>
-                <tr> 
-                    <td>255800006</td>
-                    <td>สปา & ฟิตเนส</td>
-                    <td>2558</td>
-                    <td>2,500,000 บาท</td> 
-                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
-                </tr>
-                <tr> 
-                    <td>255800007</td>
-                    <td>ศูนย์อาหารและร้านค้า</td>
-                    <td>2558</td>
-                    <td>1,500,000 บาท</td> 
-                    <td class="align-center"><a href="projectdt.jsp"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
-                </tr>
+                </tr>               	
+               	<%
+                }
+                %>
+                
                 </tbody>
             </table>
-        </div> <!-- End of example table -->  
-         
+        </div> 
+        
+        <!-- End of example table -->  
+        
+        
    		<script>
 	   		$(function(){
-		        $("#project_code").select2();
-		    });
-	        $(function(){
-	            $('#table_project').dataTable();
-	        });
+		       var selectproject_code =  $("#project_code").select2();
+		        
+		        var target = "";
+		        var table = $('#table_project').dataTable();
+		        $('#table_project tbody').on( 'click', 'tr', function () { 
+	    	        if ( $(this).hasClass('selected') ) {
+	    	            $(this).removeClass('selected');
+	    	            $("#target").val("");
+	    	            $("#year").val("");
+	    	            selectproject_code.val("").trigger("change");
+	    	        }else{
+	    	            table.$('tr.selected').removeClass('selected');
+	    	            $(this).addClass('selected');
+	    	            var $index = $(this).index();
+	    	            
+	    	            $("#year").val($(".tdyear").eq($index).text());
+	    	            
+	    	            var target = $(".tdtarget").eq($index).text();
+	    	            target = target.replace(/฿/g,"").replace(/,/g,"");
+	    	            $("#target").val(target);
+	    	            
+	    	            selectproject_code.val($(".tdproject_code").eq($index).text()).trigger("change");
+	    	        }
+		    	});
+	   		});
     	</script>
 	</body>
 </html>

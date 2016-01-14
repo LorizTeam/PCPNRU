@@ -178,24 +178,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 		    	</div>
 		    </div>  
-		  	<div class="row cells12">  
-		    	<div class="cell colspan2">
-		    		จำนวน<div class="input-control full-size success">
-		    			<input type="hidden" id="itemNo" name="itemNo"> 
-					    <input type="text" id="qty" name="qty" onkeyup="sumAmount();" data-validate-func="required" data-validate-hint="This field can not be empty">
-						<span class="input-state-error mif-warning"></span>
-                       <span class="input-state-success mif-checkmark"></span>
-					</div>
-		    	</div> 
-		    	<div class="cell colspan2">
-		    		ราคาต่อหน่วย<div class="input-control full-size success"> 
-					    <input type="text" id="amount" name="amount" onkeyup="sumAmount();">
-					</div>
-		    	</div> 
-		    	<div class="cell colspan2">
-		    		ราคารวม<div class="input-control full-size success"> 
-					    <s:textfield id="amountTotal" name="amountTotal" />
+		  	<div class="row cells12" >  
+		    	<div class="cell colspan3">
+		    		จำนวน<div class="input-control full-size ">
+		    			<input type="text"ng-hide="true" ng-model="i_no" id="itemNo" name="itemNo"> 
+					    <input type="number" id="qty" name="qty"ng-keyup="total=n1*n2" ng-model="n1"  data-validate-func="required" data-validate-hint="This field can not be empty">
 
+					</div>
+		    	</div> 
+		    	<div class="cell colspan3">
+		    		ราคาต่อหน่วย<div class="input-control full-size "> 
+					    <input type="number" id="amount"ng-keyup="total=n1*n2" ng-model="n2" name="amount" data-validate-func="required" data-validate-hint="This field can not be empty">
+					</div>
+		    	</div> 
+		    	<div class="cell colspan3"> 
+		    		ราคารวม<div class="input-control full-size ">
+		    		<h3 class="no-margin">{{total | currency:"฿"}}</h3>
+					    <s:hidden id="amountTotal" name="amountTotal" value="{{total}}"/>
 					</div>
 		    	</div> 
 		    	<div class="cell colspan6" align="center"><br>
