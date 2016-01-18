@@ -9,6 +9,10 @@ public class ProjectModel {
 	//DT receive
 	private String costname,budget;
 	
+	public ProjectModel(){
+		
+	}
+	
 	public ProjectModel(String project_code,String project_name, String target
 			, String year, String datetime_response){
 		

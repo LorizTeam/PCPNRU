@@ -55,13 +55,13 @@
 		        	เป้าหมาย
 			        <div class="input-control text full-size">
 			        
-					    <input type="text" name="target" id="target" required/>
+					    <s:textfield type="text" name="projectmodel.target" id="target" required=""/>
 					</div>
 				</div>
 		        <div class="cell colspan2"> 
 		        	ปี
 			        <div class="input-control text full-size">
-					    <input type="text" name="year" id="year" required/>
+					    <s:textfield type="text" name="projectmodel.year" id="year" required=""/>
 					</div>
 				</div>
 				

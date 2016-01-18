@@ -31,8 +31,8 @@ public class ProjectHDAction extends ActionSupport{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		ProjectData pjData = new ProjectData();
 		
-		String project_target = request.getParameter("target");
-		String project_year = request.getParameter("year");
+		String project_target = projectmodel.getTarget();
+		String project_year = projectmodel.getYear();
 		String project_code = request.getParameter("project_code");
 		
 		if(request.getParameter("submit") != null){
