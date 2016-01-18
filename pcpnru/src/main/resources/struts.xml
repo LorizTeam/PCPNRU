@@ -57,7 +57,18 @@
     	</action>
     	<!-- 		receive print report 		 -->
     	<!-- 		Receive 		 -->
-        
+    	
+    	<!-- 		Select-Receive 		 -->
+    	<action name="selectReceive1" class="pcpnru.projectAction.SelectReceive1Action" method="execute">
+      		<result name="error">/select_receive-1.jsp</result>
+      		<result name="success">/select_receive-2.jsp</result>
+    	</action>
+    	
+    	<action name="selectReceive2" class="pcpnru.projectAction.SelectReceive2Action" method="execute">
+      		<result name="error">/select_receive-2.jsp</result>
+      		<result name="success">/select_receive-3.jsp</result>
+    	</action>
+    	<!-- 		Select-Receive 		 --> 
         
         <!-- 		Login 		 -->
         <action name="login" class="pcpnru.projectAction.LoginAction" method="execute">

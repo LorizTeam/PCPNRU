@@ -141,4 +141,113 @@ public class Receive1DB {
 	
 	return chkCustomer;
 	}
+	public List GetAmountFrom() 
+			throws Exception { //30-05-2014
+				List amtFromList = new ArrayList();
+				 
+				String amtFrom  = "";
+				
+				try {
+				
+					conn = agent.getConnectMYSql();
+					
+					String sqlStmt = "SELECT amountfrom " +
+					"FROM receivehd WHERE ";
+					
+					sqlStmt = sqlStmt + "amountfrom <> '' group by amountfrom order by amountfrom";
+					
+					//System.out.println(sqlStmt);				
+					pStmt = conn.createStatement();
+					rs = pStmt.executeQuery(sqlStmt);	
+					while (rs.next()) {
+						amtFrom		= rs.getString("amountfrom"); 
+						
+						amtFromList.add(new ReceiveForm("1", amtFrom, ""));
+					}
+					rs.close();
+					pStmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				    throw new Exception(e.getMessage());
+				}
+				return amtFromList;
+			 }
+	public List GetLocal() 
+			throws Exception { //30-05-2014
+				List localList = new ArrayList();
+				 
+				String local  = "";
+				
+				try {
+				
+					conn = agent.getConnectMYSql();
+					
+					String sqlStmt = "SELECT local " +
+					"FROM receivehd WHERE ";
+					
+					sqlStmt = sqlStmt + "local <> '' group by local order by local";
+					
+					//System.out.println(sqlStmt);				
+					pStmt = conn.createStatement();
+					rs = pStmt.executeQuery(sqlStmt);	
+					while (rs.next()) {
+						local		= rs.getString("local"); 
+						
+						localList.add(new ReceiveForm("2", "", local));
+					}
+					rs.close();
+					pStmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				    throw new Exception(e.getMessage());
+				}
+				return localList;
+			 }
+	public List GetSelectReceiveList(String docNo, String projectcode, String costcode, 
+			String docdate, String amountfrom, String local) 
+		throws Exception { //30-05-2014
+			List SelectReceiveList = new ArrayList();
+				 
+			String project = "", cost = "";
+				
+			try {
+				
+				conn = agent.getConnectMYSql();
+					
+				String sqlStmt = "SELECT docno, CONCAT(project_code,' - ',project_name) as project, "+
+						"CONCAT(a.costcode,' - ',costname) cost, docdate, amountfrom, local " +
+				"FROM receivehd a "+
+				"left join project_master b on(b.project_code = a.projectcode) "+
+				"left join costcode_master c on(c.costcode = a.costcode) "+
+				"WHERE ";
+				if(!docNo.equals("")) sqlStmt = sqlStmt+ "a.docno = '"+docNo+"' AND ";
+				if(!projectcode.equals("")) sqlStmt = sqlStmt+ "a.projectcode = '"+projectcode+"' AND ";
+				if(!costcode.equals("")) sqlStmt = sqlStmt+ "a.costcode = '"+costcode+"' AND ";
+				if(!docdate.equals("")) sqlStmt = sqlStmt+ "a.docdate = '"+docdate+"' AND ";
+				if(!amountfrom.equals("")) sqlStmt = sqlStmt+ "a.amountfrom = '"+amountfrom+"' AND ";
+				if(!local.equals("")) sqlStmt = sqlStmt+ "a.local = '"+local+"' AND ";
+				
+				sqlStmt = sqlStmt + "a.docno <> '' order by docno";
+					
+				//System.out.println(sqlStmt);				
+				pStmt = conn.createStatement();
+				rs = pStmt.executeQuery(sqlStmt);	
+				while (rs.next()) {
+					docNo 			= rs.getString("docno"); 
+					if (rs.getString("project") != null)  project = rs.getString("project"); else project = "";
+					if (rs.getString("cost") != null)  cost = rs.getString("cost"); else cost = "";
+					docdate 	= rs.getString("docdate");
+					amountfrom 	= rs.getString("amountfrom");
+					local 		= rs.getString("local"); 
+					 
+					SelectReceiveList.add(new ReceiveForm(docNo, projectcode, project, cost, docdate, amountfrom, local));
+				}
+				rs.close();
+				pStmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				   throw new Exception(e.getMessage());
+			}
+			return SelectReceiveList;
+		}
 }

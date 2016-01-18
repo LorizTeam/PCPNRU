@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page import="pcpnru.projectModel.*" %>
+<%@ page import="pcpnru.projectData.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -40,36 +42,93 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  	<%	List SelectReceiveList1 = null;
+		if (request.getAttribute("SelectReceiveList") == null) {
+  		Receive1DB receL = new Receive1DB();
+  			SelectReceiveList1 = receL.GetSelectReceiveList("", "", "", "", "", "");
+		}else{
+			SelectReceiveList1 = (List) request.getAttribute("SelectReceiveList");
+		}
+  	%>
+  
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
 	
+	<form id="receive-2" action="selectReceive2.action" method="post">
+		<input type="hidden" id="docno" name="docno">
+		<input type="hidden" id="project" name="project">
+		<input type="hidden" id="cost" name="cost">
+		<input type="hidden" id="datetime" name="datetime">
+		<input type="hidden" id="amountfrom" name="receiveform.amountfrom">
+		<input type="hidden" id="local" name="receiveform.local">
+	</form>
+	
 	<div class="example" data-text="รายการ">
-            <table id="table_project" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_receives2" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  
                 	<th>เลขที่</th>
-                    <th>รายละเอียด</th>
+                	<th>เลขที่เอกสาร</th>
+                	<th>โครงการ</th>
+                    <th>ค่าใช้จ่าย</th>
+                    <th>วันที่</th>
                     <th>ได้รับเงินจาก</th>
                     <th>สถานที่</th>
                 </tr>
                 </thead> 
                   
                  <tbody>
+                 <%		List SelectReceiveList = SelectReceiveList1;
+                 		if (SelectReceiveList != null) {
+						int x = 0;
+						for (Iterator iter = SelectReceiveList.iterator(); iter.hasNext();) {
+						x++; 
+						ReceiveForm receiveMaster = (ReceiveForm) iter.next();
+				%>
                 <tr>  
-                    <td><a href="select_receive-3.jsp"><button class="toolbar-button"><span class="mif-pencil"></span></button></a> 1</td>
-                    <td>ผู้ชาย</td> 
-                    <td>คุณ พงษธง</td>  
-                    <td>สมาร์ทไอซีที</td> 
+                    <td align="center"><%=x%></td> 
+                    <td class="tddocno" align="left"><%=receiveMaster.getDocNo()%></td>
+                    <td class="tdproject" align="left"><%=receiveMaster.getProject()%></td>  
+                    <td class="tdcost" align="left"><%=receiveMaster.getCost()%></td> 
+                    <td class="tddatetime" align="center"><%=receiveMaster.getDocdate()%></td> 
+                    <td class="tdamountfrom" align="left"><%=receiveMaster.getAmountfrom()%></td> 
+                    <td class="tdlocal" align="left"><%=receiveMaster.getLocal()%></td> 
                 </tr>
-                <tr>  
-                    <td><a href="select_receive-3.jsp"><button class="toolbar-button"><span class="mif-pencil"></span></button></a> 2</td>
-                    <td>ผู้หญิง</td> 
-                    <td>คุณ พานุวัฒน์</td>  
-                    <td>สมาร์ทไอซีที</td> 
-                </tr>
-                 
+                 <% 	} %>
+                
+                <%} else { %>
+                <tr> 
+                    <td colspan="6">ไม่พบข้อมูล</td> 
+                </tr> 
+                <%	} %> 
                 </tbody>
             </table>
         </div> <!-- End of example table --> 
+        
+<script>
+$(function(){
+	$('#table_receives2 tbody').on( 'click', 'tr', function () {
+		$(this).addClass('selected');
+        var $index = $(this).index();
+        
+        var docno = $(".tddocno").eq($index).text();
+        var projectname = $(".tdproject").eq($index).text();
+	    var costname = $(".tdcost").eq($index).text();
+	    var datetime = $(".tddatetime").eq($index).text();
+	    var amountfrom = $(".tdamountfrom").eq($index).text();
+	    var local = $(".tdlocal").eq($index).text();
+        
+	    $("#project").val(projectname);
+	 	$("#docno").val(docno);
+	 	$("#cost").val(costname);
+	 	$("#datetime").val(datetime);
+	 	$("#amountfrom").val(amountfrom);
+	 	$("#local").val(local);
+	 	
+	 	$("#receive-2").submit();
+	   	
+		});
+	});	
+</script>
   </body>
 </html>

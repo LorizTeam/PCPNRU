@@ -18,9 +18,12 @@ public class ReceiveForm{
 	private String update;
 	private String delete;
 	
+	private String project;
+	private String cost;
+	private String docdate; 
+	
 	public ReceiveForm() { 
-	}
-
+	} 
 	public ReceiveForm(String docNo, String itemNo, String description, String qty, String amount, String amountTotal) {
 		super();
 		this.docNo = docNo;
@@ -29,6 +32,20 @@ public class ReceiveForm{
 		this.qty = qty;
 		this.amount = amount;
 		this.amountTotal = amountTotal;
+	}
+	public ReceiveForm(String docNo, String projectcode, String project, String cost, String docdate, String amountfrom, String local) {
+		this.docNo = docNo;
+		this.project = project;
+		this.cost = cost;
+		this.docdate = docdate;
+		this.amountfrom = amountfrom;
+		this.local = local;
+	}
+	public ReceiveForm(String check, String amountfrom, String local) { 
+		
+		if(check.equals("1")) this.amountfrom = amountfrom;
+		else if (check.equals("2")) this.local	= local;
+		
 	}
 
 	public String getDocNo() {
@@ -125,5 +142,24 @@ public class ReceiveForm{
 
 	public void setLocal(String local) {
 		this.local = local;
+	}
+	 
+	public String getDocdate() {
+		return docdate;
+	}
+	public void setDocdate(String docdate) {
+		this.docdate = docdate;
+	}
+	public String getProject() {
+		return project;
+	}
+	public void setProject(String project) {
+		this.project = project;
+	}
+	public String getCost() {
+		return cost;
+	}
+	public void setCost(String cost) {
+		this.cost = cost;
 	}
 }

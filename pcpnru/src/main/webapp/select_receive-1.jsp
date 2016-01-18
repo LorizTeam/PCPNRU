@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags" %> 
+<%@ page import="pcpnru.projectModel.*" %>
+<%@ page import="pcpnru.projectData.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -40,30 +42,49 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  	<%
+  		ProjectMasterDB projM = new ProjectMasterDB();
+		List projectMasterList = projM.GetProjectMasterList("", "");
+		
+		CostCodeMasterDB ccM = new CostCodeMasterDB();
+		List costCodeMasterList = ccM.GetCostCodeMasterList("", "","");
+		
+		Receive1DB receL = new Receive1DB();
+		List amtFromList = receL.GetAmountFrom();
+  		List localList	= receL.GetLocal();
+  	%>
+  
     <div><%@include file="topmenu.jsp" %></div>
 	<h3 class="align-center">รายละเอียดรายได้</h3>
+	<form action="selectReceive1.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
 	<div class="example" data-text="รายละเอียดรายได้">
 		<div class="grid">
 		  	<div class="row cells12">
 		    	<div class="cell colspan5 offset2" > 
 		    		โครงการ
 		       		 <div class="input-control full-size"> 
-		       		 <select onchange="" id="project_code">
-					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
-					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
-					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-					        <option>521800004 - โรงแรม</option>
-					        <option>521800005 - ศูนย์บริการ</option>
-					        <option>521800006 - สปา & ฟิตเนส</option>
-					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
+		       		 <select id="project_code" name="projectCode" data-validate-hint="ไม่ระบุ">
+					    <option value="" >-- ไม่ระบุ --</option>
+					    <% 
+		        		if (projectMasterList != null) {
+			        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
+			        			ProjectMasterForm pjInfo = (ProjectMasterForm) iterPj.next();
+	      				%>  
+			      			<option value="<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>" >
+			       			 	<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>
+			       			</option>
+							<%		} 
+								}
+							%>
+							<span class="input-state-success mif-checkmark"></span>
 					   </select>
 					   </div>
 		    	</div>
 		    	<div class="cell colspan2">  
 		        		วันที่การรับ
 					    <div class="input-control text full-size ">
-                            <input type="text" required id="datepicker">
+                            <input type="text" name="dateTime" id="datepicker" >
+                            	<span class="input-state-success mif-checkmark"></span>
                         </div>
                         
 				</div>
@@ -73,16 +94,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan7 offset2">
 		    		ค่าใช้จ่าย
 		    		<div class="input-control full-size"> 
-					    <select onchange="" id="cost_code">
-					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
-					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
-					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-					        <option>521800004 - โรงแรม</option>
-					        <option>521800005 - ศูนย์บริการ</option>
-					        <option>521800006 - สปา & ฟิตเนส</option>
-					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
-					   </select> 
+					    <select id="cost_code" name="costCode" data-validate-hint="ไม่ระบุ">
+					   		<option value="">-- ไม่ระบุ --</option>
+					   </select>
+					   		<span class="input-state-success mif-checkmark"></span> 
 					</div>
 		    	</div>   
 		    </div>
@@ -90,22 +105,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan4 offset2">
 		    		ชื่อลูกค้า
 		    		<div class="input-control full-size"> 
-					    <select onchange=""id="cus_name">
-					    	<option>-- โปรดเลือก --</option>
-					    	<option>พานุวัฒน์ </option>  
-					    	<option>คุณ พงศธร </option> 
-					    	<option>จิราพร </option>
+					    <select id="amountfrom" name="receiveform.amountfrom" data-validate-hint="ไม่ระบุ">
+					    	<option value="">-- ไม่ระบุ --</option>
+					    	<% 
+			        		if (amtFromList != null) {
+				        		for (Iterator iterAmtFrom = amtFromList.iterator(); iterAmtFrom.hasNext();) {
+				        			ReceiveForm amtFromInfo = (ReceiveForm) iterAmtFrom.next();
+		      				%>  
+				      			<option value="<%=amtFromInfo.getAmountfrom()%>" >
+				       			 	<%=amtFromInfo.getAmountfrom()%>
+				       			</option>
+								<%		} 
+									}
+							%>
 					   </select> 
 					</div>
 		    	</div>
 		    	<div class="cell colspan3">
 		    		สถานที่
 		    		<div class="input-control full-size"> 
-					    <select onchange="" id="location">
-					    	<option>-- โปรดเลือก --</option>
-					    	<option>สมาร์ทไอซีที</option> 
-					    	<option>สมาร์ทฮาดร์แวร์</option> 
-					    	<option>ไอซีทีสมาร์ท</option>
+					    <select id="local" name="receiveform.local" data-validate-hint="ไม่ระบุ">
+					    	<option value="">-- ไม่ระบุ --</option>
+					    	<% 
+			        		if (localList != null) {
+				        		for (Iterator iterlocal = localList.iterator(); iterlocal.hasNext();) {
+				        			ReceiveForm amtFromInfo = (ReceiveForm) iterlocal.next();
+		      				%>  
+				      			<option value="<%=amtFromInfo.getLocal()%>" >
+				       			 	<%=amtFromInfo.getLocal()%>
+				       			</option>
+								<%		} 
+									}
+							%>
 					   </select>
 					</div>
 		    	</div>  
@@ -113,24 +144,63 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	  	<div class="row cells12"> 
 	    	<div class="cell colspan2 offset2" align="center"><br> 
-				 <button class="button success full-size" type="submit" name="add">ตกลง</button>
+				 <button class="button success full-size" type="submit" name="ok">ตกลง</button>
 			</div> 
 	    </div>
 		
 		<br/>  
 		</div>
 	</div> <!-- End of example --> 
+	</form>
+	
 	<script>
 		$(function(){
 	        $("#project_code").select2();
-	        $("#cost_code").select2();
+	       // $("#cost_code").select2();
 	        $("#cus_name").select2();
 	        $("#location").select2();
 	    });
 	    $(function(){
-	        $("#datepicker").datepicker();
+	    	 $("#datepicker").datepicker({
+	    		 clearBtn: true,autoclose:true,todayBtn: "linked",todayHighlight: true,format: "dd/mm/yyyy",setDate:"2016-11-12" 
+	         });
 	        
 	    });
+	    
+	    $(function(){
+	    $( "#project_code" ).change(function() {
+	  		  
+			var project_code = $("#project_code").val();
+			var out = '';
+			
+			$.ajax({  // select history
+			  	 
+	          type: "post",
+	          url: "ajax_receive-1.jsp", //this is my servlet 
+	          data: {projectCode:project_code},
+	          async:false, 
+	          success: function(result){
+	          
+	          obj = JSON.parse(result);
+	          	// alert(obj)
+	          	
+	          	var value = obj;
+	          if( Object.keys(obj).length === 0){
+	        	  $("#cost_code").html('<option value="">-- ไม่ระบุ --</option>');
+	          }else{
+		          for(var i = 0 ; i < obj.length; i++){
+						out +=  
+						'<option value="'+obj[i].costcode+' - '+obj[i].costname+'">'+
+						   obj[i].costcode+' - '+obj[i].costname+
+						'</option>'; 
+					}  
+					$("#cost_code").html(out);
+		          }
+	          }
+	       });
+	    });	
+	});
+	    
 	</script>
   </body>
 </html>
