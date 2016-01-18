@@ -119,7 +119,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		//	String amountfrom 	= (String) request.getAttribute("amountfrom");
   		//	String local 		= (String) request.getAttribute("local"); 
   			String amtt 		= (String) request.getAttribute("amtt");
-  			if(amtt==null) amtt = "0";
+  			if(amtt==null) {
+  				Receive2DB rcM = new Receive2DB();
+  				amtt	= rcM.getSumAmount(docNo);
+  			}
   			 
   			List ReceiveList1 = null;
   			if (request.getAttribute("ReceiveList") == null) {

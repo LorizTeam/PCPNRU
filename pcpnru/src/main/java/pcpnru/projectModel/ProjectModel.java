@@ -6,6 +6,8 @@ public class ProjectModel {
 	private String project_code,target,year,datetime_response;
 	private String project_name;
 	
+	//DT receive
+	private String costname,budget;
 	
 	public ProjectModel(String project_code,String project_name, String target
 			, String year, String datetime_response){
@@ -15,6 +17,12 @@ public class ProjectModel {
 		this.target = target;
 		this.year = year;
 		this.datetime_response = datetime_response;
+		
+	}
+	public ProjectModel(String project_code,String costname,String budget){
+		this.project_code = project_code;
+		this.costname = costname;
+		this.budget = budget; 
 		
 	}
 	public void reset(){
@@ -62,6 +70,18 @@ public class ProjectModel {
 
 	public void setDatetime_response(String datetime_response) {
 		this.datetime_response = datetime_response;
+	}
+	public String getCostname() {
+		return costname;
+	}
+	public void setCostname(String costname) {
+		this.costname = costname;
+	}
+	public String getBudget() {
+		return budget;
+	}
+	public void setBudget(String budget) {
+		this.budget = budget;
 	}
 	
 	

@@ -1,4 +1,5 @@
-<%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*,java.text.DecimalFormat" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>  
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -22,10 +23,11 @@
 	</head>
 
 	<body>
-		 
+		 <% String projectcode = (String) request.getParameter("projectcode"); 
+		 %>
 		 <%@include file="topmenu.jsp" %>
 		 <div class="container-fluid">
-		 	<a href="projectdt-receive.jsp" class="command-button primary">
+		 	<a href="projectdt-receive.jsp?projectcode=<%=projectcode%>" class="command-button primary">
 			    <span class="icon mif-chart-dots"></span>
 			  	  รายได้
 			    <small>จัดการรายรับของโครงการ</small>

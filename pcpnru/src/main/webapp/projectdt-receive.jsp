@@ -1,8 +1,18 @@
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page import="pcpnru.projectModel.*" %>
+<%@ page import="pcpnru.projectData.*" %>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<base href="<%=basePath%>">
+		
 		<title>ประมาณการรายได้ รายจ่าย โครงการ</title>
+		
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -22,7 +32,7 @@
 	</head>
 
 	<body ng-app="controllerCalculator" >
-		 
+		 <% String projectcode = (String) request.getParameter("projectcode");  %>
 		 		<%@include file="topmenu.jsp" %>
 		 <div class="container-fluid" ng-controller="SettingsController">
 		 	
@@ -30,6 +40,7 @@
 			<div class="example"data-text="" >
 			<h3 class="align-center margin30">ประมาณการรายได้ ของโครงการ ............</h3>
 			
+			<form action="projectdtreceive.action" method="post">
 			<div class="example" data-text="เพิ่ม">
 	         <div class="grid">
 			  	<div class="row cells12">
@@ -37,7 +48,11 @@
 			        <div class="cell colspan4"> 
 			        	รายการ
 			        	 <div class="input-control text full-size"> 
-	                          <input type="text"  ng-model="name">
+			        	 	<!--   <s:hidden id="projectcode" name="projModel.projectcode" />
+	                          <s:textfield id="costname" name="projModel.costname" ng-model="name" />
+	                        --> 
+	                        <input type="hidden" id="projectcode" name="projectcode" value="<%=projectcode%>">
+	                        <input type="text" id="costname" name="costname" ng-model="name">
 	                     </div>
 					</div> 
 					<div class="cell ">คำนวน<br>
@@ -46,17 +61,22 @@
 					<div class="cell colspan2"> 
 			        	จำนวนเงิน
 			        	 <div class="input-control text full-size"> 
-	                          <input type="text" >
+			        	 	<!--
+			        	 	  <s:textfield id="budget" name="projModel.budget" /> 
+			        	 	-->
+			        	 	<input type="text" id="budget" name="budget">
 	                     </div> 
 					</div>  
 					<div class="cell colspan5"><br>
-						  <button class="button success">เพิ่มประมาณการรายได้</button> 
+						  <button class="button success" type="submit" name="add">เพิ่มประมาณการรายได้</button> 
 						  <button class="button primary">บันทึกการแก้ไข</button> 
 						  <button class="button danger">ลบรายการ</button> 
 					</div> 
 			    </div>
 			 </div>  
 			</div>  
+			</form>
+			
 			<div  class="charm right-side bg-gray" data-role="charm" data-position="right" id="right-charm" style="max-width:50%">
 				<span class="charm-closer"></span>
 				<h3 class="text-light">เพิ่มการคำนวน</h3>
@@ -154,72 +174,42 @@
 				  		
 				  	</div>
 			  	</div>
-			 <!-- รายรับ -->	
+			 <!-- รายรับ --> 
 				<div class="example" data-text="รายได้">
-				  
+				  	<% 
+		  			if (request.getParameter("projectcode") != null) {
+		  				ProjectDTReceiveDB PDTR = new ProjectDTReceiveDB();
+		  				List ProjDTReceive = PDTR.GetProjDTReceiveList(projectcode);
+		  				String amttotal = "0", projcode = "";
+		  				for (Iterator iter = ProjDTReceive.iterator(); iter.hasNext();) {
+		  					ProjectModel pjDTR = (ProjectModel) iter.next();
+		  				 	projcode = pjDTR.getProject_code().trim();
+		  					String amt = pjDTR.getBudget();
+		  					amttotal = Float.toString(Float.parseFloat(amttotal)+Float.parseFloat(amt));
+				 	%>	
 				  	<!-- ROW -->
 					  <div class="row cells12 " >			  
-					  	<h5 class="cell colspan7 subjob">
-					  		ให้บริการนวด	
-					  	</h5>
-					  	<div class="cell colspan4 align-center">
-					  		600,000 
-					  	</div>
-					  	<div class="cell ">
-				  			<a href="#"><span class="mif-pencil"></span></a>
+					  	<h5 class="cell colspan7 costname"><%=pjDTR.getCostname().trim()%></h5>
+					  	<div class="cell colspan4 align-center budget">{{<%=pjDTR.getBudget()%> | currency:"฿"}}</div>
+					  	<div class="cell clickbutton">
+				  			<a href=""><span class="mif-pencil"></span></a> 
 				  		</div>
 					  </div>
 					<!-- ROW --> 
-					<!-- ROW -->  
-					   <div class="row cells12 " >			  
-					  	<h5 class="cell colspan7 subjob">
-					  		ให้บริการนวด	อโรม่า
-					  	</h5>
-					  	<div class="cell colspan4 align-center">
-					  		200,000
-					  	</div>
-					  	<div class="cell ">
-				  			<a href="#"><span class="mif-pencil"></span></a>
-				  		</div>
-					  </div>
-					  <!-- ROW -->
-					  <!-- ROW -->  
-					   <div class="row cells12 " >			  
-					  	<h5 class="cell colspan7 subjob">
-					  		ให้บริการนวดหน้า
-					  	</h5>
-					  	<div class="cell colspan4 align-center">
-					  		150,000
-					  	</div>
-					  	<div class="cell ">
-				  			<a href="#"><span class="mif-pencil"></span></a>
-				  		</div>
-					  </div>
-					  <!-- ROW -->
-					  <!-- ROW -->  
-					   <div class="row cells12 " >			  
-					  	<h5 class="cell colspan7 subjob">
-					  		ค่าสมาชิกรายปี
-					  	</h5>
-					  	<div class="cell colspan4 align-center">
-					  		48,000 
-					  	</div>
-					  	<div class="cell  ">
-				  			<a href="#"><span class="mif-pencil"></span></a>
-				  		</div>
-					  </div> 
-					  <!-- ROW -->
-					  
+					<% 		} 
+					%>
 					  <!--Totle ROW -->  
 					   <div class="row cells12 " >			  
 					  	<div class="cell colspan7 align-right">
 					  		<h4>รวม</h4>
 					  	</div>
 					  	<div class="cell colspan4 align-center">
-					  		<h4>998,000</h4>
+					  		<h4>{{<%=amttotal%> | currency:"฿"}}</h4> 
 					  	</div>
 					  </div>
 					  <!--Totle ROW -->
+					  <% 		} 
+					%>
 				</div>
 			<!-- รายรับ -->		
 			
@@ -227,12 +217,12 @@
 				  </div>
 				   <div class="row " >	
 					  	<div class="cell align-center">
-					  		<a href="projectdt.jsp" class="button">กลับ</a>
+					  		<a href="projectdt.jsp?projectcode=<%=projectcode%>" class="button">กลับ</a>
 					  	</div>
 					  </div>
 			</div>
 		</div>
-		</div>
+		 
 		<script>
 			function showCharm(id){
 	            var  charm = $("#right-charm").data("charm");
@@ -242,6 +232,17 @@
 	                charm.open();
 	            }
 	        }
+			 
+	   		$(function(){
+		       
+		        $('.clickbutton').click(function () { 
+		        		 
+			        		var index = $(".clickbutton").index(this);  
+		    	            $("#costname").val($(".costname").eq(index).text()); 
+		    	            $("#budget").val($(".budget").eq(index).text());
+		        		
+		    	});
+	   		}); 
 		</script>
 		<script src="js/angular.min.js"></script>
 		<script src="js/app.js"></script>

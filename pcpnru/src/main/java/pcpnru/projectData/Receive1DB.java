@@ -227,7 +227,7 @@ public class Receive1DB {
 				if(!amountfrom.equals("")) sqlStmt = sqlStmt+ "a.amountfrom = '"+amountfrom+"' AND ";
 				if(!local.equals("")) sqlStmt = sqlStmt+ "a.local = '"+local+"' AND ";
 				
-				sqlStmt = sqlStmt + "a.docno <> '' order by docno";
+				sqlStmt = sqlStmt + "a.docno <> '' order by docdate, docno desc";
 					
 				//System.out.println(sqlStmt);				
 				pStmt = conn.createStatement();
