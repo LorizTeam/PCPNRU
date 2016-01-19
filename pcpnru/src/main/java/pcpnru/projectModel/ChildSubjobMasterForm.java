@@ -27,6 +27,11 @@ public class ChildSubjobMasterForm{
 		this.childsubjobname = childsubjobname;
 		this.dateTime	= dateTime;
 	}
+	public ChildSubjobMasterForm(String childsubjobcode, String childsubjobname) {
+		super();
+		this.childsubjobcode = childsubjobcode;
+		this.childsubjobname = childsubjobname;
+	}
 	
 	public void reset() {
 		this.subjobcodehd = "";

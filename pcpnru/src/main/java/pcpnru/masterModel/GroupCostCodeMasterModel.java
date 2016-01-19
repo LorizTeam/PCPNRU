@@ -28,6 +28,11 @@ public class GroupCostCodeMasterModel {
 		this.fundprice = fundprice;
 		this.dateTime = dateTime;
 	}
+	public GroupCostCodeMasterModel(String costCode, String costName) {
+		super();
+		this.costCode = costCode;
+		this.costName = costName;
+	}
 
 	public String getCostCodeHD() {
 		return costCodeHD;

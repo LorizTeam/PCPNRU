@@ -7,7 +7,7 @@ public class ProjectModel {
 	private String project_name;
 	
 	//DT receive
-	private String costname,budget;
+	private String gcostcode,gcostname,budget;
 	
 	public ProjectModel(){
 		
@@ -23,9 +23,10 @@ public class ProjectModel {
 		this.datetime_response = datetime_response;
 		
 	}
-	public ProjectModel(String project_code,String costname,String budget){
+	public ProjectModel(String project_code,String gcostcode,String gcostname,String budget){
 		this.project_code = project_code;
-		this.costname = costname;
+		this.gcostcode = gcostcode;
+		this.gcostname = gcostname;
 		this.budget = budget; 
 		
 	}
@@ -75,18 +76,29 @@ public class ProjectModel {
 	public void setDatetime_response(String datetime_response) {
 		this.datetime_response = datetime_response;
 	}
-	public String getCostname() {
-		return costname;
-	}
-	public void setCostname(String costname) {
-		this.costname = costname;
-	}
 	public String getBudget() {
 		return budget;
 	}
 	public void setBudget(String budget) {
 		this.budget = budget;
 	}
+
+	public String getGcostcode() {
+		return gcostcode;
+	}
+
+	public void setGcostcode(String gcostcode) {
+		this.gcostcode = gcostcode;
+	}
+
+	public String getGcostname() {
+		return gcostname;
+	}
+
+	public void setGcostname(String gcostname) {
+		this.gcostname = gcostname;
+	}
+
 	
 	
 }

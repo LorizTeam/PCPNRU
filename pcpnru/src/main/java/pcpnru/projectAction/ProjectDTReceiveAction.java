@@ -27,17 +27,69 @@ public class ProjectDTReceiveAction extends ActionSupport{
 	public String execute() throws Exception{ 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		ProjectDTReceiveDB projDtR = new ProjectDTReceiveDB();
-		 
-		String add	= (String) request.getParameter("add");
+	 
+		String add			= (String) request.getParameter("add");
 		String projectcode 	= (String) request.getParameter("projectcode");
-		String costname		= (String) request.getParameter("costname");
+		String gcostname	= (String) request.getParameter("gcostname");
 		String budget		= (String) request.getParameter("budget");
+		String csubjob		= (String) request.getParameter("csubjob");
+		String subjob		= "0003";
+		String gcostcode		= (String) request.getParameter("gcostcode");
 	//	String projectcode 	= projModel.getProject_code();
 	//	String costname		= projModel.getCostname();
 	//	String budget		= projModel.getBudget();
-		
 		if(add!=null){ 
-			projDtR.AddProjDTReceive(projectcode, costname, budget);
+		
+		String[] chk 	= request.getParameterValues("aroperation");
+		if(!chk[0].equals("? string: ?")){
+		
+			String qty 	= (String) request.getParameter("qty");
+			String unit	= (String) request.getParameter("unit");
+			
+			String[] aroperation 	= request.getParameterValues("aroperation");
+			String[] arqty 			= request.getParameterValues("arqty");
+			String[] arunit 		= request.getParameterValues("arunit");	
+			
+		// text costname
+		String txtvalue = "";
+		txtvalue = gcostname;
+		txtvalue += " "+qty+" "+unit; 
+		
+		String value = "0"; 
+		for(int i=0; i<aroperation.length; i++){
+			txtvalue += " "+aroperation[i]+" "+arqty[i]+" "+arunit[i];
+			
+			if(!qty.equals("0")){ // textfield qty + array qty[0] 
+				if(aroperation[i].equals("+")){ // operation = +
+					value = Float.toString(Float.parseFloat(qty)+Float.parseFloat(arqty[i]));
+				}else if(aroperation[i].equals("-")) { // operation = -
+					value = Float.toString(Float.parseFloat(qty)-Float.parseFloat(arqty[i]));
+				}else if(aroperation[i].equals("*")) { // operation = *
+					value = Float.toString(Float.parseFloat(qty)*Float.parseFloat(arqty[i]));
+				}else if(aroperation[i].equals("/")) { // operation = /
+					value = Float.toString(Float.parseFloat(qty)/Float.parseFloat(arqty[i]));
+				}
+				qty = "0";
+			}else{ // textfield array qty[0] + array qty[i] 
+				if(aroperation[i].equals("+")){ // operation = +
+					value = Float.toString(Float.parseFloat(value)+Float.parseFloat(arqty[i]));
+				}else if(aroperation[i].equals("-")) { // operation = -
+					value = Float.toString(Float.parseFloat(value)-Float.parseFloat(arqty[i]));
+				}else if(aroperation[i].equals("*")) { // operation = *
+					value = Float.toString(Float.parseFloat(value)*Float.parseFloat(arqty[i]));
+				}else if(aroperation[i].equals("/")) { // operation = /
+					value = Float.toString(Float.parseFloat(value)/Float.parseFloat(arqty[i]));
+				}
+			}
+		} 
+		gcostname = txtvalue; 	// text value
+		budget = value;			// value
+	} 
+		 
+		 
+			projDtR.AddProjDTReceive(projectcode, subjob, csubjob, gcostcode, gcostname, budget);
+		}else{
+			projDtR.DeleteProjDTReceive(projectcode, gcostcode);
 		}
 		return SUCCESS;
 	}
