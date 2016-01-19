@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>  
+<%@ page import="pcpnru.projectData.*" %>
+<%@ page import="pcpnru.projectModel.*" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -17,9 +19,7 @@
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
 	    <script src="js/docs.js"></script>
-	    <script src="js/prettify/run_prettify.js"></script>
-	    <script src="js/ga.js"></script>
-  	
+  		<script src="js/angular.min.js"></script>
 	</head>
 
 	<body>
@@ -57,48 +57,33 @@
 				  	</div>
 			  	</div>
 			 <!-- รายรับ -->	
-				<div class="example" data-text="รายได้">
-				  
-				  	<!-- ROW -->
-					  <div class="row cells12 " >			  
-					  	<h5 class="cell colspan8 subjob">
-					  		ให้บริการนวด	
-					  	</h5>
-					  	<div class="cell colspan4 align-center">
-					  		600,000 
-					  	</div>
-					  </div>
-					<!-- ROW --> 
-					<!-- ROW -->  
-					   <div class="row cells12 " >			  
-					  	<h5 class="cell colspan8 subjob">
-					  		ให้บริการนวด	อโรม่า
-					  	</h5>
-					  	<div class="cell colspan4 align-center">
-					  		200,000
-					  	</div>
-					  </div>
-					  <!-- ROW -->
-					  <!-- ROW -->  
-					   <div class="row cells12 " >			  
-					  	<h5 class="cell colspan8 subjob">
-					  		ให้บริการนวดหน้า
-					  	</h5>
-					  	<div class="cell colspan4 align-center">
-					  		150,000
-					  	</div>
-					  </div>
-					  <!-- ROW -->
-					  <!-- ROW -->  
-					   <div class="row cells12 " >			  
-					  	<h5 class="cell colspan8 subjob">
-					  		ค่าสมาชิกรายปี
-					  	</h5>
-					  	<div class="cell colspan4 align-center">
-					  		48,000 
-					  	</div>
-					  </div>
-					  <!-- ROW -->
+				<div class="example" data-text="รายได้" ng-app="" ng-init="">
+				  <%
+				  	ProjectData pjdata = new ProjectData();
+				  	List projectDTList = pjdata.GetProjectDTDetailList(projectcode, "", "", "", "",
+				  			"", "", "", "", "", "", "true", "");
+				  	double pjdt_receivetotal = 0;
+				  	if(projectDTList != null){
+				  		Iterator projectDTIter = projectDTList.iterator();
+				  		while(projectDTIter.hasNext()){
+				  			ProjectModel pjmodel = (ProjectModel) projectDTIter.next();
+				  			pjdt_receivetotal += Float.parseFloat(pjmodel.getBudget());
+				  %>
+				  			<!-- ROW -->
+							  <div class="row cells12 " >			  
+							  	<h5 class="cell colspan8 subjob">
+							  		<%=pjmodel.getGcostcode_name() %>
+							  	</h5>
+							  	<div class="cell colspan4 align-center">
+							  		{{ <%=pjmodel.getBudget() %> | currency:"฿"}}
+							  	</div>
+							  </div>
+							<!-- ROW --> 
+				  <%	
+				  		}
+				  	}
+				  %>
+				  	
 					  
 					  <!--Totle ROW -->  
 					   <div class="row cells6 " >			  
@@ -106,7 +91,7 @@
 					  		<h4>รวม</h4>
 					  	</div>
 					  	<div class="cell colspan2 align-center">
-					  		<h4>998,000</h4>
+					  		<h4>{{<%=pjdt_receivetotal %>| currency:"฿"}}</h4>
 					  	</div>
 					  </div>
 					  <!--Totle ROW -->

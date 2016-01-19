@@ -13,17 +13,17 @@
 	ResultSet rs = null; 
 	List listJson = new LinkedList();
 	
-	String sql = "SELECT b.costcode, b.costname "+
-				 "from projectplan_detail a INNER JOIN costcode_master b ON (b.costcode = a.costcode)  "+
-	 			 "WHERE a.project_code = '"+projectCode+"' and a.subjob_code = '0003' order by b.costcode";
+	String sql = "SELECT b.gcostcode, b.gcostcode_name "+
+				 "from projectplan_detail a INNER JOIN groupcostcode_master b ON (b.gcostcode = a.gcostcode)  "+
+	 			 "WHERE a.project_code = '"+projectCode+"' and a.subjob_code = '0003' order by b.gcostcode";
 	Connection conn = dbcon.getConnectMYSql();
 	Statement pStmt = conn.createStatement();
 	rs = pStmt.executeQuery(sql); 
 	while(rs.next()){
 		JSONObject obj=new JSONObject();
 			 
-    		obj.put("costcode",rs.getString("costcode"));
-    		obj.put("costname",rs.getString("costname")); 
+    		obj.put("gcostcode",rs.getString("gcostcode"));
+    		obj.put("gcostcode_name",rs.getString("gcostcode_name")); 
     		
     		listJson.add(obj); 
 	}

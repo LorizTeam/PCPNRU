@@ -9,7 +9,29 @@ public class ProjectModel {
 	//DT receive
 	private String gcostcode,gcostname,budget;
 	
+	//Project plan DT
+	private String subjob_code,subjob_name,childsubjobcode,childsubjobname,gcostcode,gcostcode_name;
+	
+	
+
 	public ProjectModel(){
+		
+	}
+	public ProjectModel(String project_code,String project_name,
+			String subjob_code,String subjob_name,String childsubjobcode,
+			String childsubjobname,String gcostcode,String gcostcode_name,
+			String budget,String datetime_response){
+		
+		this.project_code = project_code;
+		this.project_name = project_name;
+		this.subjob_code = subjob_code;
+		this.subjob_name = subjob_name;
+		this.childsubjobcode = childsubjobcode;
+		this.childsubjobname = childsubjobname;
+		this.gcostcode = gcostcode;
+		this.gcostcode_name = gcostcode_name;
+		this.budget = budget;
+		this.datetime_response = datetime_response;
 		
 	}
 	
@@ -38,7 +60,53 @@ public class ProjectModel {
 		this.datetime_response = "";
 		
 	}
-	
+	public String getSubjob_code() {
+		return subjob_code;
+	}
+
+	public void setSubjob_code(String subjob_code) {
+		this.subjob_code = subjob_code;
+	}
+
+	public String getSubjob_name() {
+		return subjob_name;
+	}
+
+	public void setSubjob_name(String subjob_name) {
+		this.subjob_name = subjob_name;
+	}
+
+	public String getChildsubjobcode() {
+		return childsubjobcode;
+	}
+
+	public void setChildsubjobcode(String childsubjobcode) {
+		this.childsubjobcode = childsubjobcode;
+	}
+
+	public String getChildsubjobname() {
+		return childsubjobname;
+	}
+
+	public void setChildsubjobname(String childsubjobname) {
+		this.childsubjobname = childsubjobname;
+	}
+
+	public String getGcostcode() {
+		return gcostcode;
+	}
+
+	public void setGcostcode(String gcostcode) {
+		this.gcostcode = gcostcode;
+	}
+
+	public String getGcostcode_name() {
+		return gcostcode_name;
+	}
+
+	public void setGcostcode_name(String gcostcode_name) {
+		this.gcostcode_name = gcostcode_name;
+	}
 	public String getProject_name() {
 		return project_name;
 	}

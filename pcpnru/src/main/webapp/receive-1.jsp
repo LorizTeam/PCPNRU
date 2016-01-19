@@ -115,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		       
 		    	<div class="cell colspan7  offset2">
 		    		ค่าใช้จ่าย<div class="input-control full-size"> 
-					    <select id="cost_code" name="costCode" data-validate-func="required" data-validate-hint="กรุณาเลือกประเภทค่าใช้จ่าย">
+					    <select id="gcostcode" name="gcostCode" data-validate-func="required" data-validate-hint="กรุณาเลือกประเภทค่าใช้จ่าย">
 					   	<option value="">กรุณาเลือกรายการค่าใช้จ่าย</option>
 					   </select> 
 	                    	<span class="input-state-success mif-checkmark"></span> 
@@ -181,15 +181,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          	
 	          	var value = obj;
 	          if( Object.keys(obj).length === 0){
-	        	  $("#cost_code").html('<option value="">กรุณาเลือกรายการค่าใช้จ่าย</option>');
+	        	  $("#gcostcode").html('<option value="">กรุณาเลือกรายการค่าใช้จ่าย</option>');
 	          }else{
 		          for(var i = 0 ; i < obj.length; i++){
 						out +=  
-						'<option value="'+obj[i].costcode+' - '+obj[i].costname+'">'+
-						   obj[i].costcode+' - '+obj[i].costname+
+						'<option value="'+obj[i].gcostcode+' - '+obj[i].gcostcode_name+'">'+
+						   obj[i].gcostcode+' - '+obj[i].gcostcode_name+
 						'</option>'; 
 					}  
-					$("#cost_code").html(out);
+					$("#gcostcode").html(out);
 		          }
 	          }
 	       });

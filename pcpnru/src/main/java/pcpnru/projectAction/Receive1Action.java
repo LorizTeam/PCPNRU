@@ -137,7 +137,7 @@ public class Receive1Action extends ActionSupport {
 			
 			String projectCode 	= request.getParameter("projectCode");
 			String dateTime 	= request.getParameter("dateTime");
-			String costCode 	= request.getParameter("costCode");
+			String costCode 	= request.getParameter("gcostCode");
 			String amountfrom 	= receiveform.getAmountfrom();
 			
 			System.out.println(amountfrom);
