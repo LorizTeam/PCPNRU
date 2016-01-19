@@ -182,13 +182,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan3">
 		    		จำนวน<div class="input-control full-size ">
 		    			<input type="text"ng-hide="true" ng-model="i_no" id="itemNo" name="itemNo"> 
-					    <input type="number" id="qty" name="qty"ng-keyup="total=n1*n2" ng-model="n1"  data-validate-func="required" data-validate-hint="This field can not be empty">
+					    <input type="number" id="qty" name="qty"ng-change="total=n1*n2" ng-model="n1"  data-validate-func="required" data-validate-hint="This field can not be empty">
 
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
 		    		ราคาต่อหน่วย<div class="input-control full-size "> 
-					    <input type="number" id="amount"ng-keyup="total=n1*n2" ng-model="n2" name="amount" data-validate-func="required" data-validate-hint="This field can not be empty">
+					    <input type="number" id="amount"ng-change="total=n1*n2" ng-model="n2" name="amount" data-validate-func="required" data-validate-hint="This field can not be empty">
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3"> 
@@ -197,12 +197,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <s:hidden id="amountTotal" name="amountTotal" value="{{total}}"/>
 					</div>
 		    	</div> 
-		    	<div class="cell colspan6" align="center"><br>
+		    	
+		    </div> 
+		    <div class="row">
+		    	<div class="cell" align="center"><br>
 					  <button class="button success" type="submit" name="add">บันทึกรายได้</button> 
 					  <button class="button primary" type="submit" name="update">แก้ไขรายการ</button> 
 					  <button class="button danger" type="submit" name="delete">ลบรายการ</button>
 				</div>
-		    </div>    
+		    </div>   
 		    </form> 
 		</div> <!-- End of example --> 
 	</div>
