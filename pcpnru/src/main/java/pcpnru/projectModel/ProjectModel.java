@@ -10,7 +10,7 @@ public class ProjectModel {
 	private String gcostcode,gcostname,budget;
 	
 	//Project plan DT
-	private String subjob_code,subjob_name,childsubjobcode,childsubjobname,gcostcode,gcostcode_name;
+	private String subjob_code,subjob_name,childsubjobcode,childsubjobname,gcostcode_name;
 	
 	
 
@@ -149,14 +149,6 @@ public class ProjectModel {
 	}
 	public void setBudget(String budget) {
 		this.budget = budget;
-	}
-
-	public String getGcostcode() {
-		return gcostcode;
-	}
-
-	public void setGcostcode(String gcostcode) {
-		this.gcostcode = gcostcode;
 	}
 
 	public String getGcostname() {
