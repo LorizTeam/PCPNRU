@@ -32,7 +32,7 @@
 			  	  รายได้
 			    <small>จัดการรายรับของโครงการ</small>
 			</a>
-			<a href="projectdt-charges.jsp" class="command-button info">
+			<a href="projectdt-charges.jsp?projectcode=<%=projectcode%>" class="command-button info">
 			    <span class="icon mif-coins"></span>
 			  	 ค่าใช้จ่าย
 			    <small>จัดการค่าใช้จ่ายของโครงการ</small>
