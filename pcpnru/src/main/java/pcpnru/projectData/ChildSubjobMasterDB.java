@@ -30,10 +30,10 @@ public class ChildSubjobMasterDB {
 		
 			conn = agent.getConnectMYSql();
 			
-			String sqlStmt = "SELECT subjobcode, subjob_name, childsubjobcode, childsubjobname, DATE_FORMAT(childsubjob_master.datetime,'%d-%m-%Y %H:%i') as datetime " +
-			"FROM childsubjob_master left join subjob_master on(subjobcode = subjob_code) " +
+			String sqlStmt = "SELECT childsubjob_master.subjob_code, subjob_name, childsubjobcode, childsubjobname, DATE_FORMAT(childsubjob_master.datetime,'%d-%m-%Y %H:%i') as datetime " +
+			"FROM childsubjob_master left join subjob_master on(childsubjob_master.subjob_code = subjob_master.subjob_code) " +
 			"WHERE "; 
-			if(!subjobcode.equals("")) sqlStmt = sqlStmt+ "subjobcode like '"+subjobcode+"%' AND ";
+			if(!subjobcode.equals("")) sqlStmt = sqlStmt+ "subjob_code like '"+subjobcode+"%' AND ";
 			if(!childsubjobcode.equals("")) sqlStmt = sqlStmt+ "childsubjobcode like '"+childsubjobcode+"%' AND ";
 			if(!childsubjobname.equals("")) sqlStmt = sqlStmt+ "childsubjobname like '"+childsubjobname+"%' AND ";
 			
@@ -43,7 +43,7 @@ public class ChildSubjobMasterDB {
 			pStmt = conn.createStatement();
 			rs = pStmt.executeQuery(sqlStmt);	
 			while (rs.next()) {
-				subjobcode 	= rs.getString("subjobcode");
+				subjobcode 	= rs.getString("subjob_code");
 				subjobname  = rs.getString("subjob_name");
 				childsubjobcode 	= rs.getString("childsubjobcode");
 				if (rs.getString("childsubjobname") != null) childsubjobname = rs.getString("childsubjobname"); else childsubjobname = "";
@@ -71,7 +71,7 @@ public class ChildSubjobMasterDB {
 	public void AddChildSubjobMaster(String subjobcode, String childsubjobcode, String childsubjobname)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "INSERT IGNORE INTO childsubjob_master(subjobcode, childsubjobcode, childsubjobname, datetime) " +
+		String sqlStmt = "INSERT IGNORE INTO childsubjob_master(subjob_code, childsubjobcode, childsubjobname, datetime) " +
 		"VALUES ('"+subjobcode+"', '"+childsubjobcode+"', '"+childsubjobname+"', now())";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
@@ -82,8 +82,8 @@ public class ChildSubjobMasterDB {
 	public void UpdateChildSubjobMaster(String subjobcode, String childsubjobcode, String childsubjobname, String subjobcodehd, String childsubjobcodehd)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "UPDATE childsubjob_master set subjobcode = '"+subjobcode+"', childsubjobcode = '"+childsubjobcode+"', childsubjobname = '"+childsubjobname+"', datetime = now() " +
-				"WHERE subjobcode = '"+subjobcodehd+"' and childsubjobcode = '"+childsubjobcodehd+"'";
+		String sqlStmt = "UPDATE childsubjob_master set subjob_code = '"+subjobcode+"', childsubjobcode = '"+childsubjobcode+"', childsubjobname = '"+childsubjobname+"', datetime = now() " +
+				"WHERE subjob_code = '"+subjobcodehd+"' and childsubjobcode = '"+childsubjobcodehd+"'";
 		//System.out.println(sqlStmt); 
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -94,7 +94,7 @@ public class ChildSubjobMasterDB {
 		conn = agent.getConnectMYSql();
 		
 		String sqlStmt = "DELETE From childsubjob_master "+
-		"WHERE subjobcode = '"+subjobcode+"' and childsubjobcode = '"+childsubjobcode+"'";
+		"WHERE subjob_code = '"+subjobcode+"' and childsubjobcode = '"+childsubjobcode+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
