@@ -13,7 +13,7 @@ import pcpnru.projectModel.*;
 import pcpnru.utilities.*;
  
 
-public class ProjectDTReceiveDB {
+public class ProjectDTChargesDB {
 	
 	DBConnect agent 	= new DBConnect();
 	Connection conn		= null;
@@ -21,7 +21,7 @@ public class ProjectDTReceiveDB {
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
-	public List GetProjDTReceiveList(String projectcode) 
+	public List GetProjDTChargesList(String projectcode) 
 			throws Exception { //18-01-2016
 				List ProjDTReceive = new ArrayList(); 
 				String gcostcost = "", gcostname  = "", budget = ""; 
@@ -31,7 +31,7 @@ public class ProjectDTReceiveDB {
 					String sqlStmt = "SELECT project_code, gcostcode, gcostcode_name, budget " +
 					"FROM projectplan_detail WHERE ";
 					if(!projectcode.equals("")) sqlStmt = sqlStmt+ "project_code = '"+projectcode+"' AND ";
-					sqlStmt = sqlStmt + "project_code <> '' and subjob_code = '0003' order by datetime_response desc";
+					sqlStmt = sqlStmt + "project_code <> '' and subjob_code not in ('0003') order by datetime_response desc";
 					
 					//System.out.println(sqlStmt);				
 					pStmt = conn.createStatement();
@@ -76,14 +76,14 @@ public class ProjectDTReceiveDB {
 		pStmt.close();
 		conn.close();
 	}
-	public String getSumAmount(String docNo) throws Exception {
+	public String getAmtValue(String percentage) throws Exception {
 	
 	String amountTotal = "";
 	
 	conn = agent.getConnectMYSql();
  	
- 	String sqlStmt = "SELECT sum(amounttotal) as att " +
-	"FROM receivedt WHERE docno = '"+docNo+"' Group by docno ";
+ 	String sqlStmt = "SELECT sum(budget) as att " +
+	"FROM projectplan_detail WHERE subjob_code = '0003' Group by subjob_code ";
  	
  	pStmt = conn.createStatement();
 	rs = pStmt.executeQuery(sqlStmt);	
@@ -91,7 +91,7 @@ public class ProjectDTReceiveDB {
 	while (rs.next()) {
 		amountTotal = rs.getString("att"); 
 	}
-	
+	amountTotal = Float.toString((Float.parseFloat(amountTotal)*Float.parseFloat(percentage))/100);
 	
 	rs.close();
 	pStmt.close();
@@ -129,6 +129,40 @@ public class ProjectDTReceiveDB {
 				}
 				return amountTotal;
 			 }
+	public List GetSubjobList() 
+			throws Exception { //19-01-2016
+				List childSubjobList = new ArrayList();
+				String subjobcode = "", subjobname = "";
+				try {
+				
+					conn = agent.getConnectMYSql();
+					
+					String sqlStmt = "SELECT subjob_code, subjob_name " +
+					"FROM subjob_master " +
+					"WHERE "; 
+					//if(!subjobcode.equals("")) sqlStmt = sqlStmt+ "subjobcode like '"+subjobcode+"%' AND ";
+					//if(!childsubjobcode.equals("")) sqlStmt = sqlStmt+ "childsubjobcode like '"+childsubjobcode+"%' AND ";
+					//if(!childsubjobname.equals("")) sqlStmt = sqlStmt+ "childsubjobname like '"+childsubjobname+"%' AND ";
+					
+					sqlStmt = sqlStmt + "subjob_code not in ('0003') order by subjob_code";
+					
+					//System.out.println(sqlStmt);				
+					pStmt = conn.createStatement();
+					rs = pStmt.executeQuery(sqlStmt);	
+					while (rs.next()) {
+					 	subjobcode 	= rs.getString("subjob_code");
+					 	subjobname  = rs.getString("subjob_name");
+						 
+						childSubjobList.add(new SubjobMasterForm(subjobcode, subjobname));
+					}
+					rs.close();
+					pStmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				    throw new Exception(e.getMessage());
+				}
+				return childSubjobList;
+			 }
 	public List GetChildSubjobList() 
 			throws Exception { //19-01-2016
 				List childSubjobList = new ArrayList();
@@ -137,14 +171,14 @@ public class ProjectDTReceiveDB {
 				
 					conn = agent.getConnectMYSql();
 					
-					String sqlStmt = "SELECT childsubjob_master.subjob_code, subjob_name, childsubjobcode, childsubjobname " +
-					"FROM childsubjob_master left join subjob_master on(subjob_master.subjob_code = childsubjob_master.subjob_code) " +
+					String sqlStmt = "SELECT subjobcode, subjob_name, childsubjobcode, childsubjobname " +
+					"FROM childsubjob_master left join subjob_master on(subjobcode = subjob_code) " +
 					"WHERE "; 
 					//if(!subjobcode.equals("")) sqlStmt = sqlStmt+ "subjobcode like '"+subjobcode+"%' AND ";
 					//if(!childsubjobcode.equals("")) sqlStmt = sqlStmt+ "childsubjobcode like '"+childsubjobcode+"%' AND ";
 					//if(!childsubjobname.equals("")) sqlStmt = sqlStmt+ "childsubjobname like '"+childsubjobname+"%' AND ";
 					
-					sqlStmt = sqlStmt + "childsubjob_master.subjob_code = '0003'  group by childsubjob_master.subjob_code order by childsubjob_master.datetime desc";
+					sqlStmt = sqlStmt + "subjobcode = '0003'  group by subjobcode order by childsubjob_master.datetime desc";
 					
 					//System.out.println(sqlStmt);				
 					pStmt = conn.createStatement();

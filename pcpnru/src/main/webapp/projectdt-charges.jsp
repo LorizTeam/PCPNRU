@@ -1,4 +1,8 @@
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page import="pcpnru.projectModel.*" %>
+<%@ page import="pcpnru.masterModel.GroupCostCodeMasterModel" %> 
+<%@ page import="pcpnru.projectData.*" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,29 +19,51 @@
 	 	<link href="css/style.css" rel="stylesheet"> 
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
+	    <script src="js/angular.min.js"></script>
+		<script src="js/app.js"></script>
 	</head>
 
 	<body ng-app="controllerCalculator" >
+		 <% String projectcode = (String) request.getParameter("projectcode");
 		 
+		 	ProjectDTChargesDB PDTC = new ProjectDTChargesDB();
+		 	String percentage = PDTC.getAmtValue("55");
+		 	
+		 	List SubjobList = PDTC.GetSubjobList();
+		 %>
 		 <%@include file="topmenu.jsp" %>
 		 <div class="container-fluid"  ng-controller="SettingsController">
 			<div class="example"data-text="" >
-				<h3 class="align-center margin30">ประมาณค่าใช้จ่าย ของโครงการ ............</h3>
+				<h3 class="align-center margin30">ประมาณค่าใช้จ่าย ของโครงการ ............จำนวนเงินที่สามารถใช้ได้ของ 55% ในงบประมาณการรายได้คือ  {{<%=percentage%> | currency:"฿"}}</h3>
 				<div class="example" data-text="เพิ่ม">
 			        <div class="grid">
-			        	<div class="row cells4">
-			        		<div class="cell"> 
-					        	กิจกรรมย่อย
+			        	<div class="row cells12">
+			        		<div class="cell colspan3"> 
+					        	กิจกรรม
 						        <div class="input-control text full-size">
-								    <select onchange="">
-								    	<option>------------ โปรดเลือก ------------</option>
-								        <option>งบบุคลากร</option>
-								        <option>งบดำเนินการ</option>
-								        <option>งบลงทุน</option>
-								        <option>รายจ่ายอื่นๆ</option> 
+								    <select id="subjobcode" name="subjobcode">
+										    <% 
+							        		if (SubjobList != null) {
+								        		for (Iterator iterPj = SubjobList.iterator(); iterPj.hasNext();) {
+								        			SubjobMasterForm sjInfo = (SubjobMasterForm) iterPj.next();
+						      				%>  
+								      			<option value="<%=sjInfo.getSubjobCode()%>" >
+								       			 	<%=sjInfo.getSubjobCode()%> - <%=sjInfo.getSubjobName()%>
+								       			</option>
+												<%		} 
+													}
+												%> 
 								    </select>
 								</div>
-							</div> 
+							</div>
+							<div class="cell colspan3"> 
+					        	กิจกรรมย่อย
+						        <div class="input-control text full-size">
+								    <select id="childsubjobcode" name="childsubjobcode">
+								    	<option value="0000">-- ไม่ระบุ --</option>
+								    </select>
+								</div>
+							</div>  
 			        	</div>
 					  	<div class="row cells12">
 					        <div class="cell colspan3"> 
@@ -262,22 +288,86 @@
 				</div>
 				<div class="row " >	
 					<div class="cell align-center">
-						<a href="projectdt.jsp" class="button">กลับ</a>
+						<a href="projectdt.jsp?projectcode=<%=projectcode%>" class="button">กลับ</a>
 					</div>
 				</div>
 			</div>
 		</div>
 		<script>
-			function showCharm(id){
-	            var  charm = $("#right-charm").data("charm");
-	            if (charm.element.data("opened") === true) {
-	                charm.close();
-	            } else {
-	                charm.open();
-	            }
-	        }
+		function showCharm(id){
+            var  charm = $("#right-charm").data("charm");
+            if (charm.element.data("opened") === true) {
+                charm.close();
+            } else {
+                charm.open();
+            }
+        }
+		$(function(){
+			// load
+			var subjobcode = $("#subjobcode").val();
+			var out = '';
+			$.ajax({  // select history
+			  	 
+		          type: "post",
+		          url: "ajax_projectdt-charges.jsp", //this is my servlet 
+		          data: {subjobcode:subjobcode},
+		          async:false, 
+		          success: function(result){
+		          
+		          obj = JSON.parse(result);
+		          	// alert(obj)
+		          	
+		          	var value = obj;
+		          if( Object.keys(obj).length === 0){
+		        	  $("#childsubjobcode").html('<option value="">-- ไม่ระบุ --</option>');
+		          }else{
+			          for(var i = 0 ; i < obj.length; i++){
+							out +=  
+							'<option value="'+obj[i].childsubjobcode+' - '+obj[i].childsubjobname+'">'+
+							   obj[i].childsubjobcode+' - '+obj[i].childsubjobname+
+							'</option>'; 
+						}  
+						$("#childsubjobcode").html(out);
+			          }
+		          }
+		       }); 
+			// load
+			 
+			$( "#subjobcode" ).change(function() {
+		  		  
+				var subjobcode = $("#subjobcode").val();
+				var out = '';
+				
+				$.ajax({  // select history
+				  	 
+		          type: "post",
+		          url: "ajax_projectdt-charges.jsp", //this is my servlet 
+		          data: {subjobcode:subjobcode},
+		          async:false, 
+		          success: function(result){
+		          
+		          obj = JSON.parse(result);
+		          	// alert(obj)
+		          	
+		          	var value = obj;
+		          if( Object.keys(obj).length === 0){
+		        	  $("#childsubjobcode").html('<option value="">-- ไม่ระบุ --</option>');
+		          }else{
+			          for(var i = 0 ; i < obj.length; i++){
+							out +=  
+							'<option value="'+obj[i].childsubjobcode+' - '+obj[i].childsubjobname+'">'+
+							   obj[i].childsubjobcode+' - '+obj[i].childsubjobname+
+							'</option>'; 
+						}  
+						$("#childsubjobcode").html(out);
+			          }
+		          }
+		       }); 
+			}); 
+		}); 
+		
+		
 		</script>
-		<script src="js/angular.min.js"></script>
-		<script src="js/app.js"></script>
+		
 	</body>
 </html>
