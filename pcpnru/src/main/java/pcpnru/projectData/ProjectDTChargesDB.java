@@ -53,23 +53,23 @@ public class ProjectDTChargesDB {
 				return ProjDTReceive;
 			 }
 	
-	public void AddProjDTReceive(String projectcode, String subjob, String csubjob, String costcode, String costname, String budget)  throws Exception{
+	public void AddProjDTCharges(String projectcode, String year, String subjob, String csubjob, String costcode, String costname, String budget)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
 		 
-		String sqlStmt = "INSERT IGNORE INTO projectplan_detail(project_code, subjob_code, childsubjobcode, gcostcode, gcostcode_name, budget, datetime_response) " +
-		"VALUES ('"+projectcode+"', '"+subjob+"', '"+csubjob+"', '"+costcode+"', '"+costname+"', '"+budget+"', now())";
+		String sqlStmt = "INSERT IGNORE INTO projectplan_detail(project_code, year, subjob_code, childsubjobcode, gcostcode, gcostcode_name, budget, datetime_response) " +
+		"VALUES ('"+projectcode+"', '"+year+"', '"+subjob+"', '"+csubjob+"', '"+costcode+"', '"+costname+"', '"+budget+"', now())";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();
 		conn.close();
 	} 
-	public void DeleteProjDTReceive(String projectcode, String costcode)  throws Exception{
+	public void DeleteProjDTCharges(String projectcode, String subjobcode, String csubjobcode, String gcostcode)  throws Exception{
 		conn = agent.getConnectMYSql();
 		 
 		String sqlStmt = "DELETE From projectplan_detail "+
-		"WHERE project_code = '"+projectcode+"' and gcostcode = '"+costcode+"'";
+		"WHERE project_code = '"+projectcode+"' and subjob_code = '"+subjobcode+"' and childsubjobcode = '"+csubjobcode+"' and gcostcode = '"+gcostcode+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -199,7 +199,7 @@ public class ProjectDTChargesDB {
 				}
 				return childSubjobList;
 			 }
-	public List GetGroupCostCodeList() 
+	public List GetGroupCostCodeList(String projectcode, String year) 
 			throws Exception { //30-05-2014
 				List groupcostCodeList = new ArrayList();
 				String groupcostCode = "",groupcostName=""; 
@@ -208,12 +208,13 @@ public class ProjectDTChargesDB {
 					conn = agent.getConnectMYSql();
 					
 					String sqlStmt = "SELECT gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice, DATE_FORMAT(datetime,'%d-%m-%Y %H:%i') as datetime " +
-					"FROM groupcostcode_master " +
+					"FROM groupcostcode_master a   " +
 					"WHERE "; 
 					if(!groupcostCode.equals("")) sqlStmt = sqlStmt+ "gcostcode like '"+groupcostCode+"%' AND ";
 					if(!groupcostName.equals("")) sqlStmt = sqlStmt+ "gcostcode_name like '"+groupcostName+"%' AND ";
 					
-					sqlStmt = sqlStmt + "gcostcode <> '' order by datetime desc";
+					sqlStmt = sqlStmt + "a.gcostcode not in (select DISTINCT(b.gcostcode) from projectplan_detail b where b.gcostcode = a.gcostcode and " +
+							"project_code = '"+projectcode+"' and year = '"+year+"') order by a.gcostcode";
 					
 					//System.out.println(sqlStmt);				
 					pStmt = conn.createStatement();

@@ -35,10 +35,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<body ng-app="controllerCalculator" ng-controller="SettingsController">
 		 <% String projectcode = (String) request.getParameter("projectcode"); 
+		 	String year = (String) request.getParameter("year");
 		 	
 		 	ProjectDTReceiveDB PDTR = new ProjectDTReceiveDB();
 		 	List childSubjobList = PDTR.GetChildSubjobList();
-		 	List groupcostCodeList = PDTR.GetGroupCostCodeList();
+		 	List groupcostCodeList = PDTR.GetGroupCostCodeList(projectcode, year);
 		 %>
 		 		<%@include file="topmenu.jsp" %>
 		 <form id="project-receivedt" action="projectdtreceive.action" method="post" >
@@ -82,6 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                          <s:textfield id="costname" name="projModel.costname" ng-model="name" />
 	                        --> 
 	                        <input type="hidden" id="projectcode" name="projectcode" value="<%=projectcode%>"> 
+	                        <input type="hidden" id="year" name="year" value="<%=year%>">
 	                        <input type="hidden" id="gcostcode" name="gcostcode">
 	                     <select id="gcostname" name="gcostname" ng-model="name" data-validate-hint="ไม่ระบุ">
 					   	 	<option value="" >-- ไม่ระบุ --</option>
@@ -174,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  </div>
 				   <div class="row " >	
 					  	<div class="cell align-center">
-					  		<a href="projectdt.jsp?projectcode=<%=projectcode%>" class="button">กลับ</a>
+					  		<a href="projectdt.jsp?projectcode=<%=projectcode%>&year=<%=year%>" class="button">กลับ</a>
 					  	</div>
 					  </div>
 			</div>

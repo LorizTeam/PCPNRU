@@ -101,7 +101,7 @@
                     <td ><%=pjmodel.getProject_name() %></td>
                     <td class="tdyear"><%=pjmodel.getYear() %></td>
                     <td class="tdtarget">{{<%=pjmodel.getTarget() %> | currency:"฿"}}</td> 
-                    <td class="align-center"><a href="projectdt.jsp?projectcode=<%=pjmodel.getProject_code()%>"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
+                    <td class="align-center"><a href="projectdt.jsp?projectcode=<%=pjmodel.getProject_code()%>&year=<%=pjmodel.getYear()%>"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
                 </tr>               	
                	<%
                 }

@@ -6,10 +6,11 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import pcpnru.projectData.ProjectDTChargesDB;
 import pcpnru.projectData.ProjectDTReceiveDB;
 import pcpnru.projectModel.ProjectModel;
 
-public class ProjectDTReceiveAction extends ActionSupport{
+public class ProjectDTChargesAction extends ActionSupport{
 	
 	private ProjectModel projModel;
 	 
@@ -26,19 +27,17 @@ public class ProjectDTReceiveAction extends ActionSupport{
 
 	public String execute() throws Exception{ 
 		HttpServletRequest request = ServletActionContext.getRequest();
-		ProjectDTReceiveDB projDtR = new ProjectDTReceiveDB();
+		ProjectDTChargesDB projDtC = new ProjectDTChargesDB();
 	 
 		String add			= (String) request.getParameter("add");
 		String projectcode 	= (String) request.getParameter("projectcode");
 		String gcostname	= (String) request.getParameter("gcostname");
 		String budget		= (String) request.getParameter("budget");
-		String csubjob		= (String) request.getParameter("csubjob");
-		String subjob		= "0003";
+		String childsubjobcode	= (String) request.getParameter("childsubjobcode");
+		String subjobcode	= (String) request.getParameter("subjobcode");
 		String gcostcode		= (String) request.getParameter("gcostcode");
 		String year			= (String) request.getParameter("year");
-	//	String projectcode 	= projModel.getProject_code();
-	//	String costname		= projModel.getCostname();
-	//	String budget		= projModel.getBudget();
+		 
 		if(add!=null){ 
 		
 		String[] chk 	= request.getParameterValues("aroperation");
@@ -88,9 +87,18 @@ public class ProjectDTReceiveAction extends ActionSupport{
 	} 
 		 
 		 
-			projDtR.AddProjDTReceive(projectcode, year, subjob, csubjob, gcostcode, gcostname, budget);
+			projDtC.AddProjDTCharges(projectcode, year, subjobcode, childsubjobcode, gcostcode, gcostname, budget);
 		}else{
-			projDtR.DeleteProjDTReceive(projectcode, gcostcode);
+			String arnumber		= (String) request.getParameter("arnumber");
+			String[] subjobhd 	= request.getParameterValues("subjobhd");
+			String[] csubjobhd 	= request.getParameterValues("csubjobhd");
+		//	String[] hdgcostcode 	= request.getParameterValues("hdgcostcode");
+			
+			String subjob = subjobhd[Integer.parseInt(arnumber)];
+			String csubjob = csubjobhd[Integer.parseInt(arnumber)];
+		//	String costcodedelete = hdgcostcode[Integer.parseInt(arnumber)];
+			
+			projDtC.DeleteProjDTCharges(projectcode, subjob, csubjob, gcostcode);
 		}
 		return SUCCESS;
 	}
