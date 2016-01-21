@@ -126,6 +126,49 @@ public class ProjectData {
 	
 	return chkProject;
 	}
+	public double getTarget(String projectcode) throws Exception {
+		
+		String targetTXT = "";
+		double target = 0;
+		
+		conn = agent.getConnectMYSql();
+	 	
+	 	String sqlStmt = "SELECT target " +
+		"FROM projectplan_header WHERE project_code = '"+projectcode+"' ";
+	 	
+	 	pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlStmt);	
+		
+		while (rs.next()) {
+			targetTXT = rs.getString("target");
+			 if(targetTXT!=null) target = Double.parseDouble(rs.getString("target")); else target = 0; 
+		}
+		 
+		rs.close();
+		pStmt.close();
+		
+		return target;
+		}
+	public String selectProjectname(String project_code) throws Exception {
+		
+		String project_name = "";
+		conn = agent.getConnectMYSql();
+	 	
+	 	String sqlStmt = "SELECT b.project_name " +
+		"FROM projectplan_header a inner join project_master b on(b.project_code = a.project_code) WHERE a.project_code = '"+project_code+"' ";
+	 	
+	 	pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlStmt);	
+		
+		while (rs.next()) {
+			project_name = rs.getString("project_name");
+		}
+		
+		rs.close();
+		pStmt.close();
+		conn.close();
+		return project_name;
+		}
 	
 	public List GetProjectDTDetailList(String project_code,String project_name,
 			String subjob_code,String subjob_name,String childsubjobcode,
@@ -188,7 +231,7 @@ public class ProjectData {
 		if(!groupby.equals(""))
 			sqlQuery += "group by "+groupby;
 		//ORDER BY a.project_code,a.subjob_code,a.childsubjobcode,a.gcostcode
-		sqlQuery += " ORDER BY a.project_code,a.subjob_code,a.childsubjobcode,a.gcostcode";
+		//sqlQuery += " ORDER BY a.project_code,a.subjob_code,a.childsubjobcode,a.gcostcode";
 		if(!orderby.equals(""))
 			sqlQuery += " order by datetime_response "+orderby;
 				

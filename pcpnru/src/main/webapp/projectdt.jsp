@@ -23,8 +23,11 @@
 	</head>
 
 	<body ng-app="" ng-init="">
-		 <% String projectcode = (String) request.getParameter("projectcode"); 
+		 <% String projectcode = (String) request.getParameter("projectcode");   
 		 	String year = (String) request.getParameter("year");
+		 	
+		 	ProjectData pdb = new ProjectData();
+		 	String projectname = pdb.selectProjectname(projectcode);
 		 %>
 		 <%@include file="topmenu.jsp" %>
 		 <div class="container-fluid">
@@ -45,7 +48,7 @@
 			</a>
 
 			<div class="example"data-text="" >
-			<h3 class="align-center margin30">ประมาณการรายได้ รายจ่าย โครงการ ............</h3>
+			<h3 class="align-center margin30">ประมาณการรายได้ รายจ่าย โครงการ <%=projectname%></h3>
 			<div class="grid ">	
 				<div class="window ">
 					<div class="row cells12 align-center  window-caption bg-cyan fg-white" >
@@ -62,7 +65,7 @@
 				  <%
 				  	ProjectData pjdata = new ProjectData();
 				  	List projectDTListreceive = pjdata.GetProjectDTDetailList(projectcode, "", "", "", "",
-				  			"", "", "", "", "", "", "true", "");
+				  			"", "", "", "", "", "desc", "true", "");
 				  	double pjdt_receivetotal = 0;
 				  	if(projectDTListreceive != null){
 				  		Iterator projectDTIter = projectDTListreceive.iterator();
@@ -114,7 +117,7 @@
 					<%
 					double pjdt_requisitiontotal = 0;
 				  	List projectDTListRequisition_subjob = pjdata.GetProjectDTDetailList(projectcode, "", "", "", "",
-				  			"", "", "", "", "", "", "", "a.subjob_code");
+				  			"", "", "", "", "", "desc", "", "a.subjob_code");
 				  	
 				  	if(projectDTListRequisition_subjob != null){
 				  		Iterator projectDTIter_subjob = projectDTListRequisition_subjob.iterator();
@@ -133,7 +136,7 @@
 						  <!-- child_subjob -->
 						  <%
 						  List projectDTListRequisition_childsubjob = pjdata.GetProjectDTDetailList(projectcode, "", pjmodel.getSubjob_code(), "", "",
-						  			"", "", "", "", "", "", "", "a.childsubjobcode");
+						  			"", "", "", "", "", "desc", "", "a.childsubjobcode");
 						  	
 						  	if(projectDTListRequisition_childsubjob != null){
 						  		Iterator projectDTIter_childsubjob = projectDTListRequisition_childsubjob.iterator();
@@ -159,7 +162,7 @@
 							  		<%
 							  		
 									  List projectDTListRequisition_gcostcode = pjdata.GetProjectDTDetailList(projectcode, "", "", "", pjmodel_childsubjob.getChildsubjobcode(),
-									  			"", "", "", "", "", "", "", "");
+									  			"", "", "", "", "", "desc", "", "");
 									  	
 									  	if(projectDTListRequisition_gcostcode != null){
 									  		Iterator projectDTIter_gcostcode = projectDTListRequisition_gcostcode.iterator();

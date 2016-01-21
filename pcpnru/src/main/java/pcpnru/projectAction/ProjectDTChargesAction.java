@@ -7,7 +7,6 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import pcpnru.projectData.ProjectDTChargesDB;
-import pcpnru.projectData.ProjectDTReceiveDB;
 import pcpnru.projectModel.ProjectModel;
 
 public class ProjectDTChargesAction extends ActionSupport{
@@ -37,7 +36,8 @@ public class ProjectDTChargesAction extends ActionSupport{
 		String subjobcode	= (String) request.getParameter("subjobcode");
 		String gcostcode		= (String) request.getParameter("gcostcode");
 		String year			= (String) request.getParameter("year");
-		 
+		String balance		= (String) request.getParameter("balance");
+		
 		if(add!=null){ 
 		
 		String[] chk 	= request.getParameterValues("aroperation");
@@ -85,9 +85,11 @@ public class ProjectDTChargesAction extends ActionSupport{
 		gcostname = txtvalue; 	// text value
 		budget = value;			// value
 	} 
-		 
-		 
-			projDtC.AddProjDTCharges(projectcode, year, subjobcode, childsubjobcode, gcostcode, gcostname, budget);
+		 //balance = balance.replace(".0", "");
+		 if(Double.parseDouble(balance)>=Double.parseDouble(budget)){
+			 projDtC.AddProjDTCharges(projectcode, year, subjobcode, childsubjobcode, gcostcode, gcostname, budget);
+		 }
+			
 		}else{
 			String arnumber		= (String) request.getParameter("arnumber");
 			String[] subjobhd 	= request.getParameterValues("subjobhd");

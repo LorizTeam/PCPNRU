@@ -75,29 +75,31 @@ public class ProjectDTChargesDB {
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();
 		conn.close();
-	}
-	public String getAmtValue(String percentage) throws Exception {
-	
-	String amountTotal = "";
-	
-	conn = agent.getConnectMYSql();
- 	
- 	String sqlStmt = "SELECT sum(budget) as att " +
-	"FROM projectplan_detail WHERE subjob_code = '0003' Group by subjob_code ";
- 	
- 	pStmt = conn.createStatement();
-	rs = pStmt.executeQuery(sqlStmt);	
-	
-	while (rs.next()) {
-		amountTotal = rs.getString("att"); 
-	}
-	amountTotal = Float.toString((Float.parseFloat(amountTotal)*Float.parseFloat(percentage))/100);
-	
-	rs.close();
-	pStmt.close();
-	
-	return amountTotal;
-	}
+	} 
+	public double getAmtValue(String projectcode, String percentage) throws Exception {
+		
+		String amountTotalTXT = "";
+		double amountTotal = 0;
+		
+		conn = agent.getConnectMYSql();
+	 	
+	 	String sqlStmt = "SELECT sum(budget) as att " +
+		"FROM projectplan_detail WHERE project_code = '"+projectcode+"' and subjob_code = '0003' Group by project_code, subjob_code ";
+	 	
+	 	pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlStmt);	
+		
+		while (rs.next()) {
+			amountTotalTXT = rs.getString("att");
+			 if(amountTotalTXT!=null) amountTotal = Double.parseDouble(rs.getString("att")); else amountTotal = 0; 
+		}
+		amountTotal = (amountTotal*Double.parseDouble(percentage))/100;
+		
+		rs.close();
+		pStmt.close();
+		
+		return amountTotal;
+		}
 	public String SumReceive(String docNo) 
 			throws Exception { //30-05-2014
 				 
@@ -209,7 +211,7 @@ public class ProjectDTChargesDB {
 					
 					String sqlStmt = "SELECT gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice, DATE_FORMAT(datetime,'%d-%m-%Y %H:%i') as datetime " +
 					"FROM groupcostcode_master a   " +
-					"WHERE "; 
+					"WHERE type_gcostcode = '2' and "; 
 					if(!groupcostCode.equals("")) sqlStmt = sqlStmt+ "gcostcode like '"+groupcostCode+"%' AND ";
 					if(!groupcostName.equals("")) sqlStmt = sqlStmt+ "gcostcode_name like '"+groupcostName+"%' AND ";
 					

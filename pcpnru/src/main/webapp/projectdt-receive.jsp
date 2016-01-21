@@ -37,6 +37,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 <% String projectcode = (String) request.getParameter("projectcode"); 
 		 	String year = (String) request.getParameter("year");
 		 	
+		 	ProjectData pdb = new ProjectData();
+		 	String projectname = pdb.selectProjectname(projectcode);
+		 	double target = pdb.getTarget(projectcode);
+		 	
 		 	ProjectDTReceiveDB PDTR = new ProjectDTReceiveDB();
 		 	List childSubjobList = PDTR.GetChildSubjobList();
 		 	List groupcostCodeList = PDTR.GetGroupCostCodeList(projectcode, year);
@@ -47,7 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 	
 
 			<div class="example"data-text="" >
-			<h3 class="align-center margin30">ประมาณการรายได้ ของโครงการ ............</h3>
+			<h3 class="align-center margin30">ประมาณการรายได้ ของโครงการ <%=projectname%></h3>
 			
 			
 			<div class="example" data-text="เพิ่ม">
@@ -134,41 +138,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  	</div>
 			 <!-- รายรับ --> 
 				<div class="example" data-text="รายได้">
-				  	<% 
-		  			if (request.getParameter("projectcode") != null) {
-		  				//ProjectDTReceiveDB PDTR = new ProjectDTReceiveDB();
-		  				List ProjDTReceive = PDTR.GetProjDTReceiveList(projectcode);
-		  				String amttotal = "0", projcode = "";
-		  				for (Iterator iter = ProjDTReceive.iterator(); iter.hasNext();) {
-		  					ProjectModel pjDTR = (ProjectModel) iter.next();
-		  				 	projcode = pjDTR.getProject_code().trim();
-		  					String amt = pjDTR.getBudget();
-		  					amttotal = Float.toString(Float.parseFloat(amttotal)+Float.parseFloat(amt));
-				 	%>	
-				  	<!-- ROW -->
-					  <div class="row cells12 " >			  
-					  	<h5 class="cell colspan7 costname"><%=pjDTR.getGcostname().trim()%></h5>
-					  	<span class="gcostcodehd"><input type="hidden" id="gcostcodehd" name="gcostcodehd" value="<%=pjDTR.getGcostcode()%>"></span>
-					  	<div class="cell colspan4 align-center budget">{{<%=pjDTR.getBudget()%> | currency:"฿"}}</div>
-					  	<div class="cell deletebt">
-				  			<a href=""><span class="mif-cross"></span></a> 
-				  		</div>
-					  </div>
-					<!-- ROW --> 
-					<% 		} 
-					%>
+					<%
+					  	ProjectData pjdata = new ProjectData();
+					  	List projectDTListreceive = pjdata.GetProjectDTDetailList(projectcode, "", "", "", "",
+					  			"", "", "", "", "", "desc", "true", "");
+					  	double pjdt_receivetotal = 0;
+					  	if(projectDTListreceive != null){
+					  		Iterator projectDTIter = projectDTListreceive.iterator();
+					  		while(projectDTIter.hasNext()){
+					  			ProjectModel pjmodel = (ProjectModel) projectDTIter.next();
+					  			pjdt_receivetotal += Float.parseFloat(pjmodel.getBudget());
+					  %>
+					  			<!-- ROW -->
+								  <div class="row cells12 " >			  
+								  	<h5 class="cell colspan7 costname"><%=pjmodel.getGcostcode_name().trim()%></h5>
+								  	<span class="costcodehd"><input type="hidden" id="gcostcodehd" name="gcostcodehd" value="<%=pjmodel.getGcostcode()%>"></span> 
+								  	<div class="cell colspan4 align-center budget">{{<%=pjmodel.getBudget()%> | currency:"฿"}}</div>
+								  	<div class="cell">
+							  			<a href=""><span class="mif-cross deletebt"></span></a> 
+							  		</div>
+								  </div>
+								<!-- ROW --> 
+					  <%	
+					  		}
+					  	}
+					  %> 
+					<!-- ROW -->  
 					  <!--Totle ROW -->  
 					   <div class="row cells12 " >			  
 					  	<div class="cell colspan7 align-right">
 					  		<h4>รวม</h4>
 					  	</div>
 					  	<div class="cell colspan4 align-center">
-					  		<h4>{{<%=amttotal%> | currency:"฿"}}</h4> 
+					  		<h4>{{<%=pjdt_receivetotal%> | currency:"฿"}}</h4> 
 					  	</div>
 					  </div>
 					  <!--Totle ROW -->
-					  <% 		} 
-					%>
+					  <!--Totle ROW Target -->  
+					   <div class="row cells12 " >			  
+					  	<div class="cell colspan7 align-right">
+					  		<h4>เป้าหมาย</h4>
+					  	</div>
+					  	<div class="cell colspan4 align-center">
+					  		<h4>{{<%=target%> | currency:"฿"}}</h4> 
+					  	</div>
+					  </div>
+					  <!--Totle ROW Target--> 
 				</div>
 			<!-- รายรับ -->		
 			
@@ -287,10 +302,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   			$('.deletebt').click(function () {  
 		        	 
 		        		var index = $(".deletebt").index(this);
-		        	//	var cc = $(".gcostcodehd > #gcostcodehd").eq(index).val();
+		        	//	var cc = $(".costcodehd > #gcostcodehd").eq(index).val();
 		        	//	var cc = $("#gcostcodehd").eq(index).val();
 		        	//	alert(cc);
-		        		$("#gcostcode").val($(".gcostcodehd > #gcostcodehd").eq(index).val()); 
+		        		$("#gcostcode").val($(".costcodehd > #gcostcodehd").eq(index).val()); 
 				    	$("#project-receivedt").submit();
 		        	  
 		    	});

@@ -23,21 +23,24 @@
 		<script src="js/app.js"></script>
 	</head>
 
-	<body ng-app="controllerCalculator" >
-		 <% String projectcode = (String) request.getParameter("projectcode");
+	<body ng-app="controllerCalculator" ng-controller="SettingsController">
+		 <% String projectcode = (String) request.getParameter("projectcode"); 
 		 	String year = (String) request.getParameter("year");
+		 	
+		 	ProjectData pdb = new ProjectData();
+		 	String projectname = pdb.selectProjectname(projectcode);
 		 
 		 	ProjectDTChargesDB PDTC = new ProjectDTChargesDB();
-		 	String percentage = PDTC.getAmtValue("55");
+		 	double percentage = PDTC.getAmtValue(projectcode, "55");
 		 	
 		 	List SubjobList = PDTC.GetSubjobList();  
 		 	List groupcostCodeList = PDTC.GetGroupCostCodeList(projectcode, year);
 		 %>
-		 <form id="project-chargesdt" action="projectdtcharges.action" method="post" ng-controller="SettingsController">
+		 <form id="project-chargesdt" action="projectdtcharges.action" method="post" >
 		 <%@include file="topmenu.jsp" %>
 		 <div class="container-fluid" >
 			<div class="example"data-text="" >
-				<h3 class="align-center margin30">ประมาณค่าใช้จ่าย ของโครงการ ............จำนวนเงินที่สามารถใช้ได้ของ 55% ในงบประมาณการรายได้คือ  {{<%=percentage%> | currency:"฿"}}</h3>
+				<h3 class="align-center margin30">ประมาณค่าใช้จ่าย ของโครงการ <%=projectname%> จำนวนเงินที่ใช้ได้ของ 55% ในงบประมาณการรายได้คือ  {{<%=percentage%> | currency:"฿"}}</h3>
 				<div class="example" data-text="เพิ่ม">
 			        <div class="grid">
 			        	<div class="row cells12">
@@ -71,7 +74,7 @@
 					  	<div class="row cells12">
 					        <div class="cell colspan4"> 
 					        	รายการ
-					        	<div class="input-control text full-size"> 
+					        	<div class="input-control text full-size">  
 			                    	<input type="hidden" id="projectcode" name="projectcode" value="<%=projectcode%>"> 
 			                    	<input type="hidden" id="year" name="year" value="<%=year%>">
 	                        		<input type="hidden" id="gcostcode" name="gcostcode" >
@@ -126,7 +129,7 @@
 					double pjdt_requisitiontotal = 0;
 					double pjdt_receivetotal = 0;
 				  	List projectDTListRequisition_subjob = pjdata.GetProjectDTDetailList(projectcode, "", "", "", "",
-				  			"", "", "", "", "", "", "", "a.subjob_code");
+				  			"", "", "", "", "", "desc", "", "a.subjob_code");
 				  	
 				  	if(projectDTListRequisition_subjob != null){
 				  		Iterator projectDTIter_subjob = projectDTListRequisition_subjob.iterator();
@@ -145,7 +148,7 @@
 						  <!-- child_subjob -->
 						  <%
 						  List projectDTListRequisition_childsubjob = pjdata.GetProjectDTDetailList(projectcode, "", pjmodel.getSubjob_code(), "", "",
-						  			"", "", "", "", "", "", "", "a.childsubjobcode");
+						  			"", "", "", "", "", "desc", "", "a.childsubjobcode");
 						  	
 						  	if(projectDTListRequisition_childsubjob != null){
 						  		Iterator projectDTIter_childsubjob = projectDTListRequisition_childsubjob.iterator();
@@ -171,7 +174,7 @@
 							  		<%
 							  		
 									  List projectDTListRequisition_gcostcode = pjdata.GetProjectDTDetailList(projectcode, "", "", "", pjmodel_childsubjob.getChildsubjobcode(),
-									  			"", "", "", "", "", "", "", "");
+									  			"", "", "", "", "", "desc", "", "");
 									  	
 									  	if(projectDTListRequisition_gcostcode != null){
 									  		Iterator projectDTIter_gcostcode = projectDTListRequisition_gcostcode.iterator();
@@ -227,6 +230,19 @@
 					  	</div>
 					  </div>
 					  <!--Totle subjob -->
+					  <!--Totle Balance -->  
+					   <div class="row cells12 " >			  
+					  	<div class="cell colspan7 align-right">
+					  		<h4>คงเหลือ</h4>
+					  	</div>
+					  	<div class="cell colspan4 align-center">
+					  		<% double Balance = 0;
+					  		   Balance = percentage-pjdt_requisitiontotal; %>
+					  		<h4>{{<%=Balance %>| currency:"฿"}}</h4>
+					  		<input type="hidden" id="balance" name="balance" value="<%=Balance%>">
+					  	</div>
+					  </div>
+					  <!--Totle Balance -->
 					</div> 
 				<!-- รายรับ -->		
 				</div>
