@@ -76,7 +76,7 @@ public class ProjectDTChargesDB {
 		pStmt.close();
 		conn.close();
 	} 
-	public double getAmtValue(String projectcode, String percentage) throws Exception {
+	public double getAmtValue(String projectcode, String year, String percentage) throws Exception {
 		
 		String amountTotalTXT = "";
 		double amountTotal = 0;
@@ -84,7 +84,7 @@ public class ProjectDTChargesDB {
 		conn = agent.getConnectMYSql();
 	 	
 	 	String sqlStmt = "SELECT sum(budget) as att " +
-		"FROM projectplan_detail WHERE project_code = '"+projectcode+"' and subjob_code = '0003' Group by project_code, subjob_code ";
+		"FROM projectplan_detail WHERE project_code = '"+projectcode+"' and year = '"+year+"' and subjob_code = '0003' Group by project_code, subjob_code ";
 	 	
 	 	pStmt = conn.createStatement();
 		rs = pStmt.executeQuery(sqlStmt);	

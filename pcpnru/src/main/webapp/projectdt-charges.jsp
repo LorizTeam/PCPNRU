@@ -31,7 +31,7 @@
 		 	String projectname = pdb.selectProjectname(projectcode);
 		 
 		 	ProjectDTChargesDB PDTC = new ProjectDTChargesDB();
-		 	double percentage = PDTC.getAmtValue(projectcode, "55");
+		 	double percentage = PDTC.getAmtValue(projectcode, year, "55");
 		 	
 		 	List SubjobList = PDTC.GetSubjobList();  
 		 	List groupcostCodeList = PDTC.GetGroupCostCodeList(projectcode, year);
@@ -128,7 +128,7 @@
 					 ProjectData pjdata = new ProjectData();
 					double pjdt_requisitiontotal = 0;
 					double pjdt_receivetotal = 0;
-				  	List projectDTListRequisition_subjob = pjdata.GetProjectDTDetailList(projectcode, "", "", "", "",
+				  	List projectDTListRequisition_subjob = pjdata.GetProjectDTDetailList(projectcode, year, "", "", "", "",
 				  			"", "", "", "", "", "desc", "", "a.subjob_code");
 				  	
 				  	if(projectDTListRequisition_subjob != null){
@@ -147,7 +147,7 @@
 						  </div>
 						  <!-- child_subjob -->
 						  <%
-						  List projectDTListRequisition_childsubjob = pjdata.GetProjectDTDetailList(projectcode, "", pjmodel.getSubjob_code(), "", "",
+						  List projectDTListRequisition_childsubjob = pjdata.GetProjectDTDetailList(projectcode, year, "", pjmodel.getSubjob_code(), "", "",
 						  			"", "", "", "", "", "desc", "", "a.childsubjobcode");
 						  	
 						  	if(projectDTListRequisition_childsubjob != null){
@@ -173,7 +173,7 @@
 							  		<!-- gcostcode -->
 							  		<%
 							  		
-									  List projectDTListRequisition_gcostcode = pjdata.GetProjectDTDetailList(projectcode, "", "", "", pjmodel_childsubjob.getChildsubjobcode(),
+									  List projectDTListRequisition_gcostcode = pjdata.GetProjectDTDetailList(projectcode, year, "", "", "", pjmodel_childsubjob.getChildsubjobcode(),
 									  			"", "", "", "", "", "desc", "", "");
 									  	
 									  	if(projectDTListRequisition_gcostcode != null){

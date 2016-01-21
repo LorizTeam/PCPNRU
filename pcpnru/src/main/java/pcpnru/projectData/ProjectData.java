@@ -126,7 +126,7 @@ public class ProjectData {
 	
 	return chkProject;
 	}
-	public double getTarget(String projectcode) throws Exception {
+	public double getTarget(String projectcode, String year) throws Exception {
 		
 		String targetTXT = "";
 		double target = 0;
@@ -134,7 +134,7 @@ public class ProjectData {
 		conn = agent.getConnectMYSql();
 	 	
 	 	String sqlStmt = "SELECT target " +
-		"FROM projectplan_header WHERE project_code = '"+projectcode+"' ";
+		"FROM projectplan_header WHERE project_code = '"+projectcode+"' and year = '"+year+"' ";
 	 	
 	 	pStmt = conn.createStatement();
 		rs = pStmt.executeQuery(sqlStmt);	
@@ -170,7 +170,7 @@ public class ProjectData {
 		return project_name;
 		}
 	
-	public List GetProjectDTDetailList(String project_code,String project_name,
+	public List GetProjectDTDetailList(String project_code,String year,String project_name,
 			String subjob_code,String subjob_name,String childsubjobcode,
 			String childsubjobname,String gcostcode,String gcostcode_name,
 			String budget,String datetime_response , String orderby,String receive,
@@ -181,8 +181,10 @@ public class ProjectData {
 		
 		if(!project_code.equals(""))
 			sqlWhere += "e.project_code = '"+project_code+"' and ";
+		if(!year.equals(""))
+			sqlWhere += "f.year = '"+year+"' and ";
 		if(!project_name.equals(""))
-			sqlWhere += "e.project_name = '"+project_name+"' and ";
+			sqlWhere += "e.project_name = '"+project_name+"' and "; 
 		if(!subjob_code.equals(""))
 			sqlWhere += "a.subjob_code = '"+subjob_code+"' and ";
 		if(!subjob_name.equals(""))
@@ -223,7 +225,8 @@ public class ProjectData {
 				+ "INNER JOIN subjob_master AS b ON b.subjob_code = a.subjob_code "
 				+ "INNER JOIN childsubjob_master AS c ON a.childsubjobcode = c.childsubjobcode AND b.subjob_code = c.subjob_code "
 				+ "INNER JOIN groupcostcode_master AS d ON d.gcostcode = a.gcostcode "
-				+ "INNER JOIN project_master as e ON e.project_code = a.project_code "
+				+ "INNER JOIN project_master as e ON e.project_code = a.project_code " 
+				+ "INNER JOIN projectplan_header AS f ON f.project_code = a.project_code and f.year = a.year "
 				+ "where "
 				+ sqlWhere +"a.project_code <> '' ";
 		

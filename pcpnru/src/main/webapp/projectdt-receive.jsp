@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 	
 		 	ProjectData pdb = new ProjectData();
 		 	String projectname = pdb.selectProjectname(projectcode);
-		 	double target = pdb.getTarget(projectcode);
+		 	double target = pdb.getTarget(projectcode, year);
 		 	
 		 	ProjectDTReceiveDB PDTR = new ProjectDTReceiveDB();
 		 	List childSubjobList = PDTR.GetChildSubjobList();
@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="example" data-text="รายได้">
 					<%
 					  	ProjectData pjdata = new ProjectData();
-					  	List projectDTListreceive = pjdata.GetProjectDTDetailList(projectcode, "", "", "", "",
+					  	List projectDTListreceive = pjdata.GetProjectDTDetailList(projectcode, year, "", "", "", "",
 					  			"", "", "", "", "", "desc", "true", "");
 					  	double pjdt_receivetotal = 0;
 					  	if(projectDTListreceive != null){
