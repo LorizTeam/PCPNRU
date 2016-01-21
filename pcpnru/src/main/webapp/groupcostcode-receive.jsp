@@ -64,6 +64,8 @@
 				</div>
 			    </div>
 			 </div>
+			 
+			 <s:hidden name="groupcostcodemastermodel.type_gcostcode" id="type_gcostcode" value="1"/>
 		 </form>  
 		</div>  
 		 

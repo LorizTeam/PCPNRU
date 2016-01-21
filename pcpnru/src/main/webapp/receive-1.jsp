@@ -2,6 +2,7 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.projectData.*" %>
+<%@ page import="pcpnru.utilities.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -58,6 +59,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   
   	<%
+  		DateUtil dateutil = new DateUtil();
 	  	List projectMasterList1 = null;
 		if (request.getAttribute("projectMasterList") == null) {
 			ProjectMasterDB projM = new ProjectMasterDB();
@@ -72,6 +74,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}else{
 			costCodeMasterList1 = (List) request.getAttribute("costCodeMasterList");
 		}
+		
+		System.out.println(dateutil.curDateTH());
   	%>
   
     <div><%@include file="topmenu.jsp" %></div>
@@ -82,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="grid">
 		  	<div class="row cells12">
 		       
-		    	<div class="cell colspan5 offset2" > 
+		    	<div class="cell colspan3 offset2" > 
 		    		 โครงการ
 		       		 <div class="input-control full-size"> 
 		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
@@ -103,14 +107,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                      <span class="input-state-success mif-checkmark"></span>
 					   </div>
 		    	</div>
-		    	<div class="cell colspan2">  
+		    	<div class="cell colspan3">  
+	        		ปีของโครงการ
+				    <div class="input-control text full-size " >
+                          <input type="text" name="receiveform.project_year" id="year"  value="<%=dateutil.curTHYear() %>" data-validate-func="required" data-validate-hint="กรุณาเลือกปีของโครงการ">
+                          <span class="input-state-success mif-checkmark"></span>
+                   	</div>
+	               </div>
+	               <div class="cell colspan3">  
 	        		วันที่รับ
 				    <div class="input-control text full-size " >
-                          <input type="text" name="dateTime" id="datepicker"   data-validate-func="required" data-validate-hint="กรุณาเลือกวันที่รับ">
+                          <input type="text" name="dateTime" id="datepicker"  value="<%=dateutil.curDateTH() %>" data-validate-func="required" data-validate-hint="กรุณาเลือกวันที่รับ">
                           <span class="input-state-success mif-checkmark"></span>
                    	</div>
 	               </div>
 	           </div>
+	           
+		    	
+	        
 		  	<div class="row cells12">
 		       
 		    	<div class="cell colspan7  offset2">
@@ -146,7 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div> 
 		    </div>
 		</div>
-	
+		
 	</div> <!-- End of example --> 
 
 	</form> 
@@ -159,20 +173,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        // $("#cost_code").select2();
         
         $("#datepicker").datepicker({
-        	autoclose:true,todayBtn: "linked",todayHighlight: true,setDate:"2016-11-12"
+        	format: "dd/mm/yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
         	
         });
         
         $( "#project_code" ).change(function() {
   		  
 			var project_code = $("#project_code").val();
+			var year = $("#year").val();
 			var out = '';
+			
 			
 			$.ajax({  // select history
 			  	 
 	          type: "post",
 	          url: "ajax_receive-1.jsp", //this is my servlet 
-	          data: {projectCode:project_code},
+	          data: {projectCode:project_code,year:year},
 	          async:false, 
 	          success: function(result){
 	          

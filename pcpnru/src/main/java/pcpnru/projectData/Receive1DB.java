@@ -82,7 +82,7 @@ public class Receive1DB {
 		return requestno;
 		}
 	
-	public void AddReceiveHD(String docNo, String projectCode, String costCode, String docDate, String day, String month, String year, String amountFrom, String local)  throws Exception{
+	public void AddReceiveHD(String docNo, String projectCode,String project_year, String costCode, String docDate, String day, String month, String year, String amountFrom, String local)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
 		String[] parts = projectCode.split(" - ");
@@ -91,8 +91,8 @@ public class Receive1DB {
 		String[] parts1 = costCode.split(" - ");
 		String cCode = parts1[0];   
 		
-		String sqlStmt = "INSERT IGNORE INTO receivehd(docno, projectcode, costcode, docdate, day, month, year, amountfrom, local) " +
-		"VALUES ('"+docNo+"', '"+pjCode+"', '"+cCode+"', '"+docDate+"', '"+day+"', '"+month+"', '"+year+"', '"+amountFrom+"', '"+local+"')";
+		String sqlStmt = "INSERT IGNORE INTO receivehd(docno, projectcode,project_year, costcode, docdate, day, month, year, amountfrom, local) " +
+		"VALUES ('"+docNo+"', '"+pjCode+"','"+project_year+"',  '"+cCode+"', '"+docDate+"', '"+day+"', '"+month+"', '"+year+"', '"+amountFrom+"', '"+local+"')";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);

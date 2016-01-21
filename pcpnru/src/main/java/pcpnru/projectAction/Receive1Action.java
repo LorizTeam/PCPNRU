@@ -139,13 +139,13 @@ public class Receive1Action extends ActionSupport {
 			String dateTime 	= request.getParameter("dateTime");
 			String costCode 	= request.getParameter("gcostCode");
 			String amountfrom 	= receiveform.getAmountfrom();
-			
+			String project_year = receiveform.getProject_year();
 			System.out.println(amountfrom);
 			String local 		= receiveform.getLocal();
 			
 			Receive1DB receive1DB = new Receive1DB();
 			String docNo = receive1DB.SelectUpdateDocNo(year);
-			receive1DB.AddReceiveHD(docNo, projectCode, costCode, docDate, day, month, year, amountfrom, local); 
+			receive1DB.AddReceiveHD(docNo, projectCode,project_year, costCode, docDate, day, month, year, amountfrom, local); 
 			
 			request.setAttribute("docNo", docNo);
 			request.setAttribute("projectCode", projectCode);

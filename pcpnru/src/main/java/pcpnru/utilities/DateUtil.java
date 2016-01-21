@@ -203,7 +203,7 @@ public class DateUtil {
 		//DBMonth dbMonth = new DBMonth();
 		String monthName= ""; //dbMonth.GetMonthTHFullName(month);
 		
-		String today	= curCalendar.get(Calendar.DAY_OF_MONTH)+" "+monthName+" "+year;
+		String today	= curCalendar.get(Calendar.DAY_OF_MONTH)+"/"+month+"/"+year;
 		return today;
 	}
 	public int maxDayCurMonth() {

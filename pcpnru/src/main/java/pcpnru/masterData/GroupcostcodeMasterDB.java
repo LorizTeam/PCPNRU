@@ -69,13 +69,13 @@ public class GroupcostcodeMasterDB {
 		return groupcostCodeMasterList;
 	 }
 	
-	public void AddCostCodeMaster(String groupcostCode, String groupcostName, String standardprice, String fundprice)  throws Exception{
+	public void AddCostCodeMaster(String groupcostCode, String groupcostName, String standardprice, String fundprice,String type_gcostcode)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
 		
 		String dateTime = "";
-		String sqlStmt = "INSERT INTO `groupcostcode_master` (`gcostcode`, `gcostcode_name`,gcostcode_standardprice,gcostcode_fundprice, datetime) "
-				+ "VALUES ('"+groupcostCode+"', '"+groupcostName+"','"+standardprice+"','"+fundprice+"', now())";
+		String sqlStmt = "INSERT INTO `groupcostcode_master` (`gcostcode`, `gcostcode_name`,gcostcode_standardprice,gcostcode_fundprice, datetime,type_gcostcode) "
+				+ "VALUES ('"+groupcostCode+"', '"+groupcostName+"','"+standardprice+"','"+fundprice+"', now(),'"+type_gcostcode+"')";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);

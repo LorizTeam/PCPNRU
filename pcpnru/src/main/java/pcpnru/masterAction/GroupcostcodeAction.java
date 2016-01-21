@@ -35,15 +35,15 @@ public class GroupcostcodeAction extends ActionSupport {
 		, groupcostName = groupcostcodemastermodel.getCostName()
 		, groupcostCodeHD = groupcostcodemastermodel.getCostCodeHD()
 		, standardprice = groupcostcodemastermodel.getStandardprice()
-		, fundprice = groupcostcodemastermodel.getFundprice();
-		
+		, fundprice = groupcostcodemastermodel.getFundprice()
+		, type_gcostcode = groupcostcodemastermodel.getType_gcostcode();
 		String add = request.getParameter("add");
 		String update = request.getParameter("update");
 		String delete = request.getParameter("delete");
 		
 		if(add != null){
 			try {
-				groupcostcodemasterdb.AddCostCodeMaster(groupcostCode, groupcostName,standardprice,fundprice);
+				groupcostcodemasterdb.AddCostCodeMaster(groupcostCode, groupcostName,standardprice,fundprice,type_gcostcode);
 				groupcostcodemastermodel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

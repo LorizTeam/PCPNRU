@@ -53,6 +53,7 @@
 			    
 			  
 			 </div>
+			 <s:hidden name="groupcostcodemastermodel.type_gcostcode" id="type_gcostcode" value="2"/>
 		 </form>  
 		</div>  
 		 

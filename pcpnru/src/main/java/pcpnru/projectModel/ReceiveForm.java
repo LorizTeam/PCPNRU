@@ -11,7 +11,7 @@ public class ReceiveForm{
 	private String qty;
 	private String amount; 
 	private String amountTotal;
-	
+	private String project_year;
 	private String amtt;
 	
 	private String add;
@@ -46,6 +46,12 @@ public class ReceiveForm{
 		if(check.equals("1")) this.amountfrom = amountfrom;
 		else if (check.equals("2")) this.local	= local;
 		
+	}
+	public String getProject_year() {
+		return project_year;
+	}
+	public void setProject_year(String project_year) {
+		this.project_year = project_year;
 	}
 
 	public String getDocNo() {

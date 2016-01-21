@@ -7,9 +7,7 @@ public class GroupCostCodeMasterModel {
 	private String costName;
 	private String dateTime;
 	private String standardprice,fundprice;
-	
-	
-	
+	private String type_gcostcode;
 
 	private String add;
 	private String update;
@@ -34,6 +32,13 @@ public class GroupCostCodeMasterModel {
 		this.costName = costName;
 	}
 
+	public String getType_gcostcode() {
+		return type_gcostcode;
+	}
+
+	public void setType_gcostcode(String type_gcostcode) {
+		this.type_gcostcode = type_gcostcode;
+	}
 	public String getCostCodeHD() {
 		return costCodeHD;
 	}
