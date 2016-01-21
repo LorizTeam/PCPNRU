@@ -156,8 +156,13 @@ public class ProjectData {
 			sqlWhere += "a.budget = '"+budget+"' and ";
 		if(!datetime_response.equals(""))
 			sqlWhere += "a.datetime_response = '"+datetime_response+"' and ";
-		if(!receive.equals(""))
+		if(!receive.equals("")){
 			sqlWhere += "a.subjob_code = '0003' and ";
+		}else{
+			sqlWhere += "a.subjob_code not in ('0003') and ";
+		}
+		
+			
 		
 		String sqlQuery ="SELECT "
 				+ "e.project_name, "
@@ -173,7 +178,7 @@ public class ProjectData {
 				+ "FROM "
 				+ "projectplan_detail AS a "
 				+ "INNER JOIN subjob_master AS b ON b.subjob_code = a.subjob_code "
-				+ "INNER JOIN childsubjob_master AS c ON a.childsubjobcode = c.childsubjobcode AND b.subjob_code = c.subjobcode "
+				+ "INNER JOIN childsubjob_master AS c ON a.childsubjobcode = c.childsubjobcode AND b.subjob_code = c.subjob_code "
 				+ "INNER JOIN groupcostcode_master AS d ON d.gcostcode = a.gcostcode "
 				+ "INNER JOIN project_master as e ON e.project_code = a.project_code "
 				+ "where "
@@ -182,6 +187,8 @@ public class ProjectData {
 		
 		if(!groupby.equals(""))
 			sqlQuery += "group by "+groupby;
+		//ORDER BY a.project_code,a.subjob_code,a.childsubjobcode,a.gcostcode
+		sqlQuery += " ORDER BY a.project_code,a.subjob_code,a.childsubjobcode,a.gcostcode";
 		if(!orderby.equals(""))
 			sqlQuery += " order by datetime_response "+orderby;
 				

@@ -22,7 +22,7 @@
   		<script src="js/angular.min.js"></script>
 	</head>
 
-	<body>
+	<body ng-app="" ng-init="">
 		 <% String projectcode = (String) request.getParameter("projectcode"); 
 		 %>
 		 <%@include file="topmenu.jsp" %>
@@ -57,14 +57,14 @@
 				  	</div>
 			  	</div>
 			 <!-- รายรับ -->	
-				<div class="example" data-text="รายได้" ng-app="" ng-init="">
+				<div class="example" data-text="รายได้" >
 				  <%
 				  	ProjectData pjdata = new ProjectData();
-				  	List projectDTList = pjdata.GetProjectDTDetailList(projectcode, "", "", "", "",
+				  	List projectDTListreceive = pjdata.GetProjectDTDetailList(projectcode, "", "", "", "",
 				  			"", "", "", "", "", "", "true", "");
 				  	double pjdt_receivetotal = 0;
-				  	if(projectDTList != null){
-				  		Iterator projectDTIter = projectDTList.iterator();
+				  	if(projectDTListreceive != null){
+				  		Iterator projectDTIter = projectDTListreceive.iterator();
 				  		while(projectDTIter.hasNext()){
 				  			ProjectModel pjmodel = (ProjectModel) projectDTIter.next();
 				  			pjdt_receivetotal += Float.parseFloat(pjmodel.getBudget());
@@ -108,59 +108,94 @@
 				  		</div>
 				  	</div>
 			  	</div>
-				<div class="example" data-text="รายจ่าย">				  
-				  	<!-- subjob -->
-					  <div class="row cells12 " >			  
-					  	<h5 class="cell colspan8 subjob">
-					  		งบบุคลากร	
-					  	</h5>
-					  	<div class="cell colspan4 align-center">
-					  	</div>
-					  </div>
-					<!-- subjob --> 
-						<!-- costcode -->
-						  <div class="row cells12 " >			  
-						  	<p class="cell colspan8 costcode">
-						  		เงินเดือนพนักงานธุรการ ประจำโครงการ 1 คน * 13,200 บาท * 12 เดือน	
-						  	</p>
-						  	<div class="cell colspan4 align-center">
-						  		158,400
-						  	</div>
-						  </div>
-						<!-- costcode --> 
-						
-					<!-- subjob -->
-					  <div class="row cells12 " >			  
-					  	<h5 class="cell colspan8 subjob">
-					  		งบดำเนินงาน	
-					  	</h5>
-					  	<div class="cell colspan4 align-center">
-					  		
-					  	</div>
-					  </div>
-					<!-- subjob --> 
-						<!-- child sub job -->
-						  <div class="row cells12 " >			  
-						  	<h5 class="cell colspan8 child-subjob">
-						  		หมวดค่าตอบแทน	
+				<div class="example" data-text="รายจ่าย" >				  
+				  	
+					<%
+					double pjdt_requisitiontotal = 0;
+				  	List projectDTListRequisition_subjob = pjdata.GetProjectDTDetailList(projectcode, "", "", "", "",
+				  			"", "", "", "", "", "", "", "a.subjob_code");
+				  	
+				  	if(projectDTListRequisition_subjob != null){
+				  		Iterator projectDTIter_subjob = projectDTListRequisition_subjob.iterator();
+				  		while(projectDTIter_subjob.hasNext()){
+				  			ProjectModel pjmodel = (ProjectModel) projectDTIter_subjob.next();
+				  			pjdt_receivetotal += Float.parseFloat(pjmodel.getBudget());
+				  	%>
+				  		<div class="row cells12 " >			  
+						  	<h5 class="cell colspan8 subjob">
+						  		<%=pjmodel.getSubjob_name() %>
 						  	</h5>
 						  	<div class="cell colspan4 align-center">
 						  		
 						  	</div>
 						  </div>
-						<!-- child sub job --> 
-						<!-- costcode -->
-						  <div class="row cells12 " >			  
-						  	<p class="cell colspan8 costcode">
-						  		พนักงานรายวัน ประจำโครงการ 2 คน * 250 บาท * 300 วัน		
-						  	</p>
-						  	<div class="cell colspan4 align-center">
-						  		75,000
-						  	</div>
-						  </div>
-						<!-- costcode --> 
+						  <!-- child_subjob -->
+						  <%
+						  List projectDTListRequisition_childsubjob = pjdata.GetProjectDTDetailList(projectcode, "", pjmodel.getSubjob_code(), "", "",
+						  			"", "", "", "", "", "", "", "a.childsubjobcode");
+						  	
+						  	if(projectDTListRequisition_childsubjob != null){
+						  		Iterator projectDTIter_childsubjob = projectDTListRequisition_childsubjob.iterator();
+						  		while(projectDTIter_childsubjob.hasNext()){
+						  			ProjectModel pjmodel_childsubjob = (ProjectModel) projectDTIter_childsubjob.next();
+						  			
+					  				if(!pjmodel_childsubjob.getChildsubjobcode().equals("000")){
+					  	  %>
+					  	  				<div class="row cells12 " >			  
+										  	<h5 class="cell colspan8 child-subjob">
+										  		<%=pjmodel_childsubjob.getChildsubjobname() %>	
+										  	</h5>
+										  	<div class="cell colspan4 align-center">
+										  		
+										  	</div>
+										  </div>
+					  	  
+					  	  <%
+					  				}
+						  %>
+							  
+							  		<!-- gcostcode -->
+							  		<%
+							  		
+									  List projectDTListRequisition_gcostcode = pjdata.GetProjectDTDetailList(projectcode, "", "", "", pjmodel_childsubjob.getChildsubjobcode(),
+									  			"", "", "", "", "", "", "", "");
+									  	
+									  	if(projectDTListRequisition_gcostcode != null){
+									  		Iterator projectDTIter_gcostcode = projectDTListRequisition_gcostcode.iterator();
+									  		while(projectDTIter_gcostcode.hasNext()){
+									  			ProjectModel pjmodel_gcostcode = (ProjectModel) projectDTIter_gcostcode.next();
+									  			pjdt_requisitiontotal += Float.parseFloat(pjmodel_gcostcode.getBudget());
+									  			
+									  %>
+									  		<div class="row cells12 " >			  
+											  	<p class="cell colspan8 costcode">
+											  		<%=pjmodel_gcostcode.getGcostcode_name() %>	
+											  	</p>
+											  	<div class="cell colspan4 align-center">
+											  		{{ <%=pjmodel_gcostcode.getBudget() %> | currency:"฿"}}
+											  	</div>
+											  </div>
+									  
+									  <%
+									  		}
+									  	}
+									  %>
+							  		<!-- gcostcode -->
+						  <%
+						
+						  		}
+						  	}
+						  %>
+						  <!-- child_subjob -->
+						  
+				  	<%
+				  		}
+				  	}
+					
+					%>
 					<!-- subjob -->
 					
+					<!-- ------------------------------------------------------ -->
 					
 					  <!--Totle subjob -->  
 					   <div class="row cells12 " >			  
@@ -168,7 +203,7 @@
 					  		<h4>รวม</h4>
 					  	</div>
 					  	<div class="cell colspan4 align-center">
-					  		<h4>998,000</h4>
+					  		<h4>{{ <%=pjdt_requisitiontotal %> | currency:"฿" }}</h4>
 					  	</div>
 					  </div>
 					  <!--Totle subjob -->
