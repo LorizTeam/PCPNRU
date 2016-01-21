@@ -21,7 +21,7 @@ public class GroupcostcodeMasterDB {
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
-	public List GetGroupCostCodeMasterList(String groupcostCode, String groupcostName) 
+	public List GetGroupCostCodeMasterList(String groupcostCode, String groupcostName,String type_gcostcode) 
 	throws Exception { //30-05-2014
 		List groupcostCodeMasterList = new ArrayList();
 		String dateTime = "",standardprice="",fundprice="";
@@ -38,7 +38,7 @@ public class GroupcostcodeMasterDB {
 			if(!groupcostCode.equals("")) sqlStmt = sqlStmt+ "gcostcode like '"+groupcostCode+"%' AND ";
 			if(!groupcostName.equals("")) sqlStmt = sqlStmt+ "gcostcode_name like '"+groupcostName+"%' AND ";
 			
-			sqlStmt = sqlStmt + "gcostcode <> '' order by datetime desc";
+			sqlStmt = sqlStmt + "gcostcode <> '' and type_gcostcode = '"+type_gcostcode+"' order by datetime desc";
 			
 			//System.out.println(sqlStmt);				
 			pStmt = conn.createStatement();

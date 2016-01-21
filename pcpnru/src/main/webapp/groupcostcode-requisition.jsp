@@ -72,7 +72,7 @@
                 <%
                 List groupcostCodeMasterList = null;
                 GroupcostcodeMasterDB ccM = new GroupcostcodeMasterDB();
-        		groupcostCodeMasterList = ccM.GetGroupCostCodeMasterList("", "");
+        		groupcostCodeMasterList = ccM.GetGroupCostCodeMasterList("", "","2");
         		int x = 1;
         		if(groupcostCodeMasterList != null){
         			
