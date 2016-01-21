@@ -146,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  	<!-- ROW -->
 					  <div class="row cells12 " >			  
 					  	<h5 class="cell colspan7 costname"><%=pjDTR.getGcostname().trim()%></h5>
-					  	<input type="hidden" id="gcostcodehd" name="gcostcodehd" value="<%=pjDTR.getGcostcode()%>">
+					  	<span class="gcostcodehd"><input type="hidden" id="gcostcodehd" name="gcostcodehd" value="<%=pjDTR.getGcostcode()%>"></span>
 					  	<div class="cell colspan4 align-center budget">{{<%=pjDTR.getBudget()%> | currency:"฿"}}</div>
 					  	<div class="cell deletebt">
 				  			<a href=""><span class="mif-cross"></span></a> 
@@ -274,21 +274,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                charm.open();
 	            }
 	        }
-			 
-	   		$(function(){
-	   			
-	   			$("#costname").change(function () {
-	   				 
-	   				var text = $("#costname :selected").text();
+			$(function(){
+	   			$("#gcostname").change(function () { 
+	   				var text = $("#gcostname :selected").text();
 	   				var text1 = text.split(" - "); 
-	   				text = text1[0]; 
-	   				$("#costcode").val(text); 
+	   				text = text1[0];  
+	   				$("#gcostcode").val(text); 
 	   			});
 	   			
 	   			$('.deletebt').click(function () {  
 		        	 
-		        		var index = $(".deletebt").index(this);  
-		        		$("#gcostcode").val($("#gcostcodehd").eq(index).val()); 
+		        		var index = $(".deletebt").index(this);
+		        	//	var cc = $(".gcostcodehd > #gcostcodehd").eq(index).val();
+		        	//	var cc = $("#gcostcodehd").eq(index).val();
+		        	//	alert(cc);
+		        		$("#gcostcode").val($(".gcostcodehd > #gcostcodehd").eq(index).val()); 
 				    	$("#project-receivedt").submit();
 		        	  
 		    	});
@@ -304,7 +304,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        	} 
 		        		
 		    	});  */
-	   		}); 
+			});
 		</script>
 		
 	</body>
