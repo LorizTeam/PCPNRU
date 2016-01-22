@@ -16,12 +16,46 @@
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet"> 
 	 	<link href="css/style.css" rel="stylesheet"> 
+	 	<link href="css/sweetalert.css" rel="stylesheet" />
+	 	
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
 	    <script src="js/docs.js"></script>
   		<script src="js/angular.min.js"></script>
+  		<script src="js/sweetalert.min.js"></script>
 	</head>
-
+	
+	<script>
+	function printProj(tprojectcode, tyear){
+    		swal({  title: "ยืนยันการพิมพ์เอกสาร ?",   
+    				text: "หากคุณต้องการพิมพ์เอกสารให้กดปุ่มยืนยัน !",   
+    				type: "warning",   
+    				showCancelButton: true,   
+    				confirmButtonColor: "#DD6B55",   
+    				confirmButtonText: "ยืนยัน, ฉันต้องการพิมพ์เอกสาร !",   
+    				cancelButtonText: "ไม่, ฉันไม่ต้องการพิมพ์เอกสาร !",   
+    				closeOnConfirm: false,   
+    				closeOnCancel: false,
+    				showLoaderOnConfirm: true
+    			},
+    				 
+    		function (isConfirm){
+    		  	if (isConfirm) {
+    			setTimeout(function(){
+    				var load = window.open("/pcpnru/report/project-report.jsp?projectcode="+tprojectcode+"&year="+tyear+"" 
+    						,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
+    			swal("พิมพ์เอกสารสำเร็จแล้ว!", "โปรดตรวจสอบรายละเอียดของเอกสารอีกครั้งเพื่อความถูกต้อง !", "success");
+    			} 
+    			 , 1000);
+     
+    			}else {    
+    			 swal("ยกเลิกการพิมพ์เอกสาร", "คุณสามารถพิมพ์เอกสารได้อีกครั้งหลังจากปิดหน้าต่างนี้ !", "error");   
+    			}
+    		});
+    		
+    		}
+    </script>
+	
 	<body ng-app="" ng-init="">
 		 <% String projectcode = (String) request.getParameter("projectcode");   
 		 	String year = (String) request.getParameter("year");
@@ -41,7 +75,8 @@
 			  	 ค่าใช้จ่าย
 			    <small>จัดการค่าใช้จ่ายของโครงการ</small>
 			</a>
-			<a href="projectplan.pdf" class="command-button success">
+		<!--  	<a href="projectplan.pdf" class="command-button success"> -->
+			<a href="javascript:printProj('<%=projectcode%>','<%=year%>');" class="command-button success" >
 			    <span class="icon mif-printer"></span>
 			  	 พิมพ์
 			    <small>พิมพ์รายงานประมาณการรายได้ รายจ่าย</small>
