@@ -137,7 +137,7 @@ public class Receive1Action extends ActionSupport {
 			
 			String projectCode 	= request.getParameter("projectCode");
 			String dateTime 	= request.getParameter("dateTime");
-			String costCode 	= request.getParameter("gcostCode");
+			String gcostCode 	= request.getParameter("gcostCode");
 			String amountfrom 	= receiveform.getAmountfrom();
 			String project_year = receiveform.getProject_year();
 			System.out.println(amountfrom);
@@ -145,12 +145,17 @@ public class Receive1Action extends ActionSupport {
 			
 			Receive1DB receive1DB = new Receive1DB();
 			String docNo = receive1DB.SelectUpdateDocNo(year);
-			receive1DB.AddReceiveHD(docNo, projectCode,project_year, costCode, docDate, day, month, year, amountfrom, local); 
+			receive1DB.AddReceiveHD(docNo, projectCode,project_year, gcostCode, docDate, day, month, year, amountfrom, local); 
 			
+			String[] splitgcostcode = gcostCode.split(" - ");
+			List Lcostcode_forreceive2 =receive1DB.ShowCostCodeforReceive2(splitgcostcode[0],"" );
+			
+			request.setAttribute("standardprice", receive1DB.SelectPriceStandard_fromgcostcode(splitgcostcode[0]));
+			request.setAttribute("Lcostcode_forreceive2", Lcostcode_forreceive2);
 			request.setAttribute("docNo", docNo);
 			request.setAttribute("projectCode", projectCode);
 			request.setAttribute("dateTime", dateTime);
-			request.setAttribute("costCode", costCode);
+			request.setAttribute("gcostCode", gcostCode);
 		//	request.setAttribute("amountFrom", amountFrom);
 		//	request.setAttribute("local", local);
 			 

@@ -43,6 +43,9 @@ public class Receive2Action extends ActionSupport {
 		String qty 			= request.getParameter("qty");
 		String amount 		= request.getParameter("amount");
 		String amountTotal 	= request.getParameter("amountTotal");
+		String costcode     = receiveform.getCostcode();
+		
+		
 		
 		if(qty!=null) qty = qty.replace(",", "");
 		if(amount!=null) amount = amount.replace(",", "");
@@ -56,7 +59,7 @@ public class Receive2Action extends ActionSupport {
 	  
 		if(add!=null){
 			Receive2DB receive2DB = new Receive2DB();
-			receive2DB.AddReceiveDT(docNo, description, qty, amount, amountTotal);
+			receive2DB.AddReceiveDT(docNo, description, qty, amount, amountTotal,costcode);
 			String amtt	= receive2DB.getSumAmount(docNo);
 			// HD
 			request.setAttribute("docNo", docNo);

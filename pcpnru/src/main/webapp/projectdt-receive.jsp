@@ -238,7 +238,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<div class="cell colspan3 align-right">
 						      <button class="button danger" ng-click="removeContact(cal)">X</button>
-					      </div> 
+					    </div> 
 					</div>
 					<div class="row cells2">
 						<div class="cell">จำนวน

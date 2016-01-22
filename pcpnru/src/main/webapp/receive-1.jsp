@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	List projectMasterList1 = null;
 		if (request.getAttribute("projectMasterList") == null) {
 			ProjectMasterDB projM = new ProjectMasterDB();
-			projectMasterList1 = projM.GetProjectMasterList("", "");
+			projectMasterList1 = projM.getListProject_Join_Projecthead("", "","","");
 		}else{
 			projectMasterList1 = (List) request.getAttribute("projectMasterList");
 		}
@@ -95,10 +95,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					   	List projectMasterList = projectMasterList1;
 		        		if (projectMasterList != null) {
 			        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
-			        			ProjectMasterForm pjInfo = (ProjectMasterForm) iterPj.next();
+			        			ProjectModel pjModel = (ProjectModel) iterPj.next();
 	      				%>  
-			      			<option value="<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>" >
-			       			 	<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>
+			      			<option value="<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%>" >
+			       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> ปี <%=pjModel.getYear() %>
 			       			</option>
 							<%		} 
 								}
@@ -150,6 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<div class="input-control full-size">  
 					    <s:textfield id="local" name="receiveform.local" data-validate-func="required" data-validate-hint="กรุณาใส่สถานที่รับ" /> 
 					    <span class="input-state-success mif-checkmark"></span> 
+					    
 					</div>
 		    	</div>  
 		    </div>

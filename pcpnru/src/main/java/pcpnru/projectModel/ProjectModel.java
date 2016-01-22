@@ -52,6 +52,15 @@ public class ProjectModel {
 		this.budget = budget; 
 		
 	}
+	public ProjectModel(String forwhat, String project_code2, String project_name2, String year2, String target2,
+			String forwhat2) {
+		if(forwhat.equals("getListProject_Join_Projecthead")){
+			this.project_code = project_code2;
+			this.project_name = project_name2;
+			this.year = year2;
+			this.target = target2;
+		}
+	}
 	public void reset(){
 		
 		this.project_code = "";

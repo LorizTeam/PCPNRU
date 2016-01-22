@@ -1,6 +1,8 @@
 package pcpnru.projectModel;
 
-public class ReceiveForm{
+import pcpnru.masterModel.GroupCostCodeMasterModel;
+
+public class ReceiveForm {
 	
 	private String amountfrom;
 	private String local; 
@@ -21,6 +23,10 @@ public class ReceiveForm{
 	private String project;
 	private String cost;
 	private String docdate; 
+	
+	private String costcode,costname,percentprice,datetime,gcostcode,standardprice;
+	
+	
 	
 	public ReceiveForm() { 
 	} 
@@ -46,6 +52,49 @@ public class ReceiveForm{
 		if(check.equals("1")) this.amountfrom = amountfrom;
 		else if (check.equals("2")) this.local	= local;
 		
+	}
+	public ReceiveForm(String costcode, String costname, String percentprice, String datetime, String gcostcode) {
+		this.costcode = costcode;
+		this.costname = costname;
+		this.percentprice = percentprice;
+		this.datetime = datetime;
+		this.gcostcode = gcostcode;
+	}
+	public String getStandardprice() {
+		return standardprice;
+	}
+	public void setStandardprice(String standardprice) {
+		this.standardprice = standardprice;
+	}
+	public String getCostcode() {
+		return costcode;
+	}
+	public void setCostcode(String costcode) {
+		this.costcode = costcode;
+	}
+	public String getCostname() {
+		return costname;
+	}
+	public void setCostname(String costname) {
+		this.costname = costname;
+	}
+	public String getPercentprice() {
+		return percentprice;
+	}
+	public void setPercentprice(String percentprice) {
+		this.percentprice = percentprice;
+	}
+	public String getDatetime() {
+		return datetime;
+	}
+	public void setDatetime(String datetime) {
+		this.datetime = datetime;
+	}
+	public String getGcostcode() {
+		return gcostcode;
+	}
+	public void setGcostcode(String gcostcode) {
+		this.gcostcode = gcostcode;
 	}
 	public String getProject_year() {
 		return project_year;

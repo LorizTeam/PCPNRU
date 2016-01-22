@@ -1,5 +1,6 @@
 package pcpnru.projectData;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -119,5 +120,49 @@ public class ProjectMasterDB {
 	pStmt.close();
 	
 	return chkCustomer;
+	}
+	
+	public List getListProject_Join_Projecthead(String project_code,String project_name,String year,String target) throws IOException, Exception{
+		
+		String sqlWhere = "";
+		if(!project_code.equals("")){
+			sqlWhere += "project_master.project_code = '"+project_code+"' AND ";
+		}
+		if(!project_name.equals("")){
+			sqlWhere += "project_master.project_name = '"+project_name+"' AND ";
+		}
+		if(!year.equals("")){
+			sqlWhere += "projectplan_header.year = '"+year+"' AND ";
+		}
+		if(!target.equals("")){
+			sqlWhere += "projectplan_header.target = '"+target+"' AND ";
+		}
+		
+		String sqlQuery = "SELECT "
+				+ "project_master.project_code, "
+				+ "project_master.project_name, "
+				+ "projectplan_header.`year`, "
+				+ "projectplan_header.target, "
+				+ "projectplan_header.datetime_response "
+				+ "FROM "
+				+ "projectplan_header "
+				+ "INNER JOIN project_master ON project_master.project_code = projectplan_header.project_code where ";
+				sqlQuery += sqlWhere;
+		sqlQuery +=  "project_master.project_code <> '' order by projectplan_header.datetime_response desc ";
+		
+		conn = agent.getConnectMYSql();
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlQuery);
+		
+		List getListProject_Join_Projecthead = new ArrayList();
+		String forwhat="getListProject_Join_Projecthead";
+		while(rs.next()){
+			project_code = rs.getString("project_code");
+			project_name = rs.getString("project_name");
+			year = rs.getString("year");
+			target = rs.getString("target");
+			getListProject_Join_Projecthead.add(new ProjectModel(forwhat,project_code,project_name,year,target,forwhat));
+		}
+		return getListProject_Join_Projecthead;
 	}
 }
