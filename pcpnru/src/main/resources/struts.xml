@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+ 
+<struts>
+ 
+    <constant name="struts.devMode" value="true" />
+ 
+    <package name="pcpnru" extends="struts-default">
+ 			
+ 		<!-- 							MASTER 							-->
+
+        <action name="projectMaster" class="pcpnru.projectAction.ProjectMasterAction" method="execute">
+      		<result name="success">/projectmaster.jsp</result>
+    	</action>
+    	<!-- 		ProjectMaster 		 -->
+    	
+    	<!-- 		SubjobMaster 		 -->
+        <action name="subjobMaster" class="pcpnru.projectAction.SubjobMasterAction" method="execute">
+      		<result name="success">/subjobmaster.jsp</result>
+    	</action>
+    	<!-- 		SubjobMaster 		 -->
+    	
+    	<!-- 		ChildSubjobMaster 		 -->
+        <action name="childSubjobMaster" class="pcpnru.projectAction.ChildSubjobMasterAction" method="execute">
+      		<result name="success">/childsubjobmaster.jsp</result>
+    	</action>
+    	<!-- 		ChildSubjobMaster 		 -->
+    	
+    	<action name="costcodeMaster" class="pcpnru.projectAction.CostcodeMasterAction" method="execute">
+      		<result name="success">/costcodemaster.jsp</result>
+    	</action>
+    	
+    	<action name="groupcostcodeMaster" class="pcpnru.masterAction.GroupcostcodeAction" method="execute">
+      		<result name="success">/groupcostcode-receive.jsp</result>
+    	</action>
+    	
+    	<!-- 							MASTER 							-->
+    	
+    	
+    	<!-- 		Receive 		 -->   
+    	
+    	<action name="receive1" class="pcpnru.projectAction.Receive1Action" method="execute">
+      		<result name="success">/receive-2.jsp</result>
+      		<result name="error">/receive-1.jsp</result>
+    	</action>
+    	
+    	<action name="receive2" class="pcpnru.projectAction.Receive2Action" method="execute">
+      		<result name="success">/receive-2.jsp</result>
+      		<result name="print">/report/report.jsp</result>
+    	</action>
+    	<!-- 		receive print report 		 -->
+    	<action name="receiveReport" class="pcpnru.projectAction.ReceiveReportAction" method="execute">
+      		<result name="success">/receive-2.jsp</result>
+      		<result name="print">/report/report.jsp</result>
+    	</action>
+    	<!-- 		receive print report 		 -->
+    	<!-- 		Receive 		 -->
+    	
+    	<!-- 		Select-Receive 		 -->
+    	<action name="selectReceive1" class="pcpnru.projectAction.SelectReceive1Action" method="execute">
+      		<result name="error">/select_receive-1.jsp</result>
+      		<result name="success">/select_receive-2.jsp</result>
+    	</action>
+    	
+    	<action name="selectReceive2" class="pcpnru.projectAction.SelectReceive2Action" method="execute">
+      		<result name="error">/select_receive-2.jsp</result>
+      		<result name="success">/select_receive-3.jsp</result>
+    	</action>
+    	<!-- 		Select-Receive 		 --> 
+        
+        <!-- 		Login 		 -->
+        <action name="login" class="pcpnru.projectAction.LoginAction" method="execute">
+      		<result name="success">/index.jsp</result>
+    	</action>
+        
+        <!-- 		Login 		 -->
+        
+        <!-- 		ProjectHD	 -->
+        <action name="projecthd" class="pcpnru.projectAction.ProjectHDAction" method="execute">
+      		<result name="success">/projecthd.jsp</result>
+    	</action>
+        
+        <!-- 		ProjectHD	 -->
+        
+        <!-- 		ProjectDT Receive	 -->
+        <action name="projectdtreceive" class="pcpnru.projectAction.ProjectDTReceiveAction" method="execute">
+      		<result name="success">/projectdt-receive.jsp</result>
+    	</action> 
+        <!-- 		ProjectDT Receive	 -->
+        
+        <!-- 		ProjectDT Charges	 -->
+        <action name="projectdtcharges" class="pcpnru.projectAction.ProjectDTChargesAction" method="execute">
+      		<result name="success">/projectdt-charges.jsp</result>
+    	</action> 
+        <!-- 		ProjectDT Charges	 -->
+        
+        
+    </package>
+ 
+</struts>
