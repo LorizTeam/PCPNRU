@@ -9,7 +9,7 @@
 	DBConnect dbcon = new DBConnect();
 	Connection conn = dbcon.getConnectMYSql();
 	String filejrxml = application.getRealPath("report/rep_projectdt.jrxml");
-	
+	System.out.println(filejrxml);
 	String projectcode = (String) request.getParameter("projectcode");
 	String year = (String) request.getParameter("year");
 	
