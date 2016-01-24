@@ -10,7 +10,7 @@
    
     <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
 
-    <title>Login form </title>
+    <title>Login form Test</title>
 
     <link href="css/metro.css" rel="stylesheet">
     <link href="css/metro-icons.css" rel="stylesheet">
