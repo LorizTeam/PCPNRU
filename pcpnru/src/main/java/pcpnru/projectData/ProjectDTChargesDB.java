@@ -97,6 +97,7 @@ public class ProjectDTChargesDB {
 		
 		rs.close();
 		pStmt.close();
+		conn.close();
 		
 		return amountTotal;
 		}
@@ -233,6 +234,7 @@ public class ProjectDTChargesDB {
 				} catch (SQLException e) {
 				    throw new Exception(e.getMessage());
 				}
+				
 				return groupcostCodeList;
 			 }
 }

@@ -123,8 +123,9 @@ public class CostCodeMasterDB {
 		chkcostcode = true;
 	}
 	
-	rs.close();
+	conn.close();
 	pStmt.close();
+	rs.close();
 	
 	return chkcostcode;
 	}

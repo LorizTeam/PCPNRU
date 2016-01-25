@@ -1,5 +1,6 @@
 package pcpnru.projectData;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -119,14 +120,17 @@ public class SubjobMasterDB {
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();
 		
-		sqlStmt = "UPDATE childsubjob_master set subjobcode = '"+subjobCode+"' " +
-				"WHERE subjobcode = '"+subjobCodeHD+"'";
-		//System.out.println(sqlStmt); 
-		pStmt = conn.createStatement();
-		pStmt.executeUpdate(sqlStmt);
-		pStmt.close();
+		if(checksubjob_inchildsubjob(subjobCode)){
+			sqlStmt = "UPDATE childsubjob_master set subjobcode = '"+subjobCode+"' " +
+					"WHERE subjobcode = '"+subjobCodeHD+"'";
+			//System.out.println(sqlStmt); 
+			pStmt = conn.createStatement();
+			pStmt.executeUpdate(sqlStmt);
+			pStmt.close();
+			
+			conn.close();
+		}
 		
-		conn.close();
 	}
 	public void DeleteSubjobMaster(String subjobCode)  throws Exception{
 		conn = agent.getConnectMYSql();
@@ -158,5 +162,30 @@ public class SubjobMasterDB {
 	pStmt.close();
 	
 	return chkCustomer;
+	}
+	
+	public boolean checksubjob_inchildsubjob(String subjob_code) throws IOException, Exception{
+		boolean checkhave = false;
+		String sqlQuery= "SELECT "
+				+ "a.subjob_code, "
+				+ "a.subjob_name, "
+				+ "a.datetime "
+				+ "FROM "
+				+ "subjob_master AS a "
+				+ "INNER JOIN childsubjob_master AS b ON b.subjob_code = a.subjob_code "
+				+ "where a.subjob_code = '"+subjob_code+"'";
+		
+		conn = agent.getConnectMYSql();
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlQuery);
+		if(rs.next()){
+			checkhave = true;
+		}
+		
+			conn.close();
+			pStmt.close();
+			rs.close();
+		
+		return checkhave;
 	}
 }

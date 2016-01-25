@@ -95,6 +95,7 @@ public class ProjectDTReceiveDB {
 	
 	rs.close();
 	pStmt.close();
+	conn.close();
 	
 	return amountTotal;
 	}
