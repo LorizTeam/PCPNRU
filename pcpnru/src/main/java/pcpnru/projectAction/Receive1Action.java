@@ -149,8 +149,8 @@ public class Receive1Action extends ActionSupport {
 			
 			String[] splitgcostcode = gcostCode.split(" - ");
 			List Lcostcode_forreceive2 =receive1DB.ShowCostCodeforReceive2(splitgcostcode[0],"" );
-			String standardprice = receive1DB.SelectPriceStandard_fromgcostcode(splitgcostcode[0]);
-			request.setAttribute("standardprice",standardprice );
+			
+			request.setAttribute("standardprice", receive1DB.SelectPriceStandard_fromgcostcode(splitgcostcode[0]));
 			request.setAttribute("Lcostcode_forreceive2", Lcostcode_forreceive2);
 			request.setAttribute("docNo", docNo);
 			request.setAttribute("projectCode", projectCode);
@@ -159,7 +159,6 @@ public class Receive1Action extends ActionSupport {
 		//	request.setAttribute("amountFrom", amountFrom);
 		//	request.setAttribute("local", local);
 			 
-			receiveform.setStandardprice(standardprice);
 			receiveform.setAmountfrom(amountfrom);
 			receiveform.setLocal(local);
 			receiveform.setAmtt("0");

@@ -11,15 +11,13 @@
                 <li><a href="subjobmaster.jsp">สร้าง  กิจกรรม</a></li>
                 <li><a href="childsubjobmaster.jsp">สร้าง  กิจกรรมย่อย</a></li>
                 <li><a href="" class="dropdown-toggle">สร้าง รายละเอียดค่าใช้จ่าย</a>
-                    <ul class="d-menu" data-role="dropdown" >
-                        <li><a href=""  class="dropdown-toggle">กลุ่มรายได้</a>
-                        	<ul class="d-menu" data-role="dropdown">
-                    			<li><a href="groupcostcode-receive.jsp">สร้างกลุ่มรายได้</a></li>
-                        		<li><a href="costcodemaster.jsp">กำหนดเปอร์เซ็นรายรับ</a></li> 
+                    <ul class="d-menu" data-role="dropdown">
+                        <li><a href="groupcostcode-receive.jsp">กลุ่มรายได้</a></li>
+                        <li><a href="" class="dropdown-toggle">กลุ่มรายจ่าย</a>
+                    		<ul class="d-menu" data-role="dropdown">
+                    			<li><a href="groupcostcode-requisition.jsp">สร้างกลุ่มรายจ่าย</a></li>
+                        		<li><a href="costcodemaster.jsp">กำหนดค่าใช้จ่าย</a></li> 
                         	</ul>
-                        </li>
-                        <li><a href="groupcostcode-requisition.jsp">สร้างกลุ่มรายจ่าย</a>
-                    		
                         </li>
                     </ul>
                 </li>

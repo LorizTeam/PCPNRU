@@ -233,8 +233,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <button class="button primary" type="submit" name="update">แก้ไขรายการ</button> 
 					  <button class="button danger" type="submit" name="delete">ลบรายการ</button>
 				</div>
-		    </div>
-		    <s:hidden name="receiveform.standardprice" id="hiddencostcode"/>   
+		    </div>   
 		    </form> 
 		</div> <!-- End of example --> 
 	</div>

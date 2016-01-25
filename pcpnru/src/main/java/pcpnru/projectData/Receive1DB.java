@@ -139,7 +139,6 @@ public class Receive1DB {
 	
 	rs.close();
 	pStmt.close();
-	conn.close();
 	
 	return chkCustomer;
 	}
@@ -301,10 +300,6 @@ public class Receive1DB {
 		while(rs.next()){
 			standardprice = rs.getString("gcostcode_standardprice");
 		}
-		
-		rs.close();
-		pStmt.close();
-		conn.close();
 		
 		return standardprice;
 	}

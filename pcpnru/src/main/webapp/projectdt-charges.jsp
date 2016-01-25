@@ -17,13 +17,10 @@
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet"> 
 	 	<link href="css/style.css" rel="stylesheet"> 
-	 	<link href="css/select2.css" rel="stylesheet">
-	 	
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
 	    <script src="js/angular.min.js"></script>
 		<script src="js/app.js"></script>
-		<script src="js/select2.js"></script>
 	</head>
 
 	<body ng-app="controllerCalculator" ng-controller="SettingsController">
@@ -351,8 +348,6 @@
         }
 		$(function(){
 			 
-			$("#gcostname").select2();
-			
 			// load
 			var subjobcode = $("#subjobcode").val();
 			var out = '';
