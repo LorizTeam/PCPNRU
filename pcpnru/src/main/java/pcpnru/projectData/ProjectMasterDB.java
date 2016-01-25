@@ -118,6 +118,7 @@ public class ProjectMasterDB {
 	
 	rs.close();
 	pStmt.close();
+	conn.close();
 	
 	return chkCustomer;
 	}
@@ -163,6 +164,11 @@ public class ProjectMasterDB {
 			target = rs.getString("target");
 			getListProject_Join_Projecthead.add(new ProjectModel(forwhat,project_code,project_name,year,target,forwhat));
 		}
+		
+		rs.close();
+		pStmt.close();
+		conn.close();
+		
 		return getListProject_Join_Projecthead;
 	}
 }

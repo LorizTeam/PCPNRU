@@ -137,6 +137,7 @@ public class Receive2DB {
 	
 	rs.close();
 	pStmt.close();
+	conn.close();
 	
 	return amountTotal;
 	}
