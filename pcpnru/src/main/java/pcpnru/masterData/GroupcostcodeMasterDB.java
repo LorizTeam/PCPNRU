@@ -32,7 +32,7 @@ public class GroupcostcodeMasterDB {
 		
 			conn = agent.getConnectMYSql();
 			
-			String sqlStmt = "SELECT gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice, DATE_FORMAT(datetime,'%d-%m-%Y %H:%i') as datetime " +
+			String sqlStmt = "SELECT gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice, DATE_FORMAT(datetime,'%d-%m-%Y %T') as datetime " +
 			"FROM groupcostcode_master " +
 			"WHERE "; 
 			if(!groupcostCode.equals("")) sqlStmt = sqlStmt+ "gcostcode like '"+groupcostCode+"%' AND ";
@@ -123,6 +123,7 @@ public class GroupcostcodeMasterDB {
 		chkCustomer = true;
 	}
 	
+	conn.close();
 	rs.close();
 	pStmt.close();
 	

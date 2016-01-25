@@ -127,7 +127,7 @@ public class ProjectData {
 	
 	rs.close();
 	pStmt.close();
-	
+	conn.close();
 	return chkProject;
 	}
 	public double getTarget(String projectcode, String year) throws Exception {
@@ -150,7 +150,7 @@ public class ProjectData {
 		 
 		rs.close();
 		pStmt.close();
-		
+		conn.close();
 		return target;
 		}
 	public String selectProjectname(String project_code) throws Exception {
@@ -261,12 +261,34 @@ public class ProjectData {
 				ProjectDTList.add(new ProjectModel(project_code,project_name,subjob_code,subjob_name,childsubjobcode,childsubjobname,
 						gcostcode,gcostcode_name,budget,datetime_response));
 			}
+			
+			rs.close();
+			pStmt.close();
+			conn.close();
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				rs.close();
+				pStmt.close();
+				conn.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				rs.close();
+				pStmt.close();
+				conn.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		
 

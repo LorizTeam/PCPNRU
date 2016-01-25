@@ -37,11 +37,21 @@ public class GroupcostcodeAction extends ActionSupport {
 		, standardprice = groupcostcodemastermodel.getStandardprice()
 		, fundprice = groupcostcodemastermodel.getFundprice()
 		, type_gcostcode = groupcostcodemastermodel.getType_gcostcode();
+		
+		
 		String add = request.getParameter("add");
 		String update = request.getParameter("update");
 		String delete = request.getParameter("delete");
+		String forwardText = "success";
+		
+		if(standardprice == null && fundprice == null){
+			standardprice = "0";
+			fundprice = "0";
+			forwardText = "requisition";
+		}
 		
 		if(add != null){
+			
 			try {
 				groupcostcodemasterdb.AddCostCodeMaster(groupcostCode, groupcostName,standardprice,fundprice,type_gcostcode);
 				groupcostcodemastermodel.reset();
@@ -67,6 +77,6 @@ public class GroupcostcodeAction extends ActionSupport {
 			}
 		}
 		
-		return SUCCESS;
+		return forwardText;
 	}
 }
