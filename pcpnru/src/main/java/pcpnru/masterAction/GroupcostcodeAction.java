@@ -48,6 +48,9 @@ public class GroupcostcodeAction extends ActionSupport {
 			standardprice = "0";
 			fundprice = "0";
 			forwardText = "requisition";
+			groupcostCode = "C"+groupcostCode;
+		}else{
+			groupcostCode = "R"+groupcostCode;
 		}
 		
 		if(add != null){
