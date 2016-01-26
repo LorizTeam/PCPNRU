@@ -8,7 +8,8 @@ public class GroupCostCodeMasterModel {
 	private String dateTime;
 	private String standardprice,fundprice;
 	private String type_gcostcode;
-
+	private String project_name;
+	
 	private String add;
 	private String update;
 	private String delete;
@@ -18,8 +19,9 @@ public class GroupCostCodeMasterModel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public GroupCostCodeMasterModel(String costCode, String costName,String standardprice,String fundprice, String dateTime) {
+	public GroupCostCodeMasterModel(String project_name, String costCode, String costName,String standardprice,String fundprice, String dateTime) {
 		super();
+		this.project_name = project_name;
 		this.costCode = costCode;
 		this.costName = costName;
 		this.standardprice = standardprice;
@@ -115,5 +117,13 @@ public class GroupCostCodeMasterModel {
 
 	public void setFundprice(String fundprice) {
 		this.fundprice = fundprice;
+	}
+
+	public String getProject_name() {
+		return project_name;
+	}
+
+	public void setProject_name(String project_name) {
+		this.project_name = project_name;
 	}
 }

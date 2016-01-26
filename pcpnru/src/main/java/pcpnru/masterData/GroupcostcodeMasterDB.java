@@ -21,10 +21,10 @@ public class GroupcostcodeMasterDB {
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
-	public List GetGroupCostCodeMasterList(String groupcostCode, String groupcostName,String type_gcostcode) 
+	public List GetGroupCostCodeMasterList(String project_code, String groupcostCode, String groupcostName,String type_gcostcode) 
 	throws Exception { //30-05-2014
 		List groupcostCodeMasterList = new ArrayList();
-		String dateTime = "",standardprice="",fundprice="";
+		String project_name = "",dateTime = "",standardprice="",fundprice="";
 		
 		DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
 		DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
@@ -32,18 +32,21 @@ public class GroupcostcodeMasterDB {
 		
 			conn = agent.getConnectMYSql();
 			
-			String sqlStmt = "SELECT gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice, DATE_FORMAT(datetime,'%d-%m-%Y %T') as datetime " +
-			"FROM groupcostcode_master " +
+			String sqlStmt = "SELECT project_name, gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice, DATE_FORMAT(a.datetime,'%d-%m-%Y %T') as datetime " +
+			"FROM groupcostcode_master a " +
+			"INNER JOIN project_master b on(b.project_code = a.project_code) " +
 			"WHERE "; 
+			if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+project_code+"' AND ";
 			if(!groupcostCode.equals("")) sqlStmt = sqlStmt+ "gcostcode like '"+groupcostCode+"%' AND ";
 			if(!groupcostName.equals("")) sqlStmt = sqlStmt+ "gcostcode_name like '"+groupcostName+"%' AND ";
 			
-			sqlStmt = sqlStmt + "gcostcode <> '' and type_gcostcode = '"+type_gcostcode+"' order by datetime desc";
+			sqlStmt = sqlStmt + "gcostcode <> '' and type_gcostcode = '"+type_gcostcode+"' order by a.datetime desc";
 			
 			//System.out.println(sqlStmt);				
 			pStmt = conn.createStatement();
 			rs = pStmt.executeQuery(sqlStmt);	
 			while (rs.next()) {
+				project_name	= rs.getString("project_name");
 				groupcostCode 	= rs.getString("gcostcode");
 				standardprice = rs.getString("gcostcode_standardprice");
 				fundprice = rs.getString("gcostcode_fundprice");
@@ -58,7 +61,7 @@ public class GroupcostcodeMasterDB {
 				dateTime		= day+"-"+month+"-"+year+" "+time; 
 			//	amount 			= df2.format(Float.parseFloat(amount));
 				
-				groupcostCodeMasterList.add(new GroupCostCodeMasterModel(groupcostCode, groupcostName,standardprice,fundprice, dateTime));
+				groupcostCodeMasterList.add(new GroupCostCodeMasterModel(project_name, groupcostCode, groupcostName,standardprice,fundprice, dateTime));
 			}
 			rs.close();
 			pStmt.close();
@@ -69,13 +72,13 @@ public class GroupcostcodeMasterDB {
 		return groupcostCodeMasterList;
 	 }
 	
-	public void AddCostCodeMaster(String groupcostCode, String groupcostName, String standardprice, String fundprice,String type_gcostcode)  throws Exception{
+	public void AddCostCodeMaster(String project_code,String groupcostCode, String groupcostName, String standardprice, String fundprice,String type_gcostcode)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
 		
 		String dateTime = "";
-		String sqlStmt = "INSERT INTO `groupcostcode_master` (`gcostcode`, `gcostcode_name`,gcostcode_standardprice,gcostcode_fundprice, datetime,type_gcostcode) "
-				+ "VALUES ('"+groupcostCode+"', '"+groupcostName+"','"+standardprice+"','"+fundprice+"', now(),'"+type_gcostcode+"')";
+		String sqlStmt = "INSERT INTO `groupcostcode_master` (project_code, `gcostcode`, `gcostcode_name`,gcostcode_standardprice,gcostcode_fundprice, datetime,type_gcostcode) "
+				+ "VALUES ('"+project_code+"', '"+groupcostCode+"', '"+groupcostName+"','"+standardprice+"','"+fundprice+"', now(),'"+type_gcostcode+"')";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -83,12 +86,12 @@ public class GroupcostcodeMasterDB {
 		conn.close();
 	}
 	
-	public void UpdateCostCodeMaster(String groupcostCode, String groupcostName, String groupcostCodeHD, String standardprice, String fundprice)  throws Exception{
+	public void UpdateCostCodeMaster(String project_code, String groupcostCode, String groupcostName, String groupcostCodeHD, String standardprice, String fundprice)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
 		String sqlStmt = "UPDATE groupcostcode_master set gcostcode = '"+groupcostCode+"', gcostcode_name = '"+groupcostName+"',gcostcode_standardprice = '"+standardprice+"'"
 				+ ",gcostcode_fundprice = '"+fundprice+"', datetime = now()" +
-				"WHERE gcostcode = '"+groupcostCodeHD+"'";
+				"WHERE project_code = '"+project_code+"' and gcostcode = '"+groupcostCodeHD+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -96,11 +99,11 @@ public class GroupcostcodeMasterDB {
 		conn.close();
 	}
 	
-	public void DeleteCostCodeMaster(String groupcostCode)  throws Exception{
+	public void DeleteCostCodeMaster(String project_code, String groupcostCode)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
 		String sqlStmt = "DELETE From groupcostcode_master "+
-		"WHERE gcostcode = '"+groupcostCode+"'";
+		"WHERE project_code = '"+project_code+"' and gcostcode = '"+groupcostCode+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
