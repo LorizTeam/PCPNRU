@@ -62,7 +62,7 @@ ORDER BY a.subjob_code, a.childsubjobcode, a.gcostcode]]>
 	<field name="path_report" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<variable name="sumbudget" class="java.lang.Double" resetType="Column" calculation="Sum">
+	<variable name="sumbudget" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{budget}]]></variableExpression>
 	</variable>
 	<group name="subjob">
