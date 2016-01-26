@@ -205,13 +205,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="row cells2 example bg-gray">
 						<div class="cell">จำนวน
 				        	<div class="input-control text full-size"> 
-		                    	<input type="text" name="qty" ng-model="value1" >
+		                    	<input type="text" id="qty" name="qty" ng-model="value1" >
 		                    </div>
 						</div> 
 						<div class="cell"> 
 				        	หน่วยนับ
 					        <div class="input-control text full-size">
-							    <select onchange="" name="unit" class="align-center" ng-model="type1">
+							    <select id="unit" name="unit" class="align-center" ng-model="type1">
+							    	<option value="">โปรดเลือก</option>
 							        <option>บาท</option>
 							        <option>คน</option> 
 							        <option>วัน</option>
@@ -227,7 +228,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="row cells4" >
 						<div class="cell">
 					        <div class="input-control text full-size ">
-							    <select class="align-center" name="aroperation" ng-model="cal.operation" id="select_{{$index}}">
+							    <select class="align-center aro" name="aroperation" ng-model="cal.operation" id="select_{{$index}}">
+							    	<option value="">โปรดเลือก</option>
 							        <option>+</option>
 							        <option>-</option>
 							        <option>*</option>
@@ -243,13 +245,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="row cells2">
 						<div class="cell">จำนวน
 				        	<div class="input-control text full-size"> 
-		                    	<input type="text" name="arqty" ng-model="cal.value" aria-labelledby="select_{{$index}}">
+		                    	<input type="text" name="arqty" class="aqty" ng-model="cal.value" aria-labelledby="select_{{$index}}">
 		                    </div>
 						</div> 
 						<div class="cell"> 
 				        	หน่วยนับ
 					        <div class="input-control text full-size">
-							    <select onchange="" name="arunit" class="align-center" ng-model="cal.type" id="select_{{$index}}">
+							    <select onchange="" name="arunit" class="align-center aunit" ng-model="cal.type" id="select_{{$index}}">
+							        <option value="">โปรดเลือก</option>
 							        <option>บาท</option>
 							        <option>คน</option>
 							        <option>วัน</option>
@@ -322,6 +325,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        		
 		    	});  */
 			});
+			
+			$( "#qty" ).keydown(function() {
+				$(".aqty").prop('required',true);
+				$(".aunit").prop('required',true); 
+				$(".aro").prop('required',true);
+	        	$("#unit").prop('required',true);
+	        	
+	        });
+	         
 		</script>
 		
 	</body>
