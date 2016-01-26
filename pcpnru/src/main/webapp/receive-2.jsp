@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>หน้ารับสินค้า</title>
+    <title>บันทึกรายได้</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -64,6 +64,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		document.getElementById("change").value = '';
         	}
         }
+        
+        
         function printreceive() { 
         	
         	var chk1 = document.getElementById("receiveAmt").value; 
@@ -115,10 +117,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			String docNo		= (String) request.getAttribute("docNo");
   			String projectCode 	= (String) request.getAttribute("projectCode");
   			String dateTime 	= (String) request.getAttribute("dateTime");
-  			String costCode 	= (String) request.getAttribute("costCode");
+  			String gcostCode 	= (String) request.getAttribute("gcostCode");
   		//	String amountFrom 	= (String) request.getAttribute("amountFrom");
   		//	String local 		= (String) request.getAttribute("local"); 
   			String amtt 		= (String) request.getAttribute("amtt");
+  			String standardprice 		= (String) request.getAttribute("standardprice");
+  			
   			if(amtt==null) amtt = "0";
   			 
   			List ReceiveList1 = null;
@@ -133,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div><%@include file="topmenu.jsp" %></div>
 	<br> 
 	<h3 class="align-center">บันทึกรายได้</h3>
-	<div ng-init="n1,n2,total,desc,i_no">
+	<div ng-init="n1,n2,total,desc,i_no,percent">
 	<div class="example" data-text="รายการรับ">
 	<div class="grid">
 	<form action="receive2.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
@@ -145,7 +149,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>   
 		    	<div class="cell colspan3">
 		    		 ค่าใช้จ่าย<div class="input-control full-size "> 
-		    		 	<input type="text" name="costCode" value="<%=costCode%>" readonly="readonly">  
+		    		 	<input type="text" name="gcostCode" value="<%=gcostCode%>" readonly="readonly">  
 					</div> 
 		    	</div>  
 		    	<div class="cell colspan2">  
@@ -160,6 +164,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div> 
 			</div>  
 		  	<div class="row cells10">  
+		  		<div class="cell colspan4">
+		    		ค่าใช้จ่าย <div class="input-control full-size "> 
+					    <select name="costcode" id="costcode" ng-model="percent" ng-change="n2=(<%=standardprice %>*percent/100)+<%=standardprice %>">
+					    	<option value="">--กรุณาเลือกรายการ--</option>
+					    <%
+					    List Lcostcode_forreceive2 = null;
+					    if(request.getAttribute("Lcostcode_forreceive2") != null){
+					    	Lcostcode_forreceive2 = (List) request.getAttribute("Lcostcode_forreceive2");
+					    	Iterator lcostcodeIterate = Lcostcode_forreceive2.iterator();
+					    	while(lcostcodeIterate.hasNext()){
+					    		ReceiveForm rcf = (ReceiveForm) lcostcodeIterate.next();
+					    %>
+					    		<option value="<%=rcf.getPercentprice()%>"><%=rcf.getCostcode()%> - <%=rcf.getCostname()%></option>
+					    <%
+					    	}
+					    }
+					    
+					    %>
+					    </select>
+					    
+					    <s:hidden name="receiveform.costcode" id="hiddencostcode"/>
+					</div>
+		    	</div>
 		    	<div class="cell colspan3">
 		    		ได้รับเงินจาก<div class="input-control full-size "> 
 					    <s:textfield name="receiveform.amountfrom" readonly="readonly" />
@@ -169,7 +196,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		สถานที่<div class="input-control full-size "> 
 					    <s:textfield name="receiveform.local" readonly="readonly" />
 					</div>
-		    	</div> 
+		    	</div>
+		    	 
 		    </div>  
 		  	<div class="row cells10"> 
 		    	<div class="cell colspan10">
@@ -188,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div> 
 		    	<div class="cell colspan3">
 		    		ราคาต่อหน่วย<div class="input-control full-size "> 
-					    <input type="number" id="amount"ng-change="total=n1*n2" ng-model="n2" name="amount" data-validate-func="required" data-validate-hint="This field can not be empty">
+					    <input type="number" id="amount" ng-change="total=n1*n2" ng-model="n2" name="amount" data-validate-func="required" data-validate-hint="This field can not be empty">
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3"> 
@@ -205,7 +233,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <button class="button primary" type="submit" name="update">แก้ไขรายการ</button> 
 					  <button class="button danger" type="submit" name="delete">ลบรายการ</button>
 				</div>
-		    </div>   
+		    </div>
+		    <s:hidden name="receiveform.standardprice" id="hiddencostcode"/>   
 		    </form> 
 		</div> <!-- End of example --> 
 	</div>
@@ -285,5 +314,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div> <!-- End of example -->
 	
   <script src="js/angular.min.js"></script>
+  <script type="text/javascript">
+ 	$(function(){
+ 		 	$( "#costcode" ).change(function() { 
+    		  
+			var costcodetext = $("#costcode option:selected").text();
+			var splitcostcode = costcodetext.split(" - ");
+			$("#hiddencostcode").val(splitcostcode[0]);
+ 		 	});
+  	}); 
+  </script>
   </body>
 </html>

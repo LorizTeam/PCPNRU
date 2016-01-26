@@ -1,5 +1,6 @@
 package pcpnru.projectData;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -82,16 +83,16 @@ public class Receive1DB {
 		return requestno;
 		}
 	
-	public void AddReceiveHD(String docNo, String projectCode,String project_year, String costCode, String docDate, String day, String month, String year, String amountFrom, String local)  throws Exception{
+	public void AddReceiveHD(String docNo, String projectCode,String project_year, String gcostCode, String docDate, String day, String month, String year, String amountFrom, String local)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
 		String[] parts = projectCode.split(" - ");
 		String pjCode = parts[0]; 
 		 
-		String[] parts1 = costCode.split(" - ");
+		String[] parts1 = gcostCode.split(" - ");
 		String cCode = parts1[0];   
 		
-		String sqlStmt = "INSERT IGNORE INTO receivehd(docno, projectcode,project_year, costcode, docdate, day, month, year, amountfrom, local) " +
+		String sqlStmt = "INSERT IGNORE INTO receivehd(docno, projectcode,project_year, gcostcode, docdate, day, month, year, amountfrom, local) " +
 		"VALUES ('"+docNo+"', '"+pjCode+"','"+project_year+"',  '"+cCode+"', '"+docDate+"', '"+day+"', '"+month+"', '"+year+"', '"+amountFrom+"', '"+local+"')";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
@@ -138,6 +139,7 @@ public class Receive1DB {
 	
 	rs.close();
 	pStmt.close();
+	conn.close();
 	
 	return chkCustomer;
 	}
@@ -250,4 +252,60 @@ public class Receive1DB {
 			}
 			return SelectReceiveList;
 		}
+	
+	public List ShowCostCodeforReceive2(String gcostcode,String costcode) throws IOException, Exception{
+		List Listcostcodereceive2 = new ArrayList();
+		
+		String sqlQuery = "select * FROM costcode_master AS a where ";
+		
+		if(!gcostcode.equals("")) sqlQuery = sqlQuery+ "a.gcostcode = '"+gcostcode+"' AND ";
+		if(!costcode.equals("")) sqlQuery = sqlQuery+ "a.costcode = '"+costcode+"' AND ";
+		
+		sqlQuery += "a.costcode <> ''";
+		
+		conn = agent.getConnectMYSql();
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlQuery);
+		
+		String costname = "",percentprice="",datetime="";
+		while(rs.next()){
+			costcode = rs.getString("costcode");
+			costname = rs.getString("costname");
+			gcostcode = rs.getString("gcostcode");
+			percentprice = rs.getString("percentprice");
+			datetime = rs.getString("datetime");
+			
+			Listcostcodereceive2.add(new ReceiveForm(costcode,costname,percentprice,datetime,gcostcode));
+		}
+		return Listcostcodereceive2;
+	}
+	
+	public String SelectPriceStandard_fromgcostcode(String gcostcode) throws IOException, Exception{
+		String sqlQuery = "SELECT "
+				+ "a.gcostcode, "
+				+ "a.gcostcode_name,"
+				+ "a.gcostcode_standardprice,"
+				+ "a.gcostcode_fundprice,"
+				+ "a.datetime,"
+				+ "a.type_gcostcode "
+				+ "FROM "
+				+ "groupcostcode_master AS a "
+				+ "where "
+				+ "gcostcode = '"+gcostcode+"'";
+
+		conn = agent.getConnectMYSql();
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlQuery);
+		String standardprice = "";
+		
+		while(rs.next()){
+			standardprice = rs.getString("gcostcode_standardprice");
+		}
+		
+		rs.close();
+		pStmt.close();
+		conn.close();
+		
+		return standardprice;
+	}
 }

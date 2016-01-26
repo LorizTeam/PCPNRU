@@ -60,7 +60,7 @@ public class Receive2DB {
 				return ReceiveList;
 			 }
 	
-	public void AddReceiveDT(String docNo, String description, String qty, String amount, String amountTotal)  throws Exception{
+	public void AddReceiveDT(String docNo, String description, String qty, String amount, String amountTotal,String costcode)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
 		
@@ -82,8 +82,8 @@ public class Receive2DB {
 				if (itemNo.length() == 1) itemNo = "00" + itemNo;
 				if (itemNo.length() == 2) itemNo = "0" + itemNo;
 		
-		sqlStmt = "INSERT IGNORE INTO receivedt(docno, itemno, description, qty, amount, amountTotal) " +
-		"VALUES ('"+docNo+"', '"+itemNo+"', '"+description+"', '"+qty+"', '"+amount+"', '"+amountTotal+"')";
+		sqlStmt = "INSERT IGNORE INTO receivedt(docno, itemno, description, qty, amount, amountTotal,costcode) " +
+		"VALUES ('"+docNo+"', '"+itemNo+"', '"+description+"', '"+qty+"', '"+amount+"', '"+amountTotal+"', '"+costcode+"')";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -137,6 +137,7 @@ public class Receive2DB {
 	
 	rs.close();
 	pStmt.close();
+	conn.close();
 	
 	return amountTotal;
 	}

@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="project" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d500a9ce-4d5d-4efa-b5b9-0b0d74e01c94">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="44"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["report/"]]></defaultValueExpression>
 	</parameter>
@@ -17,6 +17,7 @@
 FROM projectplan_header a inner join project_master b on(b.project_code = a.project_code)
 inner join projectplan_detail c on(c.project_code = a.project_code
 and c.year = a.year)
+join path_report
 WHERE a.project_code = $P{prmprojectcode} and a.year = $P{prmyear}
 GROUP BY a.project_code]]>
 	</queryString>
@@ -51,6 +52,9 @@ GROUP BY a.project_code]]>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="budget" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="path_report" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<background>
@@ -168,7 +172,7 @@ GROUP BY a.project_code]]>
 					<subreportParameterExpression><![CDATA[$P{prmyear}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rep_projectdt_receive.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA[$F{path_report}+"rep_projectdt_receive.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>

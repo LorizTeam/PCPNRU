@@ -19,7 +19,7 @@
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
-  		
+  		<script src="js/angular.min.js"></script>
 	</head>
 
 	<body>
@@ -45,13 +45,13 @@
 					<div class="cell colspan2"> 
 			        	 ราคากลาง
 				        <div class="input-control text full-size">
-						    <s:textfield type="number" name="groupcostcodemastermodel.standardprice" id="standardprice" required=""/>
+						    <s:textfield name="groupcostcodemastermodel.standardprice" id="standardprice" required=""/>
 						</div>
 					</div>
 					<div class="cell colspan2"> 
 			        	ราคาทุน
 				        <div class="input-control text full-size">
-						    <s:textfield type="number" name="groupcostcodemastermodel.fundprice" id="fundprice" required=""/>
+						    <s:textfield name="groupcostcodemastermodel.fundprice" id="fundprice" required=""/>
 						</div>
 					</div> 
 					 
