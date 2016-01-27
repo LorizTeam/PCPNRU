@@ -213,6 +213,7 @@ public class ProjectDTChargesDB {
 					String sqlStmt = "SELECT gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice, DATE_FORMAT(datetime,'%d-%m-%Y %H:%i') as datetime " +
 					"FROM groupcostcode_master a   " +
 					"WHERE type_gcostcode = '2' and "; 
+					if(!projectcode.equals("")) sqlStmt = sqlStmt+ "project_code = '"+projectcode+"' AND ";
 					if(!groupcostCode.equals("")) sqlStmt = sqlStmt+ "gcostcode like '"+groupcostCode+"%' AND ";
 					if(!groupcostName.equals("")) sqlStmt = sqlStmt+ "gcostcode_name like '"+groupcostName+"%' AND ";
 					

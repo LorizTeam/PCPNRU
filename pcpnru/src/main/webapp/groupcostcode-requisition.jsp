@@ -1,8 +1,10 @@
 <%@page import="com.mysql.jdbc.IterateBlock"%>
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags" %> 
 <%@ page import="pcpnru.masterModel.*" %>
-<%@ page import="pcpnru.masterData.*" %>
+<%@ page import="pcpnru.masterData.*" %> 
+<%@ page import="pcpnru.projectModel.*" %>
+<%@ page import="pcpnru.projectData.*" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,9 +17,11 @@
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
+		<link href="css/select2.css" rel="stylesheet">
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
+	    <script src="js/select2.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
   		
 	</head>
@@ -28,6 +32,31 @@
 		 <div class="example" data-text="รายละเอียด">
 		 <form action="groupcostcodeMaster.action" method="post">
 	         <div class="grid">
+	         	<div class="row cells12">
+	         		<div class="cell colspan6"> 
+			        	 โครงการ
+				        <div class="input-control text full-size">
+						    <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
+							   <option value="" >กรุณาเลือกโครงการ</option>
+							   <%
+							   	List projectMasterList1 = null;
+							   	ProjectMasterDB projM = new ProjectMasterDB();
+							   	projectMasterList1 = projM.getListProject_Join_Projecthead("", "","","");
+							   	List projectMasterList = projectMasterList1;
+				        		if (projectMasterList != null) {
+					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
+					        			ProjectModel pjModel = (ProjectModel) iterPj.next();
+			      				%>  
+				      			<option value="<%=pjModel.getProject_code()%>" >
+				       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> ปี <%=pjModel.getYear() %>
+				       			</option>
+								<%		} 
+									}
+								%>
+					   		</select>
+						</div>
+					</div>
+	         	</div>
 			  	<div class="row cells12">
 			  		<div class="cell colspan2"> 
 			        	รหัส กลุ่มรายการค่าใช้จ่าย
@@ -62,6 +91,7 @@
                 <thead>
                 <tr>  
                 	<th>ลำดับ</th>
+                	<th>ชื่อ-โครงการ</th>
                     <th>รหัส-รายการค่าใช้จ่าย</th>
                     <th>ชื่อ-รายการค่าใช้จ่าย</th>
                     <th>วันเวลา-รายการค่าใช้จ่าย</th>
@@ -72,7 +102,7 @@
                 <%
                 List groupcostCodeMasterList = null;
                 GroupcostcodeMasterDB ccM = new GroupcostcodeMasterDB();
-        		groupcostCodeMasterList = ccM.GetGroupCostCodeMasterList("", "","2");
+        		groupcostCodeMasterList = ccM.GetGroupCostCodeMasterList("", "", "","2");
         		int x = 1;
         		if(groupcostCodeMasterList != null){
         			
@@ -84,8 +114,9 @@
         		%>
         			<tr>
         			<td align="center"><%=x%></td>  
+        			<td class="tdproject" align="left"><%=gccInfo.getProject_name()%></td>
                     <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
-                    <td class="tdcostName" align="center"><%=gccInfo.getCostName()%></td>
+                    <td class="tdcostName" align="left"><%=gccInfo.getCostName()%></td>
                     <td align="center"><%=gccInfo.getDateTime()%></td>
                 	</tr>
         		<%		
@@ -106,6 +137,8 @@
          
    		<script>
         $(function(){
+        	$("#project_code").select2();
+        	
         	var table = $('#table_project').dataTable();
             $('#table_project tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {

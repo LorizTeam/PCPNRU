@@ -274,7 +274,9 @@
 							        <option>บาท</option>
 							        <option>คน</option> 
 							        <option>วัน</option>
-							        <option>เดือน</option> 
+							        <option>เดือน</option>
+							        <option>ครั้ง</option>
+							        <option>ห้อง</option> 
 							    </select>
 							</div>
 						</div> 
@@ -313,6 +315,8 @@
 							        <option>คน</option>
 							        <option>วัน</option>
 							        <option>เดือน</option> 
+							        <option>ครั้ง</option>
+							        <option>ห้อง</option>
 							    </select>
 							</div>
 							
@@ -336,7 +340,11 @@
 						 </span>
 					</div>
 				</div>
-				 
+				  <div class="row"  >
+					 <div class="cell align-center"><br>
+							  <button class="button success" type="submit" name="add">เพิ่มประมาณการรายได้</button> 
+					</div>
+				</div>
 			</div>
 		</form>
 		

@@ -38,6 +38,7 @@ public class GroupcostcodeAction extends ActionSupport {
 		, fundprice = groupcostcodemastermodel.getFundprice()
 		, type_gcostcode = groupcostcodemastermodel.getType_gcostcode();
 		
+		String project_code 	= request.getParameter("projectCode");
 		
 		String add = request.getParameter("add");
 		String update = request.getParameter("update");
@@ -48,12 +49,15 @@ public class GroupcostcodeAction extends ActionSupport {
 			standardprice = "0";
 			fundprice = "0";
 			forwardText = "requisition";
+			groupcostCode = "C"+groupcostCode;
+		}else{
+			groupcostCode = "R"+groupcostCode;
 		}
 		
 		if(add != null){
 			
 			try {
-				groupcostcodemasterdb.AddCostCodeMaster(groupcostCode, groupcostName,standardprice,fundprice,type_gcostcode);
+				groupcostcodemasterdb.AddCostCodeMaster(project_code, groupcostCode, groupcostName,standardprice,fundprice,type_gcostcode);
 				groupcostcodemastermodel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -61,7 +65,7 @@ public class GroupcostcodeAction extends ActionSupport {
 			}
 		}else if(update != null){
 			try {
-				groupcostcodemasterdb.UpdateCostCodeMaster(groupcostCode, groupcostName, groupcostCodeHD, standardprice, fundprice);
+				groupcostcodemasterdb.UpdateCostCodeMaster(project_code, groupcostCode, groupcostName, groupcostCodeHD, standardprice, fundprice);
 				groupcostcodemastermodel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -69,7 +73,7 @@ public class GroupcostcodeAction extends ActionSupport {
 			}
 		}else if(delete != null){
 			try {
-				groupcostcodemasterdb.DeleteCostCodeMaster(groupcostCode);
+				groupcostcodemasterdb.DeleteCostCodeMaster(project_code, groupcostCode);
 				groupcostcodemastermodel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

@@ -177,7 +177,7 @@ public class ProjectDTReceiveDB {
 					String sqlStmt = "SELECT gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice, DATE_FORMAT(datetime,'%d-%m-%Y %H:%i') as datetime " +
 					"FROM groupcostcode_master a " +
 					"WHERE type_gcostcode = '1' and ";  
-					
+					if(!projectcode.equals("")) sqlStmt = sqlStmt+ "project_code = '"+projectcode+"' AND ";
 					sqlStmt = sqlStmt + "a.gcostcode not in (select DISTINCT(b.gcostcode) from projectplan_detail b where b.gcostcode = a.gcostcode and " +
 							"project_code = '"+projectcode+"' and year = '"+year+"') order by a.gcostcode";
 					
