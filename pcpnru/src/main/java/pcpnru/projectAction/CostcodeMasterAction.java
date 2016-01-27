@@ -29,7 +29,8 @@ public class CostcodeMasterAction extends ActionSupport {
 		String costCode = costcodemasterform.getCostCode();
 		String costName = costcodemasterform.getCostName();
 		String costCodeHD = costcodemasterform.getCostCodeHD();
-		String gcostcode = request.getParameter("gcostcode"),percentprice = costcodemasterform.getPercentprice();
+		String gcostcode = request.getParameter("gcostcode")
+				,percentprice = costcodemasterform.getPercentprice();
 		
 		String add = request.getParameter("add");
 		String update = request.getParameter("update");
