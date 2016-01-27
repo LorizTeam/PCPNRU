@@ -32,7 +32,7 @@ public class GroupcostcodeMasterDB {
 		
 			conn = agent.getConnectMYSql();
 			
-			String sqlStmt = "SELECT project_name, gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice, DATE_FORMAT(a.datetime,'%d-%m-%Y %T') as datetime " +
+			String sqlStmt = "SELECT a.project_code,project_name, gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice, DATE_FORMAT(a.datetime,'%d-%m-%Y %T') as datetime " +
 			"FROM groupcostcode_master a " +
 			"INNER JOIN project_master b on(b.project_code = a.project_code) " +
 			"WHERE "; 
@@ -47,6 +47,7 @@ public class GroupcostcodeMasterDB {
 			rs = pStmt.executeQuery(sqlStmt);	
 			while (rs.next()) {
 				project_name	= rs.getString("project_name");
+				project_code	= rs.getString("project_code");
 				groupcostCode 	= rs.getString("gcostcode");
 				standardprice = rs.getString("gcostcode_standardprice");
 				fundprice = rs.getString("gcostcode_fundprice");
@@ -61,7 +62,7 @@ public class GroupcostcodeMasterDB {
 				dateTime		= day+"-"+month+"-"+year+" "+time; 
 			//	amount 			= df2.format(Float.parseFloat(amount));
 				
-				groupcostCodeMasterList.add(new GroupCostCodeMasterModel(project_name, groupcostCode, groupcostName,standardprice,fundprice, dateTime));
+				groupcostCodeMasterList.add(new GroupCostCodeMasterModel(project_code,project_name, groupcostCode, groupcostName,standardprice,fundprice, dateTime));
 			}
 			rs.close();
 			pStmt.close();

@@ -41,7 +41,7 @@
 						    <option value="">กรุณาเลือกกล่มค่าใช้จ่าย</option>
 						    <%
 						    GroupcostcodeMasterDB groupmaster = new GroupcostcodeMasterDB();
-						    Iterator groupmaster_iterate = groupmaster.GetGroupCostCodeMasterList("", "","1").iterator();
+						    Iterator groupmaster_iterate = groupmaster.GetGroupCostCodeMasterList("","", "","1").iterator();
 						    while(groupmaster_iterate.hasNext()){
 						    	GroupCostCodeMasterModel groupmodel =(GroupCostCodeMasterModel) groupmaster_iterate.next();
 						    %>

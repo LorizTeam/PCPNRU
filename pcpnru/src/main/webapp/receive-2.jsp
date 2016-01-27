@@ -111,7 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		}
     </script>
   
-  <body ng-app="">
+  <body ng-app="myApp" ng-controller="myCtrl">
   
   	<% 		
   			String docNo		= (String) request.getAttribute("docNo");
@@ -166,7 +166,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	<div class="row cells10">  
 		  		<div class="cell colspan4">
 		    		ค่าใช้จ่าย <div class="input-control full-size "> 
-					    <select name="costcode" id="costcode" ng-model="percent" ng-change="n2=(<%=standardprice %>*percent/100)+<%=standardprice %>">
+					    <select name="costcode" id="costcode" ng-model="percent" ng-change="n2=(n2*percent/100)+n2">
 					    	<option value="">--กรุณาเลือกรายการ--</option>
 					    <%
 					    List Lcostcode_forreceive2 = null;
@@ -322,7 +322,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var splitcostcode = costcodetext.split(" - ");
 			$("#hiddencostcode").val(splitcostcode[0]);
  		 	});
+ 		 	
+ 		 	
   	}); 
+  </script>
+  <script type="text/javascript">
+  	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope) {
+	    $scope.n2 = <%=standardprice%>;
+	});
   </script>
   </body>
 </html>

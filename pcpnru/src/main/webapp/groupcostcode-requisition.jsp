@@ -114,7 +114,7 @@
         		%>
         			<tr>
         			<td align="center"><%=x%></td>  
-        			<td class="tdproject" align="left"><%=gccInfo.getProject_name()%></td>
+        			<td class="tdprojectCode" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>
                     <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
                     <td class="tdcostName" align="left"><%=gccInfo.getCostName()%></td>
                     <td align="center"><%=gccInfo.getDateTime()%></td>
@@ -137,12 +137,13 @@
          
    		<script>
         $(function(){
-        	$("#project_code").select2();
+        	var select2projectcode = $("#project_code").select2();
         	
         	var table = $('#table_project').dataTable();
             $('#table_project tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');
+    	            select2projectcode.val("").trigger("change");
     	            $("#costCode").val("");
     	            $("#costCodeHD").val("");
     	            $("#costName").val("");
@@ -151,6 +152,9 @@
     	            table.$('tr.selected').removeClass('selected');
     	            $(this).addClass('selected');
     	            var $index = $(this).index();
+    	            var forsplit = $(".tdprojectCode").eq($index).text().split(" - ");
+    	           	select2projectcode.val(forsplit[0]).trigger("change");
+    	           	
     	            $("#costCode").val($(".tdcostCode").eq($index).text());
     	            $("#costCodeHD").val($(".tdcostCode").eq($index).text());
     	            $("#costName").val($(".tdcostName").eq($index).text());

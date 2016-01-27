@@ -31,69 +31,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
-	 
+	 	<link href="css/select2.css" rel="stylesheet">
+	 	<link href="css/bootstrap-datepicker3.css" rel="stylesheet">
+	 	
+	 	
 		<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
  		<script src="js/jquery.dataTables.min.js"></script> 
-
+		<script src="js/select2.js"></script>
+		<script src="js/bootstrap-datepicker-th.js"></script>
   </head>
   
   <body>
     <div><%@include file="topmenu.jsp" %></div>
 	<h3 class="align-center">การเบิกงบประมาณ</h3>
+	<form action="requisition1.action" method="post">
 	<div class="example" data-text="เลือกโครงการ">
 		<div class="grid">
 		  	<div class="row cells12">
 		    	<div class="cell colspan4 offset2" >
 					โครงการ
-					<div class="input-control full-size"> 
-		       		 <select onchange="">
-					    	<option>-- โปรดเลือก --</option>
-					        <option>521800001 - อาคารเรือนไทย</option>
-					        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
-					        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-					        <option>521800004 - โรงแรม</option>
-					        <option>521800005 - ศูนย์บริการ</option>
-					        <option>521800006 - สปา & ฟิตเนส</option>
-					        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
-					   </select>
-					 </div>
+				        <div class="input-control text full-size">
+						    <select id="project_code" name="project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
+							   <option value="" >กรุณาเลือกโครงการ</option>
+							   <%
+							   	List projectMasterList1 = null;
+							   	ProjectMasterDB projM = new ProjectMasterDB();
+							   	projectMasterList1 = projM.getListProject_Join_Projecthead("", "","","");
+							   	List projectMasterList = projectMasterList1;
+				        		if (projectMasterList != null) {
+					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
+					        			ProjectModel pjModel = (ProjectModel) iterPj.next();
+			      				%>  
+				      			<option value="<%=pjModel.getProject_code()%>" >
+				       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
+				       			</option>
+								<%		} 
+									}
+								%>
+					   		</select>
+					   		<s:hidden id="project_year" name="requisition1model.project_year"/>
+						</div>
 		    	</div>
 		    	<div class="cell colspan2">
-		    		เดือน
+		    		วันที่
 		    		<div class="input-control full-size"> 
-					    <select onchange=""> 
-					        <option>01 - มกราคม</option>
-					        <option>02 - กุมภาพันธ์</option>
-					        <option>03 - มีนาคม</option>
-					        <option>04 - เมษายน</option>
-					        <option>05 - พฤษภาคม</option>
-					        <option>06 - มิถุนายน</option>
-					        <option>07 - กรกฎาคม</option> 
-					        <option>08 - สิงหาคม</option>
-					        <option>09 - กันยายน</option>
-					        <option>10 - ตุลาคม</option>
-					        <option>11 - พฤศจิกายน</option>
-					        <option>12 - ธันวาคม</option>
-					    </select>
-					</div>
-		    	</div>
-		    	<div class="cell colspan2">
-		    		ปี
-		    		<div class="input-control full-size"> 
-					    <select onchange=""> 
-					        <option>2555</option>
-					        <option>2556</option>
-					        <option>2557</option>
-					        <option>2558</option>
-					        <option>2559</option>
-					        <option>2560</option>
-					        <option>2561</option>
-					        <option>2562</option>
-					        <option>2563</option>
-					        <option>2564</option>
-					        <option>2565</option>
-					    </select> 
+					    <s:textfield id="day" name="requisition1model.day"/>
 					</div>
 		    	</div>
 		    </div>
@@ -105,7 +88,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div> 
 		    </div>
 		</div>
-	</div> <!-- End of example --> 
-	
+	</div>
+	</form>
+	 <!-- End of example --> 
+	<script type="text/javascript">
+		$(function(){
+			$("#project_code").select2();
+			$("#day").datepicker({
+			    format: "dd/mm/yyyy",
+		        todayBtn: true,
+		        clearBtn: true,
+		        autoclose: true,
+		        todayHighlight: true
+		    });
+		});
+	</script>
   </body>
 </html>

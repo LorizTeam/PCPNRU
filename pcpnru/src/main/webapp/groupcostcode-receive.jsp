@@ -3,6 +3,8 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="pcpnru.masterModel.*" %>
 <%@ page import="pcpnru.masterData.*" %>
+<%@ page import="pcpnru.projectData.*" %>
+<%@ page import="pcpnru.projectModel.*" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -15,11 +17,13 @@
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
+		<link href="css/select2.css" rel="stylesheet">
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
   		<script src="js/angular.min.js"></script>
+  		<script src="js/select2.js"></script>
 	</head>
 
 	<body>
@@ -28,6 +32,29 @@
 		 <div class="example" data-text="รายละเอียด">
 		 <form action="groupcostcodeMaster.action" method="post">
 	         <div class="grid">
+	         	<div class="row cells12">
+	         		 โครงการ
+				        <div class="input-control text full-size">
+						    <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
+							   <option value="" >กรุณาเลือกโครงการ</option>
+							   <%
+							   	List projectMasterList1 = null;
+							   	ProjectMasterDB projM = new ProjectMasterDB();
+							   	projectMasterList1 = projM.getListProject_Join_Projecthead("", "","","");
+							   	List projectMasterList = projectMasterList1;
+				        		if (projectMasterList != null) {
+					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
+					        			ProjectModel pjModel = (ProjectModel) iterPj.next();
+			      				%>  
+				      			<option value="<%=pjModel.getProject_code()%>" >
+				       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> ปี <%=pjModel.getYear() %>
+				       			</option>
+								<%		} 
+									}
+								%>
+					   		</select>
+						</div>
+	         	</div>
 			  	<div class="row cells12">
 			  		<div class="cell colspan2"> 
 			        	รหัส กลุ่มรายการค่าใช้จ่าย
@@ -74,6 +101,7 @@
                 <thead>
                 <tr>  
                 	<th>ลำดับ</th>
+                	<th>โครงการ</th>
                     <th>รหัส-รายการค่าใช้จ่าย</th>
                     <th>ชื่อ-รายการค่าใช้จ่าย</th>
                     <th>ราคากลาง</th> 
@@ -86,7 +114,7 @@
                 <%
                 List groupcostCodeMasterList = null;
                 GroupcostcodeMasterDB ccM = new GroupcostcodeMasterDB();
-        		groupcostCodeMasterList = ccM.GetGroupCostCodeMasterList("", "","1");
+        		groupcostCodeMasterList = ccM.GetGroupCostCodeMasterList("","", "","1");
         		int x = 1;
         		if(groupcostCodeMasterList != null){
         			
@@ -97,9 +125,10 @@
         				
         		%>
         			<tr>
-        			<td align="center"><%=x%></td>  
+        			<td align="center"><%=x%></td>
+        			<td class="tdprojectCode" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>  
                     <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
-                    <td class="tdcostName" align="center"><%=gccInfo.getCostName()%></td>
+                    <td class="tdcostName" align="left"><%=gccInfo.getCostName()%></td>
                     <td class="tdstandardprice" align="center"><%=gccInfo.getStandardprice() %></td>
                     <td class="tdfundprice" align="center"><%=gccInfo.getFundprice() %></td>   
                     <td align="center"><%=gccInfo.getDateTime()%></td>
@@ -122,10 +151,13 @@
          
    		<script>
         $(function(){
+        	var select2projectcode = $("#project_code").select2();
+        	
         	var table = $('#table_project').dataTable();
             $('#table_project tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');
+    	            select2projectcode.val("").trigger("change");
     	            $("#costCode").val("");
     	            $("#costCodeHD").val("");
     	            $("#costName").val("");
@@ -136,6 +168,10 @@
     	            table.$('tr.selected').removeClass('selected');
     	            $(this).addClass('selected');
     	            var $index = $(this).index();
+    	            
+    	           	var forsplit = $(".tdprojectCode").eq($index).text().split(" - ");
+    	           	select2projectcode.val(forsplit[0]).trigger("change");
+    	           	
     	            $("#costCode").val($(".tdcostCode").eq($index).text());
     	            $("#costCodeHD").val($(".tdcostCode").eq($index).text());
     	            $("#costName").val($(".tdcostName").eq($index).text());

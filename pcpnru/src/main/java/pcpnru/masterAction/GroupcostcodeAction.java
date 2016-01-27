@@ -37,7 +37,6 @@ public class GroupcostcodeAction extends ActionSupport {
 		, standardprice = groupcostcodemastermodel.getStandardprice()
 		, fundprice = groupcostcodemastermodel.getFundprice()
 		, type_gcostcode = groupcostcodemastermodel.getType_gcostcode();
-		
 		String project_code 	= request.getParameter("projectCode");
 		
 		String add = request.getParameter("add");
