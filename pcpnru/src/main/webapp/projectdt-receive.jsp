@@ -44,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 	List groupcostCodeList = PDTR.GetGroupCostCodeList(projectcode, year);
 		 %>
 		 		<%@include file="topmenu.jsp" %>
-		 <form id="project-receivedt" action="projectdtreceive.action" method="post" >
+		 <form id="project-receivedt" action="projectdtreceive.action" method="post">
 		 <div class="container-fluid" >
 		 	
 
@@ -59,8 +59,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <div class="cell colspan4"> 
 			        	กิจกรรม
 			        	 <div class="input-control text full-size"> 
-			        	 <select id="csubjob" name="csubjob" data-validate-hint="ไม่ระบุ">
-					   	 <option value="" >-- ไม่ระบุ --</option>
+			        	 <select required id="csubjob" name="csubjob" >
+					   	 <option value="">-- ไม่ระบุ --</option>
 						    <% 
 			        		if (childSubjobList != null) {
 				        		for (Iterator iterPj = childSubjobList.iterator(); iterPj.hasNext();) {
@@ -73,6 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									}
 								%>
 					   </select>
+					    
 	                     </div>
 					</div> 
 			    </div>
@@ -80,31 +81,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        
 			        <div class="cell colspan4"> 
 			        	รายการ
-			        	 <div class="input-control text full-size"> 
+			        	 <div class="input-control text full-size" data-role="input"> 
 			        	 	<!--   <s:hidden id="projectcode" name="projModel.projectcode" />
 	                          <s:textfield id="costname" name="projModel.costname" ng-model="name" />
 	                        --> 
 	                        <input type="hidden" id="projectcode" name="projectcode" value="<%=projectcode%>"> 
 	                        <input type="hidden" id="year" name="year" value="<%=year%>">
 	                        <input type="hidden" id="gcostcode" name="gcostcode">
-	                     <select id="gcostname" name="gcostname" ng-model="name" data-validate-hint="ไม่ระบุ">
-					   	 	<option value="" >-- ไม่ระบุ --</option>
-						    <% 
-			        		if (groupcostCodeList != null) {
-				        		for (Iterator iterCC = groupcostCodeList.iterator(); iterCC.hasNext();) {
-				        			GroupCostCodeMasterModel ccInfo = (GroupCostCodeMasterModel) iterCC.next();
-		      				%>  
-				      			<option value="<%=ccInfo.getCostName()%>" ><%=ccInfo.getCostCode()%> - <%=ccInfo.getCostName()%></option>
-								<%		} 
-									}
-								%> 
-					   	</select>
-					   	
+	                     
+							    <input type="text" id="gcostname" name="gcostname" ng-model="name" readonly="readonly">
+							    <div class="button-group">
+							    <button class="button mini-button" type="button" onclick="deleteCC();"><span class="mif-bin"></span></button>
+							    <button class="button mini-button" type="button" onclick="javascript:getGcostcode('<%=projectcode%>','<%=year%>');"> <span class="mif-search"></span></button>
+								</div> 
 	                     </div>
 					</div> 
-					<div class="cell colspan1">
-						<a href="javascript:getGcostcode('<%=projectcode%>');"> <span class="mif-folder-plus mif-3x fg-green"></span> </a>
-					</div>
 					<div class="cell colspan1">คำนวน<br>
 			        	 <button type="button" class="button primary mif-calculator2" onclick="showCharm('right')"></button> 
 					</div>
@@ -296,10 +287,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 		
 		<script>
-		function getGcostcode(projectcode) {
-			var load = window.open('/pcpnru/groupcostcode-receive.jsp?project_code='+projectcode+' ','receive',
-			             'scrollbars=yes,menubar=no,height=600,width=1024,resizable=yes,toolbar=no,location=yes,status=no');
-		}
+			function getGcostcode(projectcode, year) {
+				var load = window.open('/pcpnru/window-groupcostcode-receive.jsp?projectcode='+projectcode+'&year='+year+' ','receive',
+				             'scrollbars=yes,menubar=no,height=600,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
+			}
+			function deleteCC() {
+				$("#gcostcode").val("");
+				$("#gcostname").val("");
+			}
 		
 			function showCharm(id){
 	            var  charm = $("#right-charm").data("charm");
@@ -323,10 +318,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        	//	var cc = $(".costcodehd > #gcostcodehd").eq(index).val();
 		        	//	var cc = $("#gcostcodehd").eq(index).val();
 		        	//	alert(cc);
+		        		$(".csubjob").prop('required',false);
 		        		$("#gcostcode").val($(".costcodehd > #gcostcodehd").eq(index).val()); 
 				    	$("#project-receivedt").submit();
 		        	  
-		    	});
+		    	}); 
 	   			
 		    /*   $('.clickbutton').click(function () {  
 		        	if($("#costname").val() == ""){
@@ -340,7 +336,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        		
 		    	});  */
 			});
-			
+			 
 			$( "#qty" ).keydown(function() {
 				$(".aqty").prop('required',true);
 				$(".aunit").prop('required',true); 

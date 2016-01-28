@@ -33,6 +33,7 @@ public class ProjectDTReceiveAction extends ActionSupport{
 		String gcostname	= (String) request.getParameter("gcostname");
 		String budget		= (String) request.getParameter("budget");
 		String csubjob		= (String) request.getParameter("csubjob");
+	//	if(csubjob.equals("")) csubjob = "0000";
 		String subjob		= "0003";
 		String gcostcode		= (String) request.getParameter("gcostcode");
 		String year			= (String) request.getParameter("year");

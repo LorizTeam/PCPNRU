@@ -16,16 +16,15 @@
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet"> 
-	 	<link href="css/style.css" rel="stylesheet"> 
-	 	<link href="css/select2.css" rel="stylesheet">
+	 	<link href="css/style.css" rel="stylesheet">  
 	 	
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
 	    <script src="js/angular.min.js"></script>
 		<script src="js/app.js"></script>
-		<script src="js/select2.js"></script>
 	</head>
-
+	 
+	
 	<body ng-app="controllerCalculator" ng-controller="SettingsController">
 		 <% String projectcode = (String) request.getParameter("projectcode"); 
 		 	String year = (String) request.getParameter("year");
@@ -39,7 +38,7 @@
 		 	List SubjobList = PDTC.GetSubjobList();  
 		 	List groupcostCodeList = PDTC.GetGroupCostCodeList(projectcode, year);
 		 %>
-		 <form id="project-chargesdt" action="projectdtcharges.action" method="post" >
+		 <form id="project-chargesdt" action="projectdtcharges.action" method="post">
 		 <%@include file="topmenu.jsp" %>
 		 <div class="container-fluid" >
 			<div class="example"data-text="" >
@@ -77,23 +76,17 @@
 					  	<div class="row cells12">
 					        <div class="cell colspan4"> 
 					        	รายการ
-					        	<div class="input-control text full-size">  
+					        	<div class="input-control text full-size ">  
 			                    	<input type="hidden" id="projectcode" name="projectcode" value="<%=projectcode%>"> 
 			                    	<input type="hidden" id="year" name="year" value="<%=year%>">
 	                        		<input type="hidden" id="gcostcode" name="gcostcode" >
 	                        		<input type="hidden" id="arnumber" name="arnumber" > 
-			                <select id="gcostname" name="gcostname" ng-model="name" data-validate-hint="ไม่ระบุ">
-						   	 	<option value="" >-- ไม่ระบุ --</option>
-							    <% 
-				        		if (groupcostCodeList != null) {
-					        		for (Iterator iterCC = groupcostCodeList.iterator(); iterCC.hasNext();) {
-					        			GroupCostCodeMasterModel ccInfo = (GroupCostCodeMasterModel) iterCC.next();
-			      				%>  
-					      			<option value="<%=ccInfo.getCostName()%>" ><%=ccInfo.getCostCode()%> - <%=ccInfo.getCostName()%></option>
-									<%		} 
-										}
-									%> 
-					   		</select>
+					                
+								<input type="text" id="gcostname" name="gcostname" ng-model="name" readonly="readonly" >
+							    <div class="button-group">
+							    <button class="button mini-button" type="button" onclick="deleteCC();"><span class="mif-bin"></span></button>
+							    <button class="button mini-button" type="button" onclick="javascript:getGcostcode('<%=projectcode%>','<%=year%>');"> <span class="mif-search"></span></button>
+								</div> 
 			                    </div>
 							</div> 
 							<div class="cell ">คำนวน<br>
@@ -347,8 +340,17 @@
 				</div>
 			</div>
 		</form>
-		
+		 
 		<script>
+		function getGcostcode(projectcode, year) {
+			var load = window.open('/pcpnru/window-groupcostcode-requisition.jsp?projectcode='+projectcode+'&year='+year+' ','requisition',
+			             'scrollbars=yes,menubar=no,height=600,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
+		}
+		function deleteCC() {
+			$("#gcostcode").val("");
+			$("#gcostname").val("");
+		}  
+		
 		function showCharm(id){
             var  charm = $("#right-charm").data("charm");
             if (charm.element.data("opened") === true) {
@@ -357,13 +359,12 @@
                 charm.open();
             }
         }
+		
 		$(function(){
-			 
-			$("#gcostname").select2();
-			
+			  
 			// load
 			var subjobcode = $("#subjobcode").val();
-			var out = '';
+			var out = ''; 
 			$.ajax({  // select history
 			  	 
 		          type: "post",
@@ -393,7 +394,6 @@
 			 
 			// change dropdown
 			$( "#subjobcode" ).change(function() {
-		  		  
 				var subjobcode = $("#subjobcode").val();
 				var out = '';
 				
@@ -425,28 +425,25 @@
 			});
 			// change dropdown
 			
+			$('.deletebt').click(function () {   
+				var index = $(".deletebt").index(this);
+			//	var cc = $(".gcostcodehd > #gcostcodehd").eq(index).val();
+			//	var cc = $("#gcostcodehd").eq(index).val();
+			//	alert(cc);
+				$("#arnumber").val(index);
+				$("#gcostcode").val($(".hdgcostcode > #hdgcostcode").eq(index).val()); 
+		    	$("#project-chargesdt").submit();
+			  
+			});
+			
 			$("#gcostname").change(function () { 
    				var text = $("#gcostname :selected").text();
    				var text1 = text.split(" - "); 
    				text = text1[0];  
    				$("#gcostcode").val(text); 
-   			});
-			
-			$('.deletebt').click(function () {  
-	        	 
-        		var index = $(".deletebt").index(this);
-        	//	var cc = $(".gcostcodehd > #gcostcodehd").eq(index).val();
-        	//	var cc = $("#gcostcodehd").eq(index).val();
-        	//	alert(cc);
-        		$("#arnumber").val(index);
-        		$("#gcostcode").val($(".hdgcostcode > #hdgcostcode").eq(index).val()); 
-		    	$("#project-chargesdt").submit();
-        	  
-    		});
-			
-		}); 
-		
-		
+   			}); 
+		});  
+		 
 		</script>
 		
 	</body>
