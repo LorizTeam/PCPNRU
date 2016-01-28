@@ -42,9 +42,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="js/select2.js"></script>
 		<script src="js/bootstrap-datepicker-th.js"></script>
 		<script src="js/angular.min.js"></script>
+		<script src="js/requisition.js"></script>
   </head>
   
-  <body>
+  <body ng-app="requisition" >
+  	<div ng-controller="myCtrl">
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
 	<form action="requisition.action" method="post">
@@ -56,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div>
 			    	<div class="cell colspan4" > 
 			       		 <h4><small class="input-control full-size"> 
-				       		 <select id="project_code" name="project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
+				       		 <select id="project_code" ng-change="projectchange()" ng-model="project" name="project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
 							   <option value="" >กรุณาเลือกโครงการ</option>
 							   <%
 							   	List projectMasterList1 = null;
@@ -131,25 +133,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			       		<h4 align="right">ค่าใช้จ่าย&nbsp;</h4> 	  
 			    	</div> 
 			    	<div class="cell colspan4">
-			    		<h4><small class="input-control full-size">
-			    			<select onchange="">
-						    	<option>-- โปรดเลือก --</option>
-						        <option selected>521800001 - อาคารเรือนไทย</option>
-						        <option>521800002 - แหล่งเรียนรู้และวิจัย กาซะลองสปา</option>
-						        <option>521800003 - ถ่ายภาพพิมพ์บัตรและสื่อสารดิจตอล</option>
-						        <option>521800004 - โรงแรม</option>
-						        <option>521800005 - ศูนย์บริการ</option>
-						        <option>521800006 - สปา & ฟิตเนส</option>
-						        <option>521800007 - ศูนย์อาหารและร้านค้า</option> 
-						   </select>
-						</small></h4>
+			    		<h4><div class="input-control full-size">
+			    			<select name="gcostcode" ng-model="gcostcode" id="gcostcode" ng-change="test1=gcostcode">
+			    				<option value=""> -- please Select --</option>
+						    	<option ng-repeat="option in datas" value="{{option.gcostcode}}">{{option.gcostcode_name}}</option>
+						    	
+						   	</select>
+						</div></h4>
+						
 			    	</div>  
 			    	<div class="cell colspan1"> 
 			       		<h4 align="right">จำนวน&nbsp;</h4> 	  
 			    	</div> 
 			    	<div class="cell colspan1">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="subjobcode" name="subjobCode"> 
+						    <input type="text" ng-model="test1" id="subjobcode" name="subjobCode"> 
 						</small></h4>
 			    	</div> 
 			    	<div class="cell colspan1"> 
@@ -229,6 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
 		$(function(){
 			$("#project_code").select2();
+			
 			$("#day").datepicker({
 			    format: "dd/mm/yyyy",
 		        todayBtn: true,
@@ -238,5 +237,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    });
 		});
 	</script>
+	</div>
   </body>
 </html>
