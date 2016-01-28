@@ -99,9 +99,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									}
 								%> 
 					   	</select>
+					   	
 	                     </div>
 					</div> 
-					<div class="cell ">คำนวน<br>
+					<div class="cell colspan1">
+						<a href="javascript:getGcostcode('<%=projectcode%>');"> <span class="mif-folder-plus mif-3x fg-green"></span> </a>
+					</div>
+					<div class="cell colspan1">คำนวน<br>
 			        	 <button type="button" class="button primary mif-calculator2" onclick="showCharm('right')"></button> 
 					</div>
 					<div class="cell colspan2"> 
@@ -113,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        	 	<input type="text" id="budget" name="budget">
 	                     </div> 
 					</div>  
-					<div class="cell colspan5"><br>
+					<div class="cell colspan4"><br>
 						  <button class="button success" type="submit" name="add">เพิ่มประมาณการรายได้</button> 
 					</div> 
 			    </div>
@@ -292,6 +296,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</form>
 		
 		<script>
+		function getGcostcode(projectcode) {
+			var load = window.open('/pcpnru/groupcostcode-receive.jsp?project_code='+projectcode+' ','receive',
+			             'scrollbars=yes,menubar=no,height=600,width=1024,resizable=yes,toolbar=no,location=yes,status=no');
+		}
+		
 			function showCharm(id){
 	            var  charm = $("#right-charm").data("charm");
 	            if (charm.element.data("opened") === true) {
