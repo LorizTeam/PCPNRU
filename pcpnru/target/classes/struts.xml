@@ -97,6 +97,13 @@
     	</action> 
         <!-- 		ProjectDT Charges	 -->
         
+        <!-- 		Requisition	 -->
+        
+        <action name="requisition" class="pcpnru.projectAction.RequisitionAction" method="execute">
+      		<result name="success">/requisition-1.jsp</result>
+    	</action> 
+    	
+        <!-- 		Requisition	 -->
         
     </package>
  
