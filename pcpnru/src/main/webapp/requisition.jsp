@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="js/requisition.js"></script>
   </head>
   
-  <body ng-app="requisition" >
+  <body ng-app="requisition" ng-init="tobalance,frombalance">
   	<div ng-controller="myCtrl">
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
@@ -59,8 +59,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	<div class="cell colspan4" > 
 			       		 <h4><small class="input-control full-size"> 
 				       		 <select id="project_code" ng-change="projectchange()" ng-model="project" name="project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
-							   <option value="" >กรุณาเลือกโครงการ</option>
+							   <option value="">กรุณาเลือกโครงการ</option>
 							   <%
+							   	String select2default = "";
 							   	List projectMasterList1 = null;
 							   	ProjectMasterDB projM = new ProjectMasterDB();
 							   	projectMasterList1 = projM.getListProject_Join_Projecthead("", "","","");
@@ -68,11 +69,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        		if (projectMasterList != null) {
 					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
 					        			ProjectModel pjModel = (ProjectModel) iterPj.next();
-			      				%>  
-				      			<option value="<%=pjModel.getProject_code()%>" >
-				       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
-				       			</option>
-								<%		} 
+					        			
+						        			if(pjModel.getProject_code().equals("0004")){
+						        				select2default = pjModel.getProject_code()+" - "+pjModel.getYear();
+						        	%>
+						        			<option  value="<%=pjModel.getProject_code()%> - <%=pjModel.getYear() %>" >
+							       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
+							       			</option>
+							       			
+						        	<%
+						        	
+						        			}else{
+			        				%>
+						        			<option value="<%=pjModel.getProject_code()%> - <%=pjModel.getYear() %>" >
+							       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
+							       			</option>
+						        	<%
+						        			}
+			      						} 
 									}
 								%>
 					   		</select>
@@ -96,22 +110,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			       		<h4>ดำเนินการในการจัด&nbsp;</h4> 	  
 			    	</div> 
 			    	<div class="cell colspan1">
-			    		<!-- Small radio button -->
-						<label class="input-control radio small-check" >
-						    <input type="radio" name="type">
-						    <span class="check"></span>
-						    <span class="caption">ซื้อ</span>
-						</label>
-						<label class="input-control radio small-check" >
-						    <input type="radio" name="type">
-						    <span class="check"></span>
-						    <span class="caption">จ้าง</span>
-						</label>
-						<label class="input-control radio small-check" >
-						    <input type="radio" name="type">
-						    <span class="check"></span>
-						    <span class="caption">อื่นๆ</span>
-						</label>
+			    		<select name="type_requisition">
+			    			<option value="">กรุณาเลือกข้อมูล</option>
+			    			<option value="">จัดซื้อ</option>
+			    			<option value="">จัดจ้าง</option>
+			    			<option value="">อื่น ๆ</option>
+			    		</select>
 			    	</div>
 			    	
 			    	 
@@ -120,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan6">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="subjobcode" name="subjobCode"> 
+						    <input type="text" id="description" name="description"> 
 						</small></h4>
 			    	</div>
 			    	
@@ -134,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan4">
 			    		<h4><div class="input-control full-size">
-			    			<select name="gcostcode" ng-model="gcostcode" id="gcostcode" ng-change="test1=gcostcode">
+			    			<select name="gcostcode" ng-model="gcostcode" id="gcostcode" ng-change="gcostcodechange()">
 			    				<option value=""> -- please Select --</option>
 						    	<option ng-repeat="option in datas" value="{{option.gcostcode}}">{{option.gcostcode_name}}</option>
 						    	
@@ -147,7 +151,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan1">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" ng-model="test1" id="subjobcode" name="subjobCode"> 
+						    <input type="text" id="unit" name="unit" ng-model="unit" ng-keyup="tobalance=frombalance - (unit*priceperunit)"> 
 						</small></h4>
 			    	</div> 
 			    	<div class="cell colspan1"> 
@@ -155,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan2">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="subjobcode" name="subjobCode"> 
+						    <input type="text" id="priceperunit" name="priceperunit" ng-model="priceperunit"  ng-keyup="tobalance=frombalance - (unit*priceperunit)" > 
 						</small></h4>
 			    	</div> 
 			    </div>
@@ -168,7 +172,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div>
 			    	<div class="cell colspan3">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="frombalance" name="frombalance" value="455,000.00"> 
+						    <input type="text" id="frombalance" name="frombalance" value="{{ frombalance | currency:'฿' }}"> 
 						</small></h4>
 			    	</div>
 			    	
@@ -177,7 +181,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div>
 			    	<div class="cell colspan3">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="tobalance" name="tofrombalance" value="400,000.00"> 
+						    <input type="text" id="tobalance" name="tobalance" value="{{ tobalance | currency:'฿' }}"> 
 						</small></h4>
 			    	</div>
 			    </div>

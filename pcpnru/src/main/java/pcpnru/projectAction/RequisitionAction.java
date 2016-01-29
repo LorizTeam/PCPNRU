@@ -30,11 +30,44 @@ public class RequisitionAction extends ActionSupport{
 		Calendar cal = Calendar.getInstance();
 	    String timeofday = dateFormat.format(cal.getTime());
 		
-	    String day = requisition1model.getDay(),project_code="",project_year=requisition1model.getProject_year();
+	    String day = requisition1model.getDay(),project_code="",project_year=requisition1model.getProject_year(),
+	    		type_requisition = "",description="",gcostcode="";
+	    
+	    int unit=0;
+	    double priceperunit=0,frombalance=0,tobalance=0;
 	    
 	    if(request.getParameter("project_code") != ""){
 	    	project_code = request.getParameter("project_code");
 	    }
+	    
+	    if(request.getParameter("type_requisition") != ""){
+	    	type_requisition = request.getParameter("type_requisition");
+	    }
+	    
+	    if(request.getParameter("description") != ""){
+	    	description = request.getParameter("description");
+	    }
+	    
+	    if(request.getParameter("gcostcode") != ""){
+	    	gcostcode = request.getParameter("gcostcode");
+	    }
+	    
+	    if(request.getParameter("unit") != ""){
+	    	unit = Integer.parseInt(request.getParameter("unit")) ;
+	    }
+	    
+	    if(request.getParameter("priceperunit") != ""){
+	    	priceperunit = Double.parseDouble(request.getParameter("priceperunit")) ;
+	    }
+	    
+	    if(request.getParameter("frombalance") != ""){
+	    	frombalance = Double.parseDouble(request.getParameter("frombalance")) ;
+	    }
+	    
+	    if(request.getParameter("tobalance") != ""){
+	    	tobalance = Double.parseDouble(request.getParameter("tobalance")) ;
+	    }
+	    
 	    day += " "+timeofday;
 	    
 	    

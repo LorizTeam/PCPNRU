@@ -38,7 +38,7 @@
                 </li>
                 <li><a href="" class="dropdown-toggle">รายจ่าย</a>
                     <ul class="d-menu" data-role="dropdown">
-                        <li><a href="requisition-1.jsp">เบิกงบประมาณ</a></li>
+                        <li><a href="requisition.jsp">เบิกงบประมาณ</a></li>
                         <li><a href="select_requisition-1.jsp">รายละเอียดการเบิกงบประมาณ</a></li> 
                     </ul>
                 </li> 
