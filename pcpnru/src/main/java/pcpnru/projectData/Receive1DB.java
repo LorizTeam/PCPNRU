@@ -21,13 +21,13 @@ public class Receive1DB {
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
-	public String SelectUpdateDocNo(String year) throws Exception {
+	public String SelectUpdateDocNo(String year,String doc_type) throws Exception {
 		String requestno = "";
 		try {
 			conn = agent.getConnectMYSql();
 			
 			String sqlStmt = "SELECT max(SUBSTRING(docno, 5,10)) as lno FROM runningdocno "+
-					"WHERE SUBSTRING(docno, 1,4) = '"+year+"' limit 1 ";
+					"WHERE SUBSTRING(docno, 1,4) = '"+year+"' and doc_type ='"+doc_type+"'";
 			pStmt = conn.createStatement();
 			rs = pStmt.executeQuery(sqlStmt);		
 			while (rs.next()) {
@@ -56,14 +56,14 @@ public class Receive1DB {
 			if(!requestno.equals("000001")){ 
 				requestno = year+requestno;
 				sqlStmt = "UPDATE runningdocno set docno = '"+requestno+"' " +
-						"WHERE SUBSTRING(docno, 1,4) = '"+year+"'"; 
+						"WHERE SUBSTRING(docno, 1,4) = '"+year+"' and doc_type = '"+doc_type+"'"; 
 				pStmt = conn.createStatement();
 				pStmt.executeUpdate(sqlStmt);
 				pStmt.close();
 			}else{
 				requestno = year+requestno;
-				sqlStmt = "INSERT IGNORE INTO runningdocno(docno) " +
-						"VALUES ('"+requestno+"')"; 
+				sqlStmt = "INSERT IGNORE INTO runningdocno(docno,doc_type) " +
+						"VALUES ('"+requestno+"','"+doc_type+"')"; 
 				pStmt = conn.createStatement();
 				pStmt.executeUpdate(sqlStmt);
 				pStmt.close();

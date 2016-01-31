@@ -144,7 +144,7 @@ public class Receive1Action extends ActionSupport {
 			String local 		= receiveform.getLocal();
 			
 			Receive1DB receive1DB = new Receive1DB();
-			String docNo = receive1DB.SelectUpdateDocNo(year);
+			String docNo = receive1DB.SelectUpdateDocNo(year,"receive");
 			receive1DB.AddReceiveHD(docNo, projectCode,project_year, gcostCode, docDate, day, month, year, amountfrom, local); 
 			
 			String[] splitgcostcode = gcostCode.split(" - ");

@@ -5,16 +5,17 @@ app.controller('myCtrl', function($scope, $http) {
 	$scope.priceperunit=0;
 	$scope.frombalance=0;
 	$scope.tobalance=0;
-	
+	$scope.day="";
+	$scope.amount = 0;
 	$scope.projectchange = function() {
 		
 			
 			$scope.gcostcode = '';
-		
+			
 			$http({
 		          method: "POST", 
 		          url: "ajax_requisition.jsp",
-		          params:{"projectCode":$scope.project.split(' - ')[0],"year":$scope.project.split(' - ')[1]},
+		          params:{"projectCode":$scope.project.split(' - ')[0],"year":$scope.project.split(' - ')[1],"ajax_type":"select"},
 		          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		          
 		        }).then(function(response) {
@@ -39,9 +40,31 @@ app.controller('myCtrl', function($scope, $http) {
 	            
 	        });
 	}
-		
-		
 	
+	$scope.addrequisition = function() {
+		
+		
+		$http({
+	          method: "POST", 
+	          url: "ajax_requisition.jsp",
+	          params:{"projectCode":$scope.project.split(' - ')[0],
+					"year":$scope.project.split(' - ')[1],
+					"gcostcode":$scope.gcostcode,
+					"unit":$scope.unit,
+					"priceperunit":$scope.priceperunit,
+					"frombalance":$scope.frombalance,
+					"tobalance":$scope.tobalance,
+					"day":$scope.day,
+					"requisiton_type":$scope.requisiton_type,
+					"description":$scope.description,
+					"amount":$scope.amount,
+					"ajax_type":"add"},
+	          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	          
+	        }).then(function(response) {
+	            $scope.frombalance = response.data;
+	        });
+	}
 	
 });
 
