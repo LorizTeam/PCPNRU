@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html ng-app="requisition">
   <head>
     <base href="<%=basePath%>">
     
@@ -45,12 +45,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="js/requisition.js"></script>
   </head>
   
-  <body ng-app="requisition" ng-init="tobalance,frombalance">
-  	<div ng-controller="myCtrl">
+  <body ng-controller="myCtrl">
+  	
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
-	
+	<form name="requisitionform">
 		<div class="example" data-text="รายละเอียด">
+		<div class="flex-grid">
+  			<div class="row flex-just-center">
+  				<div class="cell colspan1 "> 
+			       	<h4 class="align-right">เลขที่เอกสาร&nbsp;</h4>
+			    </div>
+			    <div class="cell colspan4"> 
+		    		<h4>
+		    		<div class="input-control full-size"> 
+					    <input id="docno" name="docno" ng-model="docno" />
+					</div>
+					</h4>
+		    	</div>
+		  	</div>
+	  	</div>
 			<div class="flex-grid">
 			  	<div class="row flex-just-center">
 			        <div class="cell colspan1 "> 
@@ -90,7 +104,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	<div class="cell colspan4"> 
 			    		<h4>
 			    		<div class="input-control full-size"> 
-						    <input id="day" name="day" ng-model="day" />
+						    <input id="day" name="day" ng-model="day" required/>
 						</div>
 						</h4>
 			    	</div>
@@ -102,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			       		<h4>ดำเนินการในการจัด&nbsp;</h4> 	  
 			    	</div> 
 			    	<div class="cell colspan1">
-			    		<select name="type_requisition" ng-model="requisiton_type">
+			    		<select name="type_requisition" ng-model="requisiton_type" required>
 			    			<option value="">กรุณาเลือกข้อมูล</option>
 			    			<option value="1">จัดซื้อ</option>
 			    			<option value="2">จัดจ้าง</option>
@@ -116,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan6">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="description" name="description" ng-model="description"> 
+						    <input type="text" id="description" name="description" ng-model="description" required> 
 						</small></h4>
 			    	</div>
 			    	
@@ -130,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan10">
 			    		<h4><div class="input-control full-size">
-			    			<select name="gcostcode" ng-model="gcostcode" id="gcostcode" ng-change="gcostcodechange()">
+			    			<select name="gcostcode" ng-model="gcostcode" id="gcostcode" ng-change="gcostcodechange()" required>
 			    				<option value=""> -- please Select --</option>
 						    	<option ng-repeat="option in datas" value="{{option.gcostcode}}">{{option.gcostcode_name}}</option>
 						    	
@@ -147,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan1">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="unit" name="unit" ng-model="unit" ng-keyup="amount=unit*priceperunit;tobalance=frombalance - (unit*priceperunit)"> 
+						    <input type="text" id="unit" name="unit" ng-model="unit" ng-keyup="amount=unit*priceperunit;tobalance=frombalance - (unit*priceperunit)" required> 
 						</small></h4>
 			    	</div> 
 			    	<div class="cell colspan1"> 
@@ -155,7 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan2">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="priceperunit" name="priceperunit" ng-model="priceperunit"  ng-keyup="amount=unit*priceperunit;tobalance=frombalance - (unit*priceperunit)" > 
+						    <input type="text" id="priceperunit" name="priceperunit" ng-model="priceperunit"  ng-keyup="amount=unit*priceperunit;tobalance=frombalance - (unit*priceperunit)" required> 
 						</small></h4>
 			    	</div>
 			    	<div class="cell colspan1"> 
@@ -163,7 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan2">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="amount" name="amount" ng-model="amount" > 
+						    <input type="text" id="amount" name="amount" ng-model="amount" required> 
 						</small></h4>
 			    	</div>
 			    </div>
@@ -176,7 +190,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div>
 			    	<div class="cell colspan3">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="frombalance" name="frombalance" value="{{ frombalance | currency:'฿' }}"> 
+						    <input type="text" id="frombalance" name="frombalance" value="{{ frombalance | currency:'฿' }}" required> 
 						</small></h4>
 			    	</div>
 			    	
@@ -185,7 +199,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div>
 			    	<div class="cell colspan3">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="tobalance" name="tobalance" value="{{ tobalance | currency:'฿' }}"> 
+						    <input type="text" id="tobalance" name="tobalance" value="{{ tobalance | currency:'฿' }}" required> 
 						</small></h4>
 			    	</div>
 			    </div>
@@ -194,22 +208,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="flex-grid">
 			  	<div class="row flex-just-center" >
 			    	<div class="cell colspan12" align="center">
-						  <button class="button success" type="submit" name="add" ng-click="addrequisition()">บันทึกการเบิก</button> 
-						  <button class="button success" type="submit" name="update">แก้ไขรายการ</button> 
+						  <button class="button success" type="submit" name="add" ng-click="requisitionform.$valid && addrequisition()" >บันทึกการเบิก</button> 
+						  <button class="button success" type="submit" name="update" ng-click="basic()">แก้ไขรายการ</button> 
 						  <button class="button success" type="submit" name="delete">ลบรายการ</button>
 					</div> 
 			    </div>
 			</div> 
 		
 		</div> <!-- End of example --> 
-	
+	</form>
 	<div class="example" data-text="รายการ">
-	
-	<select>
-		<option  value="1">1</option>
-		<option value="2">2</option>
-		<option selected value="3">3</option>
-	</select>
             <table id="table_project" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  
@@ -225,9 +233,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </thead> 
                   
                 <tbody>
-                <tr>  
+                <tr ng-repeat="list in selectlist">  
                     <td>1</td>
-                    <td>กาซะลอสปา</td>
+                    <td>{{list.project_name}}</td>
                     <td>บุคลากร</td>
                     <td>เงินเดือน</td>
                     <td>1 คน x 13,200 บาท x 12</td>
@@ -251,6 +259,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    });
 		});
 	</script>
-	</div>
+	
   </body>
 </html>
