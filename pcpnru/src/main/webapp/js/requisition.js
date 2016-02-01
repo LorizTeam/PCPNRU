@@ -66,7 +66,7 @@ app.controller('myCtrl', function($scope, $http) {
 	        }).then(function(response) {
 	            $scope.adddata = response.data
 	            $scope.docno = $scope.adddata.docno;
-	            $scope.selectrequisition($scope.docno);
+	            $scope.selectrequisition($scope.docno,$scope.project.split(' - ')[0],$scope.project.split(' - ')[1]);
 	            $scope.clearinput();
 	            alert("เพิ่มข้อมูลสำเร็จ");
 	        });
@@ -74,7 +74,7 @@ app.controller('myCtrl', function($scope, $http) {
 		
 	}
 	
-	$scope.selectrequisition = function(docno){
+	$scope.selectrequisition = function(docno,project_code,project_year){
 		$http({
 	          method: "POST", 
 	          url: "ajax_requisition.jsp",
@@ -99,7 +99,7 @@ app.controller('myCtrl', function($scope, $http) {
 	        }).then(function(response) {
 	        	$scope.deleted = response.data;
 	        	$scope.clearinput();
-	        	$scope.selectrequisition(docno);
+	        	$scope.selectrequisition(docno,$scope.project.split(' - ')[0],$scope.project.split(' - ')[1]);
 	        });
 	}
 	

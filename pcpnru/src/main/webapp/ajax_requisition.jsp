@@ -57,7 +57,7 @@
 		Receive1DB receive1DB = new Receive1DB();
 		String docno = request.getParameter("docno");
 		if(docno.equals("")){
-			docno = receive1DB.SelectUpdateDocNo(year, "requisition");
+			docno = receive1DB.SelectUpdateDocNo(year, "requisition",projectCode,year);
 		}
 		
 		day = day.replace("/", "-");
@@ -124,7 +124,7 @@
 			+ "INNER JOIN childsubjob_master AS e ON e.childsubjobcode = b.childsubjobcode "
 			+ "INNER JOIN groupcostcode_master AS f ON f.gcostcode = b.gcostcode "
 			+ "INNER JOIN project_master AS g ON g.project_code = b.project_code "
-			+ "where  a.requisition_docno = '"+docno+"' "
+			+ "where  a.requisition_docno = '"+docno+"' and a.project_code = '"+projectCode+"' and a.project_year = '"+year+"' "
 			+ "ORDER BY "
 			+ "a.docdate DESC ";
 		
