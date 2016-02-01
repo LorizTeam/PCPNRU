@@ -110,6 +110,13 @@
     	
         <!-- 		Requisition	 -->
         
+        <!-- 		Receive and Requisition print report 		 -->
+    	<action name="receiveRequisitionReport" class="pcpnru.projectAction.ReceiveRequisitionReportAction" method="execute">
+      		<result name="success">/reportreceiveandrequisition.jsp</result>
+      		<result name="print">/report/repreceiveandrequisition.jsp</result>
+    	</action>
+    	<!-- 		Receive and Requisition print report 		 -->
+        
     </package>
  
 </struts>

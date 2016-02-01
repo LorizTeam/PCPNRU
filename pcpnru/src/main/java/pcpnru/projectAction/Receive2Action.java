@@ -39,6 +39,7 @@ public class Receive2Action extends ActionSupport {
 		String local 		= receiveform.getLocal();
 		// DT 
 		String itemNo 	= request.getParameter("itemNo").trim();
+		String receivedetail = request.getParameter("receivedetail");
 		String description 	= request.getParameter("description");
 		String qty 			= request.getParameter("qty");
 		String amount 		= request.getParameter("amount");
@@ -61,14 +62,14 @@ public class Receive2Action extends ActionSupport {
 		Receive2DB receive2DB = new Receive2DB();
 		if(add!=null){
 			
-			receive2DB.AddReceiveDT(docNo, description, qty, amount, amountTotal,costcode);
+			receive2DB.AddReceiveDT(docNo, receivedetail, description, qty, amount, amountTotal,costcode);
 			
 			forwardText = "success";
 		}
 		if(update!=null){
 			
 			 
-			receive2DB.UpdateReceive(docNo, itemNo, description, qty, amount, amountTotal);
+			receive2DB.UpdateReceive(docNo, itemNo, receivedetail, description, qty, amount, amountTotal);
 			forwardText = "success";
 		}
 		if(delete!=null){

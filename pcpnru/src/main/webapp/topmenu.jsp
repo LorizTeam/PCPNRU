@@ -57,6 +57,8 @@
                         <li><a href="reportreceive.jsp">รายงาน ประจำวัน, เดือน, ไตรมาส, ปี</a></li> 
                     </ul>
                 </li>
+                <li><a href="reportreceiveandrequisition.jsp">รายงานรับ/จ่าย</a>
+                </li>
                 <li><a href="analyze.pdf">วิเคราะห์งบ</a></li> 
             </ul>
         </li>

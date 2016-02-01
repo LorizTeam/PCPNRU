@@ -9,6 +9,7 @@ public class ReceiveForm {
 
 	private String docNo;
 	private String itemNo; 
+	private String receivedetail;
 	private String description;
 	private String qty;
 	private String amount; 
@@ -30,10 +31,12 @@ public class ReceiveForm {
 	
 	public ReceiveForm() { 
 	} 
-	public ReceiveForm(String docNo, String itemNo, String description, String qty, String amount, String amountTotal) {
+	public ReceiveForm(String docNo, String itemNo, String receivedetail, String description, String qty, String amount, String amountTotal,
+			String err) {
 		super();
 		this.docNo = docNo;
 		this.itemNo = itemNo;
+		this.receivedetail = receivedetail;
 		this.description = description;
 		this.qty = qty;
 		this.amount = amount;
@@ -216,5 +219,11 @@ public class ReceiveForm {
 	}
 	public void setCost(String cost) {
 		this.cost = cost;
+	}
+	public String getReceivedetail() {
+		return receivedetail;
+	}
+	public void setReceivedetail(String receivedetail) {
+		this.receivedetail = receivedetail;
 	}
 }

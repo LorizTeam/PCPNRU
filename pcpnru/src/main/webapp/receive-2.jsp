@@ -197,7 +197,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <s:textfield name="receiveform.local" readonly="readonly" />
 					</div>
 		    	</div>
-		    	 
+		    	<div class="cell colspan3"><br>
+                     <div class="cell colspan3"><br>
+                     <label class="input-control radio small-check">
+                     	<input type="radio" name="receivedetail" value="1" ng-model="r1" checked="checked">
+                     	<span class="check"></span></label><span class="leaf"> เงินสด </span> 
+                     <label class="input-control radio small-check">
+                     	<input type="radio" name="receivedetail" value="2" ng-model="r1"> 
+                     	<span class="check"></span></label><span class="leaf"> โอน </span> 
+		    	</div>
+		    	</div> 
 		    </div>  
 		  	<div class="row cells10"> 
 		    	<div class="cell colspan10">
@@ -245,6 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <tr>  
                 	<th>เลขที่</th>
                     <th>รายละเอียด</th>
+                    <th>สถานะการจ่าย</th>
                     <th>จำนวน</th>
                     <th>ราคา</th>
                     <th>ราคารวม</th>
@@ -263,11 +273,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	n1=<%=revL.getQty()%>;
                 	 n2=<%=revL.getAmount()%>;
                 	 total=<%=revL.getAmountTotal()%>;
+                	 r1='<%=revL.getReceivedetail()%>';
                 	 desc='<%=revL.getDescription()%>';
                 	 i_no='<%=revL.getItemNo()%>';
                 	 ">  
                     <td class="tditemno" align="center"><%=revL.getItemNo()%> </td>
                     <td class="tddescription" align="center"><%=revL.getDescription()%></td>
+                    <td class="tdreceivedetail" align="center">
+                    	<%if(revL.getDescription().equals("1")){%>เงินสด<%} else{%>โอน<%} %>
+                    </td>
                     <td class="tdqty" align="center">{{<%=revL.getQty()%>| number:0}}</td>  
                     <td class="tdamount" align="center">{{<%=revL.getAmount()%> | currency:"฿"}}</td>
                     <td class="tdamountTotal" align="center">{{<%=revL.getAmountTotal()%> | currency:"฿"}}</td>

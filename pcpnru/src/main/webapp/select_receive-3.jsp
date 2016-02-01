@@ -172,8 +172,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		สถานที่<div class="input-control full-size "> 
 					    <s:textfield name="receiveform.local" readonly="readonly" />
 					</div>
-		    	</div> 
-		    </div>  
+		    	</div>
+		    	<div class="cell colspan3"><br>
+                     <label class="input-control radio small-check">
+                     	<input type="radio" name="receivedetail" value="1" ng-model="r1" checked="checked">
+                     	<span class="check"></span></label><span class="leaf"> เงินสด </span> 
+                     <label class="input-control radio small-check">
+                     	<input type="radio" name="receivedetail" ng-model="r1" value="2"> 
+                     	<span class="check"></span></label><span class="leaf"> โอน </span> 
+		    	</div>  
 		  	<div class="row cells10"> 
 		    	<div class="cell colspan10">
 		    		รายละเอียด<div class="input-control full-size "> 
@@ -199,13 +206,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		<h3 class="no-margin">{{total | currency:"฿"}}</h3>
 					    <s:hidden id="amountTotal" name="amountTotal" value="{{total}}"/>
 					</div>
-		    	</div> 
-		    	<div class="cell colspan6" align="center"><br>
+		    	</div>  
+		    </div>    
+		    <div class="row">
+		    	<div class="cell" align="center"><br>
 					  <button class="button success" type="submit" name="add">บันทึกรายได้</button> 
 					  <button class="button primary" type="submit" name="update">แก้ไขรายการ</button> 
 					  <button class="button danger" type="submit" name="delete">ลบรายการ</button>
 				</div>
-		    </div>    
+		    </div>
 		    </form> 
 		</div> <!-- End of example --> 
 	</div>
@@ -214,8 +223,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <table id="table_receive" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  
-                	<th>เลขที่</th>
+                	<th>เลขที่</th> 
                     <th>รายละเอียด</th>
+                    <th>สถานะการจ่าย</th>
                     <th>จำนวน</th>
                     <th>ราคา</th>
                     <th>ราคารวม</th>
@@ -234,10 +244,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	n1=<%=revL.getQty()%>;
                 	 n2=<%=revL.getAmount()%>;
                 	 total=<%=revL.getAmountTotal()%>;
+                	 r1='<%=revL.getReceivedetail()%>';
                 	 desc='<%=revL.getDescription()%>';
                 	 i_no='<%=revL.getItemNo()%>';
                 	 ">  
                     <td class="tditemno" align="center"><%=revL.getItemNo()%> </td>
+                    <td class="tdreceivedetail" align="center">
+                    	<%if(revL.getDescription().equals("1")){%>เงินสด<%} else{%>โอน<%} %>
+                    </td>
                     <td class="tddescription" align="center"><%=revL.getDescription()%></td>
                     <td class="tdqty" align="center">{{<%=revL.getQty()%>| number:0}}</td>  
                     <td class="tdamount" align="center">{{<%=revL.getAmount()%> | currency:"฿"}}</td>
