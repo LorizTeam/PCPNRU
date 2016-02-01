@@ -66,19 +66,20 @@ app.controller('myCtrl', function($scope, $http) {
 	        }).then(function(response) {
 	            $scope.adddata = response.data
 	            $scope.docno = $scope.adddata.docno;
-	            $scope.selectrequisition($scope.docno,$scope.gcostcode);
+	            $scope.selectrequisition($scope.docno);
+	            $scope.clearinput();
+	            alert("เพิ่มข้อมูลสำเร็จ");
 	        });
 			
 		
 	}
 	
-	$scope.selectrequisition = function(docno,gcostcode){
+	$scope.selectrequisition = function(docno){
 		$http({
 	          method: "POST", 
 	          url: "ajax_requisition.jsp",
 	          params:{"ajax_type":"selectlist",
-					"docno":docno,
-					"gcostcode":gcostcode},
+					"docno":docno},
 	          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	          
 	        }).then(function(response) {
@@ -86,5 +87,32 @@ app.controller('myCtrl', function($scope, $http) {
 	        });
 	}
 	
+	$scope.deleterequisition = function(docno,gcostcode){
+		$http({
+	          method: "POST", 
+	          url: "ajax_requisition.jsp",
+	          params:{"ajax_type":"delete",
+					"docno":docno,
+					"gcostcode":gcostcode},
+	          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	          
+	        }).then(function(response) {
+	        	$scope.deleted = response.data;
+	        	$scope.clearinput();
+	        	$scope.selectrequisition(docno);
+	        });
+	}
+	
+	$scope.clearinput = function(){
+		$scope.unit=0;
+		$scope.priceperunit=0;
+		$scope.frombalance=0;
+		$scope.tobalance=0;
+		$scope.day="";
+		$scope.amount = 0;
+		$scope.gcostcode = "";
+		$scope.requisiton_type = "";
+		$scope.description = "";
+	}
 
 });

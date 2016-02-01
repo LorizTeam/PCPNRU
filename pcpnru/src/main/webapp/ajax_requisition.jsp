@@ -26,12 +26,8 @@
 	Calendar cal = Calendar.getInstance();
     String timeofday = dateFormat.format(cal.getTime());
     
-    
-    
     day +=" "+timeofday; 
     
-    
-    System.out.println("Before Checkif");
 	DBConnect dbcon = new DBConnect();
 	ResultSet rs = null; 
 	List listJson = new LinkedList();
@@ -57,7 +53,7 @@
 		pStmt.close(); 
 		conn.close();
 	}else if(ajax_type.equals("add")){
-		System.out.println("stage add");
+		
 		Receive1DB receive1DB = new Receive1DB();
 		String docno = request.getParameter("docno");
 		if(docno.equals("")){
@@ -93,19 +89,46 @@
 		
 	}else if(ajax_type.equals("delete")){
 		
-	}else if(ajax_type.equals("selectlist")){
-		System.out.println("stage selectlist");
 		String docno = request.getParameter("docno");
 		
-		String sql = "SELECT requisition.requisition_docno,project_master.project_name,requisition.project_year,requisition.docdate,requisition.takeby,"
-			+ "requisition_type.requisition_typename,requisition.gcostcode,groupcostcode_master.gcostcode_name,requisition.description,requisition.priceperunit,"
-			+ "requisition.unit,requisition.amount,requisition.frombalance,requisition.tobalance "
+		String sql = "DELETE from requisition where requisition_docno = '"+docno+"' and gcostcode = '"+gcostcode+"'";
+		
+		
+		Connection conn = dbcon.getConnectMYSql();
+		Statement pStmt = conn.createStatement();
+		int rowsofupdate = pStmt.executeUpdate(sql);
+		JSONObject obj=new JSONObject();
+		 
+   		obj.put("rowsofupdate",rowsofupdate);
+   		
+   		
+   		out.println(obj);
+		
+		pStmt.close(); 
+		conn.close();
+		
+	}else if(ajax_type.equals("selectlist")){
+		
+		String docno = request.getParameter("docno");
+		
+		String sql = "SELECT "
+			+ "a.requisition_docno,g.project_name,a.project_year,a.docdate,"
+			+ "a.takeby,c.requisition_typename,d.subjob_name,e.childsubjobname,"
+			+ "f.gcostcode,f.gcostcode_name,a.description,a.priceperunit,a.unit,"
+			+ "a.amount,a.frombalance,a.tobalance "
 			+ "FROM "
-			+ "requisition "
-			+ "INNER JOIN project_master ON project_master.project_code = requisition.project_code "
-			+ "INNER JOIN requisition_type ON requisition_type.requisition_type = requisition.requisition_type "
-			+ "INNER JOIN groupcostcode_master ON groupcostcode_master.gcostcode = requisition.gcostcode "
-			+ "where requisition.requisition_docno = '"+docno+"' and requisition.gcostcode = '"+gcostcode+"'";
+			+ "requisition AS a "
+			+ "INNER JOIN projectplan_detail AS b ON b.project_code = a.project_code AND b.`year` = a.project_year AND b.gcostcode = a.gcostcode "
+			+ "INNER JOIN requisition_type AS c ON c.requisition_type = a.requisition_type "
+			+ "INNER JOIN subjob_master AS d ON d.subjob_code = b.subjob_code "
+			+ "INNER JOIN childsubjob_master AS e ON e.childsubjobcode = b.childsubjobcode "
+			+ "INNER JOIN groupcostcode_master AS f ON f.gcostcode = b.gcostcode "
+			+ "INNER JOIN project_master AS g ON g.project_code = b.project_code "
+			+ "where  a.requisition_docno = '"+docno+"' "
+			+ "ORDER BY "
+			+ "a.docdate DESC ";
+		
+		
 		Connection conn = dbcon.getConnectMYSql();
 		Statement pStmt = conn.createStatement();
 		rs = pStmt.executeQuery(sql); 
@@ -117,6 +140,8 @@
 	   		obj.put("project_year",rs.getString("project_year"));
 	   		obj.put("docdate",rs.getString("docdate"));
 	   		obj.put("takeby",rs.getString("takeby"));
+	   		obj.put("subjob_name",rs.getString("subjob_name"));
+	   		obj.put("childsubjobname",rs.getString("childsubjobname"));
 	   		obj.put("requisition_typename",rs.getString("requisition_typename"));
 	   		obj.put("gcostcode",rs.getString("gcostcode"));
 	   		obj.put("gcostcode_name",rs.getString("gcostcode_name"));
@@ -129,8 +154,6 @@
 	   		
 	   		listJson.add(obj); 
 		}
-		System.out.println("Select Finished");
-		System.out.println(listJson);
 		out.println(listJson);
 		
 		rs.close();

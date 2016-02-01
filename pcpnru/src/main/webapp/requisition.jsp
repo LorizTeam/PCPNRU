@@ -208,9 +208,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="flex-grid">
 			  	<div class="row flex-just-center" >
 			    	<div class="cell colspan12" align="center">
-						  <button class="button success" type="submit" name="add" ng-click="requisitionform.$valid && addrequisition()" >บันทึกการเบิก</button> 
-						  <button class="button success" type="submit" name="update" ng-click="basic()">แก้ไขรายการ</button> 
-						  <button class="button success" type="submit" name="delete">ลบรายการ</button>
+						  <button class="button success" type="submit" name="add" ng-click="requisitionform.$valid && addrequisition()" >บันทึกการเบิก</button>
 					</div> 
 			    </div>
 			</div> 
@@ -221,27 +219,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <table id="table_project" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  
-                	<th>เลขที่</th>
                     <th>ชื่อโครงการ</th>
                     <th>ชื่อกิจกรรม</th> 
                     <th>ชื่อกิจกรรมย่อย</th>
                     <th>รายละเอียด</th>
+                    <th>ประเภทการเบิก</th>
                     <th>จำนวน</th>
                     <th>ราคา</th>
                     <th>ราคารวม</th>
+                    <th>คงเหลือยกมา</th>
+                    <th>คงเหลือยกไป</th>
+                    <th>เบิกโดย</th>
+                    <th>ลบข้อมูล</th>
                 </tr>
                 </thead> 
                   
                 <tbody>
                 <tr ng-repeat="list in selectlist">  
-                    <td>1</td>
                     <td>{{list.project_name}}</td>
-                    <td>บุคลากร</td>
-                    <td>เงินเดือน</td>
-                    <td>1 คน x 13,200 บาท x 12</td>
-                    <td>3</td>
-                    <td>15,000 บาท</td>  
-                    <td>45,000 บาท</td> 
+                    <td>{{list.subjob_name}}</td>
+                    <td>{{list.childsubjobname}}</td>
+                    <td>{{list.description}}</td>
+                    <td>{{list.requisition_typename}}</td>
+                    <td>{{list.unit}}</td>
+                    <td>{{list.priceperunit}}</td>  
+                    <td>{{list.amount}}</td> 
+                    <td>{{list.frombalance}}</td> 
+                    <td>{{list.tobalance}}</td>
+                    <td>{{list.takeby}}</td>  
+                    <td><button ng-click="deleterequisition(list.requisition_docno,list.gcostcode)" class="button"><span class="mif-bin fg-red" ></span></button></td> 
                 </tr>	 
                 </tbody>
             </table>
