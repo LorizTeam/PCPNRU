@@ -54,12 +54,12 @@
     	
     	<action name="receive2" class="pcpnru.projectAction.Receive2Action" method="execute">
       		<result name="success">/receive-2.jsp</result>
-      		<result name="print">/report/report.jsp</result>
+      		<result name="print">/report/receipt.jsp</result>
     	</action>
     	<!-- 		receive print report 		 -->
     	<action name="receiveReport" class="pcpnru.projectAction.ReceiveReportAction" method="execute">
       		<result name="success">/receive-2.jsp</result>
-      		<result name="print">/report/report.jsp</result>
+      		<result name="print">/report/receipt.jsp</result>
     	</action>
     	<!-- 		receive print report 		 -->
     	<!-- 		Receive 		 -->

@@ -8,7 +8,7 @@
 <%
 	DBConnect dbcon = new DBConnect();
 	Connection conn = dbcon.getConnectMYSql();
-	String filejrxml = application.getRealPath("report/report1.jrxml");
+	String filejrxml = application.getRealPath("report/receipt.jrxml");
 	
 	String docNoHD = (String) request.getAttribute("docNoHD");
 	String valueTHB = (String) request.getAttribute("valueTHB");

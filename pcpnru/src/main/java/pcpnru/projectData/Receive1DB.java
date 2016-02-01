@@ -217,10 +217,10 @@ public class Receive1DB {
 				conn = agent.getConnectMYSql();
 					
 				String sqlStmt = "SELECT docno, CONCAT(project_code,' - ',project_name) as project, "+
-						"CONCAT(a.costcode,' - ',costname) cost, docdate, amountfrom, local " +
+						"CONCAT(a.gcostcode,' - ',costname) cost, docdate, amountfrom, local " +
 				"FROM receivehd a "+
 				"left join project_master b on(b.project_code = a.projectcode) "+
-				"left join costcode_master c on(c.costcode = a.costcode) "+
+				"left join costcode_master c on(c.costcode = a.gcostcode) "+
 				"WHERE ";
 				if(!docNo.equals("")) sqlStmt = sqlStmt+ "a.docno = '"+docNo+"' AND ";
 				if(!projectcode.equals("")) sqlStmt = sqlStmt+ "a.projectcode = '"+projectcode+"' AND ";
