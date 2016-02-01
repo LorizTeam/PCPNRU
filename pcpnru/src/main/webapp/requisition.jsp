@@ -45,11 +45,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="js/requisition.js"></script>
   </head>
   
-  <body ng-app="requisition" >
+  <body ng-app="requisition" ng-init="tobalance,frombalance">
   	<div ng-controller="myCtrl">
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
-	<form action="requisition.action" method="post">
+	
 		<div class="example" data-text="รายละเอียด">
 			<div class="flex-grid">
 			  	<div class="row flex-just-center">
@@ -59,8 +59,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	<div class="cell colspan4" > 
 			       		 <h4><small class="input-control full-size"> 
 				       		 <select id="project_code" ng-change="projectchange()" ng-model="project" name="project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
-							   <option value="" >กรุณาเลือกโครงการ</option>
+							   <option value="">กรุณาเลือกโครงการ</option>
 							   <%
+							   
 							   	List projectMasterList1 = null;
 							   	ProjectMasterDB projM = new ProjectMasterDB();
 							   	projectMasterList1 = projM.getListProject_Join_Projecthead("", "","","");
@@ -68,11 +69,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        		if (projectMasterList != null) {
 					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
 					        			ProjectModel pjModel = (ProjectModel) iterPj.next();
-			      				%>  
-				      			<option value="<%=pjModel.getProject_code()%>" >
-				       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
-				       			</option>
-								<%		} 
+					        			
+						        			
+						        				
+						        	%>
+						        			<option value="<%=pjModel.getProject_code()%> - <%=pjModel.getYear() %>" >
+							       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
+							       			</option>
+						        	<%
+						        			
+			      						} 
 									}
 								%>
 					   		</select>
@@ -84,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	<div class="cell colspan4"> 
 			    		<h4>
 			    		<div class="input-control full-size"> 
-						    <input id="day" name="requisition1model.day" />
+						    <input id="day" name="day" ng-model="day" />
 						</div>
 						</h4>
 			    	</div>
@@ -96,22 +102,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			       		<h4>ดำเนินการในการจัด&nbsp;</h4> 	  
 			    	</div> 
 			    	<div class="cell colspan1">
-			    		<!-- Small radio button -->
-						<label class="input-control radio small-check" >
-						    <input type="radio" name="type">
-						    <span class="check"></span>
-						    <span class="caption">ซื้อ</span>
-						</label>
-						<label class="input-control radio small-check" >
-						    <input type="radio" name="type">
-						    <span class="check"></span>
-						    <span class="caption">จ้าง</span>
-						</label>
-						<label class="input-control radio small-check" >
-						    <input type="radio" name="type">
-						    <span class="check"></span>
-						    <span class="caption">อื่นๆ</span>
-						</label>
+			    		<select name="type_requisition" ng-model="requisiton_type">
+			    			<option value="">กรุณาเลือกข้อมูล</option>
+			    			<option value="1">จัดซื้อ</option>
+			    			<option value="2">จัดจ้าง</option>
+			    			<option value="3">อื่น ๆ</option>
+			    		</select>
 			    	</div>
 			    	
 			    	 
@@ -120,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan6">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="subjobcode" name="subjobCode"> 
+						    <input type="text" id="description" name="description" ng-model="description"> 
 						</small></h4>
 			    	</div>
 			    	
@@ -129,25 +125,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 			<div class="flex-grid">
 			  	<div class="row flex-just-center">
-			        <div class="cell colspan1"> 
+			        <div class="cell colspan2"> 
 			       		<h4 align="right">ค่าใช้จ่าย&nbsp;</h4> 	  
 			    	</div> 
-			    	<div class="cell colspan4">
+			    	<div class="cell colspan10">
 			    		<h4><div class="input-control full-size">
-			    			<select name="gcostcode" ng-model="gcostcode" id="gcostcode" ng-change="test1=gcostcode">
+			    			<select name="gcostcode" ng-model="gcostcode" id="gcostcode" ng-change="gcostcodechange()">
 			    				<option value=""> -- please Select --</option>
 						    	<option ng-repeat="option in datas" value="{{option.gcostcode}}">{{option.gcostcode_name}}</option>
 						    	
 						   	</select>
 						</div></h4>
 						
-			    	</div>  
+			    	</div>
+				</div>
+			</div> 
+			<div class="flex-grid">
+			  	<div class="row flex-just-center">  
 			    	<div class="cell colspan1"> 
 			       		<h4 align="right">จำนวน&nbsp;</h4> 	  
 			    	</div> 
 			    	<div class="cell colspan1">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" ng-model="test1" id="subjobcode" name="subjobCode"> 
+						    <input type="text" id="unit" name="unit" ng-model="unit" ng-keyup="amount=unit*priceperunit;tobalance=frombalance - (unit*priceperunit)"> 
 						</small></h4>
 			    	</div> 
 			    	<div class="cell colspan1"> 
@@ -155,9 +155,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan2">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="subjobcode" name="subjobCode"> 
+						    <input type="text" id="priceperunit" name="priceperunit" ng-model="priceperunit"  ng-keyup="amount=unit*priceperunit;tobalance=frombalance - (unit*priceperunit)" > 
 						</small></h4>
+			    	</div>
+			    	<div class="cell colspan1"> 
+			      		<h4 align="right">รวมราคา &nbsp;</h4> 	  
 			    	</div> 
+			    	<div class="cell colspan2">
+			    		<h4><small class="input-control full-size">
+						    <input type="text" id="amount" name="amount" ng-model="amount" > 
+						</small></h4>
+			    	</div>
 			    </div>
 			</div> 
 			
@@ -168,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div>
 			    	<div class="cell colspan3">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="frombalance" name="frombalance" value="455,000.00"> 
+						    <input type="text" id="frombalance" name="frombalance" value="{{ frombalance | currency:'฿' }}"> 
 						</small></h4>
 			    	</div>
 			    	
@@ -177,16 +185,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div>
 			    	<div class="cell colspan3">
 			    		<h4><small class="input-control full-size">
-						    <input type="text" id="tobalance" name="tofrombalance" value="400,000.00"> 
+						    <input type="text" id="tobalance" name="tobalance" value="{{ tobalance | currency:'฿' }}"> 
 						</small></h4>
 			    	</div>
 			    </div>
 			</div>
 			
 			<div class="flex-grid">
-			  	<div class="row flex-just-center">
+			  	<div class="row flex-just-center" >
 			    	<div class="cell colspan12" align="center">
-						  <button class="button success" type="submit" name="add">บันทึกการเบิก</button> 
+						  <button class="button success" type="submit" name="add" ng-click="addrequisition()">บันทึกการเบิก</button> 
 						  <button class="button success" type="submit" name="update">แก้ไขรายการ</button> 
 						  <button class="button success" type="submit" name="delete">ลบรายการ</button>
 					</div> 
@@ -194,8 +202,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div> 
 		
 		</div> <!-- End of example --> 
-	</form>
+	
 	<div class="example" data-text="รายการ">
+	
+	<select>
+		<option  value="1">1</option>
+		<option value="2">2</option>
+		<option selected value="3">3</option>
+	</select>
             <table id="table_project" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  

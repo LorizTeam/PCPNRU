@@ -36,7 +36,7 @@
 	    		รายได้
 	    		<small>ทำรายการ รายได้ของโครงการ</small>
 	    	</a>		
-		    <a href="requisition-1.jsp" class="command-button bg-teal fg-white" >
+		    <a href="requisition.jsp" class="command-button bg-teal fg-white" >
 		    	<span class="icon mif-clipboard"></span>
             	เบิกงบประมาณ
             	 <small>ทำรายการ การเบิกงบประมาณ</small>
