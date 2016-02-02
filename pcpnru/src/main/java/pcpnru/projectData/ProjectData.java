@@ -228,7 +228,7 @@ public class ProjectData {
 				+ "projectplan_detail AS a "
 				+ "INNER JOIN subjob_master AS b ON b.subjob_code = a.subjob_code "
 				+ "INNER JOIN childsubjob_master AS c ON a.childsubjobcode = c.childsubjobcode AND b.subjob_code = c.subjob_code "
-				+ "INNER JOIN groupcostcode_master AS d ON d.gcostcode = a.gcostcode "
+				+ "INNER JOIN groupcostcode_master AS d ON d.gcostcode = a.gcostcode AND d.project_code = a.project_code "
 				+ "INNER JOIN project_master as e ON e.project_code = a.project_code " 
 				+ "INNER JOIN projectplan_header AS f ON f.project_code = a.project_code and f.year = a.year "
 				+ "where "

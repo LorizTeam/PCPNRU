@@ -267,9 +267,12 @@
 							        <option>บาท</option>
 							        <option>คน</option> 
 							        <option>วัน</option>
-							        <option>เดือน</option>
+							        <option>เดือน</option> 
 							        <option>ครั้ง</option>
-							        <option>ห้อง</option> 
+							        <option>ห้อง</option>
+							        <option>ชิ้น</option>
+							        <option>เล่ม</option>
+							        <option>เรื่อง</option> 
 							    </select>
 							</div>
 						</div> 
@@ -305,11 +308,14 @@
 					        <div class="input-control text full-size">
 							    <select onchange="" name="arunit" class="align-center" ng-model="cal.type" id="select_{{$index}}">
 							        <option>บาท</option>
-							        <option>คน</option>
+							        <option>คน</option> 
 							        <option>วัน</option>
 							        <option>เดือน</option> 
 							        <option>ครั้ง</option>
 							        <option>ห้อง</option>
+							        <option>ชิ้น</option>
+							        <option>เล่ม</option>
+							        <option>เรื่อง</option>
 							    </select>
 							</div>
 							

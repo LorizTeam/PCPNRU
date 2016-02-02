@@ -212,6 +212,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							        <option>เดือน</option> 
 							        <option>ครั้ง</option>
 							        <option>ห้อง</option>
+							        <option>ชิ้น</option>
+							        <option>เล่ม</option>
+							        <option>เรื่อง</option>
 							    </select>
 							</div>
 						</div> 
@@ -249,11 +252,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    <select onchange="" name="arunit" class="align-center aunit" ng-model="cal.type" id="select_{{$index}}">
 							        <option value="">โปรดเลือก</option>
 							        <option>บาท</option>
-							        <option>คน</option>
+							        <option>คน</option> 
 							        <option>วัน</option>
-							        <option>เดือน</option>
+							        <option>เดือน</option> 
 							        <option>ครั้ง</option>
 							        <option>ห้อง</option>
+							        <option>ชิ้น</option>
+							        <option>เล่ม</option>
+							        <option>เรื่อง</option>
 							    </select>
 							</div>
 							
