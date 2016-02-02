@@ -1,5 +1,7 @@
 package pcpnru.projectAction;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
@@ -32,7 +34,9 @@ public class SelectReceive2Action extends ActionSupport {
 	  
 		if(docno!=null){ 
 			String project 	= request.getParameter("project");
+			String[] splitgprojectcode = project.split(" - ");
 			String cost 	= request.getParameter("cost");
+			String[] splitgcostcode = cost.split(" - ");
 			String dateTime 	= request.getParameter("datetime");
 			//String amountfrom 	= request.getParameter("amountfrom"); 
 			//String local 		= request.getParameter("local");
@@ -41,16 +45,21 @@ public class SelectReceive2Action extends ActionSupport {
 			
 			Receive1DB receive1DB = new Receive1DB();
 			 
-			request.setAttribute("docno", docno);
-			request.setAttribute("projectcode", project);
+			request.setAttribute("docNo", docno);
+			request.setAttribute("projectCode", project);
 			request.setAttribute("datetime", dateTime);
-			request.setAttribute("costcode", cost);
+			request.setAttribute("gcostCode", cost);
 		//	request.setAttribute("amountfrom", amountfrom);
 		//	request.setAttribute("local", local);
 			 
 			receiveform.setAmountfrom(amountfrom);
 			receiveform.setLocal(local);
 		//	receiveform.setAmtt("0");
+			List Lcostcode_forreceive2 =receive1DB.ShowCostCodeforReceive2(splitgcostcode[0],"" );
+			String standardprice = receive1DB.SelectPriceStandard_fromgcostcode(splitgcostcode[0]);
+			request.setAttribute("standardprice",standardprice );
+			request.setAttribute("Lcostcode_forreceive2", Lcostcode_forreceive2);
+			receiveform.setStandardprice(standardprice);
 			
 			forwardText = "success";
 		}else{ 

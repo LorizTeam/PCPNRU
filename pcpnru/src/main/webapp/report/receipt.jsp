@@ -9,8 +9,9 @@
 	DBConnect dbcon = new DBConnect();
 	Connection conn = dbcon.getConnectMYSql();
 	String filejrxml = application.getRealPath("report/receipt.jrxml");
-	
+	System.out.println(filejrxml);
 	String docNoHD = (String) request.getAttribute("docNoHD");
+	String projectcode = (String) request.getAttribute("projectcode");
 	String valueTHB = (String) request.getAttribute("valueTHB");
 	
 	File reportFile = new File(filejrxml);
@@ -25,6 +26,7 @@
 	
 	Map prm = new HashMap();
 	prm.put("prmdocno", docNoHD.trim());
+	prm.put("prmprojectcode", projectcode.trim());
 	prm.put("prmthb", valueTHB);
 	
 	JasperPrint jasperPrint = JasperFillManager.fillReport(jr, prm, conn);

@@ -41,7 +41,7 @@ public class ProjectDTChargesAction extends ActionSupport{
 		if(add!=null){ 
 		
 		String[] chk 	= request.getParameterValues("aroperation");
-		if(!chk[0].equals("? string: ?")){
+		if(!chk[0].equals("")&&!chk[0].equals("? string: ?")){
 		
 			String qty 	= (String) request.getParameter("qty");
 			String unit	= (String) request.getParameter("unit");

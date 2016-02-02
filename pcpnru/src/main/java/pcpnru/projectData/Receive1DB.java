@@ -210,7 +210,7 @@ public class Receive1DB {
 				}
 				return localList;
 			 }
-	public List GetSelectReceiveList(String docNo, String projectcode, String costcode, 
+	public List GetSelectReceiveList(String docNo, String projectcode, String gcostcode, 
 			String docdate, String amountfrom, String local) 
 		throws Exception { //30-05-2014
 			List SelectReceiveList = new ArrayList();
@@ -221,15 +221,15 @@ public class Receive1DB {
 				
 				conn = agent.getConnectMYSql();
 					
-				String sqlStmt = "SELECT docno, CONCAT(project_code,' - ',project_name) as project, "+
-						"CONCAT(a.gcostcode,' - ',costname) cost, docdate, amountfrom, local " +
+				String sqlStmt = "SELECT docno, CONCAT(c.project_code,' - ',b.project_name) as project, "+
+						"CONCAT(c.gcostcode,' - ',c.gcostcode_name) cost, docdate, amountfrom, local " +
 				"FROM receivehd a "+
 				"left join project_master b on(b.project_code = a.projectcode) "+
-				"left join costcode_master c on(c.costcode = a.gcostcode) "+
+				"left join groupcostcode_master c on(c.gcostcode = a.gcostcode and c.project_code = a.projectcode) "+
 				"WHERE ";
 				if(!docNo.equals("")) sqlStmt = sqlStmt+ "a.docno = '"+docNo+"' AND ";
 				if(!projectcode.equals("")) sqlStmt = sqlStmt+ "a.projectcode = '"+projectcode+"' AND ";
-				if(!costcode.equals("")) sqlStmt = sqlStmt+ "a.costcode = '"+costcode+"' AND ";
+				if(!gcostcode.equals("")) sqlStmt = sqlStmt+ "a.gcostcode = '"+gcostcode+"' AND ";
 				if(!docdate.equals("")) sqlStmt = sqlStmt+ "a.docdate = '"+docdate+"' AND ";
 				if(!amountfrom.equals("")) sqlStmt = sqlStmt+ "a.amountfrom = '"+amountfrom+"' AND ";
 				if(!local.equals("")) sqlStmt = sqlStmt+ "a.local = '"+local+"' AND ";

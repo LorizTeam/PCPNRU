@@ -27,14 +27,22 @@ public class ReceiveReportAction extends ActionSupport {
 		
 		Receive2DB receive2DB = new Receive2DB();
 		String docNoHD		= request.getParameter("docNoHD");
+		String projectcode	= request.getParameter("projectcode");
+		String torn			= request.getParameter("torn");
+		String receiveAmt	= request.getParameter("receiveAmt");
 		 
 		String alertMassage			= "";
 		 
 		String forwardText = null;
  
-		if(docNoHD!=null){
+		if(docNoHD!=null&&projectcode!=null){
 			//String amtt		= receive.getAmtt();
 			//String amtt		= request.getParameter("amtt"); 
+			
+			if(torn!=null&receiveAmt!=null){
+				receive2DB.UpdateReceiveMoney(docNoHD, projectcode, torn, receiveAmt);
+			}
+			
 			String amtt	= receive2DB.SumReceive(docNoHD);
 			
 			ThaiBaht thaiBaht = new ThaiBaht();
@@ -42,6 +50,7 @@ public class ReceiveReportAction extends ActionSupport {
 			 
 			request.setAttribute("valueTHB", valueTHB);
 			request.setAttribute("docNoHD", docNoHD);
+			request.setAttribute("projectcode", projectcode);
 			forwardText = "print";
 		}else{ 
 			forwardText = "success";
