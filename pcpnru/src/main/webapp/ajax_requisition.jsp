@@ -26,6 +26,10 @@
 	Calendar cal = Calendar.getInstance();
     String timeofday = dateFormat.format(cal.getTime());
     
+    DateFormat yearFormat = new SimpleDateFormat("yyyy");
+    String thisyear = yearFormat.format(cal.getTime());
+    thisyear = String.valueOf(Integer.parseInt(thisyear)+543);
+    
     day +=" "+timeofday; 
     
 	DBConnect dbcon = new DBConnect();
@@ -56,8 +60,11 @@
 		
 		Receive1DB receive1DB = new Receive1DB();
 		String docno = request.getParameter("docno");
+		
+		
 		if(docno.equals("")){
-			docno = receive1DB.SelectUpdateDocNo(year, "requisition",projectCode,year);
+			
+			docno = receive1DB.SelectUpdateDocNo(thisyear, "requisition",projectCode,year);
 		}
 		
 		day = day.replace("/", "-");
@@ -91,7 +98,7 @@
 		
 		String docno = request.getParameter("docno");
 		
-		String sql = "DELETE from requisition where requisition_docno = '"+docno+"' and gcostcode = '"+gcostcode+"'";
+		String sql = "DELETE from requisition where requisition_docno = '"+docno+"' and gcostcode = '"+gcostcode+"' and project_code = '"+projectCode+"' and project_year = '"+year+"'";
 		
 		
 		Connection conn = dbcon.getConnectMYSql();
@@ -122,7 +129,7 @@
 			+ "INNER JOIN requisition_type AS c ON c.requisition_type = a.requisition_type "
 			+ "INNER JOIN subjob_master AS d ON d.subjob_code = b.subjob_code "
 			+ "INNER JOIN childsubjob_master AS e ON e.childsubjobcode = b.childsubjobcode "
-			+ "INNER JOIN groupcostcode_master AS f ON f.gcostcode = b.gcostcode "
+			+ "INNER JOIN groupcostcode_master AS f ON f.gcostcode = b.gcostcode and a.project_code = f.project_code "
 			+ "INNER JOIN project_master AS g ON g.project_code = b.project_code "
 			+ "where  a.requisition_docno = '"+docno+"' and a.project_code = '"+projectCode+"' and a.project_year = '"+year+"' "
 			+ "ORDER BY "

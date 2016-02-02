@@ -143,8 +143,11 @@ public class Receive1Action extends ActionSupport {
 			System.out.println(amountfrom);
 			String local 		= receiveform.getLocal();
 			
+			String[] parts = projectCode.split(" - ");
+			String pjCode = parts[0];
+			
 			Receive1DB receive1DB = new Receive1DB();
-			String docNo = receive1DB.SelectUpdateDocNo(year,"receive",projectCode,project_year);
+			String docNo = receive1DB.SelectUpdateDocNo(year,"receive",pjCode,project_year);
 			receive1DB.AddReceiveHD(docNo, projectCode,project_year, gcostCode, docDate, day, month, year, amountfrom, local); 
 			
 			String[] splitgcostcode = gcostCode.split(" - ");

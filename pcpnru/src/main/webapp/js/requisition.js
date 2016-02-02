@@ -1,6 +1,6 @@
 
 var app = angular.module('requisition', []);
-app.controller('myCtrl', function($scope, $http) {
+app.controller('myCtrl', function($scope, $http,$window) {
 	$scope.unit=0;
 	$scope.priceperunit=0;
 	$scope.frombalance=0;
@@ -79,7 +79,9 @@ app.controller('myCtrl', function($scope, $http) {
 	          method: "POST", 
 	          url: "ajax_requisition.jsp",
 	          params:{"ajax_type":"selectlist",
-					"docno":docno},
+					"docno":docno,
+					"projectCode":project_code,
+					"year":project_year},
 	          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	          
 	        }).then(function(response) {
@@ -93,7 +95,9 @@ app.controller('myCtrl', function($scope, $http) {
 	          url: "ajax_requisition.jsp",
 	          params:{"ajax_type":"delete",
 					"docno":docno,
-					"gcostcode":gcostcode},
+					"gcostcode":gcostcode,
+					"projectCode":$scope.project.split(' - ')[0],
+					"year":$scope.project.split(' - ')[1]},
 	          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 	          
 	        }).then(function(response) {
@@ -113,6 +117,10 @@ app.controller('myCtrl', function($scope, $http) {
 		$scope.gcostcode = "";
 		$scope.requisiton_type = "";
 		$scope.description = "";
+	}
+	
+	$scope.print = function(){
+		$window.open("report/reprequisition.jsp?requisition_docno="+$scope.docno+"&project_code="+$scope.project.split(' - ')[0]+"&project_year="+$scope.project.split(' - ')[1]);
 	}
 
 });

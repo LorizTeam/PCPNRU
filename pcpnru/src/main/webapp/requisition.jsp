@@ -208,7 +208,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="flex-grid">
 			  	<div class="row flex-just-center" >
 			    	<div class="cell colspan12" align="center">
-						  <button class="button success" type="submit" name="add" ng-click="requisitionform.$valid && addrequisition()" >บันทึกการเบิก</button>
+						<button class="button success" type="submit" name="add" ng-click="requisitionform.$valid && addrequisition()" >บันทึกการเบิก</button>
+						<button ng-click="print()" class="button"><span class="mif-printer fg-green" ></span> Print</button>
 					</div> 
 			    </div>
 			</div> 

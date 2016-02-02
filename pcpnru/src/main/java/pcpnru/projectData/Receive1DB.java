@@ -28,14 +28,17 @@ public class Receive1DB {
 			
 			String sqlStmt = "SELECT max(SUBSTRING(docno, 5,10)) as lno FROM runningdocno "+
 					"WHERE SUBSTRING(docno, 1,4) = '"+year+"' and doc_type ='"+doc_type+"' and project_code = '"+project_code+"' and project_year = '"+project_year+"'";
+			//System.out.println(sqlStmt);
 			pStmt = conn.createStatement();
 			rs = pStmt.executeQuery(sqlStmt);		
 			while (rs.next()) {
 				requestno	= rs.getString("lno");
 				if(null==requestno){
+					System.out.println("requestno = null");
 					requestno = "0";
 				}
 				requestno 	= String.valueOf(Integer.parseInt(requestno) + 1); 
+				//System.out.println("requestno = "+requestno);
 			}
 			
 			if (requestno.length() == 1) {
@@ -54,9 +57,11 @@ public class Receive1DB {
 			pStmt.close();
 			
 			if(!requestno.equals("000001")){ 
+				System.out.println("Update Stage");
 				requestno = year+requestno;
 				sqlStmt = "UPDATE runningdocno set docno = '"+requestno+"' " +
 						"WHERE SUBSTRING(docno, 1,4) = '"+year+"' and doc_type = '"+doc_type+"' and project_code = '"+project_code+"' and project_year = '"+project_year+"'"; 
+				//System.out.println(sqlStmt);
 				pStmt = conn.createStatement();
 				pStmt.executeUpdate(sqlStmt);
 				pStmt.close();
