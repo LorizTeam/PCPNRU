@@ -19,7 +19,7 @@ public class ReceiveRequisitionReportAction extends ActionSupport {
 		
 		String projectcode		= request.getParameter("projectcode");
 		String fromdate			= request.getParameter("fromdate"); 
-		fromdate = dateUtil.CnvToYYYYMMDDEngYear(fromdate, '-'); 
+		fromdate = dateUtil.CnvToYYYYMMDDEngYear(fromdate, '-')+ " 00:00:00"; 
 		String todate			= request.getParameter("todate");
 		
 		String fromday = "", today = "", frommonth = "", tomonth = "";
@@ -29,7 +29,7 @@ public class ReceiveRequisitionReportAction extends ActionSupport {
 			today = todate.substring(8,10);
 			tomonth	=  todate.substring(5,7);
 		}else{
-			todate = dateUtil.CnvToYYYYMMDDEngYear(todate, '-');
+			todate = dateUtil.CnvToYYYYMMDDEngYear(todate, '-')+ " 23:59:59";
 			today = todate.substring(8,10);
 			tomonth	=  todate.substring(5,7);
 		}

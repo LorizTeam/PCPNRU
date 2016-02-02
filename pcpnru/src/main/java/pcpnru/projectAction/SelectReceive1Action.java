@@ -35,17 +35,19 @@ public class SelectReceive1Action extends ActionSupport {
 		if(ok!=null){ 
 			
 			String projectcode 	= request.getParameter("projectCode");
+			String[] splitgprojectcode = projectcode.split(" - ");
 			String dateTime 	= request.getParameter("dateTime");
 			DateUtil dateUtil = new DateUtil();
 			if(dateTime!="") dateTime			= dateUtil.CnvToYYYYMMDDEngYear(dateTime, '-');
 					
-			String costcode 	= request.getParameter("costCode");
+			String gcostcode 	= request.getParameter("gcostCode");
+			String[] splitgcostcode = gcostcode.split(" - ");
 			String amountfrom 	= receiveform.getAmountfrom();
 			 
 			String local 		= receiveform.getLocal();
 			
 			Receive1DB receive1DB = new Receive1DB();
-			List SelectReceiveList = receive1DB.GetSelectReceiveList("", projectcode, costcode, dateTime, amountfrom, local); 
+			List SelectReceiveList = receive1DB.GetSelectReceiveList("", splitgprojectcode[0], splitgcostcode[0], dateTime, amountfrom, local); 
 			request.setAttribute("SelectReceiveList", SelectReceiveList);
 
 			forwardText = "success";

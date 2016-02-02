@@ -64,8 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		document.getElementById("change").value = '';
         	}
         }
-        function printreceive() { 
-        	
+        function printreceive() {  
         	var chk1 = document.getElementById("receiveAmt").value; 
         	if(chk1!=''){
         	
@@ -79,7 +78,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
         	}
         }
-        function printRev(tdocNo){
+        function printRev(tdocNo, tprojectCode){
+        	var torn = document.getElementById("torn").value;
+        	var receiveAmt = document.getElementById("receiveAmt").value; 
     		swal({  title: "ยืนยันการพิมพ์เอกสาร ?",   
     				text: "หากคุณต้องการพิมพ์เอกสารให้กดปุ่มยืนยัน !",   
     				type: "warning",   
@@ -95,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		function (isConfirm){
     		  	if (isConfirm) {
     			setTimeout(function(){
-    				var load = window.open("/pcpnru/receiveReport.action?docNoHD="+tdocNo+"" 
+    				var load = window.open("/pcpnru/receiveReport.action?docNoHD="+tdocNo+"&projectcode="+tprojectCode+"&receiveAmt="+receiveAmt+"&torn="+torn+"" 
     						,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
     			swal("พิมพ์เอกสารสำเร็จแล้ว!", "โปรดตรวจสอบรายละเอียดของเอกสารอีกครั้งเพื่อความถูกต้อง !", "success");
     			} 
@@ -109,25 +110,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		}
     </script>
   
-  <body ng-app="">
+  <body ng-app="myApp" ng-controller="myCtrl">
   
-  	<% 		
-  			String docNo		= (String) request.getAttribute("docno");
-  			String projectCode 	= (String) request.getAttribute("projectcode");
+  	<% 		  
+  			String docNo		= (String) request.getAttribute("docNo");
+  			String projectCode 	= (String) request.getAttribute("projectCode");
+  			String[] splitgprojectcode = projectCode.split(" - ");
   			String dateTime 	= (String) request.getAttribute("datetime");
-  			String costCode 	= (String) request.getAttribute("costcode");
+  			String gcostCode 	= (String) request.getAttribute("gcostCode");
   		//	String amountfrom 	= (String) request.getAttribute("amountfrom");
   		//	String local 		= (String) request.getAttribute("local"); 
   			String amtt 		= (String) request.getAttribute("amtt");
-  			if(amtt==null) {
-  				Receive2DB rcM = new Receive2DB();
-  				amtt	= rcM.getSumAmount(docNo);
+  			String standardprice 		= (String) request.getAttribute("standardprice");
+  			
+  			Receive2DB rcM = new Receive2DB();
+  			if(amtt==null) { 
+  				amtt	= rcM.getSumAmount(docNo, splitgprojectcode[0]);
   			}
-  			 
+  			String receiveAmt =  rcM.getReceiveAmount(docNo, splitgprojectcode[0]);
+  			
   			List ReceiveList1 = null;
-  			if (request.getAttribute("ReceiveList") == null) {
-  				Receive2DB rcM = new Receive2DB();
-  				ReceiveList1 = rcM.GetReceiveList(docNo);
+  			if (request.getAttribute("ReceiveList") == null) { 
+  				ReceiveList1 = rcM.GetReceiveList(docNo, splitgprojectcode[0]);
   			}else{
   				ReceiveList1 = (List) request.getAttribute("ReceiveList");
   			}
@@ -139,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div ng-init="n1,n2,total,desc,i_no">
 	<div class="example" data-text="รายการรับ">
 	<div class="grid">
-	<form action="receive2.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
+	<form action="selectreceive.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
 		  	<div class="row cells10"> 
 		    	<div class="cell colspan3" > 
 		       		  โครงการ<div class="input-control full-size "> 
@@ -148,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>   
 		    	<div class="cell colspan3">
 		    		 ค่าใช้จ่าย<div class="input-control full-size "> 
-		    		 	<input type="text" name="costCode" value="<%=costCode%>" readonly="readonly">  
+		    		 	<input type="text" name="gcostCode" value="<%=gcostCode%>" readonly="readonly">  
 					</div> 
 		    	</div>  
 		    	<div class="cell colspan2">  
@@ -162,7 +166,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
 				</div> 
 			</div>  
-		  	<div class="row cells10">  
+		  	<div class="row cells12">  
+		  		<div class="cell colspan3">
+		    		ค่าใช้จ่าย <div class="input-control full-size "> 
+					    <select name="costcode" id="costcode" ng-model="percent" ng-change="n2=(n2*percent/100)+n2">
+					    	<option value="">--กรุณาเลือกรายการ--</option>
+					    <%
+					    List Lcostcode_forreceive2 = null;
+					    if(request.getAttribute("Lcostcode_forreceive2") != null){
+					    	Lcostcode_forreceive2 = (List) request.getAttribute("Lcostcode_forreceive2");
+					    	Iterator lcostcodeIterate = Lcostcode_forreceive2.iterator();
+					    	while(lcostcodeIterate.hasNext()){
+					    		ReceiveForm rcf = (ReceiveForm) lcostcodeIterate.next();
+					    %>
+					    		<option value="<%=rcf.getPercentprice()%>"><%=rcf.getCostcode()%> - <%=rcf.getCostname()%></option>
+					    <%
+					    	}
+					    }
+					    
+					    %>
+					    </select>
+					    
+					    <s:hidden name="receiveform.costcode" id="hiddencostcode"/>
+					</div>
+		    	</div>
 		    	<div class="cell colspan3">
 		    		ได้รับเงินจาก<div class="input-control full-size "> 
 					    <s:textfield name="receiveform.amountfrom" readonly="readonly" />
@@ -174,13 +201,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 		    	</div>
 		    	<div class="cell colspan3"><br>
-                     <label class="input-control radio small-check">
-                     	<input type="radio" name="receivedetail" value="1" ng-model="r1" checked="checked">
+                     <label class="input-control radio small-check" ng-init="r1=1">
+                     	<input type="radio" name="receivedetail" value="1" ng-model="r1" checked="checked" data-validate-func="required" data-validate-hint="This field can not be empty">
                      	<span class="check"></span></label><span class="leaf"> เงินสด </span> 
                      <label class="input-control radio small-check">
                      	<input type="radio" name="receivedetail" ng-model="r1" value="2"> 
                      	<span class="check"></span></label><span class="leaf"> โอน </span> 
 		    	</div>  
+		    </div>
 		  	<div class="row cells10"> 
 		    	<div class="cell colspan10">
 		    		รายละเอียด<div class="input-control full-size "> 
@@ -215,6 +243,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					  <button class="button danger" type="submit" name="delete">ลบรายการ</button>
 				</div>
 		    </div>
+		    <s:hidden name="receiveform.standardprice" id="hiddencostcode"/>
 		    </form> 
 		</div> <!-- End of example --> 
 	</div>
@@ -249,10 +278,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	 i_no='<%=revL.getItemNo()%>';
                 	 ">  
                     <td class="tditemno" align="center"><%=revL.getItemNo()%> </td>
-                    <td class="tdreceivedetail" align="center">
-                    	<%if(revL.getDescription().equals("1")){%>เงินสด<%} else{%>โอน<%} %>
-                    </td>
                     <td class="tddescription" align="center"><%=revL.getDescription()%></td>
+                    <td class="tdreceivedetail" align="center">
+                    	<%if(revL.getReceivedetail().equals("1")){%>เงินสด<%} else{%>โอน<%} %>
+                    </td>
                     <td class="tdqty" align="center">{{<%=revL.getQty()%>| number:0}}</td>  
                     <td class="tdamount" align="center">{{<%=revL.getAmount()%> | currency:"฿"}}</td>
                     <td class="tdamountTotal" align="center">{{<%=revL.getAmountTotal()%> | currency:"฿"}}</td>
@@ -271,7 +300,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="example" data-text="รายการเงินรวม">
 	<div class="grid" ng-init="total_b=<%=amtt%>">
 	<form action="receiveReport.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
-		    <div class="row cells12" ng-init="receive=0"> 
+		    <div class="row cells12" ng-init="receive=<%=receiveAmt%>"> 
 		     	<div class="cell colspan3">
 		    		จำนวนเงินรวม<div class="input-control full-size "> 
 		    		<h3 class="no-margin">{{total_b | currency:"฿"}}</h3>
@@ -279,25 +308,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div> 
 		    	<div class="cell colspan3">
 		    		จำนวนเงินที่ได้รับ<div class="input-control full-size "> 
-					    <input type="number"ng-model="receive" id="receiveAmt" name="receiveAmt" data-validate-func="required" data-validate-hint="This field can not be empty">
+					    <input type="number" ng-model="receive" id="receiveAmt" name="receiveAmt" data-validate-func="required" data-validate-hint="This field can not be empty">
 						
 					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
 		    		จำนวนเงินทอน<div class="input-control full-size "> 
 		    		<h3 class="no-margin">{{receive-total_b | currency:"฿"}}</h3>
+		    		<input type="hidden" id="torn" name="torn" value="{{receive-total_b}}">
 					</div>
 		    	</div>  <br>
 		    	<div class="cell colspan3"> 
 		    		  <input type="hidden" id="docNoHD" name="docNoHD" value="<%=docNo%>">
-		    		  <a href="javascript:printRev('<%=docNo%>');" class="button warning full-size"><span class="mif-print mif-lg fg-white"></span></a>
+		    		  <a href="javascript:printRev('<%=docNo%>','<%=splitgprojectcode[0]%>');" class="button warning full-size"><span class="mif-print mif-lg fg-white"></span></a>
 					   
 				</div>
 		    </div>    
-		    </form>
+		</form>
 	 </div>
 	</div> <!-- End of example -->
 	
   <script src="js/angular.min.js"></script>
+  <script type="text/javascript">
+ 	$(function(){
+ 		 	$( "#costcode" ).change(function() { 
+    		  
+			var costcodetext = $("#costcode option:selected").text();
+			var splitcostcode = costcodetext.split(" - ");
+			$("#hiddencostcode").val(splitcostcode[0]);
+ 		 	});
+ 		 	
+ 		 	
+  	}); 
+  </script>
+  <script type="text/javascript">
+  	var app = angular.module('myApp', []);
+	app.controller('myCtrl', function($scope) {
+	    $scope.n2 = <%=standardprice%>;
+	});
+  </script>
+  
   </body>
 </html>

@@ -1,7 +1,8 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %> 
 <%@ page import="pcpnru.projectModel.*" %>
-<%@ page import="pcpnru.projectData.*" %>
+<%@ page import="pcpnru.projectData.*" %> 
+<%@ page import="pcpnru.utilities.*" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -43,9 +44,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	<%
-  		ProjectMasterDB projM = new ProjectMasterDB();
-		List projectMasterList = projM.GetProjectMasterList("", "");
-		
+  		DateUtil dateutil = new DateUtil();
+  		List projectMasterList1 = null;
+	  	if (request.getAttribute("projectMasterList") == null) {
+			ProjectMasterDB projM = new ProjectMasterDB();
+			projectMasterList1 = projM.getListProject_Join_Projecthead("", "","","");
+		}else{
+			projectMasterList1 = (List) request.getAttribute("projectMasterList");
+		}
 		CostCodeMasterDB ccM = new CostCodeMasterDB();
 		List costCodeMasterList = ccM.GetCostCodeMasterList("", "","");
 		
@@ -65,19 +71,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		       		 <div class="input-control full-size"> 
 		       		 <select id="project_code" name="projectCode" data-validate-hint="ไม่ระบุ">
 					    <option value="" >-- ไม่ระบุ --</option>
-					    <% 
+					    <%
+					   	List projectMasterList = projectMasterList1;
 		        		if (projectMasterList != null) {
 			        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
-			        			ProjectMasterForm pjInfo = (ProjectMasterForm) iterPj.next();
+			        			ProjectModel pjModel = (ProjectModel) iterPj.next();
 	      				%>  
-			      			<option value="<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>" >
-			       			 	<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>
+			      			<option value="<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%>" >
+			       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> ปี <%=pjModel.getYear() %>
 			       			</option>
 							<%		} 
 								}
 							%>
-							<span class="input-state-success mif-checkmark"></span>
-					   </select>
+					</select>
+						<span class="input-state-success mif-checkmark"></span>
+					   <input type="hidden" id="year"  value="<%=dateutil.curTHYear() %>" >
 					   </div>
 		    	</div>
 		    	<div class="cell colspan2">  
@@ -94,9 +102,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan7 offset2">
 		    		ค่าใช้จ่าย
 		    		<div class="input-control full-size"> 
-					    <select id="cost_code" name="costCode" data-validate-hint="ไม่ระบุ">
-					   		<option value="">-- ไม่ระบุ --</option>
-					   </select>
+					    <select id="gcostcode" name="gcostCode" data-validate-func="required" data-validate-hint="กรุณาเลือกประเภทค่าใช้จ่าย">
+					   		<option value="">กรุณาเลือกรายการค่าใช้จ่าย</option>
+					   	</select>
 					   		<span class="input-state-success mif-checkmark"></span> 
 					</div>
 		    	</div>   
@@ -155,29 +163,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<script>
 		$(function(){
+			
 	        $("#project_code").select2();
 	       // $("#cost_code").select2();
 	        $("#cus_name").select2();
 	        $("#location").select2();
-	    });
-	    $(function(){
-	    	 $("#datepicker").datepicker({
-	    		 clearBtn: true,autoclose:true,todayBtn: "linked",todayHighlight: true,format: "dd/mm/yyyy",setDate:"2016-11-12" 
-	         });
-	        
-	    });
+	   
 	    
-	    $(function(){
+	   	$("#datepicker").datepicker({
+	    	clearBtn: true,autoclose:true,todayBtn: "linked",todayHighlight: true,format: "dd/mm/yyyy",setDate:"2016-11-12" 
+	     });
+	         
+	    
 	    $( "#project_code" ).change(function() {
 	  		  
 			var project_code = $("#project_code").val();
+			var year = $("#year").val();
 			var out = '';
+			
 			
 			$.ajax({  // select history
 			  	 
 	          type: "post",
 	          url: "ajax_receive-1.jsp", //this is my servlet 
-	          data: {projectCode:project_code},
+	          data: {projectCode:project_code,year:year},
 	          async:false, 
 	          success: function(result){
 	          
@@ -186,19 +195,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          	
 	          	var value = obj;
 	          if( Object.keys(obj).length === 0){
-	        	  $("#cost_code").html('<option value="">-- ไม่ระบุ --</option>');
+	        	  $("#gcostcode").html('<option value="">กรุณาเลือกรายการค่าใช้จ่าย</option>');
 	          }else{
 		          for(var i = 0 ; i < obj.length; i++){
 						out +=  
-						'<option value="'+obj[i].costcode+' - '+obj[i].costname+'">'+
-						   obj[i].costcode+' - '+obj[i].costname+
+						'<option value="'+obj[i].gcostcode+' - '+obj[i].gcostcode_name+'">'+
+						   obj[i].gcostcode+' - '+obj[i].gcostcode_name+
 						'</option>'; 
 					}  
-					$("#cost_code").html(out);
+					$("#gcostcode").html(out);
 		          }
 	          }
 	       });
-	    });	
+		});
+	    
 	});
 	    
 	</script>

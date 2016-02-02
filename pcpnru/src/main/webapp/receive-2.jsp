@@ -67,7 +67,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
         
         function printreceive() { 
-        	
+        	var torn = document.getElementById("torn").value;
+        	alert(torn);
         	var chk1 = document.getElementById("receiveAmt").value; 
         	if(chk1!=''){
         	
@@ -81,7 +82,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
         	}
         }
-        function printRev(tdocNo){
+        function printRev(tdocNo, tprojectCode){
+        	var torn = document.getElementById("torn").value;
+        	var receiveAmt = document.getElementById("receiveAmt").value; 
     		swal({  title: "ยืนยันการพิมพ์เอกสาร ?",   
     				text: "หากคุณต้องการพิมพ์เอกสารให้กดปุ่มยืนยัน !",   
     				type: "warning",   
@@ -97,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		function (isConfirm){
     		  	if (isConfirm) {
     			setTimeout(function(){
-    				var load = window.open("/pcpnru/receiveReport.action?docNoHD="+tdocNo+"" 
+    				var load = window.open("/pcpnru/receiveReport.action?docNoHD="+tdocNo+"&projectcode="+tprojectCode+"&receiveAmt="+receiveAmt+"&torn="+torn+"" 
     						,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
     			swal("พิมพ์เอกสารสำเร็จแล้ว!", "โปรดตรวจสอบรายละเอียดของเอกสารอีกครั้งเพื่อความถูกต้อง !", "success");
     			} 
@@ -116,6 +119,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<% 		
   			String docNo		= (String) request.getAttribute("docNo");
   			String projectCode 	= (String) request.getAttribute("projectCode");
+  			String[] splitgprojectcode = projectCode.split(" - ");
   			String dateTime 	= (String) request.getAttribute("dateTime");
   			String gcostCode 	= (String) request.getAttribute("gcostCode");
   		//	String amountFrom 	= (String) request.getAttribute("amountFrom");
@@ -123,12 +127,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   			String amtt 		= (String) request.getAttribute("amtt");
   			String standardprice 		= (String) request.getAttribute("standardprice");
   			
+  			Receive2DB rcM = new Receive2DB();
+  			String receiveAmt =  rcM.getReceiveAmount(docNo, splitgprojectcode[0]);
   			if(amtt==null) amtt = "0";
   			 
   			List ReceiveList1 = null;
-  			if (request.getAttribute("ReceiveList") == null) {
-  				Receive2DB rcM = new Receive2DB();
-  				ReceiveList1 = rcM.GetReceiveList(docNo);
+  			if (request.getAttribute("ReceiveList") == null) { 
+  				ReceiveList1 = rcM.GetReceiveList(docNo, splitgprojectcode[0]);
   			}else{
   				ReceiveList1 = (List) request.getAttribute("ReceiveList");
   			}
@@ -163,8 +168,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     </div>
 				</div> 
 			</div>  
-		  	<div class="row cells10">  
-		  		<div class="cell colspan4">
+		  	<div class="row cells12">  
+		  		<div class="cell colspan3">
 		    		ค่าใช้จ่าย <div class="input-control full-size "> 
 					    <select name="costcode" id="costcode" ng-model="percent" ng-change="n2=(n2*percent/100)+n2">
 					    	<option value="">--กรุณาเลือกรายการ--</option>
@@ -197,15 +202,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <s:textfield name="receiveform.local" readonly="readonly" />
 					</div>
 		    	</div>
-		    	<div class="cell colspan3"><br>
-                     <div class="cell colspan3"><br>
-                     <label class="input-control radio small-check">
-                     	<input type="radio" name="receivedetail" value="1" ng-model="r1" checked="checked">
+		    	<div class="cell colspan3"><br> 
+                     <label class="input-control radio small-check" ng-init="r1=1">
+                     	<input type="radio" name="receivedetail" value="1" ng-model="r1" checked="checked" required>
                      	<span class="check"></span></label><span class="leaf"> เงินสด </span> 
                      <label class="input-control radio small-check">
-                     	<input type="radio" name="receivedetail" value="2" ng-model="r1"> 
-                     	<span class="check"></span></label><span class="leaf"> โอน </span> 
-		    	</div>
+                     	<input type="radio" name="receivedetail" value="2" ng-model="r1" > 
+                     	<span class="check"></span></label><span class="leaf"> โอน </span>
 		    	</div> 
 		    </div>  
 		  	<div class="row cells10"> 
@@ -280,7 +283,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <td class="tditemno" align="center"><%=revL.getItemNo()%> </td>
                     <td class="tddescription" align="center"><%=revL.getDescription()%></td>
                     <td class="tdreceivedetail" align="center">
-                    	<%if(revL.getDescription().equals("1")){%>เงินสด<%} else{%>โอน<%} %>
+                    	<%if(revL.getReceivedetail().equals("1")){%>เงินสด<%} else{%>โอน<%} %>
                     </td>
                     <td class="tdqty" align="center">{{<%=revL.getQty()%>| number:0}}</td>  
                     <td class="tdamount" align="center">{{<%=revL.getAmount()%> | currency:"฿"}}</td>
@@ -315,11 +318,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan3">
 		    		จำนวนเงินทอน<div class="input-control full-size "> 
 		    		<h3 class="no-margin">{{receive-total_b | currency:"฿"}}</h3>
+		    		<input type="hidden" id="torn" name="torn" value="{{receive-total_b}}">
 					</div>
 		    	</div>  <br>
 		    	<div class="cell colspan3"> 
 		    		  <input type="hidden" id="docNoHD" name="docNoHD" value="<%=docNo%>">
-		    		  <a href="javascript:printRev('<%=docNo%>');" class="button warning full-size"><span class="mif-print mif-lg fg-white"></span></a>
+		    		  <a href="javascript:printRev('<%=docNo%>','<%=splitgprojectcode[0]%>');" class="button warning full-size"><span class="mif-print mif-lg fg-white"></span></a>
 					   
 				</div>
 		    </div>    
