@@ -5,6 +5,7 @@
 <%@ page import="java.io.*" %>
 <%@page import="pcpnru.utilities.DBConnect"%> 
 <%@ page contentType="application/pdf" %>
+
 <%
 	DBConnect dbcon = new DBConnect();
 	Connection conn = dbcon.getConnectMYSql();
@@ -33,3 +34,5 @@
 	JasperExportManager.exportReportToPdfStream(jasperPrint, outStream);
 	
  %>
+
+ 
