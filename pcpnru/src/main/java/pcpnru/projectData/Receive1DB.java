@@ -34,7 +34,7 @@ public class Receive1DB {
 			while (rs.next()) {
 				requestno	= rs.getString("lno");
 				if(null==requestno){
-					System.out.println("requestno = null");
+					//System.out.println("requestno = null");
 					requestno = "0";
 				}
 				requestno 	= String.valueOf(Integer.parseInt(requestno) + 1); 
@@ -57,7 +57,7 @@ public class Receive1DB {
 			pStmt.close();
 			
 			if(!requestno.equals("000001")){ 
-				System.out.println("Update Stage");
+				//System.out.println("Update Stage");
 				requestno = year+requestno;
 				sqlStmt = "UPDATE runningdocno set docno = '"+requestno+"' " +
 						"WHERE SUBSTRING(docno, 1,4) = '"+year+"' and doc_type = '"+doc_type+"' and project_code = '"+project_code+"' and project_year = '"+project_year+"'"; 
@@ -215,14 +215,14 @@ public class Receive1DB {
 		throws Exception { //30-05-2014
 			List SelectReceiveList = new ArrayList();
 				 
-			String project = "", cost = "";
+			String project = "", cost = "",approve_tobank="";
 				
 			try {
 				
 				conn = agent.getConnectMYSql();
 					
 				String sqlStmt = "SELECT docno, CONCAT(c.project_code,' - ',b.project_name) as project,a.project_year, "+
-						"CONCAT(c.gcostcode,' - ',c.gcostcode_name) cost, docdate, amountfrom, local " +
+						"CONCAT(c.gcostcode,' - ',c.gcostcode_name) cost, docdate, amountfrom, local ,approve_tobank " +
 				"FROM receivehd a "+
 				"left join project_master b on(b.project_code = a.projectcode) "+
 				"left join groupcostcode_master c on(c.gcostcode = a.gcostcode and c.project_code = a.projectcode) "+
@@ -237,7 +237,7 @@ public class Receive1DB {
 				
 				sqlStmt = sqlStmt + "a.docno <> '' order by docdate, docno desc";
 					
-				System.out.println(sqlStmt);				
+				//System.out.println(sqlStmt);				
 				pStmt = conn.createStatement();
 				rs = pStmt.executeQuery(sqlStmt);	
 				String forwhat = "selectList";
@@ -249,10 +249,11 @@ public class Receive1DB {
 					String docdatebeforechange = rs.getString("docdate");
 					docdate 	= dateutil.CnvToDDMMYYYY_DateTime(dateutil.CnvYYYYMMDDToYYYYMMDDThaiYear(docdatebeforechange, "-"),"-") ;
 					
+					approve_tobank = rs.getString("approve_tobank");
 					amountfrom 	= rs.getString("amountfrom");
 					local 		= rs.getString("local"); 
 					project_year =rs.getString("project_year");
-					SelectReceiveList.add(new ReceiveForm(docNo, projectcode, project, cost, docdate, amountfrom, local,project_year,forwhat));
+					SelectReceiveList.add(new ReceiveForm(docNo, projectcode, project, cost, docdate, amountfrom, local,project_year,forwhat,approve_tobank));
 				}
 				rs.close();
 				pStmt.close();

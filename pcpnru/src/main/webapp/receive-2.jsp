@@ -323,7 +323,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>  <br>
 		    	<div class="cell colspan3"> 
 		    		  <input type="hidden" id="docNoHD" name="docNoHD" value="<%=docNo%>">
-		    		  <a href="javascript:printRev('<%=docNo%>','<%=splitgprojectcode[0]%>');" class="button warning full-size"><span class="mif-print mif-lg fg-white"></span></a>
+		    		  <a id="print" href="javascript:printRev('<%=docNo%>','<%=splitgprojectcode[0]%>');" class="button warning full-size"><span class="mif-print mif-lg fg-white"></span></a>
 					   
 				</div>
 		    </div>    

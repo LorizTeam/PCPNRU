@@ -49,7 +49,13 @@ public class SelectReceive1Action extends ActionSupport {
 			Receive1DB receive1DB = new Receive1DB();
 			List SelectReceiveList = receive1DB.GetSelectReceiveList("", splitgprojectcode[0], splitgprojectcode[2], splitgcostcode[0], dateTime, amountfrom, local); 
 			request.setAttribute("SelectReceiveList", SelectReceiveList);
-
+			receiveform.setProject(splitgprojectcode[0]);
+			receiveform.setProject_year(splitgprojectcode[2]);
+			receiveform.setCost(splitgcostcode[0]);
+			receiveform.setDocdate(dateTime);
+			receiveform.setAmountfrom(amountfrom);
+			receiveform.setLocal(local);
+			
 			forwardText = "success";
 		}else{ 
 			forwardText = "error";

@@ -1,5 +1,6 @@
 package pcpnru.projectAction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import pcpnru.projectData.Receive1DB;
+import pcpnru.projectData.RelationBank;
 import pcpnru.projectModel.ReceiveForm;
 
 
@@ -27,9 +29,44 @@ public class SelectReceive2Action extends ActionSupport {
 	public String execute() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		
+		
+		String approve_tobank 					= request.getParameter("approve_tobank");
+		if(approve_tobank != null){
+			
+			String[] valueapprove_tobank = request.getParameterValues("valueapprove_tobank");
+			
+			String projectcode = receiveform.getProject(),project_year=receiveform.getProject_year(),
+					gcostcode=receiveform.getCost(),docdate=receiveform.getDocdate(),custname=receiveform.getAmountfrom(),location=receiveform.getLocal();
+			
+			
+			List allList = new ArrayList();
+			for(int i = 0; i < valueapprove_tobank.length ; i++){
+				System.out.println(valueapprove_tobank[i]);
+				String[] splitvalueapprove_tobank= valueapprove_tobank[i].split(" - ");
+				
+				List detail = new ArrayList();
+				detail.add(splitvalueapprove_tobank[0]);
+				detail.add(splitvalueapprove_tobank[1]);
+				detail.add(splitvalueapprove_tobank[3]);
+				detail.add("1");
+				allList.add(detail);
+				
+			}
+			RelationBank relationbank = new RelationBank();
+			relationbank.UpdateStatusReceive(allList);
+			Receive1DB receive1db = new Receive1DB();
+			List SelectReceiveList = receive1db.GetSelectReceiveList("", projectcode, project_year, gcostcode, docdate, custname, location);
+			request.setAttribute("SelectReceiveList", SelectReceiveList);
+			receiveform.setProject(projectcode);
+			receiveform.setProject_year(project_year);
+			receiveform.setCost(gcostcode);
+			receiveform.setDocdate(docdate);
+			receiveform.setAmountfrom(custname);
+			receiveform.setLocal(location);
+		}
 		String docno 	= request.getParameter("docno");
 		String alertMassage			= "";
-		 
+		
 		String forwardText = null;
 	  
 		if(docno!=null){ 
@@ -47,7 +84,7 @@ public class SelectReceive2Action extends ActionSupport {
 			 
 			request.setAttribute("docNo", docno);
 			request.setAttribute("projectCode", project);
-			request.setAttribute("datetime", dateTime);
+			request.setAttribute("dateTime", dateTime);
 			request.setAttribute("gcostCode", cost);
 		//	request.setAttribute("amountfrom", amountfrom);
 		//	request.setAttribute("local", local);

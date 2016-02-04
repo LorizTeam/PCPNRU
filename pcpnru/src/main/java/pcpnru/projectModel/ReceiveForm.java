@@ -25,8 +25,7 @@ public class ReceiveForm {
 	private String cost;
 	private String docdate; 
 	
-	private String costcode,costname,percentprice,datetime,gcostcode,standardprice;
-	
+	private String costcode,costname,percentprice,datetime,gcostcode,standardprice,approve_tobank;
 	
 	
 	public ReceiveForm() { 
@@ -42,7 +41,7 @@ public class ReceiveForm {
 		this.amount = amount;
 		this.amountTotal = amountTotal;
 	}
-	public ReceiveForm(String s1, String s2, String s3, String s4, String s5, String s6, String s7,String s8,String forwhat) {
+	public ReceiveForm(String s1, String s2, String s3, String s4, String s5, String s6, String s7,String s8,String forwhat,String s9) {
 		if(forwhat.equals("selectList")){
 			this.docNo = s1;
 			this.project = s3;
@@ -51,6 +50,7 @@ public class ReceiveForm {
 			this.amountfrom = s6;
 			this.local = s7;
 			this.project_year = s8;
+			this.approve_tobank = s9;
 		}
 	}
 	public ReceiveForm(String check, String amountfrom, String local) { 
@@ -65,6 +65,12 @@ public class ReceiveForm {
 		this.percentprice = percentprice;
 		this.datetime = datetime;
 		this.gcostcode = gcostcode;
+	}
+	public String getApprove_tobank() {
+		return approve_tobank;
+	}
+	public void setApprove_tobank(String approve_tobank) {
+		this.approve_tobank = approve_tobank;
 	}
 	public String getStandardprice() {
 		return standardprice;

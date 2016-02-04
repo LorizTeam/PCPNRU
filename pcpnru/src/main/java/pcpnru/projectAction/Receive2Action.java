@@ -27,7 +27,8 @@ public class Receive2Action extends ActionSupport {
 	@Override
 	public String execute() throws Exception {
 		HttpServletRequest request = ServletActionContext.getRequest();
-	
+		
+		
 		// HD
 		String docNo		= request.getParameter("docNo");
 		String projectCode 	= request.getParameter("projectCode");

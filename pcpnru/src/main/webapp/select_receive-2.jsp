@@ -30,7 +30,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
-		<link href="css/docs.css" rel="stylesheet"> 
+		<link href="css/docs.css" rel="stylesheet">
+		
 	 
 		<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -55,9 +56,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br>
 	
 	<form id="receive-2" action="selectReceive2.action" method="post">
+		<input type="hidden" id="docno" name="docno">
+		<input type="hidden" id="project" name="project">
+		<input type="hidden" id="cost" name="cost">
+		<input type="hidden" id="datetime" name="datetime">
+		<input type="hidden" id="amountfrom" name="receiveform.amountfrom">
+		<input type="hidden" id="local" name="receiveform.local">
+	</form>
+	<form action="selectReceive2.action">
+		<s:hidden  name="receiveform.project"/>
+		<s:hidden  name="receiveform.project_year"/>
+		<s:hidden  name="receiveform.cost"/>
+		<s:hidden  name="receiveform.docdate"/>
+		<s:hidden  name="receiveform.amountfrom"/>
+		<s:hidden  name="receiveform.local"/>
 		
-	
-	<div class="example" data-text="รายการ">
+		<div class="example" data-text="รายการ">
+		
+		     	<div class="cell" align="center">
+		     		<button class="button success" type="submit" name="approve_tobank" value="approve_tobank">ยืนยันการโอนเงิน</button>
+		     	</div>
+		    
             <table id="table_receives2" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  
@@ -65,9 +84,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<th>เลขที่เอกสาร</th>
                 	<th>โครงการ</th>
                     <th>ค่าใช้จ่าย</th>
-                    <th>วันที่ dd-mm-yyyy</th>
+                    <th>วันที่</th>
                     <th>ได้รับเงินจาก</th>
                     <th>สถานที่</th>
+                    <th>ดูรายละเอียด</th>
+                    <th>สถานะโอนเงิน</th>
                 </tr>
                 </thead> 
                   
@@ -79,18 +100,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						x++; 
 						ReceiveForm receiveMaster = (ReceiveForm) iter.next();
 				%>
+				
                 <tr>  
-                    <td align="center">
-                    <input type="checkbox" name="number_of_row" id="number_of_row" value="<%=x%>"> <%=x%></td> 
+                    <td align="center"><%=x%></td> 
                     <td class="tddocno" align="left"><%=receiveMaster.getDocNo()%></td>
                     <td class="tdproject" align="left"><%=receiveMaster.getProject()%></td>  
                     <td class="tdcost" align="left"><%=receiveMaster.getCost()%></td> 
                     <td class="tddatetime" align="center"><%=receiveMaster.getDocdate()%></td> 
                     <td class="tdamountfrom" align="left"><%=receiveMaster.getAmountfrom()%></td> 
-                    <td class="tdlocal" align="left"><%=receiveMaster.getLocal()%></td> 
-                    <input type="hidden" id="docno" name="docno" value="<%=receiveMaster.getDocNo()%>">
-					<input type="hidden" id="project" name="project" value="<%=receiveMaster.getProject()%>">
-					<input type="hidden" id="project_year" name="project_year" value="<%=receiveMaster.getProject_year()%>">
+                    <td class="tdlocal" align="left"><%=receiveMaster.getLocal()%></td>
+                    <td class="" align="left"><button class="seedetail"><span class="mif-search fg-green"></span></button></td>
+                    <%
+                    if(receiveMaster.getApprove_tobank().equals("1")){
+                    %>
+                    <td class="" align="left"><span class="mif-checkmark fg-green"></span> โอนแล้ว</td>
+                    <%
+                    }else{
+                    %>
+                    <td class="" align="left"><input type="checkbox" name="valueapprove_tobank" value="<%=receiveMaster.getDocNo()%> - <%=receiveMaster.getProject()%> - <%=receiveMaster.getProject_year()%>"> ยังไม่โอน</td>
+                    <%
+                    }
+                    %> 
+                      
                 </tr>
                  <% 	} %>
                 
@@ -101,22 +132,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <%	} %> 
                 </tbody>
             </table>
-        </div> <!-- End of example table --> 
-     
-	</form>   
+             
+             <div class="cell" align="center">
+	     		<button class="button success" type="submit" name="approve_tobank" value="approve_tobank">ยืนยันการโอนเงิน</button>
+	     	</div>
+        </div> <!-- End of example table -->
+         
+    </form>
+
 <script>
-$(function(){
-	$('#table_receives2 tbody').on( 'click', 'tr', function () {
-		$(this).addClass('selected');
-        var $index = $(this).index();
-        
+	$("button.seedetail").click(function(event){
+		var $index = $("button.seedetail").index(this);
+		
         var docno = $(".tddocno").eq($index).text();
         var projectname = $(".tdproject").eq($index).text();
 	    var costname = $(".tdcost").eq($index).text();
 	    var datetime = $(".tddatetime").eq($index).text();
 	    var amountfrom = $(".tdamountfrom").eq($index).text();
 	    var local = $(".tdlocal").eq($index).text();
-        
+
 	    $("#project").val(projectname);
 	 	$("#docno").val(docno);
 	 	$("#cost").val(costname);
@@ -124,10 +158,11 @@ $(function(){
 	 	$("#amountfrom").val(amountfrom);
 	 	$("#local").val(local);
 	 	
-	 	$("#receive-2").submit();
-	   	
-		});
-	});	
+		event.preventDefault();
+		
+		$("#receive-2").submit();
+	});
+	
 </script>
   </body>
 </html>
