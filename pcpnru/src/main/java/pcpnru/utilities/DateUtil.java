@@ -52,6 +52,20 @@ public class DateUtil {
 		}
 		return ansDate;
 	}
+	public String CnvYYYYMMDDToYYYYMMDDThaiYear(String date,String concatSymbol) {
+		// input yyyy/mm/dd >>>  yyyy/mm/dd
+		
+		String dd;
+		String mm;
+		String yyyy;
+		String ansDate = null;
+		String[] datesplit = date.split(concatSymbol);
+		yyyy = String.valueOf(Integer.parseInt(datesplit[0])+543);
+		mm = datesplit[1];
+		dd = datesplit[2];
+		ansDate = yyyy+concatSymbol+mm+concatSymbol+dd;
+		return ansDate;
+	}
 	public String GetDD(String date) { 
 		return date.substring(8,10);
 	}
@@ -96,6 +110,32 @@ public class DateUtil {
 		mm = date.substring(5,7);
 		yyyy = date.substring(0,4);
 		ansDate = (mm+"/"+dd+"/"+yyyy);
+		return ansDate;
+	}
+	public String CnvToDDMMYYYY_Date(String date,String concatSymbol) {
+//		 input yyyy/mm/dd >>>  dd/mm/yyyy
+//		or  input yyyy-mm-dd >>>  dd-mm-yyyy
+//		or  input yyyy-mm-dd >>>  dd/mm/yyyy by concatSymbol
+		String ansDate;
+		String dd;
+		String mm;
+		String yyyy;
+		dd = date.substring(8,10);
+		mm = date.substring(5,7);
+		yyyy = date.substring(0,4);
+		ansDate = (dd+concatSymbol+mm+concatSymbol+yyyy);
+		return ansDate;
+	}
+	public String CnvToDDMMYYYY_DateTime(String date,String concatSymbol) {
+//		 input yyyy/mm/dd >>>  dd/mm/yyyy
+//		or  input yyyy-mm-dd >>>  dd-mm-yyyy
+//		or  input yyyy-mm-dd >>>  dd/mm/yyyy by concatSymbol
+		String ansDate,dd,mm,yyyy,Time;
+		dd = date.substring(8,10);
+		mm = date.substring(5,7);
+		yyyy = date.substring(0,4);
+		Time = date.substring(10,19);
+		ansDate = (dd+concatSymbol+mm+concatSymbol+yyyy+Time);
 		return ansDate;
 	}
 	public String CnvToDDMMYYYYThaiYear(String date)
@@ -207,7 +247,7 @@ public class DateUtil {
 		if (days.trim().length() == 1) days = "0"+ days.trim();
 		if (month.trim().length() == 1) month = "0"+ month.trim();
 		
-		String today	= days+"/"+month+"/"+year;
+		String today	= days+"-"+month+"-"+year;
 		return today;
 	}
 	public int maxDayCurMonth() {

@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	<div class="cell colspan2">  
 		        		วันที่การรับ
 					    <div class="input-control text full-size ">
-                            <input type="text" name="dateTime" id="datepicker" >
+                            <input type="text" name="dateTime" id="datepicker" value="<%=dateutil.curDateTH() %>">
                             	<span class="input-state-success mif-checkmark"></span>
                         </div>
                         
@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   
 	    
 	   	$("#datepicker").datepicker({
-	    	clearBtn: true,autoclose:true,todayBtn: "linked",todayHighlight: true,format: "dd/mm/yyyy",setDate:"2016-11-12" 
+	    	clearBtn: true,autoclose:true,todayBtn: "linked",todayHighlight: true,format: "dd-mm-yyyy"
 	     });
 	         
 	    

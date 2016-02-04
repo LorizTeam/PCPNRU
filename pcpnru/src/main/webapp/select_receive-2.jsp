@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<%	List SelectReceiveList1 = null;
 		if (request.getAttribute("SelectReceiveList") == null) {
   		Receive1DB receL = new Receive1DB();
-  			SelectReceiveList1 = receL.GetSelectReceiveList("", "", "", "", "", "");
+  			SelectReceiveList1 = receL.GetSelectReceiveList("","", "", "", "", "", "");
 		}else{
 			SelectReceiveList1 = (List) request.getAttribute("SelectReceiveList");
 		}
@@ -55,13 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<br>
 	
 	<form id="receive-2" action="selectReceive2.action" method="post">
-		<input type="hidden" id="docno" name="docno">
-		<input type="hidden" id="project" name="project">
-		<input type="hidden" id="cost" name="cost">
-		<input type="hidden" id="datetime" name="datetime">
-		<input type="hidden" id="amountfrom" name="receiveform.amountfrom">
-		<input type="hidden" id="local" name="receiveform.local">
-	</form>
+		
 	
 	<div class="example" data-text="รายการ">
             <table id="table_receives2" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
@@ -71,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<th>เลขที่เอกสาร</th>
                 	<th>โครงการ</th>
                     <th>ค่าใช้จ่าย</th>
-                    <th>วันที่</th>
+                    <th>วันที่ dd-mm-yyyy</th>
                     <th>ได้รับเงินจาก</th>
                     <th>สถานที่</th>
                 </tr>
@@ -86,13 +80,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						ReceiveForm receiveMaster = (ReceiveForm) iter.next();
 				%>
                 <tr>  
-                    <td align="center"><%=x%></td> 
+                    <td align="center">
+                    <input type="checkbox" name="number_of_row" id="number_of_row" value="<%=x%>"> <%=x%></td> 
                     <td class="tddocno" align="left"><%=receiveMaster.getDocNo()%></td>
                     <td class="tdproject" align="left"><%=receiveMaster.getProject()%></td>  
                     <td class="tdcost" align="left"><%=receiveMaster.getCost()%></td> 
                     <td class="tddatetime" align="center"><%=receiveMaster.getDocdate()%></td> 
                     <td class="tdamountfrom" align="left"><%=receiveMaster.getAmountfrom()%></td> 
                     <td class="tdlocal" align="left"><%=receiveMaster.getLocal()%></td> 
+                    <input type="hidden" id="docno" name="docno" value="<%=receiveMaster.getDocNo()%>">
+					<input type="hidden" id="project" name="project" value="<%=receiveMaster.getProject()%>">
+					<input type="hidden" id="project_year" name="project_year" value="<%=receiveMaster.getProject_year()%>">
                 </tr>
                  <% 	} %>
                 
@@ -104,7 +102,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </tbody>
             </table>
         </div> <!-- End of example table --> 
-        
+     
+	</form>   
 <script>
 $(function(){
 	$('#table_receives2 tbody').on( 'click', 'tr', function () {

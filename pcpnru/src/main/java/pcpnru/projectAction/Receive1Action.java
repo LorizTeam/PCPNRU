@@ -1,6 +1,9 @@
 package pcpnru.projectAction;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -139,12 +142,16 @@ public class Receive1Action extends ActionSupport {
 			String[] splitgprojectcode = projectCode.split(" - ");
 			String[] splitYear =  projectCode.split(" - ");
 			
+			DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+			Calendar cal = Calendar.getInstance();
+		    String timeofday = dateFormat.format(cal.getTime());
+		    
 			String dateTime 	= request.getParameter("dateTime");
-			String[] splitDate 	= dateTime.split("/");
+			String[] splitDate 	= dateTime.split("-");
 			String day		= splitDate[0]; // 01
 			String month 	= splitDate[1]; // 12
 			String year 	= splitDate[2]; // 2559
-			dateTime	= dateUtil.CnvToYYYYMMDD(dateTime, '-');
+			dateTime	= dateUtil.CnvToYYYYMMDDEngYear(dateTime, '-')+" "+timeofday;
 			
 			String gcostCode 	= request.getParameter("gcostCode");
 			String amountfrom 	= receiveform.getAmountfrom();

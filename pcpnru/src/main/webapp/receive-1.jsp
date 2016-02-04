@@ -167,7 +167,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        // $("#cost_code").select2();
         
         $("#datepicker").datepicker({
-        	format: "dd/mm/yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
+        	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
         	
         });
         

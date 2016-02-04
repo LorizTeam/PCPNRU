@@ -33,7 +33,7 @@ public class ReceiveForm {
 	} 
 	public ReceiveForm(String docNo, String itemNo, String receivedetail, String description, String qty, String amount, String amountTotal,
 			String err) {
-		super();
+		
 		this.docNo = docNo;
 		this.itemNo = itemNo;
 		this.receivedetail = receivedetail;
@@ -42,13 +42,16 @@ public class ReceiveForm {
 		this.amount = amount;
 		this.amountTotal = amountTotal;
 	}
-	public ReceiveForm(String docNo, String projectcode, String project, String cost, String docdate, String amountfrom, String local) {
-		this.docNo = docNo;
-		this.project = project;
-		this.cost = cost;
-		this.docdate = docdate;
-		this.amountfrom = amountfrom;
-		this.local = local;
+	public ReceiveForm(String s1, String s2, String s3, String s4, String s5, String s6, String s7,String s8,String forwhat) {
+		if(forwhat.equals("selectList")){
+			this.docNo = s1;
+			this.project = s3;
+			this.cost = s4;
+			this.docdate = s5;
+			this.amountfrom = s6;
+			this.local = s7;
+			this.project_year = s8;
+		}
 	}
 	public ReceiveForm(String check, String amountfrom, String local) { 
 		

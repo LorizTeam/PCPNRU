@@ -221,7 +221,7 @@ public class Receive1DB {
 				
 				conn = agent.getConnectMYSql();
 					
-				String sqlStmt = "SELECT docno, CONCAT(c.project_code,' - ',b.project_name) as project, "+
+				String sqlStmt = "SELECT docno, CONCAT(c.project_code,' - ',b.project_name) as project,a.project_year, "+
 						"CONCAT(c.gcostcode,' - ',c.gcostcode_name) cost, docdate, amountfrom, local " +
 				"FROM receivehd a "+
 				"left join project_master b on(b.project_code = a.projectcode) "+
@@ -231,24 +231,28 @@ public class Receive1DB {
 				if(!projectcode.equals("")) sqlStmt = sqlStmt+ "a.projectcode = '"+projectcode+"' AND ";
 				if(!project_year.equals("")) sqlStmt = sqlStmt+ "a.project_year = '"+project_year+"' AND ";
 				if(!gcostcode.equals("")) sqlStmt = sqlStmt+ "a.gcostcode = '"+gcostcode+"' AND ";
-				if(!docdate.equals("")) sqlStmt = sqlStmt+ "a.docdate = '"+docdate+"' AND ";
+				if(!docdate.equals("")) sqlStmt = sqlStmt+ "a.docdate like '%"+docdate+"%' AND ";
 				if(!amountfrom.equals("")) sqlStmt = sqlStmt+ "a.amountfrom = '"+amountfrom+"' AND ";
 				if(!local.equals("")) sqlStmt = sqlStmt+ "a.local = '"+local+"' AND ";
 				
 				sqlStmt = sqlStmt + "a.docno <> '' order by docdate, docno desc";
 					
-				//System.out.println(sqlStmt);				
+				System.out.println(sqlStmt);				
 				pStmt = conn.createStatement();
 				rs = pStmt.executeQuery(sqlStmt);	
+				String forwhat = "selectList";
+				DateUtil dateutil = new DateUtil();
 				while (rs.next()) {
 					docNo 			= rs.getString("docno"); 
 					if (rs.getString("project") != null)  project = rs.getString("project"); else project = "";
 					if (rs.getString("cost") != null)  cost = rs.getString("cost"); else cost = "";
-					docdate 	= rs.getString("docdate");
+					String docdatebeforechange = rs.getString("docdate");
+					docdate 	= dateutil.CnvToDDMMYYYY_DateTime(dateutil.CnvYYYYMMDDToYYYYMMDDThaiYear(docdatebeforechange, "-"),"-") ;
+					
 					amountfrom 	= rs.getString("amountfrom");
 					local 		= rs.getString("local"); 
-					 
-					SelectReceiveList.add(new ReceiveForm(docNo, projectcode, project, cost, docdate, amountfrom, local));
+					project_year =rs.getString("project_year");
+					SelectReceiveList.add(new ReceiveForm(docNo, projectcode, project, cost, docdate, amountfrom, local,project_year,forwhat));
 				}
 				rs.close();
 				pStmt.close();
