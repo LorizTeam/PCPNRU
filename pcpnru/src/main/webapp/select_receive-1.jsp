@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
 			        			ProjectModel pjModel = (ProjectModel) iterPj.next();
 	      				%>  
-			      			<option value="<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%>" >
+			      			<option value="<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - <%=pjModel.getYear() %>" >
 			       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> ปี <%=pjModel.getYear() %>
 			       			</option>
 							<%		} 
@@ -178,7 +178,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    $( "#project_code" ).change(function() {
 	  		  
 			var project_code = $("#project_code").val();
-			var year = $("#year").val();
+			
 			var out = '';
 			
 			
@@ -186,7 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  	 
 	          type: "post",
 	          url: "ajax_receive-1.jsp", //this is my servlet 
-	          data: {projectCode:project_code,year:year},
+	          data: {projectCode:project_code},
 	          async:false, 
 	          success: function(result){
 	          

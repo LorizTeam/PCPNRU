@@ -210,7 +210,7 @@ public class Receive1DB {
 				}
 				return localList;
 			 }
-	public List GetSelectReceiveList(String docNo, String projectcode, String gcostcode, 
+	public List GetSelectReceiveList(String docNo, String projectcode,String project_year, String gcostcode, 
 			String docdate, String amountfrom, String local) 
 		throws Exception { //30-05-2014
 			List SelectReceiveList = new ArrayList();
@@ -229,6 +229,7 @@ public class Receive1DB {
 				"WHERE ";
 				if(!docNo.equals("")) sqlStmt = sqlStmt+ "a.docno = '"+docNo+"' AND ";
 				if(!projectcode.equals("")) sqlStmt = sqlStmt+ "a.projectcode = '"+projectcode+"' AND ";
+				if(!project_year.equals("")) sqlStmt = sqlStmt+ "a.project_year = '"+project_year+"' AND ";
 				if(!gcostcode.equals("")) sqlStmt = sqlStmt+ "a.gcostcode = '"+gcostcode+"' AND ";
 				if(!docdate.equals("")) sqlStmt = sqlStmt+ "a.docdate = '"+docdate+"' AND ";
 				if(!amountfrom.equals("")) sqlStmt = sqlStmt+ "a.amountfrom = '"+amountfrom+"' AND ";
