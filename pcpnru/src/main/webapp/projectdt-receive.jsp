@@ -105,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        	 	<!--
 			        	 	  <s:textfield id="budget" name="projModel.budget" /> 
 			        	 	-->
-			        	 	<input type="number" id="budget" name="budget">
+			        	 	<input type="number" step="0.01" id="budget" name="budget">
 	                     </div> 
 					</div>  
 					<div class="cell colspan4"><br>
@@ -198,7 +198,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="row cells2 example bg-gray">
 						<div class="cell">จำนวน
 				        	<div class="input-control text full-size"> 
-		                    	<input type="number" id="qty" name="qty" ng-model="value1" >
+		                    	<input type="number" step="0.01" id="qty" name="qty" ng-model="value1" >
 		                    </div>
 						</div> 
 						<div class="cell"> 
@@ -243,7 +243,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="row cells2">
 						<div class="cell">จำนวน
 				        	<div class="input-control text full-size"> 
-		                    	<input type="number" name="arqty" class="aqty" ng-model="cal.value" aria-labelledby="select_{{$index}}">
+		                    	<input type="number" step="0.01" name="arqty" class="aqty" ng-model="cal.value" aria-labelledby="select_{{$index}}">
 		                    </div>
 						</div> 
 						<div class="cell"> 

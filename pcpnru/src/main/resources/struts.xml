@@ -121,6 +121,24 @@
       		<result name="print">/report/repreceiveandrequisition.jsp</result>
     	</action>
     	<!-- 		Receive and Requisition print report 		 -->
+    	
+    	 <!-- 		Personnel Master		 -->
+    	<action name="personnelMaster" class="pcpnru.masterAction.PersonnelAction" method="execute">
+      		<result name="success">/personnel.jsp</result> 
+    	</action>
+    	<!-- 		Personnel Master		 -->
+    	
+    	<!-- 		Authen Master		 -->
+    	<action name="authenMaster" class="pcpnru.masterAction.AuthenAction" method="execute">
+      		<result name="success">/authen.jsp</result> 
+    	</action>
+    	<!-- 		Authen Master		 -->
+    	
+    	<!-- 		Page Master		 -->
+    	<action name="pageMaster" class="pcpnru.masterAction.PageAction" method="execute">
+      		<result name="success">/page.jsp</result> 
+    	</action>
+    	<!-- 		Page Master		 -->
         
     </package>
  
