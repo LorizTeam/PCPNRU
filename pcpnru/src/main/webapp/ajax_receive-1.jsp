@@ -10,9 +10,7 @@
 	String[] pjS = projectCode.split(" - ");
 	projectCode = pjS[0];
 	String year = pjS[2];
-	System.out.println(pjS[0]);
-	System.out.println(pjS[1]);
-	System.out.println(pjS[2]);
+	
 	DBConnect dbcon = new DBConnect();
 	ResultSet rs = null; 
 	List listJson = new LinkedList();
@@ -20,7 +18,7 @@
 	String sql = "SELECT b.gcostcode, b.gcostcode_name "+
 				 "from projectplan_detail a INNER JOIN groupcostcode_master b ON (b.gcostcode = a.gcostcode  and a.project_code = b.project_code)  "+
 	 			 "WHERE a.project_code = '"+projectCode+"' and year = '"+year+"' and type_gcostcode = '1' order by b.gcostcode";
-	System.out.println(sql);
+	
 	Connection conn = dbcon.getConnectMYSql();
 	Statement pStmt = conn.createStatement();
 	rs = pStmt.executeQuery(sql); 
@@ -33,7 +31,7 @@
     		listJson.add(obj); 
 	}
 	out.println(listJson);
-	System.out.println(listJson);
+	
 	rs.close();
 	pStmt.close(); 
 	conn.close();
