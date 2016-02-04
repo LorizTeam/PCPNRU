@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="example" data-text="รายการ">
 		
 		     	<div class="cell" align="center">
-		     		<button class="button success" type="submit" name="approve_tobank" value="approve_tobank">ยืนยันการโอนเงิน</button>
+		     		<button class="button success" type="submit" name="approve_tobank" value="approve_tobank">ยืนยันการโอนเงิน</button> <input type="checkbox" id="checkall"> เลือกทั้งหมด
 		     	</div>
 		    
             <table id="table_receives2" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <th>ได้รับเงินจาก</th>
                     <th>สถานที่</th>
                     <th>ดูรายละเอียด</th>
-                    <th>สถานะโอนเงิน</th>
+                    <th>สถานะโอนเงิน </th>
                 </tr>
                 </thead> 
                   
@@ -162,7 +162,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		$("#receive-2").submit();
 	});
-	
+	$("#checkall").click(function(){
+		if($(this).prop("checked")){
+			$('[name="valueapprove_tobank"]').prop("checked",true);
+		}else{
+			$('[name="valueapprove_tobank"]').prop("checked",false);
+		}
+	});
 </script>
   </body>
 </html>
