@@ -6,11 +6,11 @@
 <%@page import="org.json.simple.JSONValue"%>
 <%
 	String projectCode = request.getParameter("projectCode");
-	String year = request.getParameter("year");
-	
+	 
 	String[] pjS = projectCode.split(" - ");
 	projectCode = pjS[0];
-
+	String year = pjS[2];
+	
 	DBConnect dbcon = new DBConnect();
 	ResultSet rs = null; 
 	List listJson = new LinkedList();

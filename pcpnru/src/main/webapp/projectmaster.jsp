@@ -81,7 +81,7 @@
                 <tr> 
                     <td align="center"><%=x%></td>
                     <td class="tdprojectcode" align="center"><%=projMaster.getProjectCode()%></td>
-                    <td class="tdprojectname" align="center"><%=projMaster.getProjectName()%></td>
+                    <td class="tdprojectname" align="left"><%=projMaster.getProjectName()%></td>
                     <td align="center"><%=projMaster.getDateTime()%></td>  
                 </tr>	  
                 <% 	} %>

@@ -113,11 +113,11 @@
         				
         		%>
         			<tr>
-        			<td align="center"><%=x%></td>  
-        			<td class="tdprojectCode" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>
-                    <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
-                    <td class="tdcostName" align="left"><%=gccInfo.getCostName()%></td>
-                    <td align="center"><%=gccInfo.getDateTime()%></td>
+        			<td align="center" width="5%"><%=x%></td>  
+        			<td class="tdprojectCode" align="left" width="32%"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>
+                    <td class="tdcostCode" align="center" width="7%"><%=gccInfo.getCostCode()%></td>
+                    <td class="tdcostName" align="left" width="38%"><%=gccInfo.getCostName()%></td>
+                    <td align="left" width="14%"><%=gccInfo.getDateTime()%></td>
                 	</tr>
         		<%		
         		x++;

@@ -86,7 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="grid">
 		  	<div class="row cells12">
 		       
-		    	<div class="cell colspan3 offset2" > 
+		    	<div class="cell colspan4 offset2" > 
 		    		 โครงการ
 		       		 <div class="input-control full-size"> 
 		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
@@ -97,7 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
 			        			ProjectModel pjModel = (ProjectModel) iterPj.next();
 	      				%>  
-			      			<option value="<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%>" >
+			      			<option value="<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - <%=pjModel.getYear()%>" >
 			       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> ปี <%=pjModel.getYear() %>
 			       			</option>
 							<%		} 
@@ -107,14 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                      <span class="input-state-success mif-checkmark"></span>
 					   </div>
 		    	</div>
-		    	<div class="cell colspan3">  
-	        		ปีของโครงการ
-				    <div class="input-control text full-size " >
-                          <input type="text" name="receiveform.project_year" id="year"  value="<%=dateutil.curTHYear() %>" data-validate-func="required" data-validate-hint="กรุณาเลือกปีของโครงการ">
-                          <span class="input-state-success mif-checkmark"></span>
-                   	</div>
-	               </div>
-	               <div class="cell colspan3">  
+	           <div class="cell colspan3">  
 	        		วันที่รับ
 				    <div class="input-control text full-size " >
                           <input type="text" name="dateTime" id="datepicker"  value="<%=dateutil.curDateTH() %>" data-validate-func="required" data-validate-hint="กรุณาเลือกวันที่รับ">
@@ -181,15 +174,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         $( "#project_code" ).change(function() {
   		  
 			var project_code = $("#project_code").val();
-			var year = $("#year").val();
 			var out = '';
-			
-			
+			 
 			$.ajax({  // select history
 			  	 
 	          type: "post",
 	          url: "ajax_receive-1.jsp", //this is my servlet 
-	          data: {projectCode:project_code,year:year},
+	          data: {projectCode:project_code},
 	          async:false, 
 	          success: function(result){
 	          

@@ -118,9 +118,9 @@
         		%>
         			<tr>
         			<td align="center"><%=x%></td>
-        			<td class="tdgcostcode" align="center"><%=ccInfo.getGcostcode()%> - <%=ccInfo.getGcostcode_name()%></td> 
+        			<td class="tdgcostcode" align="left"><%=ccInfo.getGcostcode()%> - <%=ccInfo.getGcostcode_name()%></td> 
                     <td class="tdcostCode" align="center"><%=ccInfo.getCostCode()%></td>
-                    <td class="tdcostName" align="center"><%=ccInfo.getCostName()%></td>  
+                    <td class="tdcostName" align="left"><%=ccInfo.getCostName()%></td>  
                     <td class="tdpercentprice" align="center"><%=ccInfo.getCostCode()%></td> 
                     <td align="center"><%=ccInfo.getDateTime()%></td>
                 	</tr>

@@ -79,7 +79,7 @@
                 <tr> 
                     <td align="center"><%=x%></td>
                     <td class="tdsubjobcode" align="center"><%=subjMaster.getSubjobCode()%></td>
-                    <td class="tdsubjobname" align="center"><%=subjMaster.getSubjobName()%></td>  
+                    <td class="tdsubjobname" align="left"><%=subjMaster.getSubjobName()%></td>  
                     <td align="center"><%=subjMaster.getDateTime()%></td>
                 </tr>	  
                 <% 	} %>

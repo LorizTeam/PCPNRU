@@ -26,7 +26,7 @@
 	<body>
 	<%
 			ProjectMasterDB projM = new ProjectMasterDB();
-			List projectMasterList = projM.GetProjectMasterList("", "");
+			List projectMasterList = projM.getListProject_Join_Projecthead("", "","","");
 		
   	%>
 	
@@ -35,21 +35,21 @@
 		 <div class="example" data-text="ช่วงวัน">
          <div class="grid">
 		  	<div class="row cells4">
-		  		<div class="cell colspan1"> 
+		  		<div class="cell colspan2"> 
 		        	รหัส-ชื่อ โครงการ
 			        <div class="input-control text full-size">
 					    <select id="projectcode" name="projectcode">
 					    	<%
 			        		if (projectMasterList != null) {
-				        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
-				        			ProjectMasterForm pjInfo = (ProjectMasterForm) iterPj.next();
+			        			for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
+				        			ProjectModel pjModel = (ProjectModel) iterPj.next();
 		      				%>  
-				      			<option value="<%=pjInfo.getProjectCode()%>" >
-				       			 	<%=pjInfo.getProjectCode()%> - <%=pjInfo.getProjectName()%>
+				      			<option value="<%=pjModel.getProject_code()%>" >
+				       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> ปี <%=pjModel.getYear() %>
 				       			</option>
 								<%		} 
 									}
-								%> 
+								%>
 					    </select>
 					</div>
 				</div>

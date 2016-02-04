@@ -197,13 +197,17 @@ public class DateUtil {
 		long nowMi=currentCalendar.getTimeInMillis();
 		Calendar curCalendar=new GregorianCalendar();
 		curCalendar.setTimeInMillis(nowMi);
+		String days		= String.valueOf(curCalendar.get(Calendar.DAY_OF_MONTH));
 		String month 	= String.valueOf(curCalendar.get(Calendar.MONTH)+1);
 		String year		= String.valueOf(curCalendar.get(Calendar.YEAR)+543);
 		
 		//DBMonth dbMonth = new DBMonth();
 		String monthName= ""; //dbMonth.GetMonthTHFullName(month);
 		
-		String today	= curCalendar.get(Calendar.DAY_OF_MONTH)+"/"+month+"/"+year;
+		if (days.trim().length() == 1) days = "0"+ days.trim();
+		if (month.trim().length() == 1) month = "0"+ month.trim();
+		
+		String today	= days+"/"+month+"/"+year;
 		return today;
 	}
 	public int maxDayCurMonth() {

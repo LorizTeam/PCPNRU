@@ -129,9 +129,9 @@
         			<td class="tdprojectCode" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>  
                     <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
                     <td class="tdcostName" align="left"><%=gccInfo.getCostName()%></td>
-                    <td class="tdstandardprice" align="center"><%=gccInfo.getStandardprice() %></td>
-                    <td class="tdfundprice" align="center"><%=gccInfo.getFundprice() %></td>   
-                    <td align="center"><%=gccInfo.getDateTime()%></td>
+                    <td class="tdstandardprice" align="right"><%=gccInfo.getStandardprice() %></td>
+                    <td class="tdfundprice" align="right"><%=gccInfo.getFundprice() %></td>   
+                    <td align="left"><%=gccInfo.getDateTime()%></td>
                 	</tr>
         		<%		
         		x++;

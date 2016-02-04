@@ -128,26 +128,33 @@ public class Receive1Action extends ActionSupport {
 	  
 		if(ok!=null){ 
 			
-			DateUtil dateUtil = new DateUtil(); 
-			String date	= dateUtil.CnvToDDMMYYYYThaiYear(dateUtil.CnvToYYYYMMDD(dateUtil.curDate(), '-')); //01/11/2557
-			String docDate	= dateUtil.CnvToYYYYMMDD(dateUtil.curDate(), '-');
-			String day 		= date.substring(0,2); // 01
-			String month 	= date.substring(3,5); // 12
-			String year 	= date.substring(6); // 2559
+		//	DateUtil dateUtil = new DateUtil(); 
+		//	String date	= dateUtil.CnvToDDMMYYYYThaiYear(dateUtil.CnvToYYYYMMDD(dateUtil.curDate(), '-')); //01/11/2557
+		//	String docDate	= dateUtil.CnvToYYYYMMDD(dateUtil.curDate(), '-');
+		//	String day 		= date.substring(0,2); // 01
+		//	String month 	= date.substring(3,5); // 12
+		//	String year 	= date.substring(6); // 2559
 			
 			String projectCode 	= request.getParameter("projectCode");
+			String[] splitgprojectcode = projectCode.split(" - ");
+			String[] splitYear =  projectCode.split(" - ");
+			
 			String dateTime 	= request.getParameter("dateTime");
+			String[] splitDate 	= dateTime.split("/");
+			String day		= splitDate[0]; // 01
+			String month 	= splitDate[1]; // 12
+			String year 	= splitDate[2]; // 2559
+			
 			String gcostCode 	= request.getParameter("gcostCode");
 			String amountfrom 	= receiveform.getAmountfrom();
-			String project_year = receiveform.getProject_year();
+			//String project_year = receiveform.getProject_year();
 			System.out.println(amountfrom);
 			String local 		= receiveform.getLocal();
 			
 			
 			Receive1DB receive1DB = new Receive1DB();
-			String[] splitgprojectcode = projectCode.split(" - ");
-			String docNo = receive1DB.SelectUpdateDocNo(year,"receive",splitgprojectcode[0],project_year);
-			receive1DB.AddReceiveHD(docNo, splitgprojectcode[0],project_year, gcostCode, docDate, day, month, year, amountfrom, local); 
+			String docNo = receive1DB.SelectUpdateDocNo(splitYear[2],"receive",splitgprojectcode[0],splitYear[2]);
+			receive1DB.AddReceiveHD(docNo, splitgprojectcode[0],splitYear[2], gcostCode, dateTime, day, month, year, amountfrom, local); 
 
 			
 			String[] splitgcostcode = gcostCode.split(" - ");

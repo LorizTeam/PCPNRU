@@ -97,11 +97,11 @@
                 	ProjectModel pjmodel = (ProjectModel) pjIterate.next();
                	%>
                	<tr> 
-                    <td class="tdproject_code"><%=pjmodel.getProject_code()%></td>
-                    <td ><%=pjmodel.getProject_name() %></td>
-                    <td class="tdyear"><%=pjmodel.getYear() %></td>
-                    <td class="tdtarget">{{<%=pjmodel.getTarget() %> | currency:"฿"}}</td> 
-                    <td class="align-center"><a href="projectdt.jsp?projectcode=<%=pjmodel.getProject_code()%>&year=<%=pjmodel.getYear()%>"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
+                    <td class="tdproject_code" align="center"><%=pjmodel.getProject_code()%></td>
+                    <td align="left"><%=pjmodel.getProject_name() %></td>
+                    <td class="tdyear" align="center"><%=pjmodel.getYear() %></td>
+                    <td class="tdtarget" align="right" width="16%">{{<%=pjmodel.getTarget() %> | currency:"฿"}}</td> 
+                    <td class="align-center" ><a href="projectdt.jsp?projectcode=<%=pjmodel.getProject_code()%>&year=<%=pjmodel.getYear()%>"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
                 </tr>               	
                	<%
                 }

@@ -99,9 +99,9 @@
 				%>
                 <tr> 
                     <td align="center"><%=x%></td>
-                    <td class="tdsubjobcode" align="center"><%=cSubjMaster.getSubjobcode()%> - <%=cSubjMaster.getSubjobname()%></td>
+                    <td class="tdsubjobcode" align="left"><%=cSubjMaster.getSubjobcode()%> - <%=cSubjMaster.getSubjobname()%></td>
                     <td class="tdchildsubjobcode" align="center"><%=cSubjMaster.getChildsubjobcode()%></td>  
-                    <td class="tdchildsubjobname" align="center"><%=cSubjMaster.getChildsubjobname()%></td> 
+                    <td class="tdchildsubjobname" align="left"><%=cSubjMaster.getChildsubjobname()%></td> 
                     <td align="center"><%=cSubjMaster.getDateTime()%></td>
                 </tr>	  
                 <% 	} %>
