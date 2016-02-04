@@ -3,7 +3,7 @@ package pcpnru.projectModel;
 import pcpnru.masterModel.GroupCostCodeMasterModel;
 
 public class ReceiveForm {
-	
+	//-----
 	private String amountfrom;
 	private String local; 
 
