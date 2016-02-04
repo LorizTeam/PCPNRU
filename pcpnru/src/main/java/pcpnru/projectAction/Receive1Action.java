@@ -128,7 +128,7 @@ public class Receive1Action extends ActionSupport {
 	  
 		if(ok!=null){ 
 			
-		//	DateUtil dateUtil = new DateUtil(); 
+			DateUtil dateUtil = new DateUtil(); 
 		//	String date	= dateUtil.CnvToDDMMYYYYThaiYear(dateUtil.CnvToYYYYMMDD(dateUtil.curDate(), '-')); //01/11/2557
 		//	String docDate	= dateUtil.CnvToYYYYMMDD(dateUtil.curDate(), '-');
 		//	String day 		= date.substring(0,2); // 01
@@ -144,6 +144,7 @@ public class Receive1Action extends ActionSupport {
 			String day		= splitDate[0]; // 01
 			String month 	= splitDate[1]; // 12
 			String year 	= splitDate[2]; // 2559
+			dateTime	= dateUtil.CnvToYYYYMMDD(dateTime, '-');
 			
 			String gcostCode 	= request.getParameter("gcostCode");
 			String amountfrom 	= receiveform.getAmountfrom();
