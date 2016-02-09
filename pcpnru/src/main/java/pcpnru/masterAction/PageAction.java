@@ -7,28 +7,30 @@ import org.apache.struts2.ServletActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import pcpnru.masterData.AuthenMasterDB;
-import pcpnru.masterModel.AuthenMasterModel; 
+import pcpnru.masterData.PageMasterDB;
+import pcpnru.masterModel.AuthenMasterModel;
+import pcpnru.masterModel.PageMasterModel;
 import pcpnru.utilities.DateUtil;
 
 public class PageAction extends ActionSupport {
 	
-	AuthenMasterModel authenMasterModel; 
-	
-	public AuthenMasterModel getAuthenMasterModel() {
-		return authenMasterModel;
+	PageMasterModel pageMasterModel;  
+	  
+	public PageMasterModel getPageMasterModel() {
+		return pageMasterModel;
 	} 
+	public void setPageMasterModel(PageMasterModel pageMasterModel) {
+		this.pageMasterModel = pageMasterModel;
+	}
 
-	public void setAuthenMasterModel(AuthenMasterModel authenMasterModel) {
-		this.authenMasterModel = authenMasterModel;
-	} 
 
 	public String execute(){
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		
-		 AuthenMasterDB am = new AuthenMasterDB();
+		 PageMasterDB pm = new PageMasterDB();
 		
-		String authen_type = authenMasterModel.getAuthen_type()
-		, authen_type_name = authenMasterModel.getAuthen_type_name();
+		String page_code = pageMasterModel.getPage_code()
+		, page_name = pageMasterModel.getPage_name();
 		
 		String add = request.getParameter("add");
 		String update = request.getParameter("update");
@@ -38,24 +40,24 @@ public class PageAction extends ActionSupport {
 		if(add != null){
 			
 			try {
-				am.AddAuthenMaster(authen_type, authen_type_name);
-				authenMasterModel.reset();
+				pm.AddPageMaster(page_code, page_name);
+				pageMasterModel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else if(update != null){
 			try {
-				am.UpdateAuthenMaster(authen_type, authen_type_name); 
-				authenMasterModel.reset();
+				pm.UpdatePageMaster(page_code, page_name); 
+				pageMasterModel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else if(delete != null){
 			try {
-				am.DeleteAuthenMaster(authen_type);
-				authenMasterModel.reset();
+				pm.DeletePageMaster(page_code);
+				pageMasterModel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
