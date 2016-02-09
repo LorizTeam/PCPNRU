@@ -21,12 +21,7 @@ public class GroupcostcodeAction extends ActionSupport {
 
 	public void setGroupcostcodemastermodel(GroupCostCodeMasterModel groupcostcodemastermodel) {
 		this.groupcostcodemastermodel = groupcostcodemastermodel;
-	}
-
-
-
-
-
+	} 
 	public String execute(){
 		HttpServletRequest request = ServletActionContext.getRequest();
 		GroupcostcodeMasterDB groupcostcodemasterdb = new GroupcostcodeMasterDB();
@@ -44,12 +39,16 @@ public class GroupcostcodeAction extends ActionSupport {
 		String delete = request.getParameter("delete");
 		String forwardText = "success";
 		
+		
+		
 		if(standardprice == null && fundprice == null){
+			groupcostCode = groupcostCode.replace("C", "");
 			standardprice = "0";
 			fundprice = "0";
 			forwardText = "requisition";
 			groupcostCode = "C"+groupcostCode;
 		}else{
+			groupcostCode = groupcostCode.replace("R", "");
 			groupcostCode = "R"+groupcostCode;
 		}
 		
@@ -62,7 +61,7 @@ public class GroupcostcodeAction extends ActionSupport {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}else if(update != null){
+		}else if(update != null && !groupcostCodeHD.equals("")){
 			try {
 				groupcostcodemasterdb.UpdateCostCodeMaster(project_code, groupcostCode, groupcostName, groupcostCodeHD, standardprice, fundprice);
 				groupcostcodemastermodel.reset();

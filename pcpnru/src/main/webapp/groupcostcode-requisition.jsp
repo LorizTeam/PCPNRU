@@ -126,7 +126,7 @@
         		}else{
         		%>
         			<tr>  
-                    <td colspan="6" align="center">ไม่พบข้อมูล</td>   
+                    <td align="center">ไม่พบข้อมูล</td>   
                 	</tr>
         		<%
         		}
@@ -137,8 +137,9 @@
          
    		<script>
         $(function(){
+        	  
         	var select2projectcode = $("#project_code").select2();
-        	
+        	 
         	var table = $('#table_project').dataTable();
             $('#table_project tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {
