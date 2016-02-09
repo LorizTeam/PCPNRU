@@ -2,6 +2,10 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>  
 <%@ page import="pcpnru.projectData.*" %>
 <%@ page import="pcpnru.projectModel.*" %>
+<%
+	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>

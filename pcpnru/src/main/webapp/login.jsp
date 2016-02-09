@@ -29,14 +29,14 @@
             <hr class="thin"/>
             <br />
             <div class="input-control text full-size">
-                <label for="user_login">User email:</label>
+                <label for="user_login">Username:</label>
                 <s:textfield name="empmodel.username" required=""/>
                 <button class="button helper-button clear"><span class="mif-cross"></span></button>
             </div>
             <br />
             <br />
             <div class="input-control password full-size">
-                <label for="user_password">User password:</label>
+                <label for="user_password">Password:</label>
                 <s:password name="empmodel.password" required=""/>
                 <button class="button helper-button reveal"><span class="mif-looks"></span></button>
             </div>

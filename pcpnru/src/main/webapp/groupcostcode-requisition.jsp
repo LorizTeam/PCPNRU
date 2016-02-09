@@ -5,6 +5,10 @@
 <%@ page import="pcpnru.masterData.*" %> 
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.projectData.*" %>
+<%
+	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>

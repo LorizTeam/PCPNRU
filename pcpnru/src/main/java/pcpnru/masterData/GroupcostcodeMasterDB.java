@@ -105,7 +105,7 @@ public class GroupcostcodeMasterDB {
 		
 		String sqlStmt = "DELETE From groupcostcode_master "+
 		"WHERE project_code = '"+project_code+"' and gcostcode = '"+groupcostCode+"'";
-		//System.out.println(sqlStmt);
+		System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();

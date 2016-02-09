@@ -50,7 +50,7 @@ public class CostcodeMasterAction extends ActionSupport {
 		}else if(update != null){
 			try {
 				
-				costcodemasterdb.UpdateCostCodeMaster(costCode, costName, costCodeHD,gcostcode);
+				costcodemasterdb.UpdateCostCodeMaster(costCode, costName, costCodeHD,gcostcode,percentprice);
 				costcodemasterform.reset();
 				
 			} catch (Exception e) {

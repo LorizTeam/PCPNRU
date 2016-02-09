@@ -7,6 +7,10 @@
 	SubjobMasterDB subjM = new SubjobMasterDB();
 	List subjobMasterList = subjM.GetSubjobMasterList("","");
 %>
+<%
+	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>

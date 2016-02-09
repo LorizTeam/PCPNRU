@@ -1,5 +1,9 @@
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%
+	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>

@@ -44,7 +44,8 @@ public class CostCodeMasterDB {
 			
 			//System.out.println(sqlStmt);				
 			pStmt = conn.createStatement();
-			rs = pStmt.executeQuery(sqlStmt);	
+			rs = pStmt.executeQuery(sqlStmt);
+			String percentprice = "";
 			while (rs.next()) {
 				costCode 	= rs.getString("costcode");
 				if (rs.getString("costname") != null) 		costName = rs.getString("costname"); else costName = "";
@@ -54,12 +55,12 @@ public class CostCodeMasterDB {
 				String day 		= dateTime.substring(0, 2);
 				String month 	= dateTime.substring(3, 5);
 				String year 	= Integer.toString((Integer.parseInt(dateTime.substring(6, 10))+543));
-					
+				percentprice = rs.getString("percentprice");
 				String time 	= dateTime.substring(11);
 				dateTime		= day+"-"+month+"-"+year+" "+time; 
 			//	amount 			= df2.format(Float.parseFloat(amount));
 				
-				costCodeMasterList.add(new CostCodeMasterForm(costCode, costName, dateTime,gcostcode,gcostcode_name));
+				costCodeMasterList.add(new CostCodeMasterForm(costCode, costName, dateTime,gcostcode,gcostcode_name,percentprice));
 			}
 			rs.close();
 			pStmt.close();
@@ -86,12 +87,12 @@ public class CostCodeMasterDB {
 		}
 		
 	}
-	public void UpdateCostCodeMaster(String costCode, String costName, String costCodeHD,String gcostcode)  throws Exception{
+	public void UpdateCostCodeMaster(String costCode, String costName, String costCodeHD,String gcostcode,String percentprice)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "UPDATE costcode_master set costcode = '"+costCode+"', costname = '"+costName+"', datetime = now() ,gcostcode = '"+gcostcode+"'" +
+		String sqlStmt = "UPDATE costcode_master set costcode = '"+costCode+"', costname = '"+costName+"', datetime = now(),percentprice = '"+percentprice+"' ,gcostcode = '"+gcostcode+"'" +
 				"WHERE costcode = '"+costCodeHD+"'";
-		//System.out.println(sqlStmt);
+		System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();
