@@ -5,6 +5,10 @@
 <%@ page import="pcpnru.projectData.*" %>
 <%@ page import="pcpnru.masterData.*" %>
 <%@ page import="pcpnru.masterModel.*" %>
+<%
+	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -121,7 +125,7 @@
         			<td class="tdgcostcode" align="left"><%=ccInfo.getGcostcode()%> - <%=ccInfo.getGcostcode_name()%></td> 
                     <td class="tdcostCode" align="center"><%=ccInfo.getCostCode()%></td>
                     <td class="tdcostName" align="left"><%=ccInfo.getCostName()%></td>  
-                    <td class="tdpercentprice" align="center"><%=ccInfo.getCostCode()%></td> 
+                    <td class="tdpercentprice" align="center"><%=ccInfo.getPercentprice()%></td> 
                     <td align="center"><%=ccInfo.getDateTime()%></td>
                 	</tr>
         		<%		

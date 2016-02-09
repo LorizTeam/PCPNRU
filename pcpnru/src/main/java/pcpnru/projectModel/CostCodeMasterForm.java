@@ -18,13 +18,14 @@ public class CostCodeMasterForm {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CostCodeMasterForm(String costCode, String costName, String dateTime,String gcostcode,String gcostcode_name) {
+	public CostCodeMasterForm(String costCode, String costName, String dateTime,String gcostcode,String gcostcode_name,String percentprice) {
 		super();
 		this.costCode = costCode;
 		this.costName = costName;
 		this.dateTime = dateTime;
 		this.gcostcode = gcostcode;
 		this.gcostcode_name = gcostcode_name;
+		this.percentprice = percentprice;
 	}
 
 

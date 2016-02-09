@@ -151,6 +151,8 @@ public class ProjectMasterDB {
 				sqlQuery += sqlWhere;
 		sqlQuery +=  "project_master.project_code <> '' order by projectplan_header.datetime_response desc ";
 		
+		System.out.println(sqlQuery);
+		
 		conn = agent.getConnectMYSql();
 		pStmt = conn.createStatement();
 		rs = pStmt.executeQuery(sqlQuery);

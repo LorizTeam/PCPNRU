@@ -44,16 +44,18 @@ public class GroupcostcodeAction extends ActionSupport {
 		String delete = request.getParameter("delete");
 		String forwardText = "success";
 		
-		if(standardprice == null && fundprice == null){
-			standardprice = "0";
-			fundprice = "0";
-			forwardText = "requisition";
-			groupcostCode = "C"+groupcostCode;
-		}else{
-			groupcostCode = "R"+groupcostCode;
-		}
+		
 		
 		if(add != null){
+			if(standardprice == null && fundprice == null){
+				standardprice = "0";
+				fundprice = "0";
+				forwardText = "requisition";
+				
+				groupcostCode = "C"+groupcostCode;
+			}else{
+				groupcostCode = "R"+groupcostCode;
+			}
 			
 			try {
 				groupcostcodemasterdb.AddCostCodeMaster(project_code, groupcostCode, groupcostName,standardprice,fundprice,type_gcostcode);

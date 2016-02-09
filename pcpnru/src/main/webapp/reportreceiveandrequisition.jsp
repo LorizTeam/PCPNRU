@@ -1,6 +1,10 @@
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%> 
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.projectData.*" %>
+<%
+	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>

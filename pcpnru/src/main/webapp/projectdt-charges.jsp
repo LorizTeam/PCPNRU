@@ -3,6 +3,10 @@
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.masterModel.GroupCostCodeMasterModel" %> 
 <%@ page import="pcpnru.projectData.*" %>
+<%
+	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>

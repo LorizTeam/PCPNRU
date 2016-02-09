@@ -4,6 +4,10 @@
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.utilities.*" %>
 <%
+	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
+
+%>
+<%
 	ChildSubjobMasterDB childsubjM = new ChildSubjobMasterDB();
 	List childSubjobMasterList = childsubjM.GetChildSubjobMasterList("","","");
 	
