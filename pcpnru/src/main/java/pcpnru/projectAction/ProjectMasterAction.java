@@ -39,7 +39,8 @@ public class ProjectMasterAction extends ActionSupport {
 		String dateTime = dateUtil.curDateTime();
 		
 		if(add!=null){ 
-			if(!projectCode.equals("")&&!projectName.equals("")){
+			if(!projectName.equals("")){
+				projectCode = projectMasterDB.SelectUpdateDocNo();
 				projectMasterDB.AddProjectMaster(projectCode, projectName);
 				projectMaster.reset(); 
 			}else{
@@ -48,8 +49,8 @@ public class ProjectMasterAction extends ActionSupport {
 		}
 		if(update!=null){
 	   		String projectCodeHD 	= projectMaster.getProjectCodeHD();
-	   		if(!projectCode.equals("")&&!projectName.equals("")&&!projectCodeHD.equals("")){
-	   			projectMasterDB.UpdateProjectMaster(projectCode, projectName, projectCodeHD);
+	   		if(!projectName.equals("")&&!projectCodeHD.equals("")){
+	   			projectMasterDB.UpdateProjectMaster(projectCodeHD, projectName, projectCodeHD);
 	   			projectMaster.reset(); 
 	   		}else{
 	   			alertMassage = "กรุณา กรอก ข้อมูลให้ครบถ้วน";

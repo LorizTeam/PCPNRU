@@ -45,7 +45,7 @@
 		        <div class="cell colspan3"> 
 		        	รหัสโครงการ
 			        <div class="input-control text full-size"> 
-					    <s:textfield id="projectcode" name="projectMaster.projectCode" required="" />
+					    <s:textfield id="projectcode" name="projectMaster.projectCode" readonly="true" />
 					    <s:hidden id="projectcodehd" name="projectMaster.projectCodeHD" />
 					</div>  
 				</div>

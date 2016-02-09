@@ -5,14 +5,10 @@
 <%@ page import="pcpnru.masterData.*" %>
 <%@ page import="pcpnru.projectData.*" %>
 <%@ page import="pcpnru.projectModel.*" %>
-<%
-	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
-
-%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>สร้าง กลุ่มรายการค่าใช้จ่าย รายได้</title>
+		<title>สร้าง กลุ่มรายการค่าใช้จ่าย</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -26,82 +22,93 @@
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
         <script src="js/jquery.dataTables.min.js"></script>
+  		<script src="js/angular.min.js"></script>
   		<script src="js/select2.js"></script>
 	</head>
 
-	<body ng-app="controllerCalculator" ng-controller="SettingsController">
-		 <div><%@include file="topmenu.jsp" %></div>
-		 <h3 class="align-center">สร้าง รายการค่าใช้ รายได้</h3>
-		 <div class="example" data-text="รายละเอียด">
-		 <form action="groupcostcodeMaster.action" method="post">
-		 <div class="grid">
-	         	<div class="row cells12">
-	         		<div class="cell colspan6">
+	<body>
+		 <div><%@include file="window-topmenu.jsp" %></div>
+		 <h3 class="align-center">สร้าง รายการค่าใช้จ่าย-รายได้</h3>
+		 <form id="windowreceive" action="windowGroupcostcodeMaster.action" method="post">
+		 
+		 <div class="example" data-text="รายละเอียด"> 
+	         <div class="grid"> 
+	         	<div class="row cells12 ">
+	         		<div class="cell colspan10"> 
 	         		 โครงการ
 				        <div class="input-control text full-size">
-						    <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
-							   <option value="" >กรุณาเลือกโครงการ</option>
+						    <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ"> 
 							   <%
+							    String projectcode = (String) request.getParameter("projectcode");
+							    if(projectcode==null) projectcode = (String) request.getAttribute("projectcode");
+							   	String year = (String) request.getParameter("year");
+							   	if(year==null) year = (String) request.getAttribute("year");
+							   
 							   	List projectMasterList1 = null;
 							   	ProjectMasterDB projM = new ProjectMasterDB();
-							   	projectMasterList1 = projM.getListProject_Join_Projecthead("", "","","");
+							   	projectMasterList1 = projM.getListProject_Join_Projecthead(projectcode, "","","");
 							   	List projectMasterList = projectMasterList1;
 				        		if (projectMasterList != null) {
 					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
 					        			ProjectModel pjModel = (ProjectModel) iterPj.next();
 			      				%>  
-				      			<option value="<%=pjModel.getProject_code()%>" ><%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%></option>
+				      			<option value="<%=pjModel.getProject_code()%>" >
+				       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> ปี <%=pjModel.getYear() %>
+				       			</option>
 								<%		} 
 									}
 								%>
 					   		</select>
 						</div>
+	         		</div>
+	         	</div>
+			  	<div class="row cells12">
+			  		<div class="cell colspan2"> 
+			        	รหัส กลุ่มรายการค่าใช้จ่าย
+				        <div class="input-control text full-size">
+						    <s:textfield name="groupcostcodemastermodel.costCode" id="costCode" required=""/>
+						    <s:hidden name="groupcostcodemastermodel.costCodeHD" id="costCodeHD"/> 
+						    <input type="hidden" name="year" value="<%=year%>">  
+						</div>
 					</div>
-					<div class="cell colspan6"> 
+			        <div class="cell colspan4"> 
 			        	 รายการค่าใช้จ่าย
 				        <div class="input-control text full-size">
 						    <s:textfield name="groupcostcodemastermodel.costName" id="costName" required=""/>
-						    <s:hidden name="groupcostcodemastermodel.costCodeHD" id="costCodeHD"/>
 						</div>
 					</div>
-	         	</div>
-			  	<div class="row cells12"> 
-					<div class="cell colspan3"> 
+					<div class="cell colspan2"> 
 			        	 ราคากลาง
 				        <div class="input-control text full-size">
-						    <s:textfield name="groupcostcodemastermodel.standardprice" type="number" step="0.01" id="standardprice" required=""/>
+						    <s:textfield name="groupcostcodemastermodel.standardprice" id="standardprice" required=""/>
 						</div>
 					</div>
-					<div class="cell colspan3"> 
+					<div class="cell colspan2"> 
 			        	ราคาทุน
 				        <div class="input-control text full-size">
-						<!--      <s:textfield name="groupcostcodemastermodel.fundprice" type="number" step="0.01" id="fundprice" required=""/>  -->
-						
-						<s:textfield type="number" id="fundprice" name="groupcostcodemastermodel.fundprice" readonly="readonly" />
-							    <div class="button-group">
-							    <button class="button mini-button" type="button" onclick="deleteCC();"><span class="mif-bin"></span></button>
-							    <button class="button mini-button" type="button" onclick="javascript:getGcostcode('0001','2559');"> <span class="mif-search"></span></button>
-								</div>
-						
+						    <s:textfield name="groupcostcodemastermodel.fundprice" id="fundprice" required=""/>
 						</div>
 					</div> 
-					<div class="cell colspan6 align-left"><br>
+					 
+			    </div>
+			    <div>
+			    <div class="cell align-center"><br>
 						  <button class="button success" name="add">สร้างชื่อรายการค่าใช้จ่าย</button> 
 						  <button class="button primary" name="update">แก้ไขชื่อรายการค่าใช้จ่าย</button> 
-						  <button class="button danger" name="delete">ลบชื่อรายการค่าใช้จ่าย</button> 
-					</div> 
-			    </div>  
+						  <button class="button danger" name="delete" >ลบชื่อรายการค่าใช้จ่าย</button>  
+				</div>
+			    </div>
+			 </div>
 			 
 			 <s:hidden name="groupcostcodemastermodel.type_gcostcode" id="type_gcostcode" value="1"/>
-			</div>
-		 </form>  
+		   
 		</div>  
 		 
         <div class="example" data-text="รายการ">
             <table id="table_project" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  
-                	<th>ลำดับ</th>
+                	<th> </th>
                 	<th>โครงการ</th>
                     <th>รหัส-รายการค่าใช้จ่าย</th>
                     <th>ชื่อ-รายการค่าใช้จ่าย</th>
@@ -115,7 +122,7 @@
                 <%
                 List groupcostCodeMasterList = null;
                 GroupcostcodeMasterDB ccM = new GroupcostcodeMasterDB();
-        		groupcostCodeMasterList = ccM.GetGroupCostCodeMasterList("","", "","1");
+        		groupcostCodeMasterList = ccM.WindowGroupCostCodeMasterReceive(projectcode, year,"", "","1");
         		int x = 1;
         		if(groupcostCodeMasterList != null){
         			
@@ -125,14 +132,14 @@
         				
         				
         		%>
-        			<tr>
-        			<td align="center"><%=x%></td>
+        			<tr >
+        			<td align="center"><a onclick="Opener('<%=gccInfo.getCostCode()%>','<%=gccInfo.getCostName()%>')"><span class="mif-checkmark" ></span></a></td>
         			<td class="tdprojectCode" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>  
                     <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
                     <td class="tdcostName" align="left"><%=gccInfo.getCostName()%></td>
-                    <td class="tdstandardprice" align="right"><%=gccInfo.getStandardprice()%></td>
-                    <td class="tdfundprice" align="right"><%=gccInfo.getFundprice()%></td>   
-                    <td align="left"><%=gccInfo.getDateTime()%></td>
+                    <td class="tdstandardprice" align="center"><%=gccInfo.getStandardprice() %></td>
+                    <td class="tdfundprice" align="center"><%=gccInfo.getFundprice() %></td>   
+                    <td align="center"><%=gccInfo.getDateTime()%></td>  
                 	</tr>
         		<%		
         		x++;
@@ -149,13 +156,19 @@
                 </tbody>
             </table>
         </div> <!-- End of example table -->  
+       </form>
+       
+        <script type="text/javascript">
+        function Opener(tcostcode, tcostname) {
+             
+            window.opener.document.getElementById ("gcostcode").value = tcostcode;
+            window.opener.document.getElementById ("gcostname").value = tcostname;
+      
+            window.close();
+        }
+    	</script> 
          
    		<script>
-   		function getGcostcode(projectcode, year) {
-			var load = window.open('/pcpnru/window-gcostcode-receive.jsp?projectcode='+projectcode+'&year='+year+' ','receive',
-			             'scrollbars=yes,menubar=no,height=600,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
-		}
-   		
         $(function(){
         	var select2projectcode = $("#project_code").select2();
         	
@@ -164,7 +177,7 @@
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');
     	            select2projectcode.val("").trigger("change");
-    	        //    $("#costCode").val("");
+    	            $("#costCode").val("");
     	            $("#costCodeHD").val("");
     	            $("#costName").val("");
     	            $("#standardprice").val("");
@@ -178,20 +191,29 @@
     	           	var forsplit = $(".tdprojectCode").eq($index).text().split(" - ");
     	           	select2projectcode.val(forsplit[0]).trigger("change");
     	           	
-    	         //   $("#costCode").val($(".tdcostCode").eq($index).text());
+    	            $("#costCode").val($(".tdcostCode").eq($index).text());
     	            $("#costCodeHD").val($(".tdcostCode").eq($index).text());
     	            $("#costName").val($(".tdcostName").eq($index).text());
-    	            
-    	            var st = $(".tdstandardprice").eq($index).text();
-    	            st = st.replace(",", "");
-    	            
-    	            $("#standardprice").val(st);
-    	            
-    	            var fp = $(".tdfundprice").eq($index).text();
-    	            fp = fp.replace(",", "");
-    	            $("#fundprice").val(fp);
+    	            $("#standardprice").val($(".tdstandardprice").eq($index).text());
+    	            $("#fundprice").val($(".tdfundprice").eq($index).text());
     	        }
     	    });
+            
+            $('.deletebt').click(function () {  
+	        	 
+        		var index = $(".deletebt").index(this); 
+        		
+        		var textp = $(".tdprojectCode").eq(index).text(); 
+   				var textp1 = textp.split(" - "); 
+   				textp = textp1[0];  
+   				var textc = $(".tdcostCode").eq(index).text(); 
+   				
+        		$("#project_code").val(textp);
+        		$("#costCode").val(textc); 
+        		
+		    	$("#windowreceive").submit(); 
+    	}); 
+            
         });
     	</script>
 	</body>

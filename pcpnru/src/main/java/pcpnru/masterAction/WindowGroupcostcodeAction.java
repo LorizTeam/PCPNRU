@@ -32,6 +32,7 @@ public class WindowGroupcostcodeAction extends ActionSupport {
 		, groupcostCodeHD = groupcostcodemastermodel.getCostCodeHD()
 		, standardprice = groupcostcodemastermodel.getStandardprice()
 		, fundprice = groupcostcodemastermodel.getFundprice()
+		, amount = groupcostcodemastermodel.getAmount()
 		, type_gcostcode = groupcostcodemastermodel.getType_gcostcode();
 		
 		
@@ -60,7 +61,7 @@ public class WindowGroupcostcodeAction extends ActionSupport {
 			try {
 				groupcostCode = groupcostCode.replace("RR", "R");
 				groupcostCode = groupcostCode.replace("CC", "C");
-				groupcostcodemasterdb.AddCostCodeMaster(project_code, groupcostCode, groupcostName,standardprice,fundprice,type_gcostcode);
+				groupcostcodemasterdb.AddCostCodeMaster(project_code, groupcostCode, groupcostName,standardprice,fundprice, amount, type_gcostcode);
 				groupcostcodemastermodel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -70,7 +71,7 @@ public class WindowGroupcostcodeAction extends ActionSupport {
 			try {
 				groupcostCode = groupcostCode.replace("RR", "R");
 				groupcostCode = groupcostCode.replace("CC", "C");
-				groupcostcodemasterdb.UpdateCostCodeMaster(project_code, groupcostCode, groupcostName, groupcostCodeHD, standardprice, fundprice);
+				groupcostcodemasterdb.UpdateCostCodeMaster(project_code, groupcostCode, groupcostName, groupcostCodeHD, standardprice, fundprice, amount);
 				groupcostcodemastermodel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

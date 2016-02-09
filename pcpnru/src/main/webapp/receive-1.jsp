@@ -64,9 +64,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<%
   		DateUtil dateutil = new DateUtil();
 	  	List projectMasterList1 = null;
-		if (request.getAttribute("projectMasterList") == null) {
-			ProjectMasterDB projM = new ProjectMasterDB();
-			projectMasterList1 = projM.getListProject_Join_Projecthead("", "","","");
+		if (request.getAttribute("projectMasterList") == null) { 
+			extendsprojectmaster ext = new extendsprojectmaster();
+			projectMasterList1 = ext.getListProject_Join_Projecthead("", "","","");
 		}else{
 			projectMasterList1 = (List) request.getAttribute("projectMasterList");
 		}

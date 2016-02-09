@@ -24,6 +24,7 @@
                         		<li><a href="costcodemaster.jsp">กำหนดเปอร์เซ็นรายรับ</a></li> 
                         	</ul>
                         </li>
+                        <li class="divider"></li>
                         <li><a href="groupcostcode-requisition.jsp">สร้างกลุ่มรายจ่าย</a> 
                         </li> 
                     </ul>
@@ -36,6 +37,7 @@
                 <li><a href="" class="dropdown-toggle">รายได้</a>
                     <ul class="d-menu" data-role="dropdown">
                         <li><a href="receive-1.jsp">บันทึกรายได้</a></li>
+                        <li class="divider"></li>
                         <li><a href="select_receive-1.jsp">รายละเอียดรายได้</a></li> 
                     </ul>
                 </li>
@@ -43,6 +45,7 @@
                 <li><a href="" class="dropdown-toggle">รายจ่าย</a>
                     <ul class="d-menu" data-role="dropdown">
                         <li><a href="requisition.jsp">เบิกงบประมาณ</a></li>
+                        <li class="divider"></li>
                         <li><a href="select_requisition-1.jsp">รายละเอียดการเบิกงบประมาณ</a></li> 
                     </ul>
                 </li> 

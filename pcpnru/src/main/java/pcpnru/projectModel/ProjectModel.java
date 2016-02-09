@@ -166,8 +166,5 @@ public class ProjectModel {
 
 	public void setGcostname(String gcostname) {
 		this.gcostname = gcostname;
-	}
-
-	
-	
+	} 
 }

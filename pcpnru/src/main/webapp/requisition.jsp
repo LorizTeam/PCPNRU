@@ -80,8 +80,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							   <%
 							   
 							   	List projectMasterList1 = null;
-							   	ProjectMasterDB projM = new ProjectMasterDB();
-							   	projectMasterList1 = projM.getListProject_Join_Projecthead("", "","","");
+							   extendsprojectmaster ext = new extendsprojectmaster();
+							   	projectMasterList1 = ext.getListProject_Join_Projecthead("", "","","");
 							   	List projectMasterList = projectMasterList1;
 				        		if (projectMasterList != null) {
 					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
