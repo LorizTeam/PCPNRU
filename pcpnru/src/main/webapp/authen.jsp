@@ -29,7 +29,7 @@
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <h3 class="align-center">กำหนด สิทธิ์การใช้งาน</h3>
+		 <h3 class="align-center">จัดการ สิทธิ์การใช้งาน</h3>
 		 <div class="example" data-text="รายละเอียด">
 		 <form action="authenMaster.action" method="post">
 	         <div class="grid">
@@ -37,7 +37,7 @@
 					<div class="cell colspan2"> 
 			        	รหัส สิทธิ์การใช้งาน
 				        <div class="input-control text full-size">
-						    <s:textfield name="authenMasterModel.authen_type" id="authentype" required=""/> 
+						    <s:textfield name="authenMasterModel.authen_type" id="authentype" readonly="true"/> 
 						</div>
 					</div> 
 			        <div class="cell colspan4"> 

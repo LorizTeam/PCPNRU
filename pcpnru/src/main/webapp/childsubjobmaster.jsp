@@ -63,7 +63,7 @@
 		  		<div class="cell  colspan2"> 
 		        	รหัสกิจกรรมย่อย
 			        <div class="input-control text full-size"> 
-					    <s:textfield id="childsubjobcode" name="childSubjobMaster.childsubjobcode" required="" />
+					    <s:textfield id="childsubjobcode" name="childSubjobMaster.childsubjobcode" readonly="true"  />
 					    <s:hidden id="childsubjobcodehd" name="childSubjobMaster.childsubjobcodehd" />
 					</div> 
 				</div>
@@ -122,6 +122,7 @@
      
    		<script>
         $(document).ready(function() {
+        	 	
     	var table = $('#table_childsubjob').DataTable(); 
 		$('#table_childsubjob tbody').on( 'click', 'tr', function () { 
 	        if ( $(this).hasClass('selected') ) {

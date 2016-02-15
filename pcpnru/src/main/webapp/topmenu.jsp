@@ -78,6 +78,9 @@
                
                 <li><a href="personnel.jsp">จัดการข้อมูลบุคลากร</a>
                 </li> 
+                <li class="divider"></li>
+                <li><a href="authen_page.jsp">กำหนดสิทธิ์การใช้งาน</a> 
+                </li>
               	<li class="divider"></li>
                 <li><a href="authen.jsp">จัดการสิทธิ์การใช้งาน</a> 
                 </li>

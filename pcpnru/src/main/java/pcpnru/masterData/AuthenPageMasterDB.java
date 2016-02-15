@@ -7,11 +7,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import pcpnru.masterModel.AuthenMasterModel;
+import pcpnru.masterModel.AuthenPageMasterModel;
 import pcpnru.utilities.*;
  
 
-public class AuthenMasterDB {
+public class AuthenPageMasterDB {
 	
 	DBConnect agent 	= new DBConnect();
 	Connection conn		= null;
@@ -19,47 +19,56 @@ public class AuthenMasterDB {
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
-	public List getListAuthen(String authen_type) throws IOException, Exception{
-		String authen_type_name = "";
+	public List getListAuthenPage(String authen_type, String page_code) throws IOException, Exception{
+		String authen_name = "", page_name = "";
 		String sqlWhere = "";
 		if(!authen_type.equals("")){
-			sqlWhere += "authen_master.authen_type = '"+authen_type+"' AND ";
+			sqlWhere += "a.authen_type = '"+authen_type+"' AND ";
+		}else if(!page_code.equals("")){
+			sqlWhere += "a.page_code = '"+page_code+"' AND ";
 		}
 		
 		String sqlQuery = "SELECT "
-				+ "authen_master.authen_type, "
-				+ "authen_master.authen_type_name "
+				+ "a.authen_type, "
+				+ "b.authen_type_name, "
+				+ "a.page_code, "
+				+ "c.page_name "
 				+ "FROM "
-				+ "authen_master where ";
+				+ "authen_page a "
+				+ "INNER JOIN authen_master b on(b.authen_type = a.authen_type) "
+				+ "INNER JOIN page_master c on(c.page_code = a.page_code) "
+				+ "where ";
 				sqlQuery += sqlWhere;
-		sqlQuery +=  "authen_master.authen_type <> '' order by authen_master.authen_type ";
+		sqlQuery +=  "a.authen_type <> '' order by a.authen_type ";
 		
 		conn = agent.getConnectMYSql();
 		pStmt = conn.createStatement();
 		rs = pStmt.executeQuery(sqlQuery);
 		
-		List getListAuthen = new ArrayList(); 
+		List getListAuthenPage = new ArrayList(); 
 		while(rs.next()){
-			authen_type		 = rs.getString("authen_type");
-			authen_type_name = rs.getString("authen_type_name");
+			authen_type		= rs.getString("authen_type");
+			authen_name 	= rs.getString("authen_type_name");
+			page_code		= rs.getString("page_code");
+			page_name 		= rs.getString("page_name");
 			 
-			getListAuthen.add(new AuthenMasterModel(authen_type, authen_type_name));
+			getListAuthenPage.add(new AuthenPageMasterModel(authen_type, authen_name, page_code, page_name));
 		}
 		
 		rs.close();
 		pStmt.close();
 		conn.close();
 		
-		return getListAuthen;
+		return getListAuthenPage;
 	}
 	
-	public void AddAuthenMaster(String authen_type, String authen_type_name)  throws Exception{
+	public void AddAuthenPageMaster(String authen_type, String page_code)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
 		
 		String dateTime = "";
-		String sqlStmt = "INSERT INTO authen_master (authen_type, authen_type_name, datetime) " +
-				"VALUES ('"+authen_type+"', '"+authen_type_name+"', now())";
+		String sqlStmt = "INSERT INTO authen_page (authen_type, page_code, datetime) " +
+				"VALUES ('"+authen_type+"', '"+page_code+"', now())";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -67,10 +76,10 @@ public class AuthenMasterDB {
 		conn.close();
 	}
 	
-	public void UpdateAuthenMaster(String authen_type, String authen_type_name)  throws Exception{
+	public void UpdateAuthenPageMaster(String authen_type, String page_code)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "UPDATE authen_master set authen_type_name = '"+authen_type_name+"', datetime = now()" +
+		String sqlStmt = "UPDATE authen_page set page_code = '"+page_code+"', datetime = now()" +
 				"WHERE authen_type = '"+authen_type+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
@@ -79,11 +88,11 @@ public class AuthenMasterDB {
 		conn.close();
 	}
 	
-	public void DeleteAuthenMaster(String authen_type)  throws Exception{
+	public void DeleteAuthenPageMaster(String authen_type, String page_code)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "DELETE From authen_master "+
-		"WHERE authen_type = '"+authen_type+"'";
+		String sqlStmt = "DELETE From authen_page "+
+		"WHERE authen_type = '"+authen_type+"' and page_code = '"+page_code+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);

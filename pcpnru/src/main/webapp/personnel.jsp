@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>บุคคลกร</title>
+		<title>จัดการ บุคคลกร</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -33,7 +33,7 @@
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <h3 class="align-center">เพิ่ม บุคคลกร</h3>
+		 <h3 class="align-center">จัดการ  บุคคลกร</h3>
 		 <div class="example" data-text="รายละเอียด">
 		 <form action="personnelMaster.action" method="post">
 	         <div class="grid">
@@ -96,7 +96,7 @@
 			        	 ประเภทสิทธิ์ เข้าใช้งานระบบ
 				        <div class="input-control text full-size">
 						    <select id="authen_type" name="authen_type" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
-							   <option value="" >กรุณาเลือกโครงการ</option>
+							   <option value="" >กรุณาเลือกประเภทสิทธิ์เข้าใช้งานระบบ</option>
 							   <%
 							   	List Authen = null;
 							   	AuthenMasterDB authenMasterDB = new AuthenMasterDB();

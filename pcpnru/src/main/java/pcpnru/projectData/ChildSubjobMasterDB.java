@@ -101,4 +101,44 @@ public class ChildSubjobMasterDB {
 		pStmt.close();
 		conn.close();
 	}
+	public String SelectUpdateDocNo(String subjobcode) throws Exception {
+		String requestno = "", typeR = "";
+		try {
+			conn = agent.getConnectMYSql();
+			
+			String sqlStmt = "SELECT max(childsubjobcode) as lno FROM childsubjob_master "+
+					"WHERE subjob_code = '"+subjobcode+"' ";
+			//System.out.println(sqlStmt);
+			pStmt = conn.createStatement();
+			rs = pStmt.executeQuery(sqlStmt);		
+			while (rs.next()) {
+				requestno	= rs.getString("lno");
+				if(null==requestno||"".equals(requestno)){
+					//System.out.println("requestno = null");
+					requestno = "0";
+				}
+		//		typeR = requestno.substring(0, 1);
+		//		requestno = requestno.substring(2);
+				requestno 	= String.valueOf(Integer.parseInt(requestno) + 1); 
+				//System.out.println("requestno = "+requestno);
+			}
+			
+			if (requestno.length() == 1) {
+				requestno = "000" + requestno; 
+			} else if (requestno.length() == 2) {
+				requestno = "00" + requestno;   
+			} else if (requestno.length() == 3) {
+				requestno = "0" + requestno;   
+			}
+			
+			requestno = typeR+requestno;
+			 
+			rs.close();
+			pStmt.close(); 
+			conn.close();
+			} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}  
+		return requestno;
+		}
 }

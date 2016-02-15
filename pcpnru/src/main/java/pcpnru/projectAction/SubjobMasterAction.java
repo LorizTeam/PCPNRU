@@ -39,8 +39,9 @@ public class SubjobMasterAction extends ActionSupport {
 		String dateTime = dateUtil.curDateTime();
 		
 		if(add!=null){
-			if(!subjobCode.equals("")&&!subjobName.equals("")){ 
-				subjobMasterDB.AddSubjobMaster(subjobCode, subjobName);
+			if(!subjobName.equals("")){ 
+				String gen_subjobCode = subjobMasterDB.SelectUpdateDocNo(subjobCode);
+				subjobMasterDB.AddSubjobMaster(gen_subjobCode, subjobName);
 				subjobMaster.reset();
 			}else{
 				alertMassage = "กรุณา กรอก ข้อมูลให้ครบถ้วน";
@@ -48,8 +49,8 @@ public class SubjobMasterAction extends ActionSupport {
 		}
 		if(update!=null){
 	   		String subjobCodeHD 	= subjobMaster.getSubjobCodeHD();
-			if(!subjobCode.equals("")&&!subjobName.equals("")&&!subjobCodeHD.equals("")){
-				subjobMasterDB.UpdateSubjobMaster(subjobCode, subjobName, subjobCodeHD);
+			if(!subjobName.equals("")&&!subjobCodeHD.equals("")){
+				subjobMasterDB.UpdateSubjobMaster(subjobCodeHD, subjobName, subjobCodeHD);
 				subjobMaster.reset();
 			}else{
 				alertMassage = "กรุณา กรอก ข้อมูลให้ครบถ้วน";

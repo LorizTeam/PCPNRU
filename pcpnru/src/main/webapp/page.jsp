@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>กำหนด การใช้งานในแต่ละส่วน</title>
+		<title>จัดการ การใช้งานในแต่ละส่วน</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -25,7 +25,7 @@
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <h3 class="align-center">กำหนด การใช้งานในแต่ละส่วน</h3>
+		 <h3 class="align-center">จัดการ การใช้งานในแต่ละส่วน</h3>
 		 <div class="example" data-text="รายละเอียด">
 		 <form action="pageMaster.action" method="post">
 	         <div class="grid">
@@ -33,7 +33,7 @@
 					<div class="cell colspan2"> 
 			        	รหัส  การใช้งานในแต่ละส่วน
 				        <div class="input-control text full-size">
-						    <s:textfield name="pageMasterModel.page_code" id="pagecode" required=""/> 
+						    <s:textfield name="pageMasterModel.page_code" id="pagecode" readonly="true"/> 
 						</div>
 					</div> 
 			        <div class="cell colspan4"> 
@@ -103,7 +103,6 @@
             $('#table_page tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');
-    	            
     	            $("#pagecode").val("");
     	            $("#pagename").val(""); 
     	        }
@@ -112,7 +111,7 @@
     	            $(this).addClass('selected');
     	            var $index = $(this).index();
     	              
-    	            $("#pagecode").val($(".tdpagecode").eq($index).text());
+    	            $("#pagecode").val($(".tdpagecode").eq($index).text()); 
     	            $("#pagename").val($(".tdpagename").eq($index).text()); 
     	        }
     	    });

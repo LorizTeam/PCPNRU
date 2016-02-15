@@ -6,31 +6,29 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import pcpnru.masterData.AuthenMasterDB;
-import pcpnru.masterData.PageMasterDB;
-import pcpnru.masterModel.AuthenMasterModel;
-import pcpnru.masterModel.PageMasterModel;
+import pcpnru.masterData.AuthenPageMasterDB;
+import pcpnru.masterModel.AuthenPageMasterModel;
 import pcpnru.utilities.DateUtil;
 
-public class PageAction extends ActionSupport {
+public class AuthenPageAction extends ActionSupport {
 	
-	PageMasterModel pageMasterModel;  
-	  
-	public PageMasterModel getPageMasterModel() {
-		return pageMasterModel;
+	AuthenPageMasterModel authenPageMasterModel;  
+	
+	public AuthenPageMasterModel getAuthenPageMasterModel() {
+		return authenPageMasterModel;
 	} 
-	public void setPageMasterModel(PageMasterModel pageMasterModel) {
-		this.pageMasterModel = pageMasterModel;
-	}
 
+	public void setAuthenPageMasterModel(AuthenPageMasterModel authenPageMasterModel) {
+		this.authenPageMasterModel = authenPageMasterModel;
+	} 
 
 	public String execute(){
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		
-		 PageMasterDB pm = new PageMasterDB();
+		 AuthenPageMasterDB apm = new AuthenPageMasterDB();
 		
-		String page_code = pageMasterModel.getPage_code()
-		, page_name = pageMasterModel.getPage_name();
+		String authen_type = request.getParameter("authen_type");
+		String page_code = request.getParameter("page_code");
 		
 		String add = request.getParameter("add");
 		String update = request.getParameter("update");
@@ -39,26 +37,25 @@ public class PageAction extends ActionSupport {
 		
 		if(add != null){
 			
-			try {
-				String gen_page_code = pm.SelectUpdateDocNo();
-				pm.AddPageMaster(gen_page_code, page_name);
-				pageMasterModel.reset();
+			try { 
+				apm.AddAuthenPageMaster(authen_type, page_code);
+			 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else if(update != null){
 			try {
-				pm.UpdatePageMaster(page_code, page_name); 
-				pageMasterModel.reset();
+				apm.UpdateAuthenPageMaster(authen_type, page_code);
+				 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else if(delete != null){
 			try {
-				pm.DeletePageMaster(page_code);
-				pageMasterModel.reset();
+				apm.DeleteAuthenPageMaster(authen_type, page_code);
+				 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

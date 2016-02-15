@@ -38,7 +38,8 @@ public class AuthenAction extends ActionSupport {
 		if(add != null){
 			
 			try {
-				am.AddAuthenMaster(authen_type, authen_type_name);
+				String gen_authen_type = am.SelectUpdateDocNo();
+				am.AddAuthenMaster(gen_authen_type, authen_type_name);
 				authenMasterModel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

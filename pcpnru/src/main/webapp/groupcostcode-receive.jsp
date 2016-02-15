@@ -75,16 +75,16 @@
 					<div class="cell colspan3"> 
 			        	ราคาทุน
 				        <div class="input-control text full-size">
-						<!--      <s:textfield name="groupcostcodemastermodel.fundprice" type="number" step="0.01" id="fundprice" required=""/>  -->
+						       <s:textfield name="groupcostcodemastermodel.fundprice" type="number" step="0.01" id="fundprice" required=""/>   
 						
-						<s:textfield type="number" id="fundprice" name="groupcostcodemastermodel.fundprice" readonly="readonly" />
+					<!-- 	<s:textfield type="number" id="fundprice" name="groupcostcodemastermodel.fundprice" readonly="readonly" />
 							    <div class="button-group">
 							    <button class="button mini-button" type="button" onclick="deleteCC();"><span class="mif-bin"></span></button>
 							    <button class="button mini-button" type="button" onclick="javascript:getGcostcode('0001','2559');"> <span class="mif-search"></span></button>
-								</div>
-						
+				 -->	
 						</div>
-					</div> 
+						
+						</div> 
 					<div class="cell colspan6 align-left"><br>
 						  <button class="button success" name="add">สร้างชื่อรายการค่าใช้จ่าย</button> 
 						  <button class="button primary" name="update">แก้ไขชื่อรายการค่าใช้จ่าย</button> 
@@ -98,7 +98,7 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ">
-            <table id="table_project" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_project_rec" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  
                 	<th>ลำดับ</th>
@@ -159,8 +159,8 @@
         $(function(){
         	var select2projectcode = $("#project_code").select2();
         	
-        	var table = $('#table_project').dataTable();
-            $('#table_project tbody').on( 'click', 'tr', function () { 
+        	var table = $('#table_project_rec').dataTable();
+            $('#table_project_rec tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');
     	            select2projectcode.val("").trigger("change");

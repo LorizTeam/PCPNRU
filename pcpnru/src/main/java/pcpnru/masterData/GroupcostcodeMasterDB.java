@@ -264,7 +264,7 @@ public class GroupcostcodeMasterDB {
 			rs = pStmt.executeQuery(sqlStmt);		
 			while (rs.next()) {
 				requestno	= rs.getString("lno");
-				if(null==requestno&&"".equals(requestno)){
+				if(null==requestno||"".equals(requestno)){
 					//System.out.println("requestno = null");
 					requestno = "0";
 				}

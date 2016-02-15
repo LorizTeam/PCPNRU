@@ -97,7 +97,7 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ">
-            <table id="table_project" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_project_req" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  
                 	<th>ลำดับ</th>
@@ -158,8 +158,8 @@
    			     
         	var select2projectcode = $("#project_code").select2();
         	 
-        	var table = $('#table_project').dataTable();
-            $('#table_project tbody').on( 'click', 'tr', function () {
+        	var table = $('#table_project_req').dataTable();
+            $('#table_project_req tbody').on( 'click', 'tr', function () {
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');
     	            select2projectcode.val("").trigger("change");

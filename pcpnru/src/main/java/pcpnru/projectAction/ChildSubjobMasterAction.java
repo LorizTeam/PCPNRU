@@ -42,8 +42,9 @@ public class ChildSubjobMasterAction extends ActionSupport {
 		String alertMassage			= "";
 	  
 		if(add!=null){
-			if(!subjobcode.equals("")&&!childsubjobcode.equals("")&&!childsubjobname.equals("")){ 
-				childSubjobMasterDB.AddChildSubjobMaster(subjobcode, childsubjobcode, childsubjobname);
+			if(!subjobcode.equals("")&&!childsubjobname.equals("")){ 
+				String gen_childsubjobcode = childSubjobMasterDB.SelectUpdateDocNo(subjobcode);
+				childSubjobMasterDB.AddChildSubjobMaster(subjobcode, gen_childsubjobcode, childsubjobname);
 				childSubjobMaster.reset();
 			}else{
 				alertMassage = "กรุณา กรอก ข้อมูลให้ครบถ้วน";
@@ -51,16 +52,17 @@ public class ChildSubjobMasterAction extends ActionSupport {
 		}
 		if(update!=null){
 	   		String childsubjobcodehd 	= childSubjobMaster.getChildsubjobcodehd();
-			if(!subjobcode.equals("")&&!childsubjobcode.equals("")&&!childsubjobname.equals("")&&!childsubjobcodehd.equals("")){
-				childSubjobMasterDB.UpdateChildSubjobMaster(subjobcode, childsubjobcode, childsubjobname, subjobcodehd, childsubjobcodehd);
+			if(!childsubjobcode.equals("")&&!childsubjobname.equals("")&&!childsubjobcodehd.equals("")){
+				childSubjobMasterDB.UpdateChildSubjobMaster(subjobcode, childsubjobcodehd, childsubjobname, subjobcodehd, childsubjobcodehd);
 				childSubjobMaster.reset();
 			}else{
 				alertMassage = "กรุณา กรอก ข้อมูลให้ครบถ้วน";
 			}	
 		}
 		if(delete!=null){
-			if(!subjobcode.equals("")&&!childsubjobcode.equals("")){
-				childSubjobMasterDB.DeleteChildSubjobMaster(subjobcode, childsubjobcode);
+			String childsubjobcodehd 	= childSubjobMaster.getChildsubjobcodehd();
+			if(!subjobcode.equals("")&&!childsubjobcodehd.equals("")){
+				childSubjobMasterDB.DeleteChildSubjobMaster(subjobcode, childsubjobcodehd);
 				childSubjobMaster.reset(); 
 			}else{
 				alertMassage = "กรุณา กรอก ข้อมูลให้ครบถ้วน"; 

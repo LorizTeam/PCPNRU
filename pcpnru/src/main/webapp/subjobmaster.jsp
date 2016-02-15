@@ -43,7 +43,7 @@
 		  		<div class="cell colspan3"> 
 		        	รหัส-ชื่อ กิจกรรม
 			        <div class="input-control text full-size"> 
-					    <s:textfield id="subjobcode" name="subjobMaster.subjobCode" required="" />
+					    <s:textfield id="subjobcode" name="subjobMaster.subjobCode" readonly="true"  />
 					    <s:hidden id="subjobcodehd" name="subjobMaster.subjobCodeHD" />
 					</div> 
 				</div>
