@@ -12,7 +12,7 @@
                 <li class="divider"></li>
                 <li><a href="subjobmaster.jsp">สร้าง  กิจกรรม</a></li>
                 <li class="divider"></li>
-                <li><a href="childsubjobmaster.jsp">สร้าง  กิจกรรมย่อย</a></li>
+                <li><a href="childsubjobmaster.jsp">สร้าง  หมวด</a></li>
                 <li class="divider"></li>
                 <li>
                 <a href="" class="dropdown-toggle">สร้าง รายละเอียดค่าใช้จ่าย</a>

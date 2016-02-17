@@ -35,7 +35,7 @@
 
 	<body>
 		 <%@include file="topmenu.jsp" %>
-		 <h3 class="align-center">สร้างชื่อกิจกรรมย่อย</h3>
+		 <h3 class="align-center">สร้างชื่อหมวด</h3>
 		 <form action="childSubjobMaster.action" method="post">
 		 <div class="example" data-text="รายละเอียด">
          <div class="grid">
@@ -61,22 +61,22 @@
 					<s:hidden id="subjobcodehd" name="childSubjobMaster.subjobcodehd" />
 				</div>
 		  		<div class="cell  colspan2"> 
-		        	รหัสกิจกรรมย่อย
+		        	รหัสหมวด
 			        <div class="input-control text full-size"> 
 					    <s:textfield id="childsubjobcode" name="childSubjobMaster.childsubjobcode" readonly="true"  />
 					    <s:hidden id="childsubjobcodehd" name="childSubjobMaster.childsubjobcodehd" />
 					</div> 
 				</div>
 		        <div class="cell  colspan3"> 
-		        	ชื่อกิจกรรมย่อย
+		        	ชื่อหมวด
 			        <div class="input-control text full-size"> 
 			       	 	<s:textfield id="childsubjobname" name="childSubjobMaster.childsubjobname" required="" /> 
 					</div>
 				</div> 
 				<div class="cell colspan5"><br>
-					<button class="button success" type="submit" name="add">สร้างชื่อกิจกรรมย่อย</button> 
-				  	<button class="button primary" type="submit" name="update">แก้ไขชื่อกิจกรรมย่อย</button> 
-				  	<button class="button danger" type="submit" name="delete">ลบชื่อกิจกรรม</button>
+					<button class="button success" type="submit" name="add">สร้างชื่อหมวด</button> 
+				  	<button class="button primary" type="submit" name="update">แก้ไขชื่อหมวด</button> 
+				  	<button class="button danger" type="submit" name="delete">ลบชื่อหมวด</button>
 				</div> 
 		    </div>
 		 </div>  
@@ -88,9 +88,9 @@
                 <tr> 
                 	<th>เลขที่</th>
                     <th>รหัส-ชื่อ กิจกรรม</th>
-                    <th>รหัส-กิจกรรมย่อย</th> 
-                    <th>ชื่อ-กิจกรรมย่อย</th>
-                    <th>วันที่-กิจกรรมย่อย</th> 
+                    <th>รหัส-หมวด</th> 
+                    <th>ชื่อ-หมวด</th>
+                    <th>วันที่-หมวด</th> 
                 </tr>
                 </thead> 
                   

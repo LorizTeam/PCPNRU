@@ -37,6 +37,10 @@
       		<result name="requisition">/groupcostcode-requisition.jsp</result>
     	</action>
     	
+    	<action name="grpGcostcodeMaster" class="pcpnru.masterAction.GrpGcostcodeAction" method="execute">
+      		<result name="success">/grp-gcostcode-receive.jsp</result>
+    	</action>
+    	
     	<action name="windowGroupcostcodeMaster" class="pcpnru.masterAction.WindowGroupcostcodeAction" method="execute">
       		<result name="success">/window-groupcostcode-receive.jsp</result> 
       		<result name="requisition">/window-groupcostcode-requisition.jsp</result>

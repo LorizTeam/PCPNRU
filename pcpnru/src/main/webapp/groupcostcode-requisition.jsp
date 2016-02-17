@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>สร้าง กลุ่มรายการค่าใช้จ่าย รายจ่าย</title>
+		<title>สร้าง รายการค่าใช้จ่ายของกลุ่ม รายจ่าย</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -23,9 +23,9 @@
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/select2.css" rel="stylesheet">
 		
-	 	<script src="js/jquery-2.1.3.min.js"></script>
-	 	<script src="js/jquery.dataTables.min.js"></script>
+	 	<script src="js/jquery-2.1.3.min.js"></script> 
 	    <script src="js/metro.js"></script>
+	    <script src="js/jquery.dataTables.min.js"></script>
 	    <script src="js/select2.js"></script>
         
   		
@@ -33,7 +33,7 @@
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <h3 class="align-center">สร้าง รายการค่าใช้จ่าย รายจ่าย</h3>
+		 <h3 class="align-center">สร้าง รายการค่าใช้จ่ายของกลุ่ม รายจ่าย</h3>
 		 <div class="example" data-text="รายละเอียด">
 		 <form id="reset" action="groupcostcodeMaster.action" method="post"> 
 	         <div class="grid">
@@ -68,7 +68,7 @@
 					<div class="cell colspan2"> 
 			        	 ราคาต่อหน่วย
 				        <div class="input-control text full-size">
-						    <s:textfield name="groupcostcodemastermodel.amount" type="number" step="0.01" id="amount" required=""/>
+						    <s:textfield name="groupcostcodemastermodel.amount" id="amount" onblur="CommaFormatted();" required=""/>
 						</div>
 					</div>
 	         	</div>
@@ -104,22 +104,16 @@
                 	<th>ชื่อ-โครงการ</th>
                     <th>รหัส-รายการค่าใช้จ่าย</th>
                     <th>ชื่อ-รายการค่าใช้จ่าย</th>
-                    <th>ราคาต่อหน่วย</th>
-                    <th>วันเวลา-รายการค่าใช้จ่าย</th>
+                    <th>ราคาต่อหน่วย</th> 
                 </tr>
                 </thead> 
                   
                 <tbody>
                 <%
-                List groupcostCodeMasterList1 = null;
-                if (request.getAttribute("groupcostCodeMasterList") == null) {
-                	GroupcostcodeMasterDB ccM = new GroupcostcodeMasterDB();
-            		groupcostCodeMasterList1 = ccM.GetGroupCostCodeMasterList("", "", "","2");
-				}else{
-					groupcostCodeMasterList1 = (List) request.getAttribute("groupcostCodeMasterList");
-				}
-                List groupcostCodeMasterList = groupcostCodeMasterList1;
-                
+                List groupcostCodeMasterList = null;
+               	GroupcostcodeMasterDB ccM = new GroupcostcodeMasterDB();
+            	groupcostCodeMasterList = ccM.GetGroupCostCodeMasterList_Req("", "", "","2");
+				 
         		int x = 1;
         		if(groupcostCodeMasterList != null){
         			
@@ -129,33 +123,100 @@
         				
         		%>
         			<tr>
-        			<td align="center" width="3%"><%=x%></td>  
-        			<td class="tdprojectCode" align="left" width="32%"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>
-                    <td class="tdcostCode" align="center" width="6%"><%=gccInfo.getCostCode()%></td>
-                    <td class="tdcostName" align="left" width="38%"><%=gccInfo.getCostName()%></td>
-                    <td class="tdamount" align="right" width="7%"><%=gccInfo.getAmount()%></td>
-                    <td align="center" width="8%"><%=gccInfo.getDateTime()%></td>
+        			<td align="center"><%=x%></td>  
+        			<td class="tdprojectCode" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>
+                    <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
+                    <td class="tdcostName" align="left"><%=gccInfo.getCostName()%></td>
+                    <td class="tdamount" align="right"><%=gccInfo.getAmount()%></td> 
                 	</tr>
         		<%		
         		x++;
         			}
         			
-        		}else{
-        		%>
-        			<tr>  
-                    <td align="center" colspan="5">ไม่พบข้อมูล</td>   
-                	</tr>
-        		<%
         		}
-                %>
+        		%>
                 </tbody>
             </table>
         </div> <!-- End of example table -->  
-         
-   		<script>
-	   	  	 
-   		$(document).ready(function() {
-   			     
+        
+   		<script> 
+   		function CommaFormatted() {
+   			var amount = $("#amount").val(); 
+   			var t1 = "";
+   			if(amount == "NaN"){
+   				t1 = "0";
+   			}else if(amount == ""){
+   				t1 = "0";
+   			}
+   			else{
+   			amount = amount.replace(/,/g,"");
+   		    var t1 = parseFloat(amount).toLocaleString("en-US");
+   			} 
+   		 /* 		alert(t1)
+   		
+   			var i = parseFloat(amount);
+   			if(isNaN(i)) { i = 0.00; }
+   			var minus = '';
+   			if(i < 0) { minus = '-'; }
+   			i = Math.abs(i);
+   			i = parseInt((i + .005) * 100);
+   			i = i / 100;
+   			s = new String(i);
+   			if(s.indexOf('.') < 0) { s += '.00'; }
+   			if(s.indexOf('.') == (s.length - 2)) { s += '0'; }
+   			s = minus + s;
+   			amount = s;   
+   			
+   			var delimiter = ","; // replace comma if desired
+   			amount = amount.replace(",","");
+   			
+   			var a = amount.split('.',2) 
+   			a[0] = a[0].replace(",","");
+   			 alert(a[1]);
+   			var d = a[1];
+   			
+   			var i = parseInt(a[0]); 
+   			
+   			if(isNaN(i)) { return ''; }
+   			var minus = '';
+   			if(i < 0) { minus = '-'; }
+   			i = Math.abs(i);
+   			 
+   			var n = new String(i);
+   			var a = [];
+   			while(n.length > 3) {
+   				var nn = n.substr(n.length-3);
+   				a.unshift(nn);
+   				n = n.substr(0,n.length-3);
+   			}
+   			
+   			if(n.length > 0) { a.unshift(n); }
+   			n = a.join(delimiter);
+   		 	
+   		//	if(d.length < 1) { 
+   				amount = n; 
+   		//	}else { 
+   		//		amount = n + '.' + d; 
+   		//	}
+   		/*		if(d) {
+   				if(d.length < 1) {
+   					amount = n;
+   					} else {
+   					amount = n + '.' + d;
+   					}
+   					} else {
+   					amount = n + ".00"
+   					}
+   			 */
+   		//	amount = minus + amount;
+   			//return amount;
+   		//	alert(amount);  */
+   			$("#amount").val(t1);
+   		}
+   		
+   		
+   		$(function(){
+		   
         	var select2projectcode = $("#project_code").select2();
         	 
         	var table = $('#table_project_req').dataTable();
@@ -179,7 +240,8 @@
     	            $("#costCodeHD").val($(".tdcostCode").eq($index).text());
     	            $("#costName").val($(".tdcostName").eq($index).text()); 
     	            var amt = $(".tdamount").eq($index).text();
-    	            amt = amt.replace(",", "");
+    	            amt = amt.replace(/,/g, "");
+    	            amt = parseFloat(amt).toLocaleString("en-US");
     	            $("#amount").val(amt);
     	        }
     	    });   

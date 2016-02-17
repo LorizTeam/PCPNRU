@@ -1,5 +1,8 @@
 package pcpnru.projectAction; 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
@@ -32,14 +35,15 @@ public class ProjectDTChargesAction extends ActionSupport{
 		String projectcode 	= (String) request.getParameter("projectcode");
 		String gcostname	= (String) request.getParameter("gcostname");
 		String budget		= (String) request.getParameter("budget");
+		if(budget.equals("")) budget = "0";
 		String childsubjobcode	= (String) request.getParameter("childsubjobcode");
 		String subjobcode	= (String) request.getParameter("subjobcode");
 		String gcostcode		= (String) request.getParameter("gcostcode");
 		String year			= (String) request.getParameter("year");
-		String balance		= (String) request.getParameter("balance");
+		String balance		= (String) request.getParameter("balance"); 
 		
 		if(add!=null){ 
-		
+		 
 		String[] chk 	= request.getParameterValues("aroperation");
 		if(!chk[0].equals("")&&!chk[0].equals("? string: ?")){
 		
@@ -84,11 +88,26 @@ public class ProjectDTChargesAction extends ActionSupport{
 		} 
 		gcostname = txtvalue; 	// text value
 		budget = value;			// value
-	} 
-		 //balance = balance.replace(".0", "");
+		
+		//balance = balance.replace(".0", "");
 		 if(Double.parseDouble(balance)>=Double.parseDouble(budget)){
 			 projDtC.AddProjDTCharges(projectcode, year, subjobcode, childsubjobcode, gcostcode, gcostname, budget);
 		 }
+		
+	}else{
+		Pattern pattern = Pattern.compile("NaN");
+		Matcher matcher = pattern.matcher(budget);
+		boolean checkBudget =  matcher.matches();
+		//System.out.println("เงิน: " + checkBudget);
+		if(checkBudget!=true)	{
+			budget = budget.replace(",", "");
+			//balance = balance.replace(".0", "");
+			 if(Double.parseDouble(balance)>=Double.parseDouble(budget)){
+				 projDtC.AddProjDTCharges(projectcode, year, subjobcode, childsubjobcode, gcostcode, gcostname, budget);
+			 }
+		}
+	}
+		 
 			
 		}else{
 			String arnumber		= (String) request.getParameter("arnumber");

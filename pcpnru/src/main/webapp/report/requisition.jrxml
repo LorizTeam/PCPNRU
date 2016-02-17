@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="requisition" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6414fe49-f04d-49e0-a495-b229258ce8d8">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="480"/>
+	<property name="ireport.y" value="431"/>
 	<parameter name="requisition_docno" class="java.lang.String">
 		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
 	</parameter>
@@ -29,7 +29,7 @@ INNER JOIN subjob_master AS d ON d.subjob_code = b.subjob_code
 INNER JOIN childsubjob_master AS e ON e.childsubjobcode = b.childsubjobcode
 INNER JOIN groupcostcode_master AS f ON f.gcostcode = b.gcostcode and a.project_code = f.project_code
 INNER JOIN project_master AS g ON g.project_code = b.project_code
-where  a.requisition_docno = $P!{requisition_docno} and a.project_code = $P!{project_code} and a.project_year = $P!{project_year}
+where  a.requisition_docno = $P{requisition_docno} and a.project_code = $P{project_code} and a.project_year = $P{project_year}
 ORDER BY
 a.docdate DESC]]>
 	</queryString>
@@ -48,7 +48,7 @@ a.docdate DESC]]>
 	<field name="month" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="thaiyear" class="java.lang.Long"/>
+	<field name="thaiyear" class="java.math.BigInteger"/>
 	<field name="takeby" class="java.lang.String">
 		<fieldDescription><![CDATA[เบิกโดยใคร]]></fieldDescription>
 	</field>

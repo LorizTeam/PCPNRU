@@ -65,7 +65,10 @@ public class GroupcostcodeMasterDB {
 					fundprice = rs.getString("gcostcode_fundprice");
 					standardprice 	= df2.format(Float.parseFloat(standardprice));
 					fundprice 		= df2.format(Float.parseFloat(fundprice));
+					amount = "0";
 				}else{
+					standardprice = "0";
+					fundprice = "0";
 					amount	= rs.getString("amount");
 					amount 		= df2.format(Float.parseFloat(amount));
 				}
@@ -81,8 +84,60 @@ public class GroupcostcodeMasterDB {
 		}
 		return groupcostCodeMasterList;
 	 }
-	
-	public void AddCostCodeMaster(String project_code,String groupcostCode, String groupcostName, String standardprice, String fundprice,String type_gcostcode, String amount)  throws Exception{
+	public List GetGroupCostCodeMasterList_Req(String project_code, String groupcostCode, String groupcostName,String type_gcostcode) 
+			throws Exception { //30-05-2014
+				List groupcostCodeMasterList = new ArrayList();
+				String project_name = "",dateTime = "",amount="";
+				
+				DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
+				DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
+				try {
+				
+					conn = agent.getConnectMYSql();
+					
+					String sqlStmt = "SELECT a.project_code,project_name, gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice,amount, DATE_FORMAT(a.datetime,'%d-%m-%Y %T') as datetime " +
+					"FROM groupcostcode_master a " +
+					"INNER JOIN project_master b on(b.project_code = a.project_code) " +
+					"WHERE "; 
+					if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+project_code+"' AND ";
+					if(!groupcostCode.equals("")) sqlStmt = sqlStmt+ "gcostcode like '"+groupcostCode+"%' AND ";
+					if(!groupcostName.equals("")) sqlStmt = sqlStmt+ "gcostcode_name like '"+groupcostName+"%' AND ";
+					
+					sqlStmt = sqlStmt + "gcostcode <> '' and type_gcostcode = '"+type_gcostcode+"' order by a.project_code, gcostcode asc";
+					
+					//System.out.println(sqlStmt);				
+					pStmt = conn.createStatement();
+					rs = pStmt.executeQuery(sqlStmt);	
+					while (rs.next()) {
+						project_name	= rs.getString("project_name");
+						project_code	= rs.getString("project_code");
+						groupcostCode 	= rs.getString("gcostcode");
+						
+						if (rs.getString("gcostcode_name") != null) 		groupcostName = rs.getString("gcostcode_name"); else groupcostName = "";
+						 
+						dateTime		= rs.getString("datetime");  
+						String day 		= dateTime.substring(0, 2);
+						String month 	= dateTime.substring(3, 5);
+						String year 	= Integer.toString((Integer.parseInt(dateTime.substring(6, 10))+543));
+							
+						String time 	= dateTime.substring(11);
+						dateTime		= day+"-"+month+"-"+year+" "+time; 
+					
+						amount		= rs.getString("amount");
+						amount 		= df2.format(Float.parseFloat(amount));
+							
+						groupcostCodeMasterList.add(new GroupCostCodeMasterModel(project_code,project_name, groupcostCode, groupcostName, dateTime, amount));
+					}
+						
+					rs.close();
+					pStmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				    throw new Exception(e.getMessage());
+				}
+				return groupcostCodeMasterList;
+			 }
+	public void AddCostCodeMaster(String project_code,String groupcostCode, String groupcostName, String standardprice, String fundprice, String amount,String type_gcostcode)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
 		
@@ -254,6 +309,12 @@ public class GroupcostcodeMasterDB {
 			 }
 	public String SelectUpdateDocNo(String project_code,String type_gcostcode) throws Exception {
 		String requestno = "", typeR = "";
+				if(type_gcostcode.equals("1")){
+					typeR = "R";
+				}else{
+					typeR = "C";
+				}
+				
 		try {
 			conn = agent.getConnectMYSql();
 			
@@ -266,10 +327,12 @@ public class GroupcostcodeMasterDB {
 				requestno	= rs.getString("lno");
 				if(null==requestno||"".equals(requestno)){
 					//System.out.println("requestno = null");
-					requestno = "0";
+					requestno = "0"; 
+				}else{
+					typeR = requestno.substring(0, 1);
+					requestno = requestno.substring(2);
 				}
-				typeR = requestno.substring(0, 1);
-				requestno = requestno.substring(2);
+				
 				requestno 	= String.valueOf(Integer.parseInt(requestno) + 1); 
 				//System.out.println("requestno = "+requestno);
 			}

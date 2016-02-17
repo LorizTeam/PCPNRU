@@ -56,6 +56,7 @@ public class GroupcostcodeAction extends ActionSupport {
 			
 			standardprice = standardprice.replace(",", "");
 			fundprice = fundprice.replace(",", "");
+			amount = "0";
 		}
 		
 		if(add != null){ 

@@ -17,7 +17,7 @@ app.controller('myCtrl', function($scope, $http,$window) {
 		          method: "POST", 
 		          url: "ajax_requisition.jsp",
 		          params:{"projectCode":$scope.project.split(' - ')[0],"year":$scope.project.split(' - ')[1],"ajax_type":"select"},
-		          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		          headers: {"Accept-Charset":"charset=utf-8",'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
 		          
 		        }).then(function(response) {
 		        	$scope.status = response.status;
@@ -34,7 +34,7 @@ app.controller('myCtrl', function($scope, $http,$window) {
 	          method: "POST", 
 	          url: "ajax_frombudget.jsp",
 	          params:{"projectCode":$scope.project.split(' - ')[0],"year":$scope.project.split(' - ')[1],"gcostcode":$scope.gcostcode},
-	          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	          headers: {"Accept-Charset":"charset=utf-8",'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
 	          
 	        }).then(function(response) {
 	            $scope.frombalance = response.data;
@@ -61,7 +61,7 @@ app.controller('myCtrl', function($scope, $http,$window) {
 					"amount":$scope.amount,
 					"ajax_type":"add",
 					"docno":$scope.docno},
-	          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	          headers: {"Accept-Charset":"charset=utf-8",'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
 	          
 	        }).then(function(response) {
 	            $scope.adddata = response.data
@@ -82,7 +82,7 @@ app.controller('myCtrl', function($scope, $http,$window) {
 					"docno":docno,
 					"projectCode":project_code,
 					"year":project_year},
-	          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	          headers: {"Accept-Charset":"charset=utf-8",'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
 	          
 	        }).then(function(response) {
 	            $scope.selectlist = response.data
@@ -98,7 +98,7 @@ app.controller('myCtrl', function($scope, $http,$window) {
 					"gcostcode":gcostcode,
 					"projectCode":$scope.project.split(' - ')[0],
 					"year":$scope.project.split(' - ')[1]},
-	          headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+	          headers: {"Accept-Charset":"charset=utf-8",'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
 	          
 	        }).then(function(response) {
 	        	$scope.deleted = response.data;

@@ -59,7 +59,7 @@
 		        	เป้าหมาย
 			        <div class="input-control text full-size">
 			        
-					    <s:textfield type="text" name="projectmodel.target" id="target" required=""/>
+					    <s:textfield type="text" name="projectmodel.target" id="target" onblur="CommaFormatted();" required=""/>
 					</div>
 				</div>
 		        <div class="cell colspan2"> 
@@ -68,15 +68,12 @@
 					    <s:textfield type="text" name="projectmodel.year" id="year" required=""/>
 					</div>
 				</div>
-				
-		    </div>
-		    <div class="row cells12">
-		    	<div class="cell colspan12 align-center"><br>
+				<div class="cell colspan3"><br>
 			        	<button class="button success" type="submit" name="submit">จัดทำงบประมาณ</button> 
 			        	<button class="button primary" type="submit"  name="update">แก้ไขงบประมาณ</button>
-			        	<button class="button danger" type="submit"  name="delete">ลบงบประมาณ</button>
-				</div> 
+			    </div>
 		    </div>
+		     
 		 </div>
 		 </form>  
 		</div>  
@@ -119,6 +116,21 @@
         
         
    		<script>
+   		function CommaFormatted() {
+   			var target = $("#target").val(); 
+   			var t1 = "";
+   			if(target == "NaN"){
+   				t1 = "0";
+   			}else if(target == ""){
+   				t1 = "0";
+   			}
+   			else{
+   				target = target.replace(/,/g,"");
+   		    var t1 = parseFloat(target).toLocaleString("en-US");
+   			} 
+   			$("#target").val(t1);
+   		}
+   		
 	   		$(function(){
 		       var selectproject_code =  $("#project_code").select2();
 		        
@@ -139,6 +151,7 @@
 	    	            
 	    	            var target = $(".tdtarget").eq($index).text();
 	    	            target = target.replace(/฿/g,"").replace(/,/g,"");
+	    	            target = parseFloat(target).toLocaleString("en-US");
 	    	            $("#target").val(target);
 	    	            
 	    	            selectproject_code.val($(".tdproject_code").eq($index).text()).trigger("change");

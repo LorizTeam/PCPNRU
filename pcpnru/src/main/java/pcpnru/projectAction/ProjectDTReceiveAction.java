@@ -1,5 +1,9 @@
 package pcpnru.projectAction; 
 
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
@@ -22,8 +26,7 @@ public class ProjectDTReceiveAction extends ActionSupport{
 	public void setProjModel(ProjectModel projModel) {
 		this.projModel = projModel;
 	}
-
-
+ 
 	public String execute() throws Exception{ 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		ProjectDTReceiveDB projDtR = new ProjectDTReceiveDB();
@@ -32,6 +35,8 @@ public class ProjectDTReceiveAction extends ActionSupport{
 		String projectcode 	= (String) request.getParameter("projectcode");
 		String gcostname	= (String) request.getParameter("gcostname");
 		String budget		= (String) request.getParameter("budget");
+		if(budget.equals("")) budget = "0";  
+		
 		String csubjob		= (String) request.getParameter("csubjob");
 	//	if(csubjob.equals("")) csubjob = "0000";
 		String subjob		= "0003";
@@ -41,7 +46,7 @@ public class ProjectDTReceiveAction extends ActionSupport{
 	//	String costname		= projModel.getCostname();
 	//	String budget		= projModel.getBudget();
 		if(add!=null){ 
-		
+		 
 		String[] chk 	= request.getParameterValues("aroperation");
 		if(!chk[0].equals("")&&!chk[0].equals("? string: ?")){
 		
@@ -86,13 +91,28 @@ public class ProjectDTReceiveAction extends ActionSupport{
 		} 
 		gcostname = txtvalue; 	// text value
 		budget = value;			// value
-	} 
-		 
-		 
+		
+		projDtR.AddProjDTReceive(projectcode, year, subjob, csubjob, gcostcode, gcostname, budget);
+		
+	}else{
+		Pattern pattern = Pattern.compile("NaN");
+		Matcher matcher = pattern.matcher(budget);
+		boolean checkBudget =  matcher.matches();
+		//System.out.println("เงิน: " + checkBudget);
+		if(checkBudget!=true)	{
+			budget = budget.replace(",", "");
 			projDtR.AddProjDTReceive(projectcode, year, subjob, csubjob, gcostcode, gcostname, budget);
+		}
+	}
+		
+	 	
 		}else{
 			projDtR.DeleteProjDTReceive(projectcode, gcostcode);
 		}
+		 
 		return SUCCESS;
 	}
+	 
 }
+
+

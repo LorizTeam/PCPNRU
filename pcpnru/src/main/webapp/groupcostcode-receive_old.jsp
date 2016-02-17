@@ -75,14 +75,16 @@
 					<div class="cell colspan3"> 
 			        	ต้นทุน
 				        <div class="input-control text full-size">
-					 	<s:textfield id="fundprice" name="groupcostcodemastermodel.fundprice" readonly="true" />
-						<div class="button-group">
-							<button class="button mini-button" type="button" onclick="deleteCC();"><span class="mif-bin"></span></button>
-							<button class="button mini-button" type="button" onclick="javascript:getGcostcode('0001','2559');"> <span class="mif-search"></span></button>
-				 	 	</div>
+						       <s:textfield name="groupcostcodemastermodel.fundprice" type="number" step="0.01" id="fundprice" required=""/>   
 						
+					<!-- 	<s:textfield type="number" id="fundprice" name="groupcostcodemastermodel.fundprice" readonly="readonly" />
+							    <div class="button-group">
+							    <button class="button mini-button" type="button" onclick="deleteCC();"><span class="mif-bin"></span></button>
+							    <button class="button mini-button" type="button" onclick="javascript:getGcostcode('0001','2559');"> <span class="mif-search"></span></button>
+				 -->	
 						</div>
-					</div> 
+						
+						</div> 
 					<div class="cell colspan6 align-left"><br>
 						  <button class="button success" name="add">สร้างชื่อรายการค่าใช้จ่าย</button> 
 						  <button class="button primary" name="update">แก้ไขชื่อรายการค่าใช้จ่าย</button> 
@@ -150,12 +152,8 @@
          
    		<script>
    		function getGcostcode(projectcode, year) {
-			var load = window.open('/pcpnru/grp-gcostcode-receive.jsp?projectcode='+projectcode+'&year='+year+' ','receive',
-			             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
-		}
-   		
-   		function deleteCC() {
-			$("#fundprice").val(""); 
+			var load = window.open('/pcpnru/window-gcostcode-receive.jsp?projectcode='+projectcode+'&year='+year+' ','receive',
+			             'scrollbars=yes,menubar=no,height=600,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
 		}
    		
         $(function(){

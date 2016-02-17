@@ -100,7 +100,7 @@
 							<div class="cell colspan2"> 
 					        	จำนวนเงิน
 					        	<div class="input-control text full-size"> 
-			                    	<input type="number" step="0.01" id="budget" name="budget">
+			                    	<input id="budget" name="budget" onblur="CommaBudget()">
 			                    </div>
 							</div> 
 							<div class="cell colspan5"><br>
@@ -352,6 +352,21 @@
 		</form>
 		 
 		<script>
+		function CommaBudget() {
+   			var budget = $("#budget").val(); 
+   			var t1 = "";
+   			if(budget == "NaN"){
+   				t1 = "0";
+   			}else if(budget == ""){
+   				t1 = "0";
+   			}
+   			else{
+   				budget = budget.replace(/,/g,"");
+   		    var t1 = parseFloat(budget).toLocaleString("en-US");
+   			} 
+   			$("#budget").val(t1);
+   		}
+		
 		function getGcostcode(projectcode, year) {
 			var load = window.open('/pcpnru/window-groupcostcode-requisition.jsp?projectcode='+projectcode+'&year='+year+' ','requisition',
 			             'scrollbars=yes,menubar=no,height=600,width=1280,resizable=yes,toolbar=no,location=yes,status=no');

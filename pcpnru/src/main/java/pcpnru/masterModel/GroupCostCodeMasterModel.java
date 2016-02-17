@@ -30,6 +30,15 @@ public class GroupCostCodeMasterModel {
 		this.dateTime = dateTime;
 		this.amount	= amount;
 	}
+	public GroupCostCodeMasterModel(String project_code,String project_name, String costCode, String costName,String dateTime, String amount) {
+		
+		this.project_code = project_code;
+		this.project_name = project_name;
+		this.costCode = costCode;
+		this.costName = costName;
+		this.dateTime = dateTime;
+		this.amount	= amount;
+	}
 	public GroupCostCodeMasterModel(String costCode, String costName) {
 		
 		this.costCode = costCode;

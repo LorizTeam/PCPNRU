@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>สร้าง กลุ่มรายการค่าใช้จ่าย</title>
+		<title>สร้าง รายการค่าใช้จ่ายของกลุ่ม รายจ่าย</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -28,7 +28,7 @@
 
 	<body>
 		 <div><%@include file="window-topmenu.jsp" %></div>
-		 <h3 class="align-center">สร้าง รายการค่าใช้จ่าย-รายได้</h3>
+		 <h3 class="align-center">สร้าง รายการค่าใช้จ่ายของกลุ่ม รายจ่าย</h3>
 		 <form action="windowGroupcostcodeMaster.action" method="post">
 		 
 		 <div class="example" data-text="รายละเอียด"> 
@@ -53,7 +53,7 @@
 					        			ProjectModel pjModel = (ProjectModel) iterPj.next();
 			      				%>  
 				      			<option value="<%=pjModel.getProject_code()%>" >
-				       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> ปี <%=pjModel.getYear() %>
+				       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%>
 				       			</option>
 								<%		} 
 									}
@@ -66,7 +66,7 @@
 			  		<div class="cell colspan2"> 
 			        	รหัส กลุ่มรายการค่าใช้จ่าย
 				        <div class="input-control text full-size">
-						    <s:textfield name="groupcostcodemastermodel.costCode" id="costCode" required=""/>
+						    <s:textfield name="groupcostcodemastermodel.costCode" id="costCode" readonly="true" />
 						    <s:hidden name="groupcostcodemastermodel.costCodeHD" id="costCodeHD"/> 
 						    <input type="hidden" name="year" value="<%=year%>">  
 						</div>
@@ -96,8 +96,7 @@
             <table id="table_project" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  
-                	<th> </th>
-                	 
+                	<th> </th> 
                     <th>รหัส-รายการค่าใช้จ่าย</th>
                     <th>ชื่อ-รายการค่าใช้จ่าย</th>
                     <th>ราคากลาง</th> 
@@ -122,7 +121,7 @@
         		%>
         			<tr >
         			<td align="center"><a onclick="Opener('<%=gccInfo.getCostCode()%>','<%=gccInfo.getCostName()%>')"><span class="mif-checkmark" ></span></a></td>
-        			 
+        			<td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td> 
                     <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
                     <td class="tdcostName" align="left"><%=gccInfo.getCostName()%></td>
                     <td class="tdstandardprice" align="center"><%=gccInfo.getStandardprice() %></td>

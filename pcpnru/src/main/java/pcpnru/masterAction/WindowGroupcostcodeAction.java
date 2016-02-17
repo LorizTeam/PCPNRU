@@ -46,21 +46,26 @@ public class WindowGroupcostcodeAction extends ActionSupport {
 		
 		request.setAttribute("projectcode", project_code);
 		request.setAttribute("year", year);
-		
+		 
 		if(standardprice == null && fundprice == null){
+			groupcostCode = groupcostCode.replace("C", "");
 			standardprice = "0";
 			fundprice = "0";
 			forwardText = "requisition";
 			groupcostCode = "C"+groupcostCode;
 		}else{
+			groupcostCode = groupcostCode.replace("R", "");
 			groupcostCode = "R"+groupcostCode;
+			
+			standardprice = standardprice.replace(",", "");
+			fundprice = fundprice.replace(",", "");
+			amount = "0";
 		}
 		
 		if(add != null){
 			
 			try {
-				groupcostCode = groupcostCode.replace("RR", "R");
-				groupcostCode = groupcostCode.replace("CC", "C");
+				groupcostCode = groupcostcodemasterdb.SelectUpdateDocNo(project_code, type_gcostcode);
 				groupcostcodemasterdb.AddCostCodeMaster(project_code, groupcostCode, groupcostName,standardprice,fundprice, amount, type_gcostcode);
 				groupcostcodemastermodel.reset();
 			} catch (Exception e) {
@@ -69,9 +74,7 @@ public class WindowGroupcostcodeAction extends ActionSupport {
 			}
 		}else if(update != null){
 			try {
-				groupcostCode = groupcostCode.replace("RR", "R");
-				groupcostCode = groupcostCode.replace("CC", "C");
-				groupcostcodemasterdb.UpdateCostCodeMaster(project_code, groupcostCode, groupcostName, groupcostCodeHD, standardprice, fundprice, amount);
+				groupcostcodemasterdb.UpdateCostCodeMaster(project_code, groupcostCodeHD, groupcostName, groupcostCodeHD, standardprice, fundprice, amount);
 				groupcostcodemastermodel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
