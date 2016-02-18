@@ -112,6 +112,12 @@
     	</action> 
         <!-- 		ProjectDT Receive	 -->
         
+        <!-- 		ProjectDT Receive PCC	 -->
+        <action name="projectdtreceivepcc" class="pcpnru.projectAction.ProjectDTReceivePCCAction" method="execute">
+      		<result name="success">/projectdt-receive-pcc.jsp</result>
+    	</action> 
+        <!-- 		ProjectDT Receive	 -->
+        
         <!-- 		ProjectDT Charges	 -->
         <action name="projectdtcharges" class="pcpnru.projectAction.ProjectDTChargesAction" method="execute">
       		<result name="success">/projectdt-charges.jsp</result>

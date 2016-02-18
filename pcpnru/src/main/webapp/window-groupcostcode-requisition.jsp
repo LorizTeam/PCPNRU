@@ -34,7 +34,7 @@
 		 <div class="example" data-text="รายละเอียด"> 
 	         <div class="grid"> 
 	         	<div class="row cells12 ">
-	         		<div class="cell colspan10"> 
+	         		<div class="cell colspan6"> 
 	         		 โครงการ
 				        <div class="input-control text full-size">
 						    <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ"> 
@@ -61,31 +61,29 @@
 					   		</select>
 						</div>
 	         		</div>
-	         	</div>
-			  	<div class="row cells12">
-			  		<div class="cell colspan2"> 
-			        	รหัส กลุ่มรายการค่าใช้จ่าย
+	         		<div class="cell colspan2"> 
+			        	 ราคาต่อหน่วย
 				        <div class="input-control text full-size">
-						    <s:textfield name="groupcostcodemastermodel.costCode" id="costCode" readonly="true" />
-						    <s:hidden name="groupcostcodemastermodel.costCodeHD" id="costCodeHD"/> 
-						    <input type="hidden" name="year" value="<%=year%>">  
+						    <s:textfield name="groupcostcodemastermodel.amount" id="amount" required=""/>
 						</div>
 					</div>
-			        <div class="cell colspan4"> 
+	         	</div>
+			  	<div class="row cells12">
+			  		<div class="cell colspan6"> 
 			        	 รายการค่าใช้จ่าย
 				        <div class="input-control text full-size">
 						    <s:textfield name="groupcostcodemastermodel.costName" id="costName" required=""/>
+						    <s:hidden name="groupcostcodemastermodel.costCodeHD" id="costCodeHD"/>
+						    <input type="hidden" name="year" value="<%=year%>">
 						</div>
 					</div>
-					 
-			    </div>
-			    <div>
-			    <div class="cell align-center"><br>
+					<div class="cell colspan6"><br>
 						  <button class="button success" name="add">สร้างชื่อรายการค่าใช้จ่าย</button> 
 						  <button class="button primary" name="update">แก้ไขชื่อรายการค่าใช้จ่าย</button> 
-						  <button class="button danger" name="delete" >ลบชื่อรายการค่าใช้จ่าย</button>  
-				</div>
-			    </div>
+						  <button class="button danger" name="delete">ลบชื่อรายการค่าใช้จ่าย</button> 
+					</div>
+					 
+			    </div> 
 			 </div>
 			 
 			 <s:hidden name="groupcostcodemastermodel.type_gcostcode" id="type_gcostcode" value="2"/>
@@ -99,8 +97,7 @@
                 	<th> </th> 
                     <th>รหัส-รายการค่าใช้จ่าย</th>
                     <th>ชื่อ-รายการค่าใช้จ่าย</th>
-                    <th>ราคากลาง</th> 
-                    <th>ราคาทุน</th>  
+                    <th>ราคาต่อหน่วย</th>  
                     <th>วันเวลา-รายการค่าใช้จ่าย</th>
                 </tr>
                 </thead> 
@@ -122,10 +119,8 @@
         			<tr >
         			<td align="center"><a onclick="Opener('<%=gccInfo.getCostCode()%>','<%=gccInfo.getCostName()%>')"><span class="mif-checkmark" ></span></a></td>
         			<td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td> 
-                    <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
                     <td class="tdcostName" align="left"><%=gccInfo.getCostName()%></td>
-                    <td class="tdstandardprice" align="center"><%=gccInfo.getStandardprice() %></td>
-                    <td class="tdfundprice" align="center"><%=gccInfo.getFundprice() %></td>   
+                    <td class="tdamount" align="right"><%=gccInfo.getAmount()%></td>   
                     <td align="center"><%=gccInfo.getDateTime()%></td>  
                 	</tr>
         		<%		
@@ -146,6 +141,22 @@
        </form>
        
         <script type="text/javascript">
+        
+        $("#amount").blur(function (){
+   			var amount = $("#amount").val(); 
+   			var t1 = "";
+   			if(amount == "NaN"){
+   				t1 = "0";
+   			}else if(amount == ""){
+   				t1 = "0";
+   			}
+   			else{
+   			amount = amount.replace(/,/g,"");
+   		    var t1 = parseFloat(amount).toLocaleString("en-US");
+   			} 
+   			$("#amount").val(t1);
+   		});
+        
         function Opener(tcostcode, tcostname) {
              
             window.opener.document.getElementById ("gcostcode").value = tcostcode;
@@ -167,8 +178,7 @@
     	            $("#costCode").val("");
     	            $("#costCodeHD").val("");
     	            $("#costName").val("");
-    	            $("#standardprice").val("");
-    	            $("#fundprice").val("");
+    	            $("#amount").val("");
     	        }
     	        else {
     	            table.$('tr.selected').removeClass('selected');
@@ -181,8 +191,10 @@
     	            $("#costCode").val($(".tdcostCode").eq($index).text());
     	            $("#costCodeHD").val($(".tdcostCode").eq($index).text());
     	            $("#costName").val($(".tdcostName").eq($index).text());
-    	            $("#standardprice").val($(".tdstandardprice").eq($index).text());
-    	            $("#fundprice").val($(".tdfundprice").eq($index).text());
+    	            var amt = $(".tdamount").eq($index).text();
+    	            amt = amt.replace(/,/g, "");
+    	            amt = parseFloat(amt).toLocaleString("en-US");
+    	            $("#amount").val(amt);
     	        }
     	    });
             

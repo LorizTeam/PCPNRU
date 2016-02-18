@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 	
 
 			<div class="example"data-text="" >
-			<h3 class="align-center margin30">ประมาณการรายได้ ของโครงการ <%=projectname%></h3>
+			<h3 class="align-center margin30">ประมาณการรายได้ ของโครงการ <%=projectname%> ปี <%=year%></h3>
 			
 			
 			<div class="example" data-text="เพิ่ม">

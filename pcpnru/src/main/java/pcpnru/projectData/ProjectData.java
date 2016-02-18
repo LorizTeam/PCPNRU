@@ -181,7 +181,7 @@ public class ProjectData {
 			String groupby){
 		List ProjectDTList = new ArrayList();
 		
-		String sqlWhere = "";
+		String sqlWhere = "", sqlQuery= "";
 		
 		if(!project_code.equals(""))
 			sqlWhere += "e.project_code = '"+project_code+"' and ";
@@ -211,28 +211,48 @@ public class ProjectData {
 			sqlWhere += "a.subjob_code not in ('0003') and ";
 		}
 		
-			
-		
-		String sqlQuery ="SELECT "
-				+ "e.project_name, "
-				+ "e.project_code, "
-				+ "a.subjob_code, "
-				+ "b.subjob_name, "
-				+ "a.childsubjobcode, "
-				+ "c.childsubjobname, "
-				+ "a.gcostcode, "
-				+ "a.gcostcode_name, "
-				+ "a.budget, "
-				+ "a.datetime_response "
-				+ "FROM "
-				+ "projectplan_detail AS a "
-				+ "INNER JOIN subjob_master AS b ON b.subjob_code = a.subjob_code "
-				+ "INNER JOIN childsubjob_master AS c ON a.childsubjobcode = c.childsubjobcode AND b.subjob_code = c.subjob_code "
-				+ "INNER JOIN groupcostcode_master AS d ON d.gcostcode = a.gcostcode AND d.project_code = a.project_code "
-				+ "INNER JOIN project_master as e ON e.project_code = a.project_code " 
-				+ "INNER JOIN projectplan_header AS f ON f.project_code = a.project_code and f.year = a.year "
-				+ "where "
-				+ sqlWhere +"a.project_code <> '' ";
+		if(!project_code.equals("PCC")){
+			sqlQuery ="SELECT "
+					+ "e.project_name, "
+					+ "e.project_code, "
+					+ "a.subjob_code, "
+					+ "b.subjob_name, "
+					+ "a.childsubjobcode, "
+					+ "c.childsubjobname, "
+					+ "a.gcostcode, "
+					+ "a.gcostcode_name, "
+					+ "a.budget, "
+					+ "a.datetime_response "
+					+ "FROM "
+					+ "projectplan_detail AS a "
+					+ "INNER JOIN subjob_master AS b ON b.subjob_code = a.subjob_code "
+					+ "INNER JOIN childsubjob_master AS c ON a.childsubjobcode = c.childsubjobcode AND b.subjob_code = c.subjob_code "
+					+ "INNER JOIN groupcostcode_master AS d ON d.gcostcode = a.gcostcode AND d.project_code = a.project_code "
+					+ "INNER JOIN project_master as e ON e.project_code = a.project_code " 
+					+ "INNER JOIN projectplan_header AS f ON f.project_code = a.project_code and f.year = a.year "
+					+ "where "
+					+ sqlWhere +"a.project_code <> '' ";
+		}else{
+			sqlQuery ="SELECT "
+					+ "e.project_name, "
+					+ "e.project_code, "
+					+ "a.subjob_code, "
+					+ "b.subjob_name, "
+					+ "a.childsubjobcode, "
+					+ "c.childsubjobname, "
+					+ "a.gcostcode, "
+					+ "a.gcostcode_name, "
+					+ "a.budget, "
+					+ "a.datetime_response "
+					+ "FROM "
+					+ "projectplan_detail AS a "
+					+ "INNER JOIN subjob_master AS b ON b.subjob_code = a.subjob_code "
+					+ "INNER JOIN childsubjob_master AS c ON a.childsubjobcode = c.childsubjobcode AND b.subjob_code = c.subjob_code " 
+					+ "INNER JOIN project_master as e ON e.project_code = a.project_code " 
+					+ "INNER JOIN projectplan_header AS f ON f.project_code = a.project_code and f.year = a.year "
+					+ "where "
+					+ sqlWhere +"a.project_code <> '' ";
+		} 
 		
 		
 		if(!groupby.equals(""))

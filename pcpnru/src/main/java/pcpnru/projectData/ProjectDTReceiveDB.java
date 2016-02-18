@@ -65,11 +65,11 @@ public class ProjectDTReceiveDB {
 		pStmt.close();
 		conn.close();
 	} 
-	public void DeleteProjDTReceive(String projectcode, String costcode)  throws Exception{
+	public void DeleteProjDTReceive(String projectcode, String costcode, String year)  throws Exception{
 		conn = agent.getConnectMYSql();
 		 
 		String sqlStmt = "DELETE From projectplan_detail "+
-		"WHERE project_code = '"+projectcode+"' and gcostcode = '"+costcode+"'";
+		"WHERE project_code = '"+projectcode+"' and gcostcode = '"+costcode+"' and year = '"+year+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -198,4 +198,27 @@ public class ProjectDTReceiveDB {
 				}
 				return groupcostCodeList;
 			 }
+	public String getSumAmountPCC(String project_code, String year) throws Exception {
+		
+		String target = "";
+		
+		conn = agent.getConnectMYSql();
+	 	
+	 	String sqlStmt = "SELECT target " +
+		"FROM projectplan_header WHERE project_code = '"+project_code+"' and year = '"+year+"' ";
+	 	
+	 	pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlStmt);	
+		
+		while (rs.next()) {
+			target = rs.getString("target"); 
+		}
+		
+		
+		rs.close();
+		pStmt.close();
+		conn.close();
+		
+		return target;
+		}
 }

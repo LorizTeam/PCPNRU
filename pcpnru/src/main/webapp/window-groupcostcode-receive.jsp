@@ -86,19 +86,19 @@
 					<div class="cell colspan2"> 
 			        	ต้นทุน
 				        <div class="input-control text full-size">
-				        	<input name="grp_gcostcode" id="grp_gcostcode"/>
+				        	
 						    <s:textfield type="number" step="0.01" name="groupcostcodemastermodel.fundprice" id="fundprice" required=""/>
 						</div>
 					</div> 
 					 
 			    </div>
-			    <div>
+			  <!--  <div>
 			    <div class="cell align-center"><br>
 						  <button class="button success" name="add">สร้างชื่อรายการค่าใช้จ่าย</button> 
 						  <button class="button primary" name="update">แก้ไขชื่อรายการค่าใช้จ่าย</button> 
 						  <button class="button danger" name="delete" >ลบชื่อรายการค่าใช้จ่าย</button>  
-				</div>
-			    </div>
+				</div>   
+			    </div> -->
 			 </div>
 			 
 			 <s:hidden name="groupcostcodemastermodel.type_gcostcode" id="type_gcostcode" value="1"/>

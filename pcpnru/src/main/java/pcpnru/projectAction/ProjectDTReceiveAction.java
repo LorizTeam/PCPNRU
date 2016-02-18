@@ -107,7 +107,7 @@ public class ProjectDTReceiveAction extends ActionSupport{
 		
 	 	
 		}else{
-			projDtR.DeleteProjDTReceive(projectcode, gcostcode);
+			projDtR.DeleteProjDTReceive(projectcode, gcostcode, year);
 		}
 		 
 		return SUCCESS;

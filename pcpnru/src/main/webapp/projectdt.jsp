@@ -57,7 +57,35 @@
     			}
     		});
     		
-    		}
+    		} 
+			function printProj_PCC(tprojectcode, tyear){
+	    		swal({  title: "ยืนยันการพิมพ์เอกสาร ?",   
+	    				text: "หากคุณต้องการพิมพ์เอกสารให้กดปุ่มยืนยัน !",   
+	    				type: "warning",   
+	    				showCancelButton: true,   
+	    				confirmButtonColor: "#DD6B55",   
+	    				confirmButtonText: "ยืนยัน, ฉันต้องการพิมพ์เอกสาร !",   
+	    				cancelButtonText: "ไม่, ฉันไม่ต้องการพิมพ์เอกสาร !",   
+	    				closeOnConfirm: false,   
+	    				closeOnCancel: false,
+	    				showLoaderOnConfirm: true
+	    			},
+	    				 
+	    		function (isConfirm){
+	    		  	if (isConfirm) {
+	    			setTimeout(function(){
+	    				var load = window.open("/pcpnru/report/project-report-pcc.jsp?projectcode="+tprojectcode+"&year="+tyear+"" 
+	    						,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
+	    			swal("พิมพ์เอกสารสำเร็จแล้ว!", "โปรดตรวจสอบรายละเอียดของเอกสารอีกครั้งเพื่อความถูกต้อง !", "success");
+	    			} 
+	    			 , 1000);
+	     
+	    			}else {    
+	    			 swal("ยกเลิกการพิมพ์เอกสาร", "คุณสามารถพิมพ์เอกสารได้อีกครั้งหลังจากปิดหน้าต่างนี้ !", "error");   
+	    			}
+	    		});
+	    		
+	    		}
     </script>
 	
 	<body ng-app="" ng-init="">
@@ -69,25 +97,40 @@
 		 %>
 		 <%@include file="topmenu.jsp" %>
 		 <div class="container-fluid">
-		 	<a href="projectdt-receive.jsp?projectcode=<%=projectcode%>&year=<%=year%>" class="command-button primary">
+		 	<% if(projectcode.equals("PCC")) {%>
+		 	<a href="projectdt-receive-pcc.jsp?projectcode=<%=projectcode%>&year=<%=year%>" class="command-button primary">
 			    <span class="icon mif-chart-dots"></span>
 			  	  รายได้
 			    <small>จัดการรายรับของโครงการ</small>
 			</a>
+			<%} else { %>
+			<a href="projectdt-receive.jsp?projectcode=<%=projectcode%>&year=<%=year%>" class="command-button primary">
+			    <span class="icon mif-chart-dots"></span>
+			  	  รายได้
+			    <small>จัดการรายรับของโครงการ</small>
+			</a>
+			<%} %>
 			<a href="projectdt-charges.jsp?projectcode=<%=projectcode%>&year=<%=year%>" class="command-button info">
 			    <span class="icon mif-coins"></span>
 			  	 ค่าใช้จ่าย
 			    <small>จัดการค่าใช้จ่ายของโครงการ</small>
 			</a>
 		<!--  	<a href="projectplan.pdf" class="command-button success"> -->
+			<% if(projectcode.equals("PCC")) {%>
+			<a href="javascript:printProj_PCC('<%=projectcode%>','<%=year%>');" class="command-button success" >
+			    <span class="icon mif-printer"></span>
+			  	 พิมพ์
+			    <small>พิมพ์รายงานประมาณการรายได้ รายจ่าย</small>
+			</a>
+			<%} else { %>
 			<a href="javascript:printProj('<%=projectcode%>','<%=year%>');" class="command-button success" >
 			    <span class="icon mif-printer"></span>
 			  	 พิมพ์
 			    <small>พิมพ์รายงานประมาณการรายได้ รายจ่าย</small>
 			</a>
-
+			<%} %>
 			<div class="example"data-text="" >
-			<h3 class="align-center margin30">ประมาณการรายได้ รายจ่าย โครงการ <%=projectname%></h3>
+			<h3 class="align-center margin30">ประมาณการรายได้ รายจ่าย โครงการ <%=projectname%> ปี <%=year%></h3>
 			<div class="grid ">	
 				<div class="window ">
 					<div class="row cells12 align-center  window-caption bg-cyan fg-white" >

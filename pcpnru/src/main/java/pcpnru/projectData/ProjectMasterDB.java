@@ -37,7 +37,7 @@ public class ProjectMasterDB {
 			if(!projectCode.equals("")) sqlStmt = sqlStmt+ "project_code like '"+projectCode+"%' AND ";
 			if(!projectName.equals("")) sqlStmt = sqlStmt+ "project_name like '"+projectName+"%' AND ";
 			
-			sqlStmt = sqlStmt + "project_code <> '' order by datetime desc, project_code";
+			sqlStmt = sqlStmt + "project_code <> '' order by project_code";
 			
 			//System.out.println(sqlStmt);				
 			pStmt = conn.createStatement();
@@ -139,9 +139,10 @@ public class ProjectMasterDB {
 				+ "FROM "
 				+ "project_master where ";
 				sqlQuery += sqlWhere;
+				 
 		sqlQuery +=  "project_master.project_code <> '' order by project_master.project_code ";
 		
-		System.out.println(sqlQuery);
+		//System.out.println(sqlQuery);
 		
 		conn = agent.getConnectMYSql();
 		pStmt = conn.createStatement();
@@ -161,7 +162,50 @@ public class ProjectMasterDB {
 		
 		return getListProject_Join_Projecthead;
 	} 
-	
+public List getListProject_Join_Projecthead_PCC(String project_code,String project_name,String year,String target) throws IOException, Exception{
+		
+		String sqlWhere = "";
+	//	if(!project_code.equals("")){
+	//		sqlWhere += "project_master.project_code = '"+project_code+"' AND ";
+	//	}
+		if(!project_name.equals("")){
+			sqlWhere += "project_master.project_name = '"+project_name+"' AND ";
+		} 
+		
+		String sqlQuery = "SELECT "
+				+ "project_master.project_code, "
+				+ "project_master.project_name "
+				+ "FROM "
+				+ "project_master where ";
+				sqlQuery += sqlWhere;
+				
+		if(project_code.equals("PCC")){
+			sqlQuery += "project_master.project_code not in (select b.gcostcode from projectplan_detail b where b.gcostcode <> '' and b.gcostcode not in ('PCC') and " + 
+					"b.gcostcode = project_master.project_code " + 
+					"GROUP BY b.gcostcode) and ";
+		}
+		sqlQuery +=  "project_master.project_code <> '' and project_master.project_code not in ('PCC') order by project_master.project_code ";
+		
+		//System.out.println(sqlQuery);
+		
+		conn = agent.getConnectMYSql();
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlQuery);
+		
+		List getListProject_Join_Projecthead = new ArrayList();
+		String forwhat="getListProject_Join_Projecthead";
+		while(rs.next()){
+			project_code = rs.getString("project_code");
+			project_name = rs.getString("project_name"); 
+			getListProject_Join_Projecthead.add(new ProjectModel(forwhat,project_code,project_name,"","",forwhat));
+		}
+		
+		rs.close();
+		pStmt.close();
+		conn.close();
+		
+		return getListProject_Join_Projecthead;
+	} 
 	public String SelectUpdateDocNo() throws Exception {
 		String requestno = "", typeR = "";
 		try {

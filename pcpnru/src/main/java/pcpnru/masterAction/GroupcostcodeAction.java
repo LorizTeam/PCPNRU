@@ -52,6 +52,7 @@ public class GroupcostcodeAction extends ActionSupport {
 			forwardText = "requisition";
 			groupcostCode = "C"+groupcostCode;
 			amount = amount.replace(",", "");
+			if(grp_gcostcode==null) grp_gcostcode = "";
 		}else{
 			groupcostCode = groupcostCode.replace("R", "");
 			groupcostCode = "R"+groupcostCode;
