@@ -86,6 +86,7 @@
 					<div class="cell colspan2"> 
 			        	ต้นทุน
 				        <div class="input-control text full-size">
+				        	<input name="grp_gcostcode" id="grp_gcostcode"/>
 						    <s:textfield type="number" step="0.01" name="groupcostcodemastermodel.fundprice" id="fundprice" required=""/>
 						</div>
 					</div> 

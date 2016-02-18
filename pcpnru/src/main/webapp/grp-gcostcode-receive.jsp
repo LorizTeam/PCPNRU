@@ -46,7 +46,8 @@
                 	<th>รหัส -ชื่อโครงการ</th>
                     <th>รหัส-ชื่อ กลุ่มรายได้</th> 
                     <th>จำนวนรวม</th> 
-                    <th>ราคารวม</th>  
+                    <th>ราคารวม</th> 
+                    <th> </th> 
                 </tr>
                 </thead> 
                   
@@ -66,14 +67,18 @@
         		if(GrpCostCodeList != null){
         			Iterator costcodeIterate = GrpCostCodeList.iterator();
         			while(costcodeIterate.hasNext()){
-        				GrpGCostCodeMasterModel gccInfo = (GrpGCostCodeMasterModel) costcodeIterate.next();
+        				GrpGCostCodeMasterModel gccInfo = (GrpGCostCodeMasterModel) costcodeIterate.next(); 
+        				String pj = gccInfo.getProject_code();
+        				String yr = gccInfo.getGrp_costyear();
+        				String gc = gccInfo.getGrp_gcostcode();
         		%>
         			<tr>
-	        			<td align="center"><a onclick="Opener('<%=gccInfo.getAmounttotal()%>')"><span class="mif-checkmark" ></span></a></td>
+	        			<td align="center"><a onclick="Opener('<%=gccInfo.getAmounttotal()%>','<%=gccInfo.getGrp_gcostcode()%>')"><span class="mif-checkmark" ></span></a></td>
 	        			<td class="tdprojectCode" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>  
-	                    <td class="tdcostCode" align="left"><%=gccInfo.getGrp_gcostcode()%> - <%=gccInfo.getGrp_gcostname()%></td> 
+	                    <td class="tdgrp_gcostcode" align="left"><%=gccInfo.getGrp_gcostcode()%> - <%=gccInfo.getGrp_gcostname()%></td> 
 	                    <td align="right"><%=gccInfo.getQty()%></td>
 	                    <td class="tdstandardprice" align="right"><%=gccInfo.getAmounttotal()%></td> 
+	                    <td align="center"><a href="grpGcostcodeMaster.action?projecthd=<%=pj%>&yearhd=<%=yr%>&grp_gcostcodehd=<%=gc%>"><span class="mif-cross deletebt"></span></a> </td>
                 	</tr>
         		<%		
         		a++;
@@ -118,14 +123,15 @@
 					<div class="cell colspan4">  
 		        	ชื่อกลุ่มรายได้
 			        <div class="input-control text full-size">
-					    <input type="text" name="grpgcostcodemastermodel.grp_gcostname"  required=""  />
+					    <input type="text" name="grpgcostcodemastermodel.grp_gcostname" required=""  />
+					    
 					</div>
 					</div>
 					 <div class="cell colspan1">  
 					  
 		        	ปี
 			        <div class="input-control text full-size">
-					    <input type="text" name="grpgcostcodemastermodel.grp_costyear" value="<%=dateUtil.curTHYear()%>"  />
+					    <input type="text" id="year" name="grpgcostcodemastermodel.grp_costyear" value="<%=dateUtil.curTHYear()%>"  />
 					</div>
 				</div>
 					<div class="cell colspan2 align-left"><br>
@@ -141,11 +147,10 @@
             <table id="table_costcode_c" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
                 <thead>
                 <tr>  
-                	<th ><label class="input-control small-check checkbox"> 
+                	<th><label class="input-control small-check checkbox"> 
                 		<input type="checkbox" id="checkAll" data-show="indeterminate" />
                 		<span class="check"></span> 
-                        </label> เลือกทั้งหมด 
-                	</th>
+                        </label> เลือกทั้งหมด</th>
                 	<th>รหัส -ชื่อโครงการ</th>
                     <th>รหัส-ชื่อ รายได้</th> 
                     <th>จำนวน</th> 
@@ -172,15 +177,15 @@
         				GrpGCostCodeMasterModel gccInfo = (GrpGCostCodeMasterModel) costcodeIterate.next();
         		%>
         			<tr>
-        			<td align="center"><input type="checkbox" name="archk" value="<%=y%>"> <%=x%></td>
-        			<td class="tdprojectCode" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>  
-                    <td class="tdcostCode" align="left"><%=gccInfo.getGcostcode()%> - <%=gccInfo.getGcostcode_name()%>
-                    	<input type="hidden" name="argcostcode" value="<%=gccInfo.getGcostcode()%>" />
-                    </td> 
-                    <td dir="rtl"><input type="number" step="0.01" id="qty" name="qrqty" size="10" ></td>
-                    <td class="tdstandardprice" align="right"><%=gccInfo.getAmount_c()%>
-                    	<input type="hidden" name="aramount_c" value="<%=gccInfo.getAmount_c()%>" />
-                    </td> 
+	        			<td align="center"><input type="checkbox" name="archk" value="<%=y%>"> <%=x%></td>
+	        			<td class="" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>  
+	                    <td class="" align="left"><%=gccInfo.getGcostcode()%> - <%=gccInfo.getGcostcode_name()%>
+	                    	<input type="hidden" name="argcostcode" value="<%=gccInfo.getGcostcode()%>" />
+	                    </td> 
+	                    <td dir="rtl"><input type="number" step="0.01" id="qty" name="qrqty" size="10" ></td>
+	                    <td class="tdstandardprice" align="right"><%=gccInfo.getAmount_c()%>
+	                    	<input type="hidden" name="aramount_c" value="<%=gccInfo.getAmount_c()%>" />
+	                    </td> 
                 	</tr>
         		<%		
         		x++;y++;
@@ -195,11 +200,10 @@
           
    		<script>
    		 
-        function Opener(amttotal) {
-             alert(amttotal)
-             
-            window.opener.document.getElementById ("fundprice").value = amttotal; 
-      
+        function Opener(amttotal,grp_gcostcode) {
+            
+            window.opener.document.getElementById ("fundprice").value = amttotal;  
+            window.opener.document.getElementById ("grp_gcostcode").value = grp_gcostcode;
             window.close();
         } 
    		
@@ -208,16 +212,20 @@
 			             'scrollbars=yes,menubar=no,height=600,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
 		}
    		
-        $(function(){
-        	$("#project_code").select2();
-        	 
+   	 $(function(){
         	$("#checkAll").change(function () {
        		    $("input:checkbox").prop('checked', $(this).prop("checked"));
        		});
+        	 
         	
         	$("#project_code").change(function () {
         		$('#fgrpCostcode').submit();
         	});
+         
+       		$("#project_code").select2(); 
+    	   		
+   	});	
+        	
         	
         	/*	$('#table_costcode_c').dataTable( {
 			scrollY: 300,
@@ -225,7 +233,7 @@
 			"targets": 0,
 			"lengthMenu": [ 100, 75, 50, 25, 10 ]
 	 	} );  */
-        });
+        
     	</script>
 	</body>
 </html>

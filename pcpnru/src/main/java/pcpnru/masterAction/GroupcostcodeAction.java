@@ -30,6 +30,7 @@ public class GroupcostcodeAction extends ActionSupport {
 		String forwardText = "";
 		
 		String project_code 	= request.getParameter("projectCode"); 
+		String grp_gcostcode 	= request.getParameter("grp_gcostcode"); 
 		
 		String groupcostCode = "";//groupcostcodemastermodel.getCostCode()
 		String groupcostName = groupcostcodemastermodel.getCostName()
@@ -50,6 +51,7 @@ public class GroupcostcodeAction extends ActionSupport {
 			fundprice = "0";
 			forwardText = "requisition";
 			groupcostCode = "C"+groupcostCode;
+			amount = amount.replace(",", "");
 		}else{
 			groupcostCode = groupcostCode.replace("R", "");
 			groupcostCode = "R"+groupcostCode;
@@ -63,7 +65,7 @@ public class GroupcostcodeAction extends ActionSupport {
 			
 			try {
 				groupcostCode = groupcostcodemasterdb.SelectUpdateDocNo(project_code, type_gcostcode);
-				groupcostcodemasterdb.AddCostCodeMaster(project_code, groupcostCode, groupcostName,standardprice,fundprice,amount,type_gcostcode);
+				groupcostcodemasterdb.AddCostCodeMaster(project_code, groupcostCode, groupcostName,standardprice,fundprice,amount,type_gcostcode,grp_gcostcode);
 				groupcostcodemastermodel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

@@ -68,7 +68,7 @@
 					<div class="cell colspan2"> 
 			        	 ราคาต่อหน่วย
 				        <div class="input-control text full-size">
-						    <s:textfield name="groupcostcodemastermodel.amount" id="amount" onblur="CommaFormatted();" required=""/>
+						    <s:textfield name="groupcostcodemastermodel.amount" id="amount" required=""/>
 						</div>
 					</div>
 	         	</div>
@@ -140,7 +140,7 @@
         </div> <!-- End of example table -->  
         
    		<script> 
-   		function CommaFormatted() {
+   			$("#amount").blur(function (){
    			var amount = $("#amount").val(); 
    			var t1 = "";
    			if(amount == "NaN"){
@@ -212,15 +212,14 @@
    			//return amount;
    		//	alert(amount);  */
    			$("#amount").val(t1);
-   		}
-   		
-   		
-   		$(function(){
-		   
-        	var select2projectcode = $("#project_code").select2();
-        	 
-        	var table = $('#table_project_req').dataTable();
+   		});
+   		 
+   			$("#project_code").select2();
+   			
             $('#table_project_req tbody').on( 'click', 'tr', function () {
+            	
+            	var select2projectcode = $("#project_code").select2();
+            	
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');
     	            select2projectcode.val("").trigger("change");
@@ -230,6 +229,7 @@
     	            $("#amount").val("");
     	        }
     	        else {
+    	        	var table = $('#table_project_req').dataTable();
     	            table.$('tr.selected').removeClass('selected');
     	            $(this).addClass('selected');
     	            var $index = $(this).index();
@@ -245,10 +245,7 @@
     	            $("#amount").val(amt);
     	        }
     	    });   
-            
-        }); 
-   		 
-   		 
+           
     	</script>
 	</body>
 </html>

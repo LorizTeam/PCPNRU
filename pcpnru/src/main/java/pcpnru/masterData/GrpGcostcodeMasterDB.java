@@ -32,17 +32,17 @@ public class GrpGcostcodeMasterDB {
 		
 			conn = agent.getConnectMYSql();
 			
-			String sqlStmt = "SELECT a.gcostcode_r,a.gcostcode_c,a.grp_gcostcode,a.grp_gcostname,a.project_code,a.grp_costyear, sum(a.amount) as sumamt " +
+			String sqlStmt = "SELECT a.gcostcode_c,a.grp_gcostcode,a.grp_gcostname,a.project_code,a.grp_costyear, sum(a.amount) as sumamt " +
 			"FROM grp_gcostcode_master a " + 
 			"WHERE "; 
 			
-			sqlStmt = sqlStmt + "gcostcode_r <> '' group by gcostcode_r order by a.gcostcode_r";
+			sqlStmt = sqlStmt + "gcostcode_c <> '' group by gcostcode_c order by a.gcostcode_c";
 			
 			//System.out.println(sqlStmt);				
 			pStmt = conn.createStatement();
 			rs = pStmt.executeQuery(sqlStmt);	
 			while (rs.next()) {
-				gcostcode_r	= rs.getString("gcostcode_r");
+				 
 				gcostcode_c	= rs.getString("gcostcode_c");
 				grp_gcostcode 	= rs.getString("grp_gcostcode"); 
 				if (rs.getString("grp_gcostname") != null) 		grp_gcostname = rs.getString("grp_gcostname"); else grp_gcostname = "";
@@ -52,7 +52,7 @@ public class GrpGcostcodeMasterDB {
 				amount		= rs.getString("sumamt");
 				amount 		= df2.format(Float.parseFloat(amount));
 				
-				grpGcostCodeMasterList.add(new GrpGCostCodeMasterModel(gcostcode_r, gcostcode_c, grp_gcostcode, grp_gcostname, project_code, grp_costyear, amount));
+				grpGcostCodeMasterList.add(new GrpGCostCodeMasterModel(gcostcode_c, grp_gcostcode, grp_gcostname, project_code, grp_costyear, amount));
 			}
 			rs.close();
 			pStmt.close();
@@ -116,13 +116,16 @@ public class GrpGcostcodeMasterDB {
 				
 					conn = agent.getConnectMYSql();
 					
-					String sqlStmt = "SELECT a.project_code, b.project_name, a.grp_gcostcode, a.grp_gcostname, count(a.qty) as countqty, sum(a.amounttotal) as sumamt " +
+					String sqlStmt = "SELECT a.project_code, b.project_name, a.grp_gcostcode, a.grp_gcostname, a.grp_costyear, sum(a.qty) as countqty, sum(a.amounttotal) as sumamt " +
 					"FROM grp_gcostcode_master a " +
 					"INNER JOIN project_master b on(b.project_code = a.project_code) " +  
 					"WHERE ";
 					if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+project_code+"' AND ";
 					if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.grp_costyear = '"+grp_costyear+"' AND ";
-					sqlStmt = sqlStmt + "grp_gcostcode <> '' GROUP BY a.grp_gcostcode ";
+					sqlStmt = sqlStmt + "grp_gcostcode <> '' "
+						//	+ "and a.grp_gcostcode not in (select DISTINCT(c.grp_gcostcode) from "
+						//	+ "groupcostcode_master c where c.grp_gcostcode <> '') "
+							+ "GROUP BY a.grp_gcostcode ";
 					
 					//System.out.println(sqlStmt);				
 					pStmt = conn.createStatement();
@@ -132,6 +135,7 @@ public class GrpGcostcodeMasterDB {
 						if (rs.getString("project_name") != null) 		project_name = rs.getString("project_name"); else project_name = "";
 						grp_gcostcode 		= rs.getString("grp_gcostcode");
 						if (rs.getString("grp_gcostname") != null) 		grp_gcostname = rs.getString("grp_gcostname"); else grp_gcostname = "";
+						grp_costyear = rs.getString("grp_costyear");
 						
 						qty			= rs.getString("countqty");
 						qty 		= df1.format(Float.parseFloat(qty));
@@ -139,7 +143,7 @@ public class GrpGcostcodeMasterDB {
 						amounttotal		= rs.getString("sumamt");
 						amounttotal 		= df2.format(Float.parseFloat(amounttotal));
 							
-						GrpCostCodeList.add(new GrpGCostCodeMasterModel(project_code, project_name, grp_gcostcode, grp_gcostname, amounttotal, qty));
+						GrpCostCodeList.add(new GrpGCostCodeMasterModel(project_code, project_name, grp_gcostcode, grp_gcostname, grp_costyear, amounttotal, qty));
 					}
 						
 					rs.close();
@@ -181,7 +185,18 @@ public class GrpGcostcodeMasterDB {
 		conn.close();
 	}
 	
-	public void DeleteCostCodeMaster(String project_code, String groupcostCode)  throws Exception{
+	public void DeleteGCostCodeMaster(String project_code, String grp_gcostcode, String grp_costyear)  throws Exception{
+		conn = agent.getConnectMYSql();
+		
+		String sqlStmt = "DELETE From grp_gcostcode_master "+
+		"WHERE project_code = '"+project_code+"' and grp_gcostcode = '"+grp_gcostcode+"' and grp_costyear = '"+grp_costyear+"'";
+		System.out.println(sqlStmt);
+		pStmt = conn.createStatement();
+		pStmt.executeUpdate(sqlStmt);
+		pStmt.close();
+		conn.close();
+	}
+	public void DeleteCostCode(String project_code, String groupcostCode)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
 		String sqlStmt = "DELETE From groupcostcode_master "+

@@ -69,12 +69,13 @@
 					<div class="cell colspan3"> 
 			        	 ราคากลาง
 				        <div class="input-control text full-size">
-						    <s:textfield name="groupcostcodemastermodel.standardprice" type="number" step="0.01" id="standardprice" required=""/>
+						    <s:textfield name="groupcostcodemastermodel.standardprice" id="standardprice" required=""/>
 						</div>
 					</div>
 					<div class="cell colspan3"> 
 			        	ต้นทุน
 				        <div class="input-control text full-size">
+				        <input type="hidden" name="grp_gcostcode" id="grp_gcostcode"/>
 					 	<s:textfield id="fundprice" name="groupcostcodemastermodel.fundprice" readonly="true" />
 						<div class="button-group">
 							<button class="button mini-button" type="button" onclick="deleteCC();"><span class="mif-bin"></span></button>
@@ -154,6 +155,23 @@
 			             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
 		}
    		
+   		 
+   			$("#standardprice").blur(function (){
+   				 
+   			var budget = $("#standardprice").val(); 
+   			var t1 = "";
+   			if(budget == "NaN"){
+   				t1 = "0";
+   			}else if(budget == ""){
+   				t1 = "0";
+   			}
+   			else{
+   				budget = budget.replace(/,/g,"");
+   		    var t1 = parseFloat(budget).toLocaleString("en-US");
+   			} 
+   			$("#standardprice").val(t1);
+   		});
+   		
    		function deleteCC() {
 			$("#fundprice").val(""); 
 		}
@@ -185,12 +203,12 @@
     	            $("#costName").val($(".tdcostName").eq($index).text());
     	            
     	            var st = $(".tdstandardprice").eq($index).text();
-    	            st = st.replace(",", "");
+    	       //     st = st.replace(",", "");
     	            
     	            $("#standardprice").val(st);
     	            
     	            var fp = $(".tdfundprice").eq($index).text();
-    	            fp = fp.replace(",", "");
+    	       //     fp = fp.replace(",", "");
     	            $("#fundprice").val(fp);
     	        }
     	    });

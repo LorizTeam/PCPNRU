@@ -25,10 +25,10 @@ public class GrpGCostCodeMasterModel {
 		// TODO Auto-generated constructor stub
 	} 
 	
-	public GrpGCostCodeMasterModel(String gcostcode_r, String gcostcode_c, String grp_gcostcode, String grp_gcostname,
+	public GrpGCostCodeMasterModel(String gcostcode_c, String grp_gcostcode, String grp_gcostname,
 			String project_code, String grp_costyear, String amount) {
 		super();
-		this.gcostcode_r = gcostcode_r;
+		 
 		this.gcostcode_c = gcostcode_c;
 		this.grp_gcostcode = grp_gcostcode;
 		this.grp_gcostname = grp_gcostname;
@@ -36,13 +36,14 @@ public class GrpGCostCodeMasterModel {
 		this.grp_costyear = grp_costyear;
 		this.amount = amount;
 	}
-	public GrpGCostCodeMasterModel(String project_code, String project_name, String grp_gcostcode, String grp_gcostname, String amounttotal, String qty) {
+	public GrpGCostCodeMasterModel(String project_code, String project_name, String grp_gcostcode, String grp_gcostname, String grp_costyear, String amounttotal, String qty) {
 		super();
 		this.project_code = project_code;
 		this.project_name = project_name;
 		this.grp_gcostcode = grp_gcostcode;
 		this.grp_gcostname = grp_gcostname;
 		this.amounttotal = amounttotal; 
+		this.grp_costyear = grp_costyear;
 		this.qty = qty; 
 	} 
 	public GrpGCostCodeMasterModel(String project_code, String project_name, String gcostcode, String gcostcode_name, String amount_c) {

@@ -43,6 +43,7 @@ public class WindowGroupcostcodeAction extends ActionSupport {
 		
 		String project_code 	= request.getParameter("projectCode");
 		String year 			= request.getParameter("year"); 
+		String grp_gcostcode 	= request.getParameter("grp_gcostcode"); 
 		
 		request.setAttribute("projectcode", project_code);
 		request.setAttribute("year", year);
@@ -53,6 +54,7 @@ public class WindowGroupcostcodeAction extends ActionSupport {
 			fundprice = "0";
 			forwardText = "requisition";
 			groupcostCode = "C"+groupcostCode;
+			amount = amount.replace(",", "");
 		}else{
 			groupcostCode = groupcostCode.replace("R", "");
 			groupcostCode = "R"+groupcostCode;
@@ -66,7 +68,7 @@ public class WindowGroupcostcodeAction extends ActionSupport {
 			
 			try {
 				groupcostCode = groupcostcodemasterdb.SelectUpdateDocNo(project_code, type_gcostcode);
-				groupcostcodemasterdb.AddCostCodeMaster(project_code, groupcostCode, groupcostName,standardprice,fundprice, amount, type_gcostcode);
+				groupcostcodemasterdb.AddCostCodeMaster(project_code, groupcostCode, groupcostName,standardprice,fundprice, amount, type_gcostcode, grp_gcostcode);
 				groupcostcodemastermodel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

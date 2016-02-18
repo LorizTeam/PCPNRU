@@ -137,13 +137,14 @@ public class GroupcostcodeMasterDB {
 				}
 				return groupcostCodeMasterList;
 			 }
-	public void AddCostCodeMaster(String project_code,String groupcostCode, String groupcostName, String standardprice, String fundprice, String amount,String type_gcostcode)  throws Exception{
+	public void AddCostCodeMaster(String project_code,String groupcostCode, String groupcostName, String standardprice, String fundprice, 
+			String amount,String type_gcostcode, String grp_gcostcode)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
 		
 		String dateTime = "";
-		String sqlStmt = "INSERT INTO `groupcostcode_master` (project_code, `gcostcode`, `gcostcode_name`,gcostcode_standardprice,gcostcode_fundprice,amount,datetime,type_gcostcode) "
-				+ "VALUES ('"+project_code+"', '"+groupcostCode+"', '"+groupcostName+"','"+standardprice+"','"+fundprice+"','"+amount+"', now(),'"+type_gcostcode+"')";
+		String sqlStmt = "INSERT INTO `groupcostcode_master` (project_code, `gcostcode`, `gcostcode_name`,gcostcode_standardprice,gcostcode_fundprice,amount,datetime,type_gcostcode,grp_gcostcode) "
+				+ "VALUES ('"+project_code+"', '"+groupcostCode+"', '"+groupcostName+"','"+standardprice+"','"+fundprice+"','"+amount+"', now(),'"+type_gcostcode+"','"+grp_gcostcode+"')";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);

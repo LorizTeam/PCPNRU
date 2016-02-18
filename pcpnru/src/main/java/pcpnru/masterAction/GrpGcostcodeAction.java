@@ -32,13 +32,27 @@ public class GrpGcostcodeAction extends ActionSupport {
 		String forwardText = "";
 		
 		String project_code 	= request.getParameter("projectCode"); 
-		String grp_costyear	 	= grpgcostcodemastermodel.getGrp_costyear();
-		String grp_gcostname = grpgcostcodemastermodel.getGrp_gcostname();
+		String grp_costyear	 	= "";
+		String grp_gcostname 	= "";
+		
+		String projecthd 		= request.getParameter("projecthd"); 
+		String yearhd	= request.getParameter("yearhd"); 
+		String grp_gcostcodehd 	= request.getParameter("grp_gcostcodehd");
+
+		if(null!=projecthd&&null!=grp_gcostcodehd&&null!=grp_costyear){
+			grpgcostcodemasterdb.DeleteGCostCodeMaster(projecthd, grp_gcostcodehd, yearhd);
+			project_code = projecthd;
+			grp_costyear = yearhd;
+		}else{
+			grp_costyear	 = grpgcostcodemastermodel.getGrp_costyear();
+			grp_gcostname 	= grpgcostcodemastermodel.getGrp_gcostname();
+		}
+		
 		/*		   groupcostName = grpgcostcodemastermodel.getGcostcode_name(),
 			   grp_costyear	 = grpgcostcodemastermodel.getGrp_costyear(),
 			   amount_c = grpgcostcodemastermodel.getAmount_c(),
-			   qty = grpgcostcodemastermodel.getQty();   */
-		 
+			   qty = grpgcostcodemastermodel.getQty();   */ 
+		
 		String add = request.getParameter("add");
 		String update = request.getParameter("update");
 		String delete = request.getParameter("delete");
@@ -61,12 +75,18 @@ public class GrpGcostcodeAction extends ActionSupport {
 		List CostCodeList_C = grpgcostcodemasterdb.GetCostCodeList_C(project_code, grp_costyear);
 	   	request.setAttribute("CostCodeList_C", CostCodeList_C);
 		
+	   	List GrpCostCodeList = grpgcostcodemasterdb.GetGrpCostCodeList(project_code, grp_costyear);
+		request.setAttribute("GrpCostCodeList", GrpCostCodeList);
 	}else{
 		request.setAttribute("projectcode", project_code); 
+		
+		List GrpCostCodeList = grpgcostcodemasterdb.GetGrpCostCodeList(project_code, grp_costyear);
+		request.setAttribute("GrpCostCodeList", GrpCostCodeList);
 		
 		List CostCodeList_C = grpgcostcodemasterdb.GetCostCodeList_C(project_code, grp_costyear);
 	   	request.setAttribute("CostCodeList_C", CostCodeList_C);
 	}
+		 
 		 
 		return forwardText;
 	}
