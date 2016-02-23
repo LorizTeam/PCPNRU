@@ -43,7 +43,7 @@ public class ProjectData {
 					+ "FROM "
 					+ "projectplan_header AS a "
 					+ "INNER JOIN project_master AS b ON b.project_code = a.project_code where a.project_code <> '' "
-					+ "order by a.datetime_response desc";
+					+ "order by a.project_code";
 			
 			conn = agent.getConnectMYSql();
 			pStmt = conn.createStatement();

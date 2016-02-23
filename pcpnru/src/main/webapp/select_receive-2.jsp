@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet">
-		
+		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
 	 
 		<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		     		<button class="button success" type="submit" name="approve_tobank" value="approve_tobank">ยืนยันการโอนเงิน</button> <input type="checkbox" id="checkall"> เลือกทั้งหมด
 		     	</div>
 		    
-            <table id="table_receives2" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_receives2" class="cell-border display compact nowrap" cellspacing="0"  width="100%">
                 <thead>
                 <tr>  
                 	<th>เลขที่</th>
@@ -112,7 +112,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <td class="tddatetime" align="center"><%=receiveMaster.getDocdate()%></td> 
                     <td class="tdamountfrom" align="left"><%=receiveMaster.getAmountfrom()%></td> 
                     <td class="tdlocal" align="left"><%=receiveMaster.getLocal()%></td>
-                    <td class="" align="left"><button class="seedetail"><span class="mif-search fg-green"></span></button></td>
+                    <td class="" align="center" width="5%"><button class="seedetail"><span class="mif-search fg-green"></span></button></td>
                     <%
                     if(receiveMaster.getApprove_tobank().equals("1")){
                     %>
@@ -144,6 +144,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </form>
 
 <script>
+
+	$('#table_receives2').DataTable( { 
+	  	scrollY: '60vh', 
+	  	scrollX: true,
+	  	scrollCollapse: true,
+	    ordering: false,
+	    "lengthMenu": [[12, 30, 60, 100, -1], [12, 30, 60, 100, "All"]] 
+	} ); 
+	
 	$("button.seedetail").click(function(event){
 		var $index = $("button.seedetail").index(this);
 		

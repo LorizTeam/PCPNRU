@@ -22,6 +22,7 @@
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/select2.css" rel="stylesheet">
+		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -97,7 +98,7 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ">
-            <table id="table_project_rec" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_project_rec" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>  
                 	<th>ลำดับ</th>
@@ -150,6 +151,7 @@
         </div> <!-- End of example table -->  
          
    		<script>
+   		 
    		function getGcostcode(projectcode, year) {
 			var load = window.open('/pcpnru/grp-gcostcode-receive.jsp?projectcode='+projectcode+'&year='+year+' ','receive',
 			             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
@@ -179,7 +181,14 @@
         $(function(){
         	var select2projectcode = $("#project_code").select2();
         	
-        	var table = $('#table_project_rec').dataTable();
+        	var table = $('#table_project_rec').DataTable( { 
+         		scrollY: '35vh',
+         		scrollX: true, 
+         		scrollCollapse: true,
+                ordering: false,
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
+            } );
+        	
             $('#table_project_rec tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');

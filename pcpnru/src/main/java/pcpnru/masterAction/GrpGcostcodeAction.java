@@ -69,7 +69,8 @@ public class GrpGcostcodeAction extends ActionSupport {
 			String[] aramount_c 	= request.getParameterValues("aramount_c");
 			
 			for(int i=0; i<archk.length; i++){
-				grpgcostcodemasterdb.AddGrpGCostCodeMaster(project_code, argcostcode[i], grp_gcostcode, grp_gcostname, grp_costyear, qrqty[i], aramount_c[i]);
+				int j = Integer.parseInt(archk[i]);
+				grpgcostcodemasterdb.AddGrpGCostCodeMaster(project_code, argcostcode[j], grp_gcostcode, grp_gcostname, grp_costyear, qrqty[j], aramount_c[j]);
 			}
 		}	
 		List CostCodeList_C = grpgcostcodemasterdb.GetCostCodeList_C(project_code, grp_costyear);

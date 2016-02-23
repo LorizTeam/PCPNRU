@@ -22,6 +22,7 @@
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/select2.css" rel="stylesheet">
+		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script> 
 	    <script src="js/metro.js"></script>
@@ -97,7 +98,7 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ">
-            <table id="table_project_req" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_project_req" class="cell-border hover display compact nowrap" cellspacing="0"  width="100%">
                 <thead>
                 <tr>  
                 	<th>ลำดับ</th>
@@ -244,7 +245,18 @@
     	            amt = parseFloat(amt).toLocaleString("en-US");
     	            $("#amount").val(amt);
     	        }
-    	    });   
+    	        
+    	        
+    	    });  
+            
+	            $('#table_project_req').DataTable( { 
+	              	scrollY:        '35vh', 
+	              	scrollX: true,
+	              	scrollCollapse: true,
+	                ordering: false,
+	                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
+	            } ); 
+	        
            
     	</script>
 	</body>

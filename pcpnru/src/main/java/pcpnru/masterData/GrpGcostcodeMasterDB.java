@@ -79,7 +79,7 @@ public class GrpGcostcodeMasterDB {
 					"WHERE ";
 					if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+project_code+"' AND ";
 					sqlStmt = sqlStmt + "a.gcostcode not in (select DISTINCT(b.gcostcode_c) from grp_gcostcode_master b where b.gcostcode_c = a.gcostcode "
-							+ "and b.grp_costyear = '"+grp_costyear+"') "
+							+ "and b.project_code = '"+project_code+"' and b.grp_costyear = '"+grp_costyear+"') "
 							+ "and type_gcostcode = '2' order by a.gcostcode";
 					
 					//System.out.println(sqlStmt);				

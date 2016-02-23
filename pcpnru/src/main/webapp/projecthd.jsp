@@ -20,6 +20,7 @@
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet"> 
 	 	<link href="css/select2.css" rel="stylesheet">
+	 	<link href="css/jquery.dataTables.min.css" rel="stylesheet">
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -79,7 +80,7 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ" ng-app="" ng-init="">
-            <table id="table_project" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_project" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr> 
                     <th>รหัส-โครงการ</th>
@@ -135,7 +136,13 @@
 		       var selectproject_code =  $("#project_code").select2();
 		        
 		        var target = "";
-		        var table = $('#table_project').dataTable();
+		        var table = $('#table_project').DataTable( { 
+	              	scrollY: '37.5vh', 
+	              	scrollX: true,
+	              	scrollCollapse: true,
+	                ordering: false,
+	                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
+	            } );
 		        $('#table_project tbody').on( 'click', 'tr', function () { 
 	    	        if ( $(this).hasClass('selected') ) {
 	    	            $(this).removeClass('selected');

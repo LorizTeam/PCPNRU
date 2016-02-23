@@ -26,6 +26,7 @@
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/select2.css" rel="stylesheet">
+		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script> 
@@ -39,7 +40,7 @@
 		 <form id="fgrpCostcode" action="grpGcostcodeMaster.action" method="post">
 		 
 		 <div class="example" data-text="กลุ่มรายได้ ที่มาจากรายจ่าย">
-            <table id="table_grp_costcode" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_grp_costcode" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>  
                 	<th>เลขที่</th>
@@ -144,7 +145,7 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ">
-            <table id="table_costcode_c" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_costcode_c" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>  
                 	<th><label class="input-control small-check checkbox"> 
@@ -177,7 +178,7 @@
         				GrpGCostCodeMasterModel gccInfo = (GrpGCostCodeMasterModel) costcodeIterate.next();
         		%>
         			<tr>
-	        			<td align="center"><input type="checkbox" name="archk" value="<%=y%>"> <%=x%></td>
+	        			<td align="center"><input type="checkbox" name="archk" value="<%=y%>" /> <%=x%></td>
 	        			<td class="" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>  
 	                    <td class="" align="left"><%=gccInfo.getGcostcode()%> - <%=gccInfo.getGcostcode_name()%>
 	                    	<input type="hidden" name="argcostcode" value="<%=gccInfo.getGcostcode()%>" />
@@ -223,7 +224,24 @@
         	});
          
        		$("#project_code").select2(); 
-    	   		
+    	   	 
+       		 
+       		$('#table_grp_costcode').DataTable( { 
+       			scrollY: '18vh',
+       			scrollX: true, 
+       			scrollCollapse: true,
+                ordering: false,
+                "lengthMenu": [[5, 25, 50, 100, -1], [5, 25, 50, 100, "All"]] 
+            } );
+       		
+       		$('#table_costcode_c').DataTable( { 
+       			scrollY: '33.8vh',
+       			scrollX: true, 
+       			scrollCollapse: true,
+                ordering: false,
+                "lengthMenu": [[7, 25, 50, 100, -1], [7, 25, 50, 100, "All"]] 
+            } );
+       		
    	});	
         	
         	

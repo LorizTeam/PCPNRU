@@ -24,6 +24,7 @@
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet"> 
+		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
 	 
 		<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -63,7 +64,7 @@
 		</div>  
 		
         <div class="example" data-text="รายการ">
-            <table id="table_subjob" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_subjob" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr> 
                 	<th>เลขที่</th>
@@ -100,7 +101,15 @@
      	
    		<script>
         $(document).ready(function() {
-    	var table = $('#table_subjob').DataTable(); 
+        	
+    	var table = $('#table_subjob').DataTable( {
+          	scrollY:  '35vh',
+          	scrollX: true,
+          	scrollCollapse: true,
+          	ordering: false,
+          	"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
+      	} ); 
+        	
 		$('#table_subjob tbody').on( 'click', 'tr', function () { 
 	        if ( $(this).hasClass('selected') ) {
 	            $(this).removeClass('selected');

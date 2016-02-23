@@ -119,10 +119,11 @@ public class SubjobMasterDB {
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();
-		
+		 
 		if(checksubjob_inchildsubjob(subjobCode)){
-			sqlStmt = "UPDATE childsubjob_master set subjobcode = '"+subjobCode+"' " +
-					"WHERE subjobcode = '"+subjobCodeHD+"'";
+			conn = agent.getConnectMYSql();
+			sqlStmt = "UPDATE childsubjob_master set subjob_code = '"+subjobCode+"' " +
+					"WHERE subjob_code = '"+subjobCodeHD+"'";
 			//System.out.println(sqlStmt); 
 			pStmt = conn.createStatement();
 			pStmt.executeUpdate(sqlStmt);
@@ -160,7 +161,7 @@ public class SubjobMasterDB {
 	
 	rs.close();
 	pStmt.close();
-	
+	conn.close();
 	return chkCustomer;
 	}
 	
@@ -175,17 +176,15 @@ public class SubjobMasterDB {
 				+ "INNER JOIN childsubjob_master AS b ON b.subjob_code = a.subjob_code "
 				+ "where a.subjob_code = '"+subjob_code+"'";
 		
-		conn = agent.getConnectMYSql();
+	//	conn = agent.getConnectMYSql();
 		pStmt = conn.createStatement();
 		rs = pStmt.executeQuery(sqlQuery);
 		if(rs.next()){
 			checkhave = true;
-		}
-		
-			conn.close();
-			pStmt.close();
-			rs.close();
-		
+		}  
+		rs.close();
+		pStmt.close();
+		conn.close();
 		return checkhave;
 	}
 	public String SelectUpdateDocNo(String subjobCode) throws Exception {
