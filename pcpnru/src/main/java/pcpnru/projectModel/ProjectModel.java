@@ -3,7 +3,7 @@ package pcpnru.projectModel;
 public class ProjectModel {
 
 	//HD
-	private String project_code,target,year,datetime_response;
+	private String project_code,target,percen,year,datetime_response;
 	private String project_name;
 	
 	//DT receive
@@ -35,12 +35,13 @@ public class ProjectModel {
 		
 	}
 	
-	public ProjectModel(String project_code,String project_name, String target
-			, String year, String datetime_response){
+	public ProjectModel(String project_code,String project_name, String target, String percen,
+			String year, String datetime_response, String forwat){
 		
 		this.project_code = project_code;
 		this.project_name = project_name;
 		this.target = target;
+		this.percen = percen;
 		this.year = year;
 		this.datetime_response = datetime_response;
 		
@@ -65,6 +66,7 @@ public class ProjectModel {
 		
 		this.project_code = "";
 		this.target = "";
+		this.percen = "";
 		this.year = "";
 		this.datetime_response = "";
 		
@@ -166,5 +168,11 @@ public class ProjectModel {
 
 	public void setGcostname(String gcostname) {
 		this.gcostname = gcostname;
+	}
+	public String getPercen() {
+		return percen;
+	}
+	public void setPercen(String percen) {
+		this.percen = percen;
 	} 
 }

@@ -33,13 +33,14 @@ public class ProjectHDAction extends ActionSupport{
 		
 		String project_target = projectmodel.getTarget();
 		project_target = project_target.replace(",", "");
+		String project_percen = projectmodel.getPercen(); 
 		String project_year = projectmodel.getYear();
 		String project_code = request.getParameter("project_code");
 		
 		if(request.getParameter("submit") != null){
 			
 			try {
-				pjData.AddProjectHD(project_code, project_target, project_year);
+				pjData.AddProjectHD(project_code, project_target, project_percen, project_year);
 				projectmodel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -48,7 +49,7 @@ public class ProjectHDAction extends ActionSupport{
 			
 		}else if(request.getParameter("update") != null){
 			try {
-				pjData.UpdateProjectHD(project_code, project_target, project_year);
+				pjData.UpdateProjectHD(project_code, project_target, project_percen, project_year);
 				projectmodel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

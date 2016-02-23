@@ -29,7 +29,7 @@ public class ProjectData {
 	public List GetProjectHDList() 
 	throws Exception { //30-05-2014
 		List projectplanHDList = new ArrayList();
-		String datetime_response = "",project_name,target="",year_projectplan="",project_code="";
+		String datetime_response = "",project_name,target="",percen="",year_projectplan="",project_code="";
 		try {
 		
 			
@@ -39,6 +39,7 @@ public class ProjectData {
 					+ "b.project_name,"
 					+ "a.target,"
 					+ "a.`year`,"
+					+ "a.`percen`,"
 					+ "DATE_FORMAT(a.datetime_response,'%d-%m-%Y %H:%i') as datetime_response "
 					+ "FROM "
 					+ "projectplan_header AS a "
@@ -52,6 +53,7 @@ public class ProjectData {
 				project_code 	= rs.getString("project_code");
 				project_name = rs.getString("project_name");
 				target = rs.getString("target");
+				percen = rs.getString("percen");
 				year_projectplan = rs.getString("year");
 				datetime_response		= rs.getString("datetime_response");
 			//	dateTime = dateTime.replace(".0", "");
@@ -64,7 +66,7 @@ public class ProjectData {
 				datetime_response		= day+"-"+month+"-"+year+" "+time;
 			//	amount 			= df2.format(Float.parseFloat(amount));
 				
-				projectplanHDList.add(new ProjectModel(project_code, project_name,target,year_projectplan, datetime_response));
+				projectplanHDList.add(new ProjectModel(project_code, project_name,target,percen,year_projectplan, datetime_response, ""));
 			}
 			rs.close();
 			pStmt.close();
@@ -75,21 +77,21 @@ public class ProjectData {
 		return projectplanHDList;
 	 }
 	
-	public void AddProjectHD(String project_code, String target , String year)  throws Exception{
+	public void AddProjectHD(String project_code, String target, String percen, String year)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "INSERT IGNORE INTO projectplan_header(project_code, target,year, datetime_response) " +
-		"VALUES ('"+project_code+"', '"+target+"','"+year+"', now())";
+		String sqlStmt = "INSERT IGNORE INTO projectplan_header(project_code, target, percen, year, datetime_response) " +
+		"VALUES ('"+project_code+"', '"+target+"', '"+percen+"','"+year+"', now())";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();
 		conn.close();
 	}
-	public void UpdateProjectHD(String project_code, String target, String year)  throws Exception{
+	public void UpdateProjectHD(String project_code, String target, String percen, String year)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "UPDATE projectplan_header set project_code = '"+project_code+"', target = '"+target+"',"
+		String sqlStmt = "UPDATE projectplan_header set project_code = '"+project_code+"', target = '"+target+"' , percen = '"+percen+"',"
 				+ "year = '"+year+"' "+
 				", datetime_response = now()" +
 				"WHERE project_code = '"+project_code+"'";

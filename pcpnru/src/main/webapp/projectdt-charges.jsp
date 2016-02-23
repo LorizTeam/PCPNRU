@@ -37,7 +37,9 @@
 		 	String projectname = pdb.selectProjectname(projectcode);
 		 
 		 	ProjectDTChargesDB PDTC = new ProjectDTChargesDB();
-		 	double percentage = PDTC.getAmtValue(projectcode, year, "55");
+		 	int percen = PDTC.getPercen(projectcode, year);
+		 	double percentage = PDTC.getAmtValue(projectcode, year, percen);
+		 	
 		 	
 		 	List SubjobList = PDTC.GetSubjobList();  
 		 	List groupcostCodeList = PDTC.GetGroupCostCodeList(projectcode, year);
@@ -46,7 +48,7 @@
 		 <%@include file="topmenu.jsp" %>
 		 <div class="container-fluid" >
 			<div class="example"data-text="" >
-				<h3 class="align-center margin30">ประมาณค่าใช้จ่าย ของโครงการ <%=projectname%> ปี <%=year%> จำนวนเงินที่ใช้ได้ของ 55% ในงบประมาณการรายได้คือ  {{<%=percentage%> | currency:"฿"}}</h3>
+				<h3 class="align-center margin30">ประมาณค่าใช้จ่าย ของโครงการ <%=projectname%> ปี <%=year%> จำนวนเงินที่ใช้ได้ของ <%=percen%>% ในงบประมาณการรายได้คือ  {{<%=percentage%> | currency:"฿"}}</h3>
 				<div class="example" data-text="เพิ่ม">
 			        <div class="grid">
 			        	<div class="row cells12">

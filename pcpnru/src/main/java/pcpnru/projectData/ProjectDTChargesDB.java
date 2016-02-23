@@ -76,7 +76,7 @@ public class ProjectDTChargesDB {
 		pStmt.close();
 		conn.close();
 	} 
-	public double getAmtValue(String projectcode, String year, String percentage) throws Exception {
+	public double getAmtValue(String projectcode, String year, int percentage) throws Exception {
 		
 		String amountTotalTXT = "";
 		double amountTotal = 0;
@@ -93,7 +93,31 @@ public class ProjectDTChargesDB {
 			amountTotalTXT = rs.getString("att");
 			 if(amountTotalTXT!=null) amountTotal = Double.parseDouble(rs.getString("att")); else amountTotal = 0; 
 		}
-		amountTotal = (amountTotal*Double.parseDouble(percentage))/100;
+		amountTotal = (amountTotal*percentage)/100;
+		
+		rs.close();
+		pStmt.close();
+		conn.close();
+		
+		return amountTotal;
+		}
+public int getPercen(String projectcode, String year) throws Exception {
+		
+		String amountTotalTXT = "";
+		int amountTotal = 0;
+		
+		conn = agent.getConnectMYSql();
+	 	
+	 	String sqlStmt = "SELECT percen " +
+		"FROM projectplan_header WHERE project_code = '"+projectcode+"' and year = '"+year+"' Group by project_code, year ";
+	 	
+	 	pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlStmt);	
+		
+		while (rs.next()) {
+			amountTotalTXT = rs.getString("percen");
+			 if(amountTotalTXT!=null) amountTotal = Integer.parseInt(rs.getString("percen")); else amountTotal = 0; 
+		} 
 		
 		rs.close();
 		pStmt.close();

@@ -37,7 +37,7 @@
 		 <form action="projecthd.action" method="post">
          <div class="grid">
 		  	<div class="row cells12">
-		        <div class="cell colspan4"> 
+		        <div class="cell colspan5"> 
 		        	รหัส-ชื่อ โครงการ
 			        <div class="input-control text full-size">
 					    <select id="project_code" name="project_code" required>
@@ -56,14 +56,20 @@
 					    </select>
 					</div>
 				</div>
-		        <div class="cell colspan3"> 
+		        <div class="cell colspan1"> 
 		        	เป้าหมาย
-			        <div class="input-control text full-size">
-			        
+			        <div class="input-control text full-size" dir="rtl"> 
 					    <s:textfield type="text" name="projectmodel.target" id="target" onblur="CommaFormatted();" required=""/>
 					</div>
 				</div>
-		        <div class="cell colspan2"> 
+				<div class="cell colspan1"> 
+		        	เปอร์เซนต์
+			        <div class="input-control text full-size" dir="rtl">
+			        
+					    <s:textfield type="number" name="projectmodel.percen" id="percen" maxlength="2" required=""/>
+					</div>
+				</div>
+		        <div class="cell colspan1"> 
 		        	ปี
 			        <div class="input-control text full-size">
 					    <s:textfield type="text" name="projectmodel.year" id="year" required=""/>
@@ -87,6 +93,7 @@
                     <th>ชื่อ-โครงการ</th>
                     <th>ประจำปี</th>
                     <th>เป้าหมาย-โครงการ</th>  
+                    <th>เปอร์เซนต์-โครงการ</th>  
                     <th></th>  
                 </tr>
                 </thead> 
@@ -102,7 +109,8 @@
                     <td class="tdproject_code" align="center"><%=pjmodel.getProject_code()%></td>
                     <td align="left"><%=pjmodel.getProject_name() %></td>
                     <td class="tdyear" align="center"><%=pjmodel.getYear() %></td>
-                    <td class="tdtarget" align="right" width="16%">{{<%=pjmodel.getTarget() %> | currency:"฿"}}</td> 
+                    <td class="tdtarget" align="right" width="8%">{{<%=pjmodel.getTarget() %> | currency:"฿"}}</td> 
+                    <td class="tdpercen" align="right" width="8%"><%=pjmodel.getPercen()+" %" %></td>
                     <td class="align-center" ><a href="projectdt.jsp?projectcode=<%=pjmodel.getProject_code()%>&year=<%=pjmodel.getYear()%>"  class="toolbar-button"><span class="mif-pencil"></span></a></td>  
                 </tr>               	
                	<%
@@ -117,6 +125,10 @@
         
         
    		<script>
+	   		$('#percen').blur(function () {   
+	   		var value = $('#percen').val();
+	   		$('#percen').val(value.toString().substr(0,2));
+	   		});
    		function CommaFormatted() {
    			var target = $("#target").val(); 
    			var t1 = "";
@@ -131,7 +143,6 @@
    			} 
    			$("#target").val(t1);
    		}
-   		
 	   		$(function(){
 		       var selectproject_code =  $("#project_code").select2();
 		        
@@ -147,6 +158,7 @@
 	    	        if ( $(this).hasClass('selected') ) {
 	    	            $(this).removeClass('selected');
 	    	            $("#target").val("");
+	    	            $("#percen").val("");
 	    	            $("#year").val("");
 	    	            selectproject_code.val("").trigger("change");
 	    	        }else{
@@ -159,7 +171,11 @@
 	    	            var target = $(".tdtarget").eq($index).text();
 	    	            target = target.replace(/฿/g,"").replace(/,/g,"");
 	    	            target = parseFloat(target).toLocaleString("en-US");
-	    	            $("#target").val(target);
+	    	            $("#target").val(target); 
+	    	            
+	    	            var percen = $(".tdpercen").eq($index).text();
+	    	            percen = percen.replace(/ %/g,"");
+	    	            $("#percen").val(percen); 
 	    	            
 	    	            selectproject_code.val($(".tdproject_code").eq($index).text()).trigger("change");
 	    	        }
