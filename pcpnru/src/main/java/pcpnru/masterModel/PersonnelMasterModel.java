@@ -57,9 +57,16 @@ public class PersonnelMasterModel {
 	public void reset(){
 		this.personnel_id 	= "";
 		this.personnel_name = ""; 
+		this.personnel_lastname = ""; 
 		this.authen_type 	= "";
 		this.project_code 	= "";
 		this.project_name 	= "";
+		this.dow = "";
+		this.dob = "";
+		this.telephone = "";
+		this.address = "";
+		this.position = "";
+		this.dateTime = "";
 	}
 
 	public String getPersonnel_id() {

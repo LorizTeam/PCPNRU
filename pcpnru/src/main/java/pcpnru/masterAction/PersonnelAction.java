@@ -54,6 +54,7 @@ public class PersonnelAction extends ActionSupport {
 			
 			try {
 				pn.AddPersonnelMaster(project_code, personnel_id, personnel_name, personnel_lastname, authen_type, dow, dob, telephone, address, position); 
+				personnelMasterModel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -61,6 +62,7 @@ public class PersonnelAction extends ActionSupport {
 		}else if(update != null){
 			try {
 				pn.UpdatePersonnelMaster(project_code, personnel_id, personnel_name, personnel_lastname, authen_type, dow, dob, telephone, address, position); 
+				personnelMasterModel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -68,6 +70,7 @@ public class PersonnelAction extends ActionSupport {
 		}else if(delete != null){
 			try {
 				pn.DeletePersonnelMaster(personnel_id);
+				personnelMasterModel.reset();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

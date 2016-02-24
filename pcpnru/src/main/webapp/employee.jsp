@@ -16,6 +16,7 @@
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet"> 
+		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
 	 
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -76,7 +77,7 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ">
-            <table id="table_employee" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_employee" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr> 
                     <th>รหัสพนักงาน</th>
@@ -104,8 +105,14 @@
         </div> <!-- End of example table -->  
          
    		<script>
-        $(function(){
-            $('#table_employee').dataTable();
+        $(function(){ 
+             	$('#table_employee').DataTable( { 
+              	scrollY: '37.5vh', 
+              	scrollX: true,
+              	scrollCollapse: true,
+                ordering: false,
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
+            } );
         });
     	</script>
 	</body>

@@ -23,6 +23,7 @@
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/select2.css" rel="stylesheet">
 		<link href="css/bootstrap-datepicker3.css" rel="stylesheet"> 
+		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -39,10 +40,10 @@
 	         <div class="grid">
 	         	<div class="row cells12">
 	         		<div class="cell colspan1"> </div>
-	         		<div class="cell colspan4"> 
+	         		<div class="cell colspan5"> 
 	         		 โครงการ
 				        <div class="input-control text full-size">
-						    <select id="project_code" name="project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
+						    <select id="project_code" name="project_code" required="">
 							   <option value="" >กรุณาเลือกโครงการ</option>
 							   <%
 							   	PersonnelMasterDB personnelModel = new PersonnelMasterDB();
@@ -60,7 +61,7 @@
 					   		</select>
 						</div>
 					</div> 
-					<div class="cell colspan2"> 
+					<div class="cell colspan1"> 
 			        	รหัส บุคลากร
 				        <div class="input-control text full-size">
 						    <s:textfield name="personnelMasterModel.personnel_id" id="personnelid" required=""/> 
@@ -84,7 +85,7 @@
 			        <div class="cell colspan2"> 
 			        	ตำแหน่ง
 			        	<div class="input-control text full-size">
-					        <select id="position" name="position">
+					        <select id="position" name="position" required="">
 							    	<option value="">โปรดเลือก</option>
 							    	<option value="01">ผู้บริหาร</option> 
 							    	<option value="02">บัญชี</option>
@@ -95,7 +96,7 @@
 					<div class="cell colspan4"> 
 			        	 ประเภทสิทธิ์ เข้าใช้งานระบบ
 				        <div class="input-control text full-size">
-						    <select id="authen_type" name="authen_type" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
+						    <select id="authen_type" name="authen_type" required="">
 							   <option value="" >กรุณาเลือกประเภทสิทธิ์เข้าใช้งานระบบ</option>
 							   <%
 							   	List Authen = null;
@@ -154,14 +155,14 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ">
-            <table id="table_personnel" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_personnel" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>  
                 	<th>ลำดับ</th>
                 	<th>รหัส -ชื่อโครงการ</th>
                     <th>รหัส-ชื่อ บุคลากร</th>
-                    <th>สิทธิ์การใช้งาน</th> 
                     <th>ตำแหน่ง</th>
+                    <th>สิทธิ์การใช้งาน</th> 
                     <th>วันที่เริ่มงาน</th> 
                     <th>เบอร์โทรศัพท์</th> 
                 </tr>
@@ -184,8 +185,8 @@
         			<input type="hidden" id="atn" value="<%=pmInfo.getAuthen_type()%>"><input type="hidden" id="dobhd" value="<%=pmInfo.getDob()%>"></td>
         			<td class="tdprojectCode" align="left"><%=pmInfo.getProject_code()%> - <%=pmInfo.getProject_name()%></td>  
                     <td class="tdpersonnel" align="left"><%=pmInfo.getPersonnel_id()%> - <%=pmInfo.getPersonnel_name()%> <%=pmInfo.getPersonnel_lastname()%></td>
-                    <td align="left"><%=pmInfo.getAuthen_type_name()%></td> 
                     <td class="tdposition" align="left"><%=pmInfo.getPosition()%></td>
+                    <td align="left"><%=pmInfo.getAuthen_type_name()%></td> 
                     <td class="tddow" align="left"><%=pmInfo.getDow()%></td>
                     <td class="tdtelephone" align="left"><%=pmInfo.getTelephone()%></td>  
                 	</tr>
@@ -218,14 +219,20 @@
             	
             });
         	
-        	var table = $('#table_personnel').dataTable();
+        	var table = $('#table_personnel').DataTable( { 
+              	scrollY: '28vh', 
+              	scrollX: true,
+              	 
+                ordering: false,
+                "lengthMenu": [[8, 25, 50, 100, -1], [8, 25, 50, 100, "All"]] 
+            } );
             $('#table_personnel tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');
     	            select2projectcode.val("").trigger("change");
-    	            $("#personnel_id").val("");
-    	            $("#personnel_name").val("");
-    	            $("#personnel_lastname").val("");
+    	            $("#personnelid").val("");
+    	            $("#personnelname").val("");
+    	            $("#personnellastname").val("");
     	            $("#authen_type").val("");
     	            $("#project_code").val("");
     	            $("#dow").val("");
