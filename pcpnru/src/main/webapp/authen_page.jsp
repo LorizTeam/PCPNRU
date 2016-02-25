@@ -21,6 +21,7 @@
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet"> 
+		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -90,7 +91,7 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ">
-            <table id="table_authenpage" class="dataTable striped border bordered" data-role="datatable" data-searching="true">
+            <table id="table_authenpage" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>  
                 	<th>ลำดับ</th>
@@ -138,8 +139,15 @@
          
    		<script>
         $(function(){
-        
-        	var table = $('#table_authenpage').dataTable();
+         
+        	var table = $('#table_authenpage').DataTable( { 
+              	scrollY: '50vh', 
+              	scrollX: true,
+              	scrollCollapse: true, 
+                ordering: false,
+                "lengthMenu": [[14, 25, 50, 100, -1], [14, 25, 50, 100, "All"]] 
+            } );
+        	
             $('#table_authenpage tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');

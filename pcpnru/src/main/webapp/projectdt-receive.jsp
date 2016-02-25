@@ -93,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                        <input type="hidden" id="year" name="year" value="<%=year%>">
 	                        <input type="hidden" id="gcostcode" name="gcostcode">
 	                     
-							    <input type="text" id="gcostname" name="gcostname" ng-model="name" readonly="readonly">
+							    <input type="text" id="gcostname" name="gcostname" ng-model="name" readonly="readonly" >
 							    <div class="button-group">
 							    <button class="button mini-button" type="button" onclick="deleteCC();"><span class="mif-bin"></span></button>
 							    <button class="button mini-button" type="button" onclick="javascript:getGcostcode('<%=projectcode%>','<%=year%>');"> <span class="mif-search"></span></button>

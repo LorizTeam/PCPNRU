@@ -5,10 +5,14 @@
 <%@ page import="pcpnru.masterData.*" %>
 <%@ page import="pcpnru.projectData.*" %>
 <%@ page import="pcpnru.projectModel.*" %>
+<%
+	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>จัดการ การใช้งานในแต่ละส่วน</title>
+		<title>จัดการ ผู้มีอำนาจการอนุมัติ</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -26,27 +30,33 @@
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <h3 class="align-center">จัดการ การใช้งานในแต่ละส่วน</h3>
+		 <h3 class="align-center">จัดการ ผู้มีอำนาจการอนุมัติ</h3>
 		 <div class="example" data-text="รายละเอียด">
-		 <form action="pageMaster.action" method="post">
+		 <form action="authenMaster.action" method="post">
 	         <div class="grid">
 	         	<div class="row cells12">  
 					<div class="cell colspan2"> 
-			        	รหัส  การใช้งานในแต่ละส่วน
+			        	รหัส ผู้มีอำนาจการอนุมัติ
 				        <div class="input-control text full-size">
-						    <s:textfield name="pageMasterModel.page_code" id="pagecode" readonly="true"/> 
+						    <s:textfield name="marModel.manageapprove" id="manageapprove" readonly="true"/> 
 						</div>
 					</div> 
 			        <div class="cell colspan4"> 
-			        	ชื่อ  การใช้งานในแต่ละส่วน
+			        	ชื่อ ผู้มีอำนาจการอนุมัติ
 				        <div class="input-control text full-size">
-						    <s:textfield name="pageMasterModel.page_name" id="pagename" required=""/>
+						    <s:textfield name="marModel.manageapprovename" id="manageapprovename" required=""/>
 						</div>
 					</div> 
-					<div class="cell align-left colspan6"><br>
-						  <button class="button success" name="add">สร้างชื่อ การใช้งานในแต่ละส่วน</button> 
-						  <button class="button primary" name="update">แก้ไข การใช้งานในแต่ละส่วน</button> 
-						  <button class="button danger" name="delete">ลบชื่อ การใช้งานในแต่ละส่วน</button> 
+					<div class="cell colspan2"> 
+			        	จำนวนเงิน ที่อนุมัติได้
+				        <div class="input-control text full-size">
+						    <s:textfield name="marModel.budget" id="budget" required=""/>
+						</div>
+					</div>
+					<div class="cell align-left colspan4"><br>
+						  <button class="button success" name="add">สร้าง</button> 
+						  <button class="button primary" name="update">แก้ไข</button> 
+						  <button class="button danger" name="delete">ลบ</button> 
 				</div>
 	         	 
 			    </div>
@@ -55,31 +65,31 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ">
-            <table id="table_page" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
+            <table id="table_authen" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>  
                 	<th>ลำดับ</th>
-                	<th>รหัส - การใช้งานในแต่ละส่วน</th>
-                    <th>ชื่อ - การใช้งานในแต่ละส่วน</th> 
+                	<th>รหัส -สิทธิ์การใช้งาน</th>
+                    <th>ชื่อ -สิทธิ์การใช้งาน</th> 
                 </tr>
                 </thead> 
                   
                 <tbody>
                 <%
-                List getListPage = null;
-                PageMasterDB pm = new PageMasterDB();
-                getListPage = pm.getListPage("");
+                List getListAuthen = null;
+                AuthenMasterDB am = new AuthenMasterDB();
+                getListAuthen = am.getListAuthen("");
         		int x = 1;
-        		if(getListPage != null){
+        		if(getListAuthen != null){
         			
-        			Iterator pmIterate = getListPage.iterator();
-        			while(pmIterate.hasNext()){
-        				PageMasterModel pgInfo = (PageMasterModel) pmIterate.next();  
+        			Iterator amIterate = getListAuthen.iterator();
+        			while(amIterate.hasNext()){
+        				AuthenMasterModel anInfo = (AuthenMasterModel) amIterate.next();  
         		%>
         			<tr>
         			<td class="tdhidden" align="center"><%=x%></td>
-        			<td class="tdpagecode" align="left"><%=pgInfo.getPage_code()%></td>  
-                    <td class="tdpagename" align="left"><%=pgInfo.getPage_name()%></td> 
+        			<td class="tdant" align="left"><%=anInfo.getAuthen_type()%></td>  
+                    <td class="tdantn" align="left"><%=anInfo.getAuthen_type_name()%></td> 
                 	</tr>
         		<%		
         		x++;
@@ -88,7 +98,7 @@
         		}else{
         		%>
         			<tr>  
-                    <td colspan="3" align="center">ไม่พบข้อมูล</td>   
+                    <td colspan="6" align="center">ไม่พบข้อมูล</td>   
                 	</tr>
         		<%
         		}
@@ -100,7 +110,7 @@
    		<script>
         $(function(){
          
-        	var table = $('#table_page').DataTable( { 
+        	var table = $('#table_authen').DataTable( { 
               	scrollY: '50vh', 
               	scrollX: true,
               	scrollCollapse: true, 
@@ -108,19 +118,20 @@
                 "lengthMenu": [[14, 25, 50, 100, -1], [14, 25, 50, 100, "All"]] 
             } );
         	
-            $('#table_page tbody').on( 'click', 'tr', function () { 
+            $('#table_authen tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');
-    	            $("#pagecode").val("");
-    	            $("#pagename").val(""); 
+    	            
+    	            $("#authentype").val("");
+    	            $("#authentypename").val(""); 
     	        }
     	        else {
     	            table.$('tr.selected').removeClass('selected');
     	            $(this).addClass('selected');
     	            var $index = $(this).index();
     	              
-    	            $("#pagecode").val($(".tdpagecode").eq($index).text()); 
-    	            $("#pagename").val($(".tdpagename").eq($index).text()); 
+    	            $("#authentype").val($(".tdant").eq($index).text());
+    	            $("#authentypename").val($(".tdantn").eq($index).text()); 
     	        }
     	    });
         });

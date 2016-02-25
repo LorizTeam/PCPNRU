@@ -220,9 +220,9 @@
             });
         	
         	var table = $('#table_personnel').DataTable( { 
-              	scrollY: '28vh', 
+              	scrollY: '28.5vh', 
               	scrollX: true,
-              	 
+              	scrollCollapse: true, 
                 ordering: false,
                 "lengthMenu": [[8, 25, 50, 100, -1], [8, 25, 50, 100, "All"]] 
             } );

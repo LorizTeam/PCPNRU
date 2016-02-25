@@ -43,10 +43,18 @@
                 </li>
                 <li class="divider"></li>
                 <li><a href="" class="dropdown-toggle">รายจ่าย</a>
-                    <ul class="d-menu" data-role="dropdown">
-                        <li><a href="requisition.jsp">เบิกงบประมาณ</a></li>
+                    <ul class="d-menu" data-role="dropdown">  
+                        <li><a href="record-approve.jsp">บันทึกข้อความขออนุมัติดำเนินการ</a></li>
                         <li class="divider"></li>
-                        <li><a href="select_requisition-1.jsp">รายละเอียดการเบิกงบประมาณ</a></li> 
+                        <li><a href="" class="dropdown-toggle">เบิกงบประมาณ</a>
+			                  <ul class="d-menu" data-role="dropdown">  
+			                        <li><a href="requisition.jsp">เบิกงบประมาณ</a></li>
+			                        <li class="divider"></li>
+			                        <li><a href="select_requisition-1.jsp">รายละเอียดการเบิกงบประมาณ</a></li> 
+			                        <li class="divider"></li>
+			                        <li><a href="manage-approve-requisition.jsp">จัดการ ผู้มีอำนาจการอนุมัติ</a></li> 
+			                 </ul>
+			            </li>  
                     </ul>
                 </li> 
             </ul>
