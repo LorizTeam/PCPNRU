@@ -4,13 +4,30 @@
 <%@ page import="pcpnru.projectData.*" %>
 <%@ page import="pcpnru.utilities.*" %>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String username = "", project_code = "";
+	
+	if(session.getAttribute("username") == null){
+		response.sendRedirect("login.jsp");
+	}else{
+		username = session.getAttribute("username").toString();
+		boolean chkAuthen = false;
+		String page_code = "008";
+		
+		CheckAuthenPageDB capDB = new CheckAuthenPageDB();
+		
+		chkAuthen = capDB.getCheckAuthen(username, page_code);
+		
+		if(chkAuthen==false){
+			response.sendRedirect("no-authen.jsp");
+		}else{
+			project_code = capDB.getProjectCode(username);
+		}
+	} 
 %>
 <%
-	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
-
-%>
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%> 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -66,7 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	  	List projectMasterList1 = null;
 		if (request.getAttribute("projectMasterList") == null) { 
 			extendsprojectmaster ext = new extendsprojectmaster();
-			projectMasterList1 = ext.getListProject_Join_Projecthead("", "","","");
+			projectMasterList1 = ext.getListProject_Join_Projecthead(project_code, "","","");
 		}else{
 			projectMasterList1 = (List) request.getAttribute("projectMasterList");
 		}
@@ -89,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="grid">
 		  	<div class="row cells12">
 		       
-		    	<div class="cell colspan4 offset2" > 
+		    	<div class="cell colspan5 offset2" > 
 		    		 โครงการ
 		       		 <div class="input-control full-size"> 
 		       		 <select id="project_code" name="projectCode" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
@@ -110,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                      <span class="input-state-success mif-checkmark"></span>
 					   </div>
 		    	</div>
-	           <div class="cell colspan3">  
+	           <div class="cell colspan2">  
 	        		วันที่รับ
 				    <div class="input-control text full-size " >
                           <input type="text" name="dateTime" id="datepicker"  value="<%=dateutil.curDateTH() %>" data-validate-func="required" data-validate-hint="กรุณาเลือกวันที่รับ">

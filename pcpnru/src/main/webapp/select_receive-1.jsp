@@ -4,13 +4,30 @@
 <%@ page import="pcpnru.projectData.*" %> 
 <%@ page import="pcpnru.utilities.*" %>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String username = "", project_code = "";
+	
+	if(session.getAttribute("username") == null){
+		response.sendRedirect("login.jsp");
+	}else{
+		username = session.getAttribute("username").toString();
+		boolean chkAuthen = false;
+		String page_code = "008";
+		
+		CheckAuthenPageDB capDB = new CheckAuthenPageDB();
+		
+		chkAuthen = capDB.getCheckAuthen(username, page_code);
+		
+		if(chkAuthen==false){
+			response.sendRedirect("no-authen.jsp");
+		}else{
+			project_code = capDB.getProjectCode(username);
+		}
+	} 
 %>
 <%
-	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
-
-%>
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%> 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -51,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		List projectMasterList1 = null;
 	  	if (request.getAttribute("projectMasterList") == null) {
 	  		extendsprojectmaster ext = new extendsprojectmaster();
-			projectMasterList1 = ext.getListProject_Join_Projecthead("", "","","");
+			projectMasterList1 = ext.getListProject_Join_Projecthead(project_code, "","","");
 		}else{
 			projectMasterList1 = (List) request.getAttribute("projectMasterList");
 		}

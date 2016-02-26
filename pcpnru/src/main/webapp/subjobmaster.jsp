@@ -4,13 +4,26 @@
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.utilities.*" %>
 <%
-	SubjobMasterDB subjM = new SubjobMasterDB();
-	List subjobMasterList = subjM.GetSubjobMasterList("","");
+	if(session.getAttribute("username") == null){
+		response.sendRedirect("login.jsp");
+	}else{
+		String username = session.getAttribute("username").toString();
+		boolean chkAuthen = false;
+		String page_code = "002";
+		
+		CheckAuthenPageDB capDB = new CheckAuthenPageDB();
+		
+		chkAuthen = capDB.getCheckAuthen(username, page_code);
+		
+		if(chkAuthen==false){
+			response.sendRedirect("no-authen.jsp");
+		}
+	} 
 %>
 <%
-	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
-
-%>
+	SubjobMasterDB subjM = new SubjobMasterDB();
+	List subjobMasterList = subjM.GetSubjobMasterList("","");
+%> 
 <!DOCTYPE html>
 <html lang="en">
 	<head>
