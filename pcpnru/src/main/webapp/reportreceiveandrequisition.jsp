@@ -19,11 +19,13 @@
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/bootstrap-datepicker3.css" rel="stylesheet"> 
 		<link href="css/sweetalert.css" rel="stylesheet" />
+		<link href="css/select2.css" rel="stylesheet"> 
 	
 	 	<script src="js/jquery-2.1.3.min.js"></script> 
 	    <script src="js/metro.js"></script>
   		<script src="js/bootstrap-datepicker-th.js"></script>
   		<script src="js/sweetalert.min.js"></script>
+  		<script src="js/select2.js"></script>
   		
 	</head>
 
@@ -49,7 +51,7 @@
 				        			ProjectModel pjModel = (ProjectModel) iterPj.next();
 		      				%>  
 				      			<option value="<%=pjModel.getProject_code()%>" >
-				       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> ปี <%=pjModel.getYear() %>
+				       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%>
 				       			</option>
 								<%		} 
 									}
@@ -109,7 +111,7 @@
 		}
 	
 	    $(function(){
-	       
+	    	$("#projectcode").select2();
 	 /*   $(".input-daterange").datepicker({
 	        format: "dd-mm-yyyy",
 	      startDate: "-0d",

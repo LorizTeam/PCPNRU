@@ -37,7 +37,8 @@ FROM
 project_master
 INNER JOIN projectplan_detail ON projectplan_detail.project_code = project_master.project_code
 where projectplan_detail.childsubjobcode = '0003'  and
-projectplan_detail.project_code = $P{prmprojectcode}) as t1
+projectplan_detail.project_code = $P{prmprojectcode}
+GROUP BY project_master.project_code) as t1
 ,
 (SELECT
 project_master.project_name,
@@ -45,7 +46,8 @@ sum(projectplan_detail.budget) as requisition
 FROM project_master
 INNER JOIN projectplan_detail ON projectplan_detail.project_code = project_master.project_code
 where projectplan_detail.childsubjobcode != '0003' and
-projectplan_detail.project_code = $P{prmprojectcode}) as t2
+projectplan_detail.project_code = $P{prmprojectcode}
+GROUP BY project_master.project_code) as t2
 where project_master.project_code = $P{prmprojectcode}]]>
 	</queryString>
 	<field name="project_name" class="java.lang.String">
@@ -433,8 +435,7 @@ $P{today}+" "+
 ( $P{tomonth}.equals("10") ? "ตุลาคม" :
 ( $P{tomonth}.equals("11") ? "พฤศจิกายน" :
 ( $P{tomonth}.equals("12") ? "ธันวาคม" :"" ))))))))))))+" "+
-$F{year}
-]]></textFieldExpression>
+$F{year}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>
