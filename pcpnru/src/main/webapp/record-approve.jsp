@@ -13,16 +13,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <%
 	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
 
-	String docno = "";
-
 	RecordApproveDB ra = new RecordApproveDB();
-	if(request.getAttribute("docno") == null){
-		docno = ra.SelectUpdateDocNo();
-	}else{
-		docno = (String) request.getAttribute("docno");
-	}
 	DateUtil dateUtil = new DateUtil();
-    String year = dateUtil.curYear(); 
+   
 
 %>
 <!DOCTYPE html>
@@ -49,8 +42,73 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
 		 <h3 class="align-center">บันทึกข้อความ</h3>
-		 <form action="recordApprove.action" method="post"> 
-		 <div class="example" data-text="ส่วนแรก">
+		 <form action="recordApprove.action" method="post">
+		 <div class="example" data-text="รายการ"> 
+	         <div class="grid">
+	         	<div class="row cells12">
+	         		<div class="cell colspan1"> </div> 
+					<div class="cell colspan5"> 
+			        	รายการ
+				        <div class="input-control text full-size">
+						    <s:textfield name="recordApproveModel.description" id="description" required="" /> 
+						</div>
+					</div>      
+	         		<div class="cell colspan1"> 
+			        	จำนวน
+				        <div class="input-control text full-size" dir="rtl">
+						    <s:textfield type="number" name="recordApproveModel.qty" id="qty" required=""/> 
+						</div>
+					</div> 
+	         		<div class="cell colspan1"> 
+			        	หน่วย
+				        <div class="input-control text full-size">
+						    <s:textfield name="recordApproveModel.unit" id="unit" required=""/>
+						</div>
+					</div>  
+	         	 	<div class="cell align-left colspan3"><br>
+						  <button type="submit" class="button success" name="add" id="add"><span class="mif-plus mif-lg fg-white"></span></button>
+						  <button type="submit" class="button danger" name="delete" id="delete"><span class="mif-minus mif-lg fg-white"></span></button>  
+					</div>
+			 	</div>  
+			</div>
+		</div>
+		<div class="grid">	
+			<div class="window ">
+				<div class="row cells12 align-center  window-caption bg-cyan fg-white" >
+					<div class="cell colspan1"></div>
+			  		<div class="cell colspan6">รายละเอียด</div>
+			  		<div class="cell colspan2 align-center">จำนวน</div>
+			  		<div class="cell colspan2 align-center">หน่วย</div>
+			  		<div class="cell colspan1"></div> 
+			  	</div>
+		  	</div>
+		  	
+		  	<div class="example ra_dt" data-text="รายละเอียด">
+		  		<%
+		  			if(request.getAttribute("ListRecordApproveDT") != null){
+		  				List ListRecordApproveDT = (List) request.getAttribute("ListRecordApproveDT");
+		  				Iterator recordApprovedtIter = ListRecordApproveDT.iterator();
+		  				
+		  				while(recordApprovedtIter.hasNext()){
+		  					RecordApproveModel recordapprovemodel = (RecordApproveModel) recordApprovedtIter.next();
+		  				%>
+		  				<div class="row cells12 click" >	
+				  			<div class="cell colspan1 bt" ></div>
+				  			<h5 class="cell colspan6" > <input type="checkbox" name="itemno" id="itemno" value="<%=recordapprovemodel.getItemno() %>" /> <%=recordapprovemodel.getDescription() %></h5>
+				  			<div class="cell colspan2 align-center"><%=recordapprovemodel.getQty() %></div>
+				  			<div class="cell colspan2 align-center"><%=recordapprovemodel.getUnit() %></div> 
+					  		<div class="cell align-right"></div>
+				  		</div>
+		  				<%
+		  				}
+		  			}
+		  		
+		  		%>
+		  		
+		  	</div>
+		</div>
+		 
+		 <div class="example" data-text="รายละเอียด">
 		 
 	         <div class="grid">
 	         	<div class="row cells12">
@@ -62,9 +120,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div> 
 					<div class="cell align-right colspan4"> 
-			        	<p class="sub-header fg-black">เลขที่เอกสาร <%=docno%></p>
-				        <input type="hidden" name="docno" id="docno" value="<%=docno%>" />
-				        <input type="hidden" name="year" id="year" value="<%=year%>" />
+			        	<p class="sub-header fg-black">เลขที่เอกสาร <s:property value="recordApproveModel.docno"/> </p>
+				        <s:hidden name="recordApproveModel.docno" id="docno" />
+				        <s:hidden name="recordApproveModel.year" id="year" />
 					</div>   
 	         	</div>
 	         	<div class="row cells12">
@@ -105,79 +163,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  		<div class="cell colspan10"> 
 			  			<div class="input-control textarea full-size"
 						    data-role="input" data-text-auto-resize="true">
-						    <textarea name="recordApproveModel.record_approve_des1"></textarea>
+						    <s:textarea name="recordApproveModel.record_approve_des1"/>
+						</div>
+			  		</div>  
+			    </div> 
+			    
+			    <div class="row cells12">
+			  		<div class="cell colspan1"> </div>
+			  		<div class="cell colspan10"> 
+			  			<div class="input-control textarea full-size"
+						    data-role="input" data-text-auto-resize="true">
+						    <s:textarea name="recordApproveModel.record_approve_des2"/>
 						</div>
 			  		</div>  
 			    </div> 
 			 </div> 
-		 
-		</div>  
-		
-		<div class="example" data-text="รายการ"> 
-	         <div class="grid">
-	         	<div class="row cells12">
-	         		<div class="cell colspan1"> </div> 
-					<div class="cell colspan5"> 
-			        	รายการ
-				        <div class="input-control text full-size">
-						    <s:textfield name="recordApproveModel.description" id="description"  /> 
-						</div>
-					</div>      
-	         		<div class="cell colspan1"> 
-			        	จำนวน
-				        <div class="input-control text full-size" dir="rtl">
-						    <s:textfield type="number" name="recordApproveModel.qty" id="qty" /> 
-						</div>
-					</div> 
-	         		<div class="cell colspan1"> 
-			        	หน่วย
-				        <div class="input-control text full-size">
-						    <s:textfield name="recordApproveModel.unit" id="unit"  />
-						</div>
-					</div>  
-	         	 	<div class="cell align-left colspan3"><br>
-						  <button type="button" class="button success" id="add">เพิ่ม</button>  
-					</div>
-			 	</div>  
-			</div>
-		</div> 
-		
-		<div class="grid">	
-				<div class="window ">
-					<div class="row cells12 align-center  window-caption bg-cyan fg-white" >
-						<div class="cell colspan1"></div>
-				  		<div class="cell colspan6">รายละเอียด</div>
-				  		<div class="cell colspan2 align-center">จำนวน</div>
-				  		<div class="cell colspan2 align-center">หน่วย</div>
-				  		<div class="cell colspan1"></div> 
-				  	</div>
-			  	</div>
-			  	
-			  	<div class="example ra_dt" data-text="รายละเอียด">
-			  	<%
-                List ListRecordApproveDT = null; 
-                
-                ListRecordApproveDT = ra.ListRecordApproveDT(docno, year);
-        		int x = 1;
-        		if(ListRecordApproveDT != null){
-        			
-        			Iterator Iterate = ListRecordApproveDT.iterator();
-        			while(Iterate.hasNext()){
-        				RecordApproveModel raInfo = (RecordApproveModel) Iterate.next();  
-        		%>
-			  		<div class="row cells12" >	
-			  			<div class="cell colspan1 bt" ><input type="hidden" id="itemno" value="<%=raInfo.getItemno()%>" /></div>
-			  			<h5 class="cell colspan6" ><%=raInfo.getDescription()%></h5>
-			  			<div class="cell colspan2 align-center"><%=raInfo.getQty()%></div>
-			  			<div class="cell colspan2 align-center"><%=raInfo.getUnit()%></div> 
-				  		<div class="cell align-right"><span class="mif-cross dt"></span></div>
-			  		</div>  
-			  	<%	 
-        			}
-        		}	 
-        		%>
-			  	</div>
-		</div> 
+		</div>    
 		
 		<div class="example" data-text="ส่วนที่สอง"> 
 	         <div class="grid">
@@ -186,7 +187,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			  		<div class="cell colspan10"> 
 			  			<div class="input-control textarea full-size"
 						    data-role="input" data-text-auto-resize="true">
-						    <textarea name="recordApproveModel.record_approve_des2"></textarea>
+						    <s:textarea name="recordApproveModel.record_approve_des3"/>
 						</div>
 			  		</div>   
 			 	</div>  
@@ -216,7 +217,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	</div>
 			 	<div class="row cells12"> 
 	         	 	<div class="cell align-center colspan12"><br>
-						  <button class="button success" name="save">บันทึก</button>   
+						  <button class="button success" name="save" id="save"> <span class="mif-floppy-disk mif-lg fg-white"></span></button>   
 						  <a id="print" class="button warning size"><span class="mif-print mif-lg fg-white"></span></a>
 					</div>  
 			 	</div>
@@ -230,94 +231,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	$("#record_approve_date").datepicker({
             	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
             	
-            });    
+            });   
+        	
+        	$("#delete").click(function(){
+        		$("#description").val("-");
+        		$("#qty").val(0);
+        		$("#unit").val("-");
+        	});
             
+        	$("#save").click(function(){
+        		$("#description").val("-");
+        		$("#qty").val(0);
+        		$("#unit").val("-");
+        	});
         }); // close function
-       
-        $('#add').click(function () {
-        	
-        	var docnodt = $("#docno").val(); 
-        	var yeardt = $("#year").val(); 
-        	var description = $("#description").val(); 
-        	var qty = $("#qty").val(); 
-        	var unit = $("#unit").val(); 
-        	var obj='', out='', b=1;
-        $.ajax({   
-   	  	 
-            type: "post",
-            url: "ajax_record_approve_add.jsp", //this is my servlet 
-            data: {docnodt:docnodt,yeardt:yeardt,description:description,qty:qty,unit:unit}, //this is my paramiter
-            async:true, 
-            success: function(result){
-            
-            obj = JSON.parse(result);
-           // alert(obj);
-        //    var header = "<div class=\"row cells12\" >"; 
-          //  	out = header; 
-            	for(var i = 0 ; i < obj.length; i++,b++){
-					out +=   
-						'<div class="row cells12" >'+
-    						'<div class="cell colspan1 bt"><input type="hidden" id="itemno" value="'+obj[i].itemno+'" /></div>'+
-    						'<h5 class="cell colspan6">'+obj[i].des+'</h5>'+
-    						'<div class="cell colspan2 align-center">'+obj[i].qty+'</div>'+
-    						'<div class="cell colspan2 align-center">'+obj[i].unit+'</div>'+ 
-    						'<div class="cell align-right"><span class="mif-cross dt"></span></div>'+
-						'</div>';
-				}    
-			//	alert(out)
-				$(".ra_dt").html(out);
-				$("#description").val(""); 
-				$("#qty").val(""); 
-				$("#unit").val("");  
-            }
-            
-         }); // close ajax
-         
-        });  // close button add
-        
-        $('.dt').click(function () {
-        	
-			var index = $(".deletebt").index(this);
-			
-			var itemno = $(".bt > #itemno").eq(index).val();
-			alert(itemno);
-        	var docnodt = $("#docno").val(); 
-        	var yeardt = $("#year").val(); 
-        	 
-        	var obj='', out='', b=1;
-        $.ajax({   
-   	  	 
-            type: "post",
-            url: "ajax_record_approve_delete.jsp", //this is my servlet 
-            data: {docnodt:docnodt,yeardt:yeardt,itemno:itemno}, //this is my paramiter
-            async:true, 
-            success: function(result){
-            
-            obj = JSON.parse(result);
-           // alert(obj);
-        //    var header = "<div class=\"row cells12\" >"; 
-          //  	out = header; 
-            	for(var i = 0 ; i < obj.length; i++,b++){
-					out +=   
-						'<div class="row cells12" >'+
-    						'<div class="cell colspan1 bt"><input type="hidden" id="itemno" value="'+obj[i].itemno+'" /></div>'+
-    						'<h5 class="cell colspan6">'+obj[i].des+'</h5>'+
-    						'<div class="cell colspan2 align-center">'+obj[i].qty+'</div>'+
-    						'<div class="cell colspan2 align-center">'+obj[i].unit+'</div>'+ 
-    						'<div class="cell align-right"><span class="mif-cross dt"></span></div>'+
-						'</div>';
-				}    
-				alert(out)
-				$(".ra_dt").html(out);
-				$("#description").val(""); 
-				$("#qty").val(""); 
-				$("#unit").val("");  
-            }
-            
-         }); // close ajax
-         
-        });  // close button add
-        
     	</script>
 	</body>
 </html>

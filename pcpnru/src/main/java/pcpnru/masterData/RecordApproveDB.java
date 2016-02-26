@@ -2,6 +2,8 @@ package pcpnru.masterData;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class RecordApproveDB {
 	DBConnect agent 	= new DBConnect();
 	Connection conn		= null;
 	Statement pStmt 	= null;
+	PreparedStatement ppStmt = null;
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
@@ -94,25 +97,49 @@ public class RecordApproveDB {
 	}
 	
 	public void AddRecordApprovehd(String docno, String year, String record_approve_hd, String record_approve_t, String record_approve_date, String record_approve_title, String record_approve_rian,
-			String record_approve_des1, String record_approve_des2, String record_approve_cen, String record_approve_dep)  throws Exception{
+			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep)  throws Exception{
 		
-		conn = agent.getConnectMYSql();
+		
 		
 		String dateTime = "";
 		String sqlStmt = "INSERT IGNORE INTO record_approve_hd(docno, year, record_approve_hd, record_approve_t, record_approve_date, record_approve_title, record_approve_rian, "
-				+ "record_approve_des1, record_approve_des2, record_approve_cen, record_approve_dep) " +
-				"VALUES ('"+docno+"', '"+year+"','"+record_approve_hd+"', '"+record_approve_t+"','"+record_approve_date+"', '"+record_approve_title+"', '"+record_approve_rian+"', "
-						+ "'"+record_approve_des1+"','"+record_approve_des2+"', '"+record_approve_cen+"', '"+record_approve_dep+"')";
+				+ "record_approve_des1, record_approve_des2,record_approve_des3, record_approve_cen, record_approve_dep,thaidate_report) " +
+				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		
+		String[] splitdate = record_approve_date.split("-");
+		
+		ThaiNumber thnumber = new ThaiNumber();
+		ThaiMonth thmonth = new ThaiMonth();
+		
+		String thaidate_report = thnumber.CenverT_To_ThaiNumberic(splitdate[2])+"-"
+		+thmonth.Convert_To_ThaiMonth(record_approve_date)+"-"
+		+thnumber.CenverT_To_ThaiNumberic(String.valueOf(Integer.parseInt(splitdate[0])+543)).replace(",","");
 		//System.out.println(sqlStmt);
-		pStmt = conn.createStatement();
-		pStmt.executeUpdate(sqlStmt);
-		pStmt.close();
+		conn = agent.getConnectMYSql();
+		conn.setAutoCommit(false);
+		ppStmt = conn.prepareStatement(sqlStmt);
+		ppStmt.setString(1, docno);
+		ppStmt.setString(2, year);
+		ppStmt.setString(3, record_approve_hd);
+		ppStmt.setString(4, record_approve_t);
+		ppStmt.setDate(5, Date.valueOf(record_approve_date));
+		ppStmt.setString(6, record_approve_title);
+		ppStmt.setString(7, record_approve_rian);
+		ppStmt.setString(8, record_approve_des1);
+		ppStmt.setString(9, record_approve_des2);
+		ppStmt.setString(10, record_approve_des3);
+		ppStmt.setString(11, record_approve_cen);
+		ppStmt.setString(12, record_approve_dep);
+		ppStmt.setString(13, thaidate_report);
+		ppStmt.executeUpdate();
+		conn.commit();
+		ppStmt.close();
 		conn.close();
 	}
 	public void AddRecordApprovedt(String docno, String year, String description, String qty, String unit)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
-
+		ThaiNumber thnumber = new ThaiNumber();
 		String itemno = "";
 		String sqlStmt = "SELECT max(itemno) as lno FROM record_approve_dt "+
 				"WHERE itemno <> '' and docno = '"+docno+"' and year = '"+year+"' ";
@@ -124,22 +151,35 @@ public class RecordApproveDB {
 		}
 		if(null==itemno||"".equals(itemno))  itemno = "0";
 		 
-		itemno 	= String.valueOf(Integer.parseInt(itemno) + 1); 
-		if (itemno.length() == 1) {
+		itemno 	= thnumber.CenverT_To_ThaiNumberic(String.valueOf(Integer.parseInt(itemno) + 1));
+		String numthai_qty = thnumber.CenverT_To_ThaiNumberic(qty);
+		/*if (itemno.length() == 1) {
 			itemno = "00" + itemno; 
 		} else if (itemno.length() == 2) {
 			itemno = "0" + itemno;   
-		}
+		}*/
 		
 		rs.close();
 		pStmt.close(); 
+		conn.close();
 		
-		sqlStmt = "INSERT IGNORE INTO record_approve_dt(docno, year, itemno, description, qty, unit) " +
-				"VALUES ('"+docno+"', '"+year+"', '"+itemno+"', '"+description+"', '"+qty+"','"+unit+"')";
+		
+		conn = agent.getConnectMYSql();
+		conn.setAutoCommit(false);
+		sqlStmt = "INSERT IGNORE INTO record_approve_dt(docno, year, itemno, description, qty,numthai_qty, unit) " +
+				"VALUES (?,?,?,?,?,?,?)";
 		//System.out.println(sqlStmt);
-		pStmt = conn.createStatement();
-		pStmt.executeUpdate(sqlStmt);
-		pStmt.close();
+		ppStmt = conn.prepareStatement(sqlStmt);
+		ppStmt.setString(1, docno);
+		ppStmt.setString(2, year);
+		ppStmt.setString(3, itemno);
+		ppStmt.setString(4, description);
+		ppStmt.setInt(5, Integer.parseInt(qty));
+		ppStmt.setString(6, numthai_qty);
+		ppStmt.setString(7, unit);
+		ppStmt.executeUpdate();
+		ppStmt.close();
+		conn.commit();
 		conn.close();
 	}
 	

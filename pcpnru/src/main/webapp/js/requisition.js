@@ -1,5 +1,7 @@
 
-var app = angular.module('requisition', []);
+var app = angular.module('requisition', [], function($httpProvider) {
+	$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+});
 app.controller('myCtrl', function($scope, $http,$window) {
 	$scope.unit=0;
 	$scope.priceperunit=0;
@@ -60,8 +62,7 @@ app.controller('myCtrl', function($scope, $http,$window) {
 					"description":$scope.description,
 					"amount":$scope.amount,
 					"ajax_type":"add",
-					"docno":$scope.docno},
-	          headers: {"Accept-Charset":"charset=utf-8",'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+					"docno":$scope.docno}
 	          
 	        }).then(function(response) {
 	            $scope.adddata = response.data

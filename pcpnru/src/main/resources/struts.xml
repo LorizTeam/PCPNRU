@@ -127,6 +127,10 @@
         
         <!-- 		Record Approve Requisition (PR)	 -->
         
+        <action name="createrecordApprove" class="pcpnru.masterAction.RecordApproveAction" method="create">
+      		<result name="success">/record-approve.jsp</result>
+    	</action>
+        
         <action name="recordApprove" class="pcpnru.masterAction.RecordApproveAction" method="execute">
       		<result name="success">/record-approve.jsp</result>
     	</action> 

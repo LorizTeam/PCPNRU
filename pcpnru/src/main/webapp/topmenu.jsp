@@ -44,7 +44,7 @@
                 <li class="divider"></li>
                 <li><a href="" class="dropdown-toggle">รายจ่าย</a>
                     <ul class="d-menu" data-role="dropdown">  
-                        <li><a href="record-approve.jsp">บันทึกข้อความขออนุมัติดำเนินการ</a></li>
+                        <li><a href="createrecordApprove.action">บันทึกข้อความขออนุมัติดำเนินการ</a></li>
                         <li class="divider"></li>
                         <li><a href="" class="dropdown-toggle">เบิกงบประมาณ</a>
 			                  <ul class="d-menu" data-role="dropdown">  

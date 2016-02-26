@@ -9,6 +9,7 @@ public class RecordApproveModel {
 	private String record_approve_rian;
 	private String record_approve_des1; 
 	private String record_approve_des2;
+	private String record_approve_des3;
 	private String record_approve_cen; 
 	private String record_approve_dep; 
 	
@@ -65,7 +66,19 @@ public class RecordApproveModel {
 		this.qty 			= ""; 
 		this.unit 			= ""; 
 	}
+	
+	public void reset_ListItem(){  
+		this.description 	= ""; 
+		this.qty 			= ""; 
+		this.unit 			= ""; 
+	}
+	public String getRecord_approve_des3() {
+		return record_approve_des3;
+	}
 
+	public void setRecord_approve_des3(String record_approve_des3) {
+		this.record_approve_des3 = record_approve_des3;
+	}
 	public String getRecord_approve_hd() {
 		return record_approve_hd;
 	}
