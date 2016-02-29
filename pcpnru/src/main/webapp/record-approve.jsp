@@ -32,17 +32,65 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="css/metro-schemes.css" rel="stylesheet"> 
 		<link href="css/bootstrap-datepicker3.css" rel="stylesheet"> 
 		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
+		<link href="css/sweetalert.css" rel="stylesheet" />
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
         <script src="js/jquery.dataTables.min.js"></script> 
   		<script src="js/bootstrap-datepicker-th.js"></script>
+  		<script src="js/sweetalert.min.js"></script>
 	</head>
-
+	
+	<script>
+	function print(){
+			
+			var tdocno = $("#docno").val();
+			var tyear = $("#year").val();
+			
+    		swal({  title: "ยืนยันการพิมพ์เอกสาร ?",   
+    				text: "หากคุณต้องการพิมพ์เอกสารให้กดปุ่มยืนยัน !",   
+    				type: "warning",   
+    				showCancelButton: true,   
+    				confirmButtonColor: "#DD6B55",   
+    				confirmButtonText: "ยืนยัน, ฉันต้องการพิมพ์เอกสาร !",   
+    				cancelButtonText: "ไม่, ฉันไม่ต้องการพิมพ์เอกสาร !",   
+    				closeOnConfirm: false,   
+    				closeOnCancel: false,
+    				showLoaderOnConfirm: true
+    			},
+    				 
+    		function (isConfirm){
+    		  	if (isConfirm) {
+    			setTimeout(function(){
+    				 
+    				var load = window.open("/pcpnru/report/savetext-report.jsp?docno="+tdocno+"&year="+tyear+"" 
+    						,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
+    			swal("พิมพ์เอกสารสำเร็จแล้ว!", "โปรดตรวจสอบรายละเอียดของเอกสารอีกครั้งเพื่อความถูกต้อง !", "success");
+    			} 
+    			 , 1000);
+     
+    			}else {    
+    			 swal("ยกเลิกการพิมพ์เอกสาร", "คุณสามารถพิมพ์เอกสารได้อีกครั้งหลังจากปิดหน้าต่างนี้ !", "error");   
+    			}
+    		});
+    		
+	    }
+    </script>
+	
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <h3 class="align-center">บันทึกข้อความ</h3>
 		 <form action="recordApprove.action" method="post">
+		 <div class="grid" >
+		 <div class="row cells12 " >
+		 			<div class="cell align-center colspan5"> </div>
+		 			<div class="cell align-left colspan5"><h3>บันทึกข้อความ </h3></div>
+		 			<div class="cell align-left colspan2"><br>
+						<a class="button success next" name="next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการถัดไป</span></a>
+					</div>
+		</div>
+		</div>
+		<br>
+		 
 		 <div class="example" data-text="รายการ"> 
 	         <div class="grid">
 	         	<div class="row cells12">
@@ -216,10 +264,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 			 	</div>
 			 	<div class="row cells12"> 
-	         	 	<div class="cell align-center colspan12"><br>
+	         	 	<div class="cell align-center colspan5"> </div>  
+					<div class="cell align-left colspan5"><br>
 						  <button class="button success" name="save" id="save"> <span class="mif-floppy-disk mif-lg fg-white"></span></button>   
-						  <a id="print" class="button warning size"><span class="mif-print mif-lg fg-white"></span></a>
-					</div>  
+						  <a href="javascript:print();" id="print" class="button warning size"><span class="mif-print mif-lg fg-white"></span></a>
+						  
+					</div>
+					<div class="cell align-right colspan2"><br>
+						<a class="button success next" name="next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการถัดไป</span></a>
+					</div>
 			 	</div>
 			</div>
 		</div> 
@@ -244,6 +297,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         		$("#qty").val(0);
         		$("#unit").val("-");
         	});
+        	$(".next").click(function(){
+        		$("#description").val("-");
+        		$("#qty").val(0);
+        		$("#unit").val("-");
+        	}); 
+        	
         }); // close function
     	</script>
 	</body>

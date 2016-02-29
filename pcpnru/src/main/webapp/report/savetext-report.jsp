@@ -11,7 +11,8 @@
 	Connection conn = dbcon.getConnectMYSql();
 	String filejrxml = application.getRealPath("report/savetext.jrxml");
 	//System.out.println(filejrxml);
-	//String projectcode = (String) request.getParameter("projectcode");
+	String docno = (String) request.getParameter("docno");
+	String year = (String) request.getParameter("year");
 	 
 	File reportFile = new File(filejrxml);
 	if (!reportFile.exists()){
@@ -24,7 +25,8 @@
 	JasperReport jr= JasperCompileManager.compileReport(filejrxml);
 	
 	Map prm = new HashMap();
-//	prm.put("prmprojectcode", projectcode); 
+	prm.put("prmdocno", docno.trim()); 
+	prm.put("prmyear", year.trim()); 
 	
 	JasperPrint jasperPrint = JasperFillManager.fillReport(jr, prm, conn);
 	

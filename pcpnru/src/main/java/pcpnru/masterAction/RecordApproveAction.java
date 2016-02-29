@@ -31,13 +31,12 @@ public class RecordApproveAction extends ActionSupport {
 		RecordApproveDB ra = new RecordApproveDB();
 		String docno = recordApproveModel.getDocno();
 		String year =recordApproveModel.getYear();
-		
-
-		
+		 
 		String add = request.getParameter("add");
 		String update = request.getParameter("update");
 		String delete = request.getParameter("delete");
 		String save = request.getParameter("save");
+		String next = request.getParameter("next");
 		String forwardText = "success";  
 		
 		DateUtil dateUtil = new DateUtil();
@@ -57,6 +56,7 @@ public class RecordApproveAction extends ActionSupport {
 		 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
 		 				,recordApproveModel.getRecord_approve_dep());
 		 		
+		 		recordApproveModel.reset_ListItem();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -86,6 +86,11 @@ public class RecordApproveAction extends ActionSupport {
 			request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);			
 			
 			recordApproveModel.reset_ListItem();
+		}else if (next != null){
+			
+			recordApproveModel.reset_ListItem();
+		 
+			create(); 
 		}
 
 		

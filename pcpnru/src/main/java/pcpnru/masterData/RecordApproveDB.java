@@ -111,9 +111,9 @@ public class RecordApproveDB {
 		ThaiNumber thnumber = new ThaiNumber();
 		ThaiMonth thmonth = new ThaiMonth();
 		
-		String thaidate_report = thnumber.CenverT_To_ThaiNumberic(splitdate[2])+"-"
+		String thaidate_report = (thnumber.CenverT_To_ThaiNumberic(splitdate[2])+"-"
 		+thmonth.Convert_To_ThaiMonth(record_approve_date)+"-"
-		+thnumber.CenverT_To_ThaiNumberic(String.valueOf(Integer.parseInt(splitdate[0])+543)).replace(",","");
+		+thnumber.CenverT_To_ThaiNumberic(String.valueOf(Integer.parseInt(splitdate[0])+543)).replace(",","")).replace("-"," ");
 		//System.out.println(sqlStmt);
 		conn = agent.getConnectMYSql();
 		conn.setAutoCommit(false);
@@ -140,7 +140,7 @@ public class RecordApproveDB {
 		
 		conn = agent.getConnectMYSql();
 		ThaiNumber thnumber = new ThaiNumber();
-		String itemno = "";
+		String itemno = "", itemno_thai = "";
 		String sqlStmt = "SELECT max(itemno) as lno FROM record_approve_dt "+
 				"WHERE itemno <> '' and docno = '"+docno+"' and year = '"+year+"' ";
 		//System.out.println(sqlStmt);
@@ -150,14 +150,14 @@ public class RecordApproveDB {
 			itemno	= rs.getString("lno"); 
 		}
 		if(null==itemno||"".equals(itemno))  itemno = "0";
-		 
-		itemno 	= thnumber.CenverT_To_ThaiNumberic(String.valueOf(Integer.parseInt(itemno) + 1));
+		itemno 			= String.valueOf(Integer.parseInt(itemno) + 1);
+		itemno_thai 	= thnumber.CenverT_To_ThaiNumberic(itemno);
 		String numthai_qty = thnumber.CenverT_To_ThaiNumberic(qty);
-		/*if (itemno.length() == 1) {
+		if (itemno.length() == 1) {
 			itemno = "00" + itemno; 
 		} else if (itemno.length() == 2) {
 			itemno = "0" + itemno;   
-		}*/
+		}
 		
 		rs.close();
 		pStmt.close(); 
@@ -166,17 +166,18 @@ public class RecordApproveDB {
 		
 		conn = agent.getConnectMYSql();
 		conn.setAutoCommit(false);
-		sqlStmt = "INSERT IGNORE INTO record_approve_dt(docno, year, itemno, description, qty,numthai_qty, unit) " +
-				"VALUES (?,?,?,?,?,?,?)";
+		sqlStmt = "INSERT IGNORE INTO record_approve_dt(docno, year, itemno, numthai_itemno, description, qty,numthai_qty, unit) " +
+				"VALUES (?,?,?,?,?,?,?,?)";
 		//System.out.println(sqlStmt);
 		ppStmt = conn.prepareStatement(sqlStmt);
 		ppStmt.setString(1, docno);
 		ppStmt.setString(2, year);
 		ppStmt.setString(3, itemno);
-		ppStmt.setString(4, description);
-		ppStmt.setInt(5, Integer.parseInt(qty));
-		ppStmt.setString(6, numthai_qty);
-		ppStmt.setString(7, unit);
+		ppStmt.setString(4, itemno_thai);
+		ppStmt.setString(5, description);
+		ppStmt.setInt(6, Integer.parseInt(qty));
+		ppStmt.setString(7, numthai_qty);
+		ppStmt.setString(8, unit);
 		ppStmt.executeUpdate();
 		ppStmt.close();
 		conn.commit();
@@ -197,13 +198,47 @@ public class RecordApproveDB {
 	
 	public void DeleteRecordApprovedt(String docno, String year, String itemno)  throws Exception{
 		conn = agent.getConnectMYSql();
+		ThaiNumber thnumber = new ThaiNumber();
+		
+		conn.setAutoCommit(false);
 		
 		String sqlStmt = "DELETE From record_approve_dt "+
-		"WHERE docno = '"+docno+"' and year = '"+year+"' and itemno = '"+itemno+"'";
-		//System.out.println(sqlStmt);
+				"WHERE docno = '"+docno+"' and year = '"+year+"' and itemno = '"+itemno+"'";
+				//System.out.println(sqlStmt);
+				pStmt = conn.createStatement();
+				pStmt.executeUpdate(sqlStmt);
+				pStmt.close();
+		
+		String sqlstmtS = "SELECT itemno FROM record_approve_dt "+
+		"where docno = '"+docno+"' and year = '"+year+"' and itemno > '"+itemno+"' ";
 		pStmt = conn.createStatement();
-		pStmt.executeUpdate(sqlStmt);
-		pStmt.close();
+		rs = pStmt.executeQuery(sqlstmtS);		
+		while (rs.next()) {
+			
+			itemno	= rs.getString("itemno"); 
+			String itemno_Update = String.valueOf(Integer.parseInt(itemno) - 1);
+			
+			String itemno_thai 	= (thnumber.CenverT_To_ThaiNumberic(String.valueOf(Integer.parseInt(itemno) - 1))); 
+			
+			if (itemno_Update.length() == 1) {
+				itemno_Update = "00" + itemno_Update; 
+			} else if (itemno_Update.length() == 2) {
+				itemno_Update = "0" + itemno_Update;   
+			}
+			
+			sqlstmtS = "UPDATE record_approve_dt set itemno = '"+itemno_Update+"',numthai_itemno = '"+itemno_thai+"' " +
+					"WHERE docno = '"+docno+"' and year = '"+year+"' and itemno = '"+itemno+"'";
+			//System.out.println(sqlStmt);
+			pStmt = conn.createStatement();
+			pStmt.executeUpdate(sqlstmtS);
+			pStmt.close();
+			
+		}
+		rs.close();
+		pStmt.close(); 
+		
+		conn.commit();
+		
 		conn.close();
 	} 
 	public String SelectUpdateDocNo() throws Exception {
