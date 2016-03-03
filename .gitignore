@@ -26,3 +26,5 @@ buildNumber.properties
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+pcpnru/src/main/java/pcpnru/utilities/DBConnect.java
+pcpnru/target/classes/pcpnru/utilities/DBConnect.class

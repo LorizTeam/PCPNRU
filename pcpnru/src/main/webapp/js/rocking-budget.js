@@ -14,6 +14,8 @@ app.controller('myCtrl', function($scope, $http,$window) {
 	$scope.day="";
 	$scope.amount = 0;
 	$scope.docno = "";
+	$scope.g1 = "";
+    $scope.g2 = "";
 	
 	angular.element(document).ready(function () {
 		$http({
@@ -26,6 +28,8 @@ app.controller('myCtrl', function($scope, $http,$window) {
 	        	$scope.status = response.status;
 	            $scope.datas = response.data; 
 	            $scope.project=response.data[0].project_code; 
+	            $scope.g1 = "";
+	            $scope.g2 = "";
 	        });
     });
 	

@@ -25,7 +25,7 @@ public class RockingBudgetDB {
 	public List GetRockingBudgetList(String docno,String project_code,String year) 
 	throws Exception { //30-05-2014
 		List RockingBudgetList = new ArrayList();
-		String gcostcode = "", amount1 = "", gcostcode_rock = "", amount2 = "",
+		String gcostcode = "" ,gcostname = "", amount1 = "", gcostcode_rock = "", gcostname_rock = "", amount2 = "",
 				amount_rock = "", balance = "", docdate = "",remark = "", approve_status = "";
 		DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
 		DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
@@ -33,8 +33,10 @@ public class RockingBudgetDB {
 		
 			conn = agent.getConnectMYSql();
 			
-			String sqlStmt = "SELECT docno,project_code,year,gcostcode,amount1,gcostcode_rock,amount2,amount_rock,balance,docdate,remark,approve_status " +
-			"FROM rocking_budget " +
+			String sqlStmt = "SELECT docno,project_code,year,a.gcostcode,amount1,gcostcode_rock,amount2,amount_rock,balance,docdate,remark,approve_status,t1.g1,t2.g2 " +
+			"FROM rocking_budget a " +
+			"left join (SELECT gcostcode,gcostcode_name as g1 FROM groupcostcode_master b where b.project_code = '"+project_code+"') AS t1 on(t1.gcostcode = a.gcostcode) " +
+			"left join (SELECT gcostcode,gcostcode_name as g2 FROM groupcostcode_master c where c.project_code = '"+project_code+"') AS t2 on(t2.gcostcode = a.gcostcode_rock) " +
 			"WHERE "; 
 			if(!docno.equals("")) sqlStmt = sqlStmt+ "docno = '"+docno+"' AND "; 
 			if(!project_code.equals("")) sqlStmt = sqlStmt+ "project_code = '"+project_code+"' AND "; 
@@ -50,8 +52,10 @@ public class RockingBudgetDB {
 				project_code 		= rs.getString("project_code");
 				year				= rs.getString("year");
 				gcostcode 			= rs.getString("gcostcode");
+				gcostname			= rs.getString("g1");
 				amount1 			= rs.getString("amount1");
 				gcostcode_rock 		= rs.getString("gcostcode_rock");
+				gcostname_rock 		= rs.getString("g2");
 				amount2 			= rs.getString("amount2");
 				amount_rock 		= rs.getString("amount_rock");
 				balance 			= rs.getString("balance");
@@ -65,7 +69,7 @@ public class RockingBudgetDB {
 				balance				= df2.format(Float.parseFloat(balance));
 			
 				
-				RockingBudgetList.add(new RockingBudgetForm(docno, project_code, year, gcostcode, amount1, gcostcode_rock, amount2, amount_rock, balance, docdate, remark, approve_status));
+				RockingBudgetList.add(new RockingBudgetForm(docno, project_code, year, gcostcode, gcostname, amount1, gcostcode_rock, gcostname_rock, amount2, amount_rock, balance, docdate, remark, approve_status));
 			}
 			rs.close();
 			pStmt.close();
@@ -89,11 +93,11 @@ public class RockingBudgetDB {
 		conn.close();
 	}
 	
-	public void DeleteSubjobMaster(String subjobCode)  throws Exception{
+	public void DeleteRockingBudget(String docno, String project_code, String year, String gcostcode,String gcostcode_rock)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "DELETE From subjob_master "+
-		"WHERE subjob_code = '"+subjobCode+"'";
+		String sqlStmt = "DELETE From rocking_budget "+
+		"WHERE docno = '"+docno+"' and project_code = '"+project_code+"' and year = '"+year+"' and gcostcode = '"+gcostcode+"' and gcostcode_rock = '"+gcostcode_rock+"' ";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);

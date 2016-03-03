@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<%
 					  	ProjectData pjdata = new ProjectData();
 					  	List projectDTListreceive = pjdata.GetProjectDTDetailList(projectcode, year, "", "", "", "",
-					  			"", "", "", "", "", "desc", "true", "");
+					  			"", "", "", "", "", "asc", "true", "");
 					  	double pjdt_receivetotal = 0;
 					  	if(projectDTListreceive != null){
 					  		Iterator projectDTIter = projectDTListreceive.iterator();

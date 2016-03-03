@@ -50,42 +50,51 @@ public class RockingBudgetAction extends ActionSupport{
 	    if(request.getParameter("rocking_budget") != "") 	rocking_budget = request.getParameter("rocking_budget");
 	    if(request.getParameter("balance") != "") 			balance = request.getParameter("balance");
 	*/     
+	    
+	    String g1 			= (String) request.getParameter("g1");
+	    String g2 			= (String) request.getParameter("g2");
+	    
 	    docno				= rockingBudgetForm.getDocno();
 	    year				= rockingBudgetForm.getYear();
 	    project_code 		= rockingBudgetForm.getProject_code();
 	    String[] spPC		= project_code.split(" - ");
 	    project_code = spPC[0];
-	    gcostcode 			= rockingBudgetForm.getGcostcode();
-	    frombalance 		= rockingBudgetForm.getFrombalance();
-	    frombalance 		= frombalance.replace("฿", "").replace(",", "");
-	    gcostcode_rock 		= rockingBudgetForm.getGcostcode_rock();
-	    frombalance_rock 	= rockingBudgetForm.getFrombalance_rock();
-	    frombalance_rock 	= frombalance_rock.replace("฿", "").replace(",", "");
-	    rocking_budget 		= rockingBudgetForm.getRocking_budget();
-	    rocking_budget 		= rocking_budget.replace(",", "");
-	    balance				= rockingBudgetForm.getBalance();
-	    balance 			= balance.replace(",", "");
-	    docdate				= rockingBudgetForm.getDocdate();
-	    docdate 			= dateUtil.CnvToYYYYMMDDEngYear(docdate, '-');
-	    remark				= rockingBudgetForm.getRemark();
-	    approve_status      = "NA";
 	    
+	    gcostcode 			= rockingBudgetForm.getGcostcode(); 
+	    gcostcode_rock 		= rockingBudgetForm.getGcostcode_rock(); 
+	    
+	    if(g1!=null&&!g1.equals("")&&g2!=null&&!g2.equals("")){
+	    	rbg.DeleteRockingBudget(docno, project_code, year, g1, g2); 
+	    }else{ 
+	     
+	    	frombalance 		= rockingBudgetForm.getFrombalance();
+	 	    frombalance 		= frombalance.replace("฿", "").replace(",", "");
+	 	    frombalance_rock 	= rockingBudgetForm.getFrombalance_rock();
+		    frombalance_rock 	= frombalance_rock.replace("฿", "").replace(",", "");
+		    rocking_budget 		= rockingBudgetForm.getRocking_budget();
+		    rocking_budget 		= rocking_budget.replace(",", "");
+		    balance				= rockingBudgetForm.getBalance();
+		    balance 			= balance.replace(",", "");
+		    docdate				= rockingBudgetForm.getDocdate();
+		    docdate 			= dateUtil.CnvToYYYYMMDDEngYear(docdate, '-');
+		    remark				= rockingBudgetForm.getRemark();
+		    approve_status      = "NA";
+	    	
 		String add = request.getParameter("add");
 		
 		if(add!=null){
 			
 			rbg.AddRockingBudget(docno, project_code, year, gcostcode, frombalance, gcostcode_rock, frombalance_rock, rocking_budget, balance, docdate, remark, approve_status);
 		}
-		
-		request.setAttribute("project_code1", project_code);
-		
+	    }
+		 
 		frombalance = rbg.AmountRockingBudget(project_code, year, gcostcode); 
 		//rockingBudgetForm.setFrombalance(frombalance);
 		request.setAttribute("frombalance", frombalance);
 		
-		frombalance_rock  = rbg.AmountRockingBudget(project_code, year, gcostcode_rock);
+		//frombalance_rock  = rbg.AmountRockingBudget(project_code, year, gcostcode_rock);
 		//rockingBudgetForm.setFrombalance_rock(frombalance_rock);
-		request.setAttribute("frombalance_rock", frombalance_rock);
+		//request.setAttribute("frombalance_rock", frombalance_rock);
 		
 		extendsprojectmaster ext = new extendsprojectmaster();
 		List projectMasterList = ext.getListProject_Join_Projecthead(project_code, "","","");

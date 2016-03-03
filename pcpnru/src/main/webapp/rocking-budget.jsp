@@ -72,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
-	<form action="rockingBudget.action" method="post" name="rockbudgetform">
+	<form id="rocking-budget" action="rockingBudget.action" method="post" name="rockbudgetform">
 		<div class="example" data-text="โครงการที่ต้องการโยก">
 			<div class="flex-grid">
 			  	<div class="row flex-just-left">
@@ -120,6 +120,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					    <h4 class="sub-header fg-black"><s:property value="rockingBudgetForm.docno"/></h4>
 					    <s:hidden id="docno" name="rockingBudgetForm.docno" />
 					    <s:hidden id="year" name="rockingBudgetForm.year" />
+					    <s:hidden id="g1" name="g1" value="{{ g1 }}" />
+					    <s:hidden id="g2" name="g2" value="{{ g2 }}" />
 					</div>
 					
 		    	</div>
@@ -140,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        				GroupCostCodeMasterModel gccInfo = (GroupCostCodeMasterModel) costcodeIterate.next(); 
 					        				
 					        	%>
-					        		<select name="rockingBudgetForm.gcostcode" id="gcostcode" >
+					        		<select name="rockingBudgetForm.gcostcode" id="gcostcode">
 					        			<option value="<%=gccInfo.getCostCode()%>" ><%=gccInfo.getCostName()%></option>
 						       		</select>
 					        	<%
@@ -191,7 +193,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    				Iterator Iterate = groupcostCode2List.iterator();
 			    				%>
 			    				<select name="rockingBudgetForm.gcostcode_rock" id="gcostcode_rock" ng-model="gcostcode_rock" ng-change="gcostcoderockchange()">
-			    				<option value="">-- please Select --</option>
+			    				<option selected value="">-- please Select --</option>
 			    				<%
 			        			while(Iterate.hasNext()){
 			        				GroupCostCodeMasterModel gcc1Info = (GroupCostCodeMasterModel) Iterate.next(); 
@@ -214,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	<div class="cell colspan1"> 
 			       		<h4 align="right">คงเหลือ ยกมา</h4> 	  
 			    	</div> 
-			    	<div class="cell colspan1" ng-init="frombalance_rock=<%=request.getAttribute("frombalance_rock")%>"> 
+			    	<div class="cell colspan1" ng-init="frombalance_rock=0"> 
 			    		<h4><small class="input-control full-size"> 
 			       			<s:textfield dir="rtl" id="frombalance_rock" name="rockingBudgetForm.frombalance_rock" value="{{ frombalance_rock | currency:'฿' }}" />
 			       		</small></h4>
@@ -280,6 +282,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     <th>คงเหลือ</th>
                     <th>จำนวนเงินที่โยก</th>
                     <th>เงินคงเหลือ</th> 
+                    <th> </th>
                 </tr>
                 </thead>  
                 <tbody>
@@ -293,12 +296,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				%>
                 <tr>  
                     <td align="center"><%=x%></td>
-                    <td class="" align="center"><%=rbgform.getGcostcode()%></td>
+                    <td class="tdgcostcode" align="left"><%=rbgform.getGcostcode()%> - <%=rbgform.getGcostname()%></td>
                     <td class="" align="right"><%=rbgform.getFrombalance()%></td>  
-                    <td class="" align="center"><%=rbgform.getGcostcode_rock()%></td>
+                    <td class="tdgcostcode_rock" align="left"><%=rbgform.getGcostcode_rock()%> - <%=rbgform.getGcostname_rock()%></td>
                     <td class="" align="right"><%=rbgform.getFrombalance_rock()%></td>  
                     <td class="" align="right"><%=rbgform.getRocking_budget()%></td>
                     <td class="" align="right"><%=rbgform.getBalance()%></td> 
+                    <td class="" align="center"><div class="cell"><a href=""><span class="mif-cross deletebt"></span></a></div></td>
                 </tr>	 
                  <% 	} %>
                 
@@ -378,6 +382,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   			}
 	   			
 	   		}); 
+			
+			$('.deletebt').click(function () {  
+	        	 
+        		var index = $(".deletebt").index(this);
+        		  
+        		var forsplit1 = $(".tdgcostcode").eq(index).text().split(" - "); 
+        		var td1 =  forsplit1[0];
+        		
+        		var forsplit2 = $(".tdgcostcode_rock").eq(index).text().split(" - "); 
+        		var td2 =  forsplit2[0];
+        		
+        		$("#g1").val(td1); 
+        		$("#g2").val(td2); 
+        		
+		    	$("#rocking-budget").submit();
+        	  
+    	}); 
 			
 			$("#day").datepicker({
 			    format: "dd/mm/yyyy",

@@ -131,7 +131,7 @@
 					double pjdt_requisitiontotal = 0;
 					double pjdt_receivetotal = 0;
 				  	List projectDTListRequisition_subjob = pjdata.GetProjectDTDetailList(projectcode, year, "", "", "", "",
-				  			"", "", "", "", "", "desc", "", "a.subjob_code");
+				  			"", "", "", "", "", "asc", "", "a.subjob_code");
 				  	
 				  	if(projectDTListRequisition_subjob != null){
 				  		Iterator projectDTIter_subjob = projectDTListRequisition_subjob.iterator();
@@ -150,7 +150,7 @@
 						  <!-- child_subjob -->
 						  <%
 						  List projectDTListRequisition_childsubjob = pjdata.GetProjectDTDetailList(projectcode, year, "", pjmodel.getSubjob_code(), "", "",
-						  			"", "", "", "", "", "desc", "", "a.childsubjobcode");
+						  			"", "", "", "", "", "asc", "", "a.childsubjobcode");
 						  	
 						  	if(projectDTListRequisition_childsubjob != null){
 						  		Iterator projectDTIter_childsubjob = projectDTListRequisition_childsubjob.iterator();
@@ -176,7 +176,7 @@
 							  		<%
 							  		
 									  List projectDTListRequisition_gcostcode = pjdata.GetProjectDTDetailList(projectcode, year, "", "", "", pjmodel_childsubjob.getChildsubjobcode(),
-									  			"", "", "", "", "", "desc", "", "");
+									  			"", "", "", "", "", "asc", "", "");
 									  	
 									  	if(projectDTListRequisition_gcostcode != null){
 									  		Iterator projectDTIter_gcostcode = projectDTListRequisition_gcostcode.iterator();
