@@ -161,10 +161,31 @@ public class DateUtil {
 		String dd;
 		String mm;
 		String yyyy;
-		dd = date.substring(0,2);
+		if(date.equals("")){
+			ansDate = "";
+		}else{
+			dd = date.substring(0,2);
+			
+			mm = date.substring(3,5);
+			yyyy = String.valueOf(Integer.parseInt(date.substring(6,10))-543);
+			ansDate = (yyyy+concatSymbol+mm+concatSymbol+dd);
+		}
 		
-		mm = date.substring(3,5);
-		yyyy = String.valueOf(Integer.parseInt(date.substring(6,10))-543);
+		//System.out.println("ansDate"+ansDate);
+		return ansDate;
+	}
+	public String CnvFROMYYYYMMDDTHyear_ToYYYYMMDDEngYear(String date,char concatSymbol)
+	{    
+//		 input  dd/mm/yyyy >>>  yyyy/mm/dd
+//	ex.	 change year from 2550 to 2007		
+		String ansDate;
+		String dd;
+		String mm;
+		String yyyy;
+		dd = date.substring(8,10);
+		
+		mm = date.substring(5,7);
+		yyyy = String.valueOf(Integer.parseInt(date.substring(0,4))-543);
 		ansDate = (yyyy+concatSymbol+mm+concatSymbol+dd);
 		//System.out.println("ansDate"+ansDate);
 		return ansDate;

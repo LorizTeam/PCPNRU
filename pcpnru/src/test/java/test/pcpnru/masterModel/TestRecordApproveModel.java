@@ -1,7 +1,6 @@
-package pcpnru.masterModel;
+package test.pcpnru.masterModel;
 
-public class RecordApproveModel {
-
+public class TestRecordApproveModel {
 	private String record_approve_hd;
 	private String record_approve_t;
 	private String record_approve_date;
@@ -11,32 +10,19 @@ public class RecordApproveModel {
 	private String record_approve_des2;
 	private String record_approve_des3;
 	private String record_approve_cen; 
-	private String record_approve_dep,record_approve_month; 
-	private String fromwindow;
+	private String record_approve_dep; 
 	
-	private String docno,docnohidden;
+	private String docno;
 	private String year;
 	private String itemno;
 	private String description;
 	private String qty; 
 	private String unit,create_by; 
 	
-	public RecordApproveModel() { 
+	public TestRecordApproveModel() { 
 	} 
-	
-	public RecordApproveModel(String forwhat, String s1, String s2, String s3, String s4,
-			String s5, String s6) {
-		if(forwhat.equals("prhd")){
-			this.docno = s1;
-			this.record_approve_title = s2;
-			this.record_approve_cen =s3;
-			this.create_by = s4;
-			this.year = s5;
-			this.record_approve_date = s6;
-		}
-	}
-	
-	public RecordApproveModel(String record_approve_hd, String record_approve_t, String record_approve_date,
+	  
+	public TestRecordApproveModel(String record_approve_hd, String record_approve_t, String record_approve_date,
 			String record_approve_title, String record_approve_rian, String record_approve_des1,
 			String record_approve_des2, String record_approve_cen, String record_approve_dep) {
 		super();
@@ -51,7 +37,7 @@ public class RecordApproveModel {
 		this.record_approve_dep = record_approve_dep;
 	}
 
-	public RecordApproveModel(String docno, String year, String itemno, String description, String qty, String unit) {
+	public TestRecordApproveModel(String docno, String year, String itemno, String description, String qty, String unit) {
 		super();
 		this.docno = docno;
 		this.year = year;
@@ -59,6 +45,18 @@ public class RecordApproveModel {
 		this.description = description;
 		this.qty = qty;
 		this.unit = unit;
+	}
+
+	public TestRecordApproveModel(String forwhat, String s1, String s2, String s3, String s4,
+			String s5, String s6) {
+		if(forwhat.equals("prhd")){
+			this.docno = s1;
+			this.record_approve_title = s2;
+			this.record_approve_cen =s3;
+			this.create_by = s4;
+			this.year = s5;
+			this.record_approve_date = s6;
+		}
 	}
 
 	public void reset_hd(){
@@ -84,27 +82,6 @@ public class RecordApproveModel {
 		this.description 	= ""; 
 		this.qty 			= ""; 
 		this.unit 			= ""; 
-	}
-	public String getFromwindow() {
-		return fromwindow;
-	}
-
-	public void setFromwindow(String fromwindow) {
-		this.fromwindow = fromwindow;
-	}
-	public String getDocnohidden() {
-		return docnohidden;
-	}
-
-	public void setDocnohidden(String docnohidden) {
-		this.docnohidden = docnohidden;
-	}
-	public String getRecord_approve_month() {
-		return record_approve_month;
-	}
-
-	public void setRecord_approve_month(String record_approve_month) {
-		this.record_approve_month = record_approve_month;
 	}
 	public String getCreate_by() {
 		return create_by;
@@ -239,6 +216,4 @@ public class RecordApproveModel {
 	public void setItemno(String itemno) {
 		this.itemno = itemno;
 	}
-
-	 
 }

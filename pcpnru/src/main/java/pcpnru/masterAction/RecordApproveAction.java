@@ -1,10 +1,13 @@
 package pcpnru.masterAction;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
+import org.junit.Assert;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -12,6 +15,7 @@ import pcpnru.masterData.RecordApproveDB;
 import pcpnru.masterModel.RecordApproveModel;
 import pcpnru.utilities.DateUtil;
 import pcpnru.utilities.ThaiNumber;
+import pcpnru.utilities.Validate;
 
 public class RecordApproveAction extends ActionSupport {
 	
@@ -102,7 +106,6 @@ public class RecordApproveAction extends ActionSupport {
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		
 		RecordApproveDB ra = new RecordApproveDB();
-		
 		recordApproveModel = new RecordApproveModel();
 		
 		DateUtil dateUtil = new DateUtil();
@@ -112,5 +115,90 @@ public class RecordApproveAction extends ActionSupport {
 		recordApproveModel.setYear(dateUtil.curYear());
 		
 		return SUCCESS;
+	}
+	
+	public String windowcreate() throws Exception{
+		
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		
+		RecordApproveDB ra = new RecordApproveDB();
+		String fromwindow = recordApproveModel.getFromwindow();
+		recordApproveModel = new RecordApproveModel();
+		
+		DateUtil dateUtil = new DateUtil();
+		String docno = ra.SelectUpdateDocNo();
+		
+		recordApproveModel.setDocno(docno);
+		recordApproveModel.setYear(dateUtil.curYear());
+		recordApproveModel.setFromwindow(fromwindow);
+		
+		return SUCCESS;
+	}
+	
+	public String entrancSearch() throws IOException, Exception{
+		
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header("", "", "", "", ""));
+		
+		return SUCCESS;
+	}
+	
+	public String HistoryPR() throws IOException, Exception{
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		String search = request.getParameter("search");
+		String viewdetail = request.getParameter("viewdetail");
+		String create = request.getParameter("create");
+		
+		String forwardText = "search";
+		if(create != null){
+			
+			windowcreate();
+			forwardText = "create";
+		}else if(search != null){//Check Submit By button
+			
+			boolean passvalidate = true;
+			Validate validate = new Validate();
+			
+			if(!validate.CheckRegexNumberOnly(recordApproveModel.getDocno())){
+				passvalidate = false;
+			}
+			String year = "";
+			if(!year.equals("")){
+				year = String.valueOf(Integer.parseInt(recordApproveModel.getYear())-543);
+			}
+			
+			if(passvalidate){
+				request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header(recordApproveModel.getDocno(), recordApproveModel.getRecord_approve_title()
+						, new DateUtil().CnvToYYYYMMDDEngYear(recordApproveModel.getRecord_approve_date(),'-'), recordApproveModel.getRecord_approve_month()
+						, year));
+			}
+			
+		}else if(viewdetail != null){
+			RecordApproveDB ra = new RecordApproveDB();
+			Map MapResultValue = ra.GetAllValueHeader_byDocno(recordApproveModel.getDocno(),recordApproveModel.getYear());
+			
+			String fromwindow = recordApproveModel.getFromwindow();
+			
+			recordApproveModel = new RecordApproveModel();
+			recordApproveModel.setDocno(MapResultValue.get("docno").toString());
+			recordApproveModel.setYear(MapResultValue.get("year").toString());
+			recordApproveModel.setRecord_approve_hd(MapResultValue.get("record_approve_hd").toString());
+			recordApproveModel.setRecord_approve_t(MapResultValue.get("record_approve_t").toString());
+			recordApproveModel.setRecord_approve_date(MapResultValue.get("record_approve_date").toString());
+			recordApproveModel.setRecord_approve_title(MapResultValue.get("record_approve_title").toString());
+			recordApproveModel.setRecord_approve_rian(MapResultValue.get("record_approve_rian").toString());
+			recordApproveModel.setRecord_approve_des1(MapResultValue.get("record_approve_des1").toString());
+			recordApproveModel.setRecord_approve_des2(MapResultValue.get("record_approve_des2").toString());
+			recordApproveModel.setRecord_approve_des3(MapResultValue.get("record_approve_des3").toString());
+			recordApproveModel.setRecord_approve_cen(MapResultValue.get("record_approve_cen").toString());
+			recordApproveModel.setRecord_approve_dep(MapResultValue.get("record_approve_dep").toString());
+			recordApproveModel.setCreate_by(MapResultValue.get("create_by").toString());
+			recordApproveModel.setFromwindow(fromwindow);
+			List ListRecordApproveDT =  ra.ListRecordApproveDT(MapResultValue.get("docno").toString(), MapResultValue.get("year").toString());
+			request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);
+			
+			forwardText = "viewdetail";
+		}
+		return forwardText;
 	}
 }

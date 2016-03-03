@@ -78,7 +78,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </script>
 	
 	<body>
-		 <div><%@include file="topmenu.jsp" %></div>
+		<s:set name="fromwindow" value="recordApproveModel.fromwindow"/>
+		<s:if test="%{#fromwindow=='true'}">
+			<div><%@include file="window-topmenu.jsp" %></div>
+		</s:if>
+		<s:else>
+			<div><%@include file="topmenu.jsp" %></div>
+		</s:else>
+		 
 		 <form action="recordApprove.action" method="post">
 		 <div class="grid" >
 		 <div class="row cells12 " >
@@ -100,6 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        <div class="input-control text full-size">
 						    <s:textfield name="recordApproveModel.description" id="description" required="" /> 
 						</div>
+						
 					</div>      
 	         		<div class="cell colspan1"> 
 			        	จำนวน
@@ -264,14 +272,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 			 	</div>
 			 	<div class="row cells12"> 
-	         	 	<div class="cell align-center colspan5"> </div>  
+	         	 	<div class="cell align-center colspan2">
+	         	 		<s:set name="fromwindow" value="recordApproveModel.fromwindow"/>
+						<s:if test="%{#fromwindow=='true'}">
+						<a class="button success back" id="back" href="searchPR.action"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
+						</s:if>
+	         	 	</div>
+	         	 	<div class="cell align-center colspan3">
+	         	 	</div>  
 					<div class="cell align-left colspan5"><br>
 						  <button class="button success" name="save" id="save"> <span class="mif-floppy-disk mif-lg fg-white"></span></button>   
 						  <a href="javascript:print();" id="print" class="button warning size"><span class="mif-print mif-lg fg-white"></span></a>
 						  
 					</div>
 					<div class="cell align-right colspan2"><br>
-						<a class="button success next" name="next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการถัดไป</span></a>
+						<a class="button success next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการถัดไป</span></a>
 					</div>
 			 	</div>
 			</div>
