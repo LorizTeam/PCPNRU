@@ -80,11 +80,11 @@ public class RockingBudgetAction extends ActionSupport{
 		request.setAttribute("project_code1", project_code);
 		
 		frombalance = rbg.AmountRockingBudget(project_code, year, gcostcode); 
-		rockingBudgetForm.setFrombalance(frombalance);
+		//rockingBudgetForm.setFrombalance(frombalance);
 		request.setAttribute("frombalance", frombalance);
 		
 		frombalance_rock  = rbg.AmountRockingBudget(project_code, year, gcostcode_rock);
-		rockingBudgetForm.setFrombalance_rock(frombalance_rock);
+		//rockingBudgetForm.setFrombalance_rock(frombalance_rock);
 		request.setAttribute("frombalance_rock", frombalance_rock);
 		
 		extendsprojectmaster ext = new extendsprojectmaster();
@@ -144,6 +144,8 @@ public String create() throws Exception{
 				request.setAttribute("projectMasterList", projectMasterList);
 				
 				request.setAttribute("project_code", project_code);
+				request.setAttribute("frombalance", "0"); 
+				request.setAttribute("frombalance_rock", "0");
 				
 				forwardText = "success";
 			}

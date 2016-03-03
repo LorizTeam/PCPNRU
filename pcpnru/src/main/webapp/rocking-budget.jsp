@@ -79,18 +79,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        <div class="cell colspan1 "> 
 			       		<h4 class="align-right">โครงการ&nbsp;</h4>
 			    	</div>
-			    	<div class="cell colspan6" > 
+			    	<div class="cell colspan6"> 
 			       		 <h4><small class="input-control full-size" > 
 				       		 <select id="project_code" ng-change="projectchange()" ng-model="project" name="rockingBudgetForm.project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
 							   <option value="">กรุณาเลือกโครงการ</option>
-							   <%  
+							   <% 
 							   		List projectMasterList = (List) request.getAttribute("projectMasterList");
 				        		if (projectMasterList != null) {
+				        			 
 					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
 					        			ProjectModel pjModel = (ProjectModel) iterPj.next(); 
-						        				
-						        	%>
-						        		<option <% if(pjModel.getProject_code().equals(project_code)){%> selected <% } %> value="<%=pjModel.getProject_code()%> - <%=pjModel.getYear()%>" >
+					        			String p1 = pjModel.getProject_code();
+						        	%> 
+						        		<option value="<%=pjModel.getProject_code()%> - <%=pjModel.getYear()%>" >
 							       			 <%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
 							       		</option>
 						        	<%
@@ -188,17 +189,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    			
 			    			if (groupcostCode2List != null) {
 			    				Iterator Iterate = groupcostCode2List.iterator();
+			    				%>
+			    				<select name="rockingBudgetForm.gcostcode_rock" id="gcostcode_rock" ng-model="gcostcode_rock" ng-change="gcostcoderockchange()">
+			    				<option value="">-- please Select --</option>
+			    				<%
 			        			while(Iterate.hasNext()){
-			        				GroupCostCodeMasterModel gccInfo = (GroupCostCodeMasterModel) Iterate.next(); 
+			        				GroupCostCodeMasterModel gcc1Info = (GroupCostCodeMasterModel) Iterate.next(); 
 					        				
-					        	%>
-					        		<select name="rockingBudgetForm.gcostcode_rock" id="gcostcode_rock" >
-					        			<option value="<%=gccInfo.getCostCode()%>" ><%=gccInfo.getCostName()%></option>
-						       		</select>
-					        	<%
-					        			
+					        	%> 
+					        		<option value="<%=gcc1Info.getCostCode()%>" ><%=gcc1Info.getCostName()%></option> 
+					        	<% 	
 		      						} 
-								}else{
+			    				%>
+			    				</select>
+							<%	}else{
 							%>
 			    			<select name="rockingBudgetForm.gcostcode_rock" ng-model="gcostcode_rock" id="gcostcode_rock" ng-change="gcostcoderockchange()" required>
 			    				<option value="">-- please Select --</option>
@@ -210,7 +214,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	<div class="cell colspan1"> 
 			       		<h4 align="right">คงเหลือ ยกมา</h4> 	  
 			    	</div> 
-			    	<div class="cell colspan1" ng-init="frombalance=<%=request.getAttribute("frombalance_rock")%>"> 
+			    	<div class="cell colspan1" ng-init="frombalance_rock=<%=request.getAttribute("frombalance_rock")%>"> 
 			    		<h4><small class="input-control full-size"> 
 			       			<s:textfield dir="rtl" id="frombalance_rock" name="rockingBudgetForm.frombalance_rock" value="{{ frombalance_rock | currency:'฿' }}" />
 			       		</small></h4>
@@ -304,7 +308,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div> <!-- End of example table --> 
     <script type="text/javascript">
 		$(function(){
-			$("#project_code").select2();
+			 
 			$("#gcostcode").select2();
 			$("#gcostcode_rock").select2();
 			
@@ -336,7 +340,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   			var rgb = $("#rocking_budget").val();
 	   			rgb = rgb.replace(/,/g,"");
 	   			
-	   			if(fb<rgb){
+	   			if(parseFloat(fb)<parseFloat(rgb)){
 	   				$("#balance").val("");  
 	   			}else if(rgb==''){
 	   				$("#balance").val(""); 
@@ -359,14 +363,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   			var rgb = $("#rocking_budget").val();
 	   			rgb = rgb.replace(/,/g,"");
 	   			
-	   			if(fb<rgb){
+	   			if(parseFloat(fb)<parseFloat(rgb)){
+	   				 
 	   				$("#balance").val("");  
 	   			}else if(rgb==''){
+	   				 
 	   				$("#balance").val(""); 
 	   			}else{
-	   			
+	   				 
 	   				var balance = fb-rgb;
-		   			 
+	   				
 		   			balance = parseFloat(balance).toLocaleString("en-US");
 		   			$("#balance").val(balance);  
 	   			}

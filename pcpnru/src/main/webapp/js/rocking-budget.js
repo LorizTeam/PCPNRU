@@ -5,7 +5,7 @@ var app = angular.module('rocking-budget', [], function($httpProvider) {
 
 
 app.controller('myCtrl', function($scope, $http,$window) {
-	 
+	$scope.project=""; 
 	$scope.unit=0;
 	$scope.priceperunit=0;
 	$scope.frombalance=0;
@@ -15,10 +15,23 @@ app.controller('myCtrl', function($scope, $http,$window) {
 	$scope.amount = 0;
 	$scope.docno = "";
 	
+	angular.element(document).ready(function () {
+		$http({
+	          method: "POST", 
+	          url: "ajax_rockingbudget.jsp",
+	          params:{"ajax_type":"select"},
+	          headers: {"Accept-Charset":"charset=utf-8",'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+	          
+	        }).then(function(response) {
+	        	$scope.status = response.status;
+	            $scope.datas = response.data; 
+	            $scope.project=response.data[0].project_code; 
+	        });
+    });
+	
 	$scope.projectchange = function() { 
 			
 			$scope.gcostcode = '';
-			
 			$http({
 		          method: "POST", 
 		          url: "ajax_requisition.jsp",
@@ -30,6 +43,7 @@ app.controller('myCtrl', function($scope, $http,$window) {
 		            $scope.datas = response.data; 
 		            
 		        });
+			
 		}
 		
 	$scope.gcostcodechange = function() {
