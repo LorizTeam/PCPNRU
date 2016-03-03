@@ -37,7 +37,7 @@
 				        <div class="input-control text full-size"  data-role="input">
 						    <s:textfield name="recordApproveModel.description" id="description" required="" />
 						    <div class="button-group">
-						    <button class="button primary" type="button" onclick="javascript:getpr()"> <span class="mif-search"></span></button>
+						    <button class="button primary" type="button" onclick="getpr()"> <span class="mif-search"></span></button>
 							<button class="button danger" type="button" onclick="deletepr()"><span class="mif-bin"></span></button>
 				 	 		<button class="button success" type="submit" name="pull_detailpr"><span class="mif-download"></span></button>
 				 	 		</div>
@@ -195,6 +195,10 @@
 		</div>
 	</form>
 <script type="text/javascript">
+function getpr() {
+	var load = window.open('/pcpnru/windowsPR.action','pr',
+	             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
+}
 $(function(){
 	$("#pocreate_date").datepicker({
     	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
@@ -202,6 +206,8 @@ $(function(){
 	$("#quotation_date").datepicker({
     	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
     });
+	
+	
 });
 </script>
 </body>

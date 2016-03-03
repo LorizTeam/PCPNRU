@@ -14,6 +14,7 @@ import test.pcpnru.masterModel.TestRecordApproveModel;;
 public class TestViewDetailPR {
 	String docno="00046",year="2016";
 	
+	
 	@Test
 	public void GetValueByDocno() throws IOException, Exception{
 		Map MapResult = new TestRecordApproveDB().GetAllValueHeader_byDocno(this.docno,this.year);

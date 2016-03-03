@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.junit.*;
-import org.junit.Assert;
 
 import pcpnru.utilities.DateUtil;
 import pcpnru.utilities.Validate;
@@ -18,6 +17,14 @@ public class TestRecordApproveAction {
 		
 		List ListPr = new TestRecordApproveDB().GetListPR_Header("", "", "",this.month, "");
 		Assert.assertTrue(!ListPr.isEmpty());
+	}
+	
+
+	@Test
+	public void GetResultPR_By_CurmonthAndCurYear() throws IOException, Exception{
+		DateUtil dateutil = new DateUtil();
+		List PR_DT = new TestRecordApproveDB().ListRecordApproveDT("",dateutil.curMonth(), dateutil.curYear());
+		Assert.assertTrue(!PR_DT.isEmpty());
 	}
 	
 	@Test

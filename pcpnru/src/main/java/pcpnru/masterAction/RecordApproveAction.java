@@ -138,7 +138,10 @@ public class RecordApproveAction extends ActionSupport {
 	public String entrancSearch() throws IOException, Exception{
 		
 		HttpServletRequest request = ServletActionContext.getRequest(); 
-		request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header("", "", "", "", ""));
+		
+		DateUtil dateutil = new DateUtil();
+		
+		request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header("", "", "",dateutil.curMonth(), dateutil.curYear()));
 		
 		return SUCCESS;
 	}

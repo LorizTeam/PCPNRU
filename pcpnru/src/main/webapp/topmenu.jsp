@@ -48,14 +48,15 @@
                         	<ul class="d-menu" data-role="dropdown">  
 			                        <li><a href="createrecordApprove.action">สร้างรายการ</a></li>
 			                        <li class="divider"></li>
-			                        <li><a href="">ดูประวัติ</a></li> 
+			                        <li><a href="windowsPR.action">ดูประวัติ</a></li> 
 			                        <li class="divider"></li>
 			                        <li><a href="">จัดการ ผู้มีอำนาจการอนุมัติ</a></li> 
 			                 </ul>
                         </li>
+                        <li class="divider"></li>
                         <li><a href="" class="dropdown-toggle">ใบสั่งซื้อ</a>
                         	<ul class="d-menu" data-role="dropdown">  
-			                        <li><a href="createrecordApprove.action">สร้างรายการ</a></li>
+			                        <li><a href="pocheckauthen.action">สร้างรายการ</a></li>
 			                        <li class="divider"></li>
 			                        <li><a href="">ดูประวัติ</a></li> 
 			                        <li class="divider"></li>

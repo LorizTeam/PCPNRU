@@ -89,10 +89,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 <form action="recordApprove.action" method="post">
 		 <div class="grid" >
 		 <div class="row cells12 " >
-		 			<div class="cell align-center colspan5"> </div>
+		 			<div class="cell align-center colspan2">
+	         	 		<s:set name="fromwindow" value="recordApproveModel.fromwindow"/>
+						<s:if test="%{#fromwindow=='true'}">
+						<a class="button success back" id="back" href="searchPR.action"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
+						</s:if>
+	         	 	</div>
+	         	 	<div class="cell align-center colspan3">
+	         	 	</div>
 		 			<div class="cell align-left colspan5"><h3>บันทึกข้อความ </h3></div>
 		 			<div class="cell align-left colspan2"><br>
-						<a class="button success next" name="next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการถัดไป</span></a>
+						<a class="button success next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการถัดไป</span></a>
 					</div>
 		</div>
 		</div>

@@ -171,4 +171,5 @@
     </package>
  	<include file="struts-user.xml"></include>
  	<include file="struts-pr.xml"></include>
+ 	<include file="struts-po.xml"></include>
 </struts>

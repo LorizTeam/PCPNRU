@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pcpnru.masterModel.RecordApproveModel;
 import pcpnru.utilities.DBConnect;
 import pcpnru.utilities.DateUtil;
 import test.pcpnru.masterModel.TestRecordApproveModel;
@@ -107,5 +108,91 @@ public class TestRecordApproveDB {
 			conn.close();
 		
 		return mapresultGet;
+	}
+	public List ListRecordApproveDT(String docno, String year) throws IOException, Exception{
+		String itemno = "", description = "", qty = "0", unit = "";
+		
+		String sqlWhere = "";
+		if(!docno.equals("")){
+			sqlWhere += "docno = '"+docno+"' AND ";
+		}
+		if(!year.equals("")){
+			sqlWhere += "year = '"+year+"' AND ";
+		}
+		
+		String sqlQuery = "SELECT docno, year, itemno, description, qty, unit " 
+				+ "FROM record_approve_dt "
+				+ " where ";
+				sqlQuery += sqlWhere;
+		sqlQuery +=  "docno <> '' order by itemno ";
+		
+		conn = agent.getConnectMYSql();
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlQuery);
+		
+		List ListRecordApproveDT = new ArrayList(); 
+		while(rs.next()){
+			docno		 	= rs.getString("docno");
+			year 			= rs.getString("year");
+			itemno			 = rs.getString("itemno");
+			description 	= rs.getString("description");
+			qty 			= rs.getString("qty");
+			unit 			= rs.getString("unit");
+			 
+			ListRecordApproveDT.add(new RecordApproveModel(docno, year, itemno, description, qty, unit));
+		}
+		
+		rs.close();
+		pStmt.close();
+		conn.close();
+		
+		return ListRecordApproveDT;
+	}
+	public List ListRecordApproveDT(String docno,String month, String year) throws IOException, Exception{
+		String itemno = "", description = "", qty = "0", unit = "";
+		
+		String sqlWhere = "";
+		if(!docno.equals("")){
+			sqlWhere += "b.docno = '"+docno+"' AND ";
+		}
+		if(!year.equals("")){
+			sqlWhere += "b.year = '"+year+"' AND ";
+		}
+		
+		if(!month.equals("")){
+			sqlWhere += "substr(a.record_approve_date from 6 for 2) = '"+month+"' AND ";
+		}
+		
+		String sqlQuery = "SELECT "
+				+ "b.docno,b.`year`,a.record_approve_date,b.itemno,b.numthai_itemno,b.description,"
+				+ "b.qty,b.numthai_qty,b.unit,b.create_by "
+				+ "FROM "
+				+ "record_approve_hd AS a "
+				+ "INNER JOIN record_approve_dt AS b ON a.docno = b.docno AND a.`year` = b.`year` "
+				+ "where ";
+				sqlQuery += sqlWhere;
+		sqlQuery +=  "b.docno <> '' order by itemno ";
+		
+		conn = agent.getConnectMYSql();
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlQuery);
+		
+		List ListRecordApproveDT = new ArrayList(); 
+		while(rs.next()){
+			docno		 	= rs.getString("docno");
+			year 			= rs.getString("year");
+			itemno			 = rs.getString("itemno");
+			description 	= rs.getString("description");
+			qty 			= rs.getString("qty");
+			unit 			= rs.getString("unit");
+			 
+			ListRecordApproveDT.add(new RecordApproveModel(docno, year, itemno, description, qty, unit));
+		}
+		
+		rs.close();
+		pStmt.close();
+		conn.close();
+		
+		return ListRecordApproveDT;
 	}
 }
