@@ -1,9 +1,27 @@
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%> 
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.projectData.*" %>
+<%@ page import="pcpnru.utilities.*" %>
 <%
-	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
-
+	String username = "", project_code = "";
+	
+	if(session.getAttribute("username") == null){
+		response.sendRedirect("login.jsp");
+	}else{
+		username = session.getAttribute("username").toString();
+		boolean chkAuthen = false;
+		String page_code = "013";
+		
+		CheckAuthenPageDB capDB = new CheckAuthenPageDB();
+		
+		chkAuthen = capDB.getCheckAuthen(username, page_code);
+		
+		if(chkAuthen==false){
+			response.sendRedirect("no-authen.jsp");
+		}else{
+			project_code = capDB.getProjectCode(username);
+		}
+	} 
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +50,7 @@
 	<body>
 	<%
 			ProjectMasterDB projM = new ProjectMasterDB();
-			List projectMasterList = projM.getListProject_Join_Projecthead("", "","","");
+			List projectMasterList = projM.getListProject_Join_Projecthead(project_code, "","","");
 		
   	%>
 	

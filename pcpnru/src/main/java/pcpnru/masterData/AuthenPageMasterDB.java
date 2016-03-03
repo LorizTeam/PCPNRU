@@ -39,7 +39,7 @@ public class AuthenPageMasterDB {
 				+ "INNER JOIN page_master c on(c.page_code = a.page_code) "
 				+ "where ";
 				sqlQuery += sqlWhere;
-		sqlQuery +=  "a.authen_type <> '' order by a.authen_type ";
+		sqlQuery +=  "a.authen_type <> '' order by a.authen_type, a.page_code ";
 		
 		conn = agent.getConnectMYSql();
 		pStmt = conn.createStatement();

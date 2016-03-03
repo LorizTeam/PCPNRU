@@ -37,9 +37,18 @@
 	List listJson = new LinkedList();
 	
 	if(ajax_type.equals("select")){
-		String sql = "SELECT b.gcostcode, b.gcostcode_name "+
-				 "from projectplan_detail a INNER JOIN groupcostcode_master b ON (b.gcostcode = a.gcostcode)  "+
-	 			 "WHERE a.project_code = '"+projectCode+"' and year = '"+year+"' and type_gcostcode = '2' order by b.gcostcode";
+		String sql = "";
+		if(request.getParameter("gcostcode")!=null){
+			sql = "SELECT b.gcostcode, b.gcostcode_name "+
+					 "from projectplan_detail a INNER JOIN groupcostcode_master b ON (b.gcostcode = a.gcostcode and a.project_code = b.project_code)  "+
+		 			 "WHERE a.project_code = '"+projectCode+"' and year = '"+year+"' and b.gcostcode not in ('"+gcostcode+"') and type_gcostcode = '2' order by b.gcostcode";
+		}else{
+			sql = "SELECT b.gcostcode, b.gcostcode_name "+
+					 "from projectplan_detail a INNER JOIN groupcostcode_master b ON (b.gcostcode = a.gcostcode and a.project_code = b.project_code)  "+
+		 			 "WHERE a.project_code = '"+projectCode+"' and year = '"+year+"' and type_gcostcode = '2' order by b.gcostcode";
+		}
+		
+		 
 		Connection conn = dbcon.getConnectMYSql();
 		Statement pStmt = conn.createStatement();
 		rs = pStmt.executeQuery(sql); 

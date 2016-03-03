@@ -1,17 +1,21 @@
 
-var app = angular.module('requisition', [], function($httpProvider) {
+var app = angular.module('rocking-budget', [], function($httpProvider) {
 	$httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 });
+
+
 app.controller('myCtrl', function($scope, $http,$window) {
+	 
 	$scope.unit=0;
 	$scope.priceperunit=0;
 	$scope.frombalance=0;
+	$scope.frombalance_rock=0;
 	$scope.tobalance=0;
 	$scope.day="";
 	$scope.amount = 0;
 	$scope.docno = "";
-	$scope.projectchange = function() {
-		
+	
+	$scope.projectchange = function() { 
 			
 			$scope.gcostcode = '';
 			
@@ -23,13 +27,13 @@ app.controller('myCtrl', function($scope, $http,$window) {
 		          
 		        }).then(function(response) {
 		        	$scope.status = response.status;
-		            $scope.datas = response.data;
+		            $scope.datas = response.data; 
 		            
 		        });
 		}
 		
-	$scope.gcostcodechange = function() { 
-	
+	$scope.gcostcodechange = function() {
+		 
 		$http({
 	          method: "POST", 
 	          url: "ajax_frombudget.jsp",
@@ -39,6 +43,31 @@ app.controller('myCtrl', function($scope, $http,$window) {
 	        }).then(function(response) {
 	            $scope.frombalance = response.data;
 	            
+	        });
+		$http({
+	          method: "POST", 
+	          url: "ajax_requisition.jsp",
+	          params:{"projectCode":$scope.project.split(' - ')[0],"year":$scope.project.split(' - ')[1],"gcostcode":$scope.gcostcode,"ajax_type":"select"},
+	          headers: {"Accept-Charset":"charset=utf-8",'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+	          
+	        }).then(function(response) { 
+	            
+	            $scope.status_rock = response.status;
+	            $scope.datas_rock = response.data;
+	            
+	        });
+	}
+	
+	$scope.gcostcoderockchange = function() { 
+		
+		$http({
+	          method: "POST", 
+	          url: "ajax_frombudget.jsp",
+	          params:{"projectCode":$scope.project.split(' - ')[0],"year":$scope.project.split(' - ')[1],"gcostcode":$scope.gcostcode_rock},
+	          headers: {"Accept-Charset":"charset=utf-8",'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+	          
+	        }).then(function(response) {
+	            $scope.frombalance_rock = response.data;  
 	        });
 	}
 	

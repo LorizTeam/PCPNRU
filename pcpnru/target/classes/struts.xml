@@ -147,6 +147,20 @@
     	
         <!-- 		Requisition	 -->
         
+        <!-- 		Rocking Budget	 -->
+        
+        <action name="createRockingBudget" class="pcpnru.projectAction.RockingBudgetAction" method="create">
+      		<result name="success">/rocking-budget.jsp</result>
+      		<result name="authen">/no-authen.jsp</result>
+      		<result name="login">/login.jsp</result>
+    	</action>
+        
+        <action name="rockingBudget" class="pcpnru.projectAction.RockingBudgetAction" method="execute">
+      		<result name="success">/rocking-budget.jsp</result>
+    	</action> 
+    	
+        <!-- 		Rocking Budget	 -->
+        
         <!-- 		Receive and Requisition print report 		 -->
     	<action name="receiveRequisitionReport" class="pcpnru.projectAction.ReceiveRequisitionReportAction" method="execute">
       		<result name="success">/reportreceiveandrequisition.jsp</result>

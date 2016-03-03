@@ -139,7 +139,7 @@
         	
     	var table = $('#table_childsubjob').DataTable( {
               
-        	  scrollY: '35vh',
+        	  scrollY: '36vh',
         	  scrollX: true, 
         	  scrollCollapse: true,
           	  ordering: false,
