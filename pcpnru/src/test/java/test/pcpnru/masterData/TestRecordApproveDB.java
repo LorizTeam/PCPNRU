@@ -379,15 +379,15 @@ public class TestRecordApproveDB {
 		
 		conn.close();
 	} 
-	public String SelectUpdateDocNo() throws Exception {
+	public String SelectUpdateDocNo(String typedocno) throws Exception {
 		String requestno = "";
 		try {
 			conn = agent.getConnectMYSql();
 			 
 			String year = dateUtil.curYear();
 			
-			String sqlStmt = "SELECT max(docno) as lno FROM runningdocno_recordapprove "+
-					"WHERE docno <> '' and year = '"+year+"' ";
+			String sqlStmt = "SELECT max(docno) as lno FROM runningdocno_prpo "+
+					"WHERE docno <> '' and year = '"+year+"' and type='"+typedocno+"' ";
 			//System.out.println(sqlStmt);
 			pStmt = conn.createStatement();
 			rs = pStmt.executeQuery(sqlStmt);		
@@ -401,8 +401,8 @@ public class TestRecordApproveDB {
 				requestno = "0";
 				requestno 	= String.valueOf(Integer.parseInt(requestno) + 1); 
 				
-				sqlStmt = "INSERT IGNORE INTO runningdocno_recordapprove(docno, year) "+ 
-							"VALUES ('"+requestno+"', '"+year+"')";
+				sqlStmt = "INSERT IGNORE INTO runningdocno_prpo(docno, year,type) "+ 
+							"VALUES ('"+requestno+"', '"+year+"','"+typedocno+"')";
 				//System.out.println(sqlStmt);
 				pStmt = conn.createStatement();
 				pStmt.executeUpdate(sqlStmt);
@@ -412,8 +412,8 @@ public class TestRecordApproveDB {
 			}else{
 				requestno 	= String.valueOf(Integer.parseInt(requestno) + 1); 
 				
-				sqlStmt = "UPDATE runningdocno_recordapprove set docno = '"+requestno+"'" +
-						"WHERE year = '"+year+"'";
+				sqlStmt = "UPDATE runningdocno_prpo set docno = '"+requestno+"'" +
+						"WHERE year = '"+year+"' and type='"+typedocno+"' ";
 				//System.out.println(sqlStmt);
 				pStmt = conn.createStatement();
 				pStmt.executeUpdate(sqlStmt);

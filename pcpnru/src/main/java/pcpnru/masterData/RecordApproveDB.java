@@ -277,15 +277,15 @@ public class RecordApproveDB {
 		
 		conn.close();
 	} 
-	public String SelectUpdateDocNo() throws Exception {
+	public String SelectUpdateDocNo(String typedocno) throws Exception {
 		String requestno = "";
 		try {
 			conn = agent.getConnectMYSql();
 			 
 			String year = dateUtil.curYear();
 			
-			String sqlStmt = "SELECT max(docno) as lno FROM runningdocno_recordapprove "+
-					"WHERE docno <> '' and year = '"+year+"' ";
+			String sqlStmt = "SELECT max(docno) as lno FROM runningdocno_prpo "+
+					"WHERE docno <> '' and year = '"+year+"' and type='"+typedocno+"' ";
 			//System.out.println(sqlStmt);
 			pStmt = conn.createStatement();
 			rs = pStmt.executeQuery(sqlStmt);		
@@ -299,8 +299,8 @@ public class RecordApproveDB {
 				requestno = "0";
 				requestno 	= String.valueOf(Integer.parseInt(requestno) + 1); 
 				
-				sqlStmt = "INSERT IGNORE INTO runningdocno_recordapprove(docno, year) "+ 
-							"VALUES ('"+requestno+"', '"+year+"')";
+				sqlStmt = "INSERT IGNORE INTO runningdocno_prpo(docno, year,type) "+ 
+							"VALUES ('"+requestno+"', '"+year+"','"+typedocno+"')";
 				//System.out.println(sqlStmt);
 				pStmt = conn.createStatement();
 				pStmt.executeUpdate(sqlStmt);
@@ -310,8 +310,8 @@ public class RecordApproveDB {
 			}else{
 				requestno 	= String.valueOf(Integer.parseInt(requestno) + 1); 
 				
-				sqlStmt = "UPDATE runningdocno_recordapprove set docno = '"+requestno+"'" +
-						"WHERE year = '"+year+"'";
+				sqlStmt = "UPDATE runningdocno_prpo set docno = '"+requestno+"'" +
+						"WHERE year = '"+year+"' and type='"+typedocno+"' ";
 				//System.out.println(sqlStmt);
 				pStmt = conn.createStatement();
 				pStmt.executeUpdate(sqlStmt);
@@ -333,7 +333,7 @@ public class RecordApproveDB {
 			throw new Exception(e.getMessage());
 		}  
 		return requestno;
-		}
+	}
 	
 	public List GetListPR_Header(String pr_number,String pr_title,String pr_date,String pr_month,String pr_year) throws IOException, Exception{
 		

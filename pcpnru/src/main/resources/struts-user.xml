@@ -7,7 +7,9 @@
     <constant name="struts.devMode" value="true" />
  
     <package name="user" extends="struts-default">
-    
+	    <global-results>
+		    <result name="nologin">/login.jsp</result>
+		</global-results>
     	<!-- 		Login 		 -->
         <action name="login" class="pcpnru.projectAction.LoginAction" method="execute">
       		<result name="success">/index.jsp</result>

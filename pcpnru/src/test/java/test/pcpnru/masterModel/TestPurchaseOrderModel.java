@@ -1,9 +1,7 @@
-package pcpnru.projectModel;
+package test.pcpnru.masterModel;
 
-import pcpnru.masterModel.RecordApproveModel;
+public class TestPurchaseOrderModel extends TestRecordApproveModel {
 
-public class PurchaseOrderModel extends RecordApproveModel {
-	
 	private String po_docno,project_code;
 	private String po_docdate;
 	private String pre_loadpr,ref_pr,ref_prdate,ref_quotation,ref_quotationdate;
@@ -12,7 +10,7 @@ public class PurchaseOrderModel extends RecordApproveModel {
 	private double penaltype_perday;
 	private int credit_day;
 	
-	public PurchaseOrderModel(){}
+	public TestPurchaseOrderModel(){}
 	public String getProject_code() {
 		return project_code;
 	}
@@ -92,4 +90,5 @@ public class PurchaseOrderModel extends RecordApproveModel {
 	public void setCredit_day(int credit_day) {
 		this.credit_day = credit_day;
 	}
+	
 }

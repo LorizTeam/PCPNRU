@@ -2,12 +2,13 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="pcpnru.utilities.*" %>
 <%
-	
+String project_code = "";
 	if(session.getAttribute("username") == null){
 		response.sendRedirect("login.jsp");
 	}else{
 		String username = session.getAttribute("username").toString();
-		String project_code = session.getAttribute("project_code").toString();
+		project_code = session.getAttribute("project_code").toString();
+
 		boolean chkAuthen = false;
 		String page_code = "017";
 		
@@ -52,7 +53,7 @@
 					<div class="cell colspan4 "> 
 			        	รหัส PR
 				        <div class="input-control text full-size"  data-role="input">
-						    <s:textfield name="recordApproveModel.pre_loadpr" id="pre_loadpr" required="" />
+						    <s:textfield name="pomodel.pre_loadpr" id="pre_loadpr" required="" />
 						    <div class="button-group">
 						    <button class="button primary" type="button" onclick="getpr()"> <span class="mif-search"></span></button>
 							<button class="button danger" type="button" id="delete" onclick="deletepr()"><span class="mif-bin"></span></button>
@@ -72,13 +73,13 @@
 					<div class="cell colspan3 "> 
 			        	รหัส PR
 				        <div class="input-control text full-size"  data-role="input">
-						    <s:textfield name="recordApproveModel.description" id="description" required="" readonly="true" />
+						    <s:textfield name="pomodel.description" id="description" required="" readonly="true" />
 						</div>
 					</div>
 					<div class="cell colspan3"> 
 						วันที่สร้าง PR
 				        <div class="input-control text full-size"  data-role="input">
-						    <s:textfield name="recordApproveModel.description" id="description" required="" readonly="true"/>
+						    <s:textfield name="pomodel.description" id="description" required="" readonly="true"/>
 						</div>
 					</div>
 					<div class="cell colspan3"> </div>
@@ -122,15 +123,15 @@
 					<div class="cell colspan3 "> 
 			        	รหัส PO
 				        <div class="input-control text full-size"  data-role="input">
-				        	<s:property value="po.po_number" />
-				        	<s:hidden name="po.po_number" id="po_number" required=""/>
-				        	<s:hidden name="po.project_code" id="project_code" required=""/>
+				        	<s:property value="pomodel.po_number" />
+				        	<s:hidden name="pomodel.po_number" id="po_number"/>
+				        	<s:hidden name="pomodel.project_code" id="project_code"/>
 						</div>
 					</div>
 					<div class="cell colspan3"> 
 						วันที่ทำรายการ PO
 						<div class="input-control text full-size">
-						    <s:textfield name="po.pocreate_date" id="pocreate_date" required=""/>
+						    <s:textfield name="pomodel.pocreate_date" id="pocreate_date" required=""/>
 						</div>
 					</div>
 					<div class="cell colspan3"> </div>
@@ -153,7 +154,7 @@
 					<div class="cell colspan3 "> 
 			        	เรียนผู้ขาย
 				        <div class="input-control text full-size"  data-role="input">
-						    <s:textfield name="po.vender" id="description" required=""/>
+						    <s:textfield name="pomodel.vender" id="description" required=""/>
 						</div>
 					</div>
 					<div class="cell colspan3"> </div>
@@ -163,14 +164,14 @@
 	         		<div class="cell colspan3"> 
 						จะส่งมอบงานจ้างหรือสิ่งของภายใน
 						<div class="input-control text full-size"  data-role="input">
-						    <s:textfield type="number" name="po.credit_date" id="description" required=""/>
+						    <s:textfield type="number" name="pomodel.credit_date" id="description" required=""/>
 						</div>
 						วัน
 					</div>
 					<div class="cell colspan3 "> 
 			        	ค่าปรับวันละ
 				        <div class="input-control text full-size"  data-role="input">
-						    <input type="number" step="0.01" name="po.vender" id="description" required value="100"/>
+						    <input type="number" step="0.01" name="pomodel.vender" id="description" required value="100"/>
 						</div>
 						หากส่งของช้า
 					</div>
@@ -185,13 +186,13 @@
 					<div class="cell colspan3 "> 
 			        	อ้างอิงหมายเลขใบเสนอราคา
 				        <div class="input-control text full-size"  data-role="input">
-						    <s:textfield name="po.quotation_number" id="quotation_number" required=""/>
+						    <s:textfield name="pomodel.quotation_number" id="quotation_number" required=""/>
 						</div>
 					</div>
 					<div class="cell colspan3"> 
 						ลงวันที่ของใบเสนอราคา
 						<div class="input-control text full-size">
-						    <s:textfield name="po.quotation_date" id="quotation_date" required=""/>
+						    <s:textfield name="pomodel.quotation_date" id="quotation_date" required=""/>
 						</div>
 					</div>
 					<div class="cell colspan3"> </div>
@@ -217,6 +218,7 @@ function getpr() {
 }
 
 $(function(){
+	alert($("#project_code").val());
 	$("#pocreate_date").datepicker({
     	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
     });

@@ -7,7 +7,11 @@
     <constant name="struts.devMode" value="true" />
  
     <package name="pr" extends="struts-default">
-    
+    	<global-results>
+		    <result name="nologin">/login.jsp</result>
+		</global-results>
+		
+		<!-- ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->
 		<action name="createrecordApprove" class="pcpnru.masterAction.RecordApproveAction" method="create">
       		<result name="success">/record-approve.jsp</result>
     	</action>

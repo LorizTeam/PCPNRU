@@ -126,7 +126,7 @@ public class RecordApproveAction extends ActionSupport {
 		recordApproveModel = new RecordApproveModel();
 		
 		DateUtil dateUtil = new DateUtil();
-		String docno = ra.SelectUpdateDocNo();
+		String docno = ra.SelectUpdateDocNo("pr");
 		
 		recordApproveModel.setDocno(docno);
 		recordApproveModel.setYear(dateUtil.curYear());
@@ -143,7 +143,7 @@ public class RecordApproveAction extends ActionSupport {
 		recordApproveModel = new RecordApproveModel();
 		
 		DateUtil dateUtil = new DateUtil();
-		String docno = ra.SelectUpdateDocNo();
+		String docno = ra.SelectUpdateDocNo("pr");
 		
 		recordApproveModel.setDocno(docno);
 		recordApproveModel.setYear(dateUtil.curYear());

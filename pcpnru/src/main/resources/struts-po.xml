@@ -7,7 +7,10 @@
     <constant name="struts.devMode" value="true" />
  
     <package name="po" extends="struts-default">
-    	
+    	<global-results>
+		    <result name="nologin">/login.jsp</result>
+		</global-results>
+		
     	<action name="pocheckauthen" class="pcpnru.projectAction.PurchaseOrderAction" method="checkauthen">
       		<result name="success">/purchaseorder.jsp</result>
     	</action>

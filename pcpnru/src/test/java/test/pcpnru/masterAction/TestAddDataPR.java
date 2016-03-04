@@ -25,7 +25,7 @@ public class TestAddDataPR {
 		  docno,
 		  year = "2016",create_by = "00001";
 		TestRecordApproveDB TRAD = new TestRecordApproveDB();
-		docno = TRAD.SelectUpdateDocNo();
+		docno = TRAD.SelectUpdateDocNo("pr");
 		record_approve_date = new DateUtil().CnvToYYYYMMDDEngYear(record_approve_date, '-');
 		int rowsupdate = TRAD.AddRecordApprovehd(docno, year, record_approve_hd, record_approve_t, record_approve_date, 
 				record_approve_title, record_approve_rian, record_approve_des1, record_approve_des2, record_approve_des3, 
@@ -35,6 +35,7 @@ public class TestAddDataPR {
 		obj.put("year", year);
 		obj.put("create_by", create_by);
 		obj.put("rowsupdate", rowsupdate);
+		obj.put("record_approve_date", record_approve_date);
 		return obj;
 	}
 	
