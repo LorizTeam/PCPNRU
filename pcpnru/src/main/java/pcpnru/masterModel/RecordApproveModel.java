@@ -12,7 +12,7 @@ public class RecordApproveModel {
 	private String record_approve_des3;
 	private String record_approve_cen; 
 	private String record_approve_dep,record_approve_month; 
-	private String fromwindow;
+	private String fromwindow,createwindow;
 	
 	private String docno,docnohidden;
 	private String year;
@@ -84,6 +84,13 @@ public class RecordApproveModel {
 		this.description 	= ""; 
 		this.qty 			= ""; 
 		this.unit 			= ""; 
+	}
+	public String getCreatewindow() {
+		return createwindow;
+	}
+
+	public void setCreatewindow(String createwindow) {
+		this.createwindow = createwindow;
 	}
 	public String getFromwindow() {
 		return fromwindow;

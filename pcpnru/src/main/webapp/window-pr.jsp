@@ -2,6 +2,22 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="pcpnru.masterModel.*" %>
 <%@ page import="pcpnru.utilities.*" %>
+<%
+	
+	if(session.getAttribute("username") == null){
+		response.sendRedirect("login.jsp");
+	}else{
+		String username = session.getAttribute("username").toString();
+		boolean chkAuthen = false;
+		String page_code = "019";
+		
+		chkAuthen = new CheckAuthenPageDB().getCheckAuthen(username, page_code);
+		
+		if(chkAuthen==false){
+			response.sendRedirect("no-authen.jsp");
+		}
+	}
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -88,6 +104,7 @@
 					<table class="table striped hovered cell-hovered border bordered">
 						<thead>
 							<tr>
+								<th> </th>
 								<th>รหัส PR</th>
 								<th>เรื่อง</th>
 								<th>ผู้อนุมัติ</th>
@@ -106,6 +123,7 @@
 										RecordApproveModel RAM = (RecordApproveModel) ListIter.next();
 							%>
 										<tr>
+											<td align="center"><a onclick="Opener('<%=RAM.getDocno() %>')"><span class="mif-checkmark" ></span></a></td>
 											<td><%=RAM.getDocno() %></td>
 											<td><%=RAM.getRecord_approve_title() %></td>
 											<td><%=RAM.getRecord_approve_cen() %></td>
@@ -148,8 +166,12 @@ $(function(){
     });
 
 });
-</script>
-<script type="text/javascript">
+function Opener(pre_loadpr) {
+    
+    window.opener.document.getElementById ("pre_loadpr").value = pre_loadpr;
+
+    window.close();
+}
 function viewDetail(docno,year){
 	document.getElementById("docno").value=docno;
 	document.getElementById("year").value=year;

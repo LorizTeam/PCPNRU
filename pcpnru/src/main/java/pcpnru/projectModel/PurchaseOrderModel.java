@@ -6,12 +6,17 @@ public class PurchaseOrderModel extends RecordApproveModel {
 	
 	private String po_docno;
 	private String po_docdate;
-	private String ref_pr,ref_prdate,ref_quotation,ref_quotationdate;
+	private String pre_loadpr,ref_pr,ref_prdate,ref_quotation,ref_quotationdate;
 	private String type;
 	private String po_offer,approve_by;
 	private double penaltype_perday;
 	private int credit_day;
-	
+	public String getPre_loadpr() {
+		return pre_loadpr;
+	}
+	public void setPre_loadpr(String pre_loadpr) {
+		this.pre_loadpr = pre_loadpr;
+	}
 	public String getPo_docno() {
 		return po_docno;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 import org.junit.Assert;
@@ -31,11 +32,13 @@ public class RecordApproveAction extends ActionSupport {
 
 	public String execute() throws Exception{
 		HttpServletRequest request = ServletActionContext.getRequest(); 
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
 		
 		RecordApproveDB ra = new RecordApproveDB();
 		String docno = recordApproveModel.getDocno();
 		String year =recordApproveModel.getYear();
-		 
+		
 		String add = request.getParameter("add");
 		String update = request.getParameter("update");
 		String delete = request.getParameter("delete");
@@ -44,22 +47,24 @@ public class RecordApproveAction extends ActionSupport {
 		String forwardText = "success";  
 		
 		DateUtil dateUtil = new DateUtil();
-		
+		String record_approve_date = recordApproveModel.getRecord_approve_date();
+		record_approve_date = dateUtil.CnvToYYYYMMDDEngYear(record_approve_date, '-');
 		
 		  
 		if(save != null){ 
 			try {
 				
 				
-				String record_approve_date = recordApproveModel.getRecord_approve_date();
-				record_approve_date = dateUtil.CnvToYYYYMMDDEngYear(record_approve_date, '-');
+
 		 		ra.AddRecordApprovehd(docno, year,recordApproveModel.getRecord_approve_hd(),recordApproveModel.getRecord_approve_t()
 		 				,record_approve_date, recordApproveModel.getRecord_approve_title()
 		 				,recordApproveModel.getRecord_approve_rian(), recordApproveModel.getRecord_approve_des1()
 		 				,recordApproveModel.getRecord_approve_des2()
 		 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
-		 				,recordApproveModel.getRecord_approve_dep());
-		 		
+		 				,recordApproveModel.getRecord_approve_dep(),username);
+				List ListRecordApproveDT =  ra.ListRecordApproveDT(docno,"", year);
+				request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);
+				
 		 		recordApproveModel.reset_ListItem();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -73,9 +78,10 @@ public class RecordApproveAction extends ActionSupport {
 				ra.DeleteRecordApprovedt(docno, year, del_itemno);
 			}
 			
-			List ListRecordApproveDT =  ra.ListRecordApproveDT(docno, year);
+			List ListRecordApproveDT =  ra.ListRecordApproveDT(docno,"", year);
 			request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);
-			
+			System.out.println("from windows:"+recordApproveModel.getFromwindow());
+			recordApproveModel.setFromwindow(recordApproveModel.getFromwindow());
 			recordApproveModel.reset_ListItem();
 			
 		}else if (add != null){
@@ -84,9 +90,20 @@ public class RecordApproveAction extends ActionSupport {
 			String qty = recordApproveModel.getQty();
 			String unit = recordApproveModel.getUnit();
 			
-			ra.AddRecordApprovedt(docno, year, description, qty, unit);
+			if(ra.CheckHaveAddHD(docno)){
+				ra.AddRecordApprovedt(docno, year, description, qty, unit,username);
+			}else{
+		 		ra.AddRecordApprovehd(docno, year,recordApproveModel.getRecord_approve_hd(),recordApproveModel.getRecord_approve_t()
+		 				,record_approve_date, recordApproveModel.getRecord_approve_title()
+		 				,recordApproveModel.getRecord_approve_rian(), recordApproveModel.getRecord_approve_des1()
+		 				,recordApproveModel.getRecord_approve_des2()
+		 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
+		 				,recordApproveModel.getRecord_approve_dep(),username);
+				ra.AddRecordApprovedt(docno, year, description, qty, unit,username);
+			}
 			
-			List ListRecordApproveDT =  ra.ListRecordApproveDT(docno, year);
+			
+			List ListRecordApproveDT =  ra.ListRecordApproveDT(docno,"", year);
 			request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);			
 			
 			recordApproveModel.reset_ListItem();
@@ -131,6 +148,7 @@ public class RecordApproveAction extends ActionSupport {
 		recordApproveModel.setDocno(docno);
 		recordApproveModel.setYear(dateUtil.curYear());
 		recordApproveModel.setFromwindow(fromwindow);
+		recordApproveModel.setCreatewindow("true");
 		
 		return SUCCESS;
 	}
@@ -165,9 +183,9 @@ public class RecordApproveAction extends ActionSupport {
 			if(!validate.CheckRegexNumberOnly(recordApproveModel.getDocno())){
 				passvalidate = false;
 			}
-			String year = "";
+			String year = recordApproveModel.getYear();
 			if(!year.equals("")){
-				year = String.valueOf(Integer.parseInt(recordApproveModel.getYear())-543);
+				year = String.valueOf(Integer.parseInt(year)-543);
 			}
 			
 			if(passvalidate){
@@ -178,13 +196,17 @@ public class RecordApproveAction extends ActionSupport {
 			
 		}else if(viewdetail != null){
 			RecordApproveDB ra = new RecordApproveDB();
-			Map MapResultValue = ra.GetAllValueHeader_byDocno(recordApproveModel.getDocno(),recordApproveModel.getYear());
+			String year = recordApproveModel.getYear();
+			if(!year.equals("")){
+				year = String.valueOf(Integer.parseInt(year)-543);
+			}
+			Map MapResultValue = ra.GetAllValueHeader_byDocno(recordApproveModel.getDocno(),year);
 			
 			String fromwindow = recordApproveModel.getFromwindow();
 			
 			recordApproveModel = new RecordApproveModel();
 			recordApproveModel.setDocno(MapResultValue.get("docno").toString());
-			recordApproveModel.setYear(MapResultValue.get("year").toString());
+			recordApproveModel.setYear(year);
 			recordApproveModel.setRecord_approve_hd(MapResultValue.get("record_approve_hd").toString());
 			recordApproveModel.setRecord_approve_t(MapResultValue.get("record_approve_t").toString());
 			recordApproveModel.setRecord_approve_date(MapResultValue.get("record_approve_date").toString());
@@ -197,7 +219,7 @@ public class RecordApproveAction extends ActionSupport {
 			recordApproveModel.setRecord_approve_dep(MapResultValue.get("record_approve_dep").toString());
 			recordApproveModel.setCreate_by(MapResultValue.get("create_by").toString());
 			recordApproveModel.setFromwindow(fromwindow);
-			List ListRecordApproveDT =  ra.ListRecordApproveDT(MapResultValue.get("docno").toString(), MapResultValue.get("year").toString());
+			List ListRecordApproveDT =  ra.ListRecordApproveDT(recordApproveModel.getDocno(),"", year);
 			request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);
 			
 			forwardText = "viewdetail";

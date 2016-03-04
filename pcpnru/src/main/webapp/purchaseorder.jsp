@@ -1,6 +1,23 @@
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-
+<%@ page import="pcpnru.utilities.*" %>
+<%
+	
+	if(session.getAttribute("username") == null){
+		response.sendRedirect("login.jsp");
+	}else{
+		String username = session.getAttribute("username").toString();
+		String project_code = session.getAttribute("project_code").toString();
+		boolean chkAuthen = false;
+		String page_code = "017";
+		
+		chkAuthen = new CheckAuthenPageDB().getCheckAuthen(username, page_code);
+		
+		if(chkAuthen==false){
+			response.sendRedirect("no-authen.jsp");
+		}
+	}
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -35,10 +52,10 @@
 					<div class="cell colspan4 "> 
 			        	รหัส PR
 				        <div class="input-control text full-size"  data-role="input">
-						    <s:textfield name="recordApproveModel.description" id="description" required="" />
+						    <s:textfield name="recordApproveModel.pre_loadpr" id="pre_loadpr" required="" />
 						    <div class="button-group">
 						    <button class="button primary" type="button" onclick="getpr()"> <span class="mif-search"></span></button>
-							<button class="button danger" type="button" onclick="deletepr()"><span class="mif-bin"></span></button>
+							<button class="button danger" type="button" id="delete" onclick="deletepr()"><span class="mif-bin"></span></button>
 				 	 		<button class="button success" type="submit" name="pull_detailpr"><span class="mif-download"></span></button>
 				 	 		</div>
 						</div>
@@ -47,8 +64,7 @@
 			 	</div>
 			</div>
 		</div>
-	</form>
-	<form action="">
+	
 		<div class="example" data-text="ข้อมูลรายละเอียด PO"> 
 	         <div class="grid">
 	         	<div class="row cells12">
@@ -68,8 +84,7 @@
 					<div class="cell colspan3"> </div>
 			 	</div>
 			 	<div class="row cells12">
-			 		<div class="cell colspan1"> </div> 
-					<div class="cell colspan10"> 
+					<div class="cell colspan12"> 
 			 		
 			 			<table class="table striped hovered cell-hovered border bordered" >
 			 				<thead>
@@ -84,17 +99,16 @@
 			 				</thead>
 			 				<tbody>
 			 					<tr>
-			 						<td>1</td>
-			 						<td>ค่าสัญญา</td>
+			 						<td width="70%"><input type="text" name="itemno" value="1" readonly="readonly"/></td>
+			 						<td><input type="text" name="description" value="ค่าสัญญา" readonly="readonly"/></td>
 			 						<td><input type="text" value="1"/></td>
 			 						<td><input type="text" value="5"/></td>
-			 						<td>5,000.00</td>
-			 						<td>หมายเหตุ*</td>
+			 						<td><input type="text" name="description" value="5,000" readonly="readonly"/></td>
+			 						<td><input type="text" name="remark" value="หมายเหตุ"/></td>
 			 					</tr>
 			 				</tbody>
 			 			</table>
 			 		</div>
-			 		<div class="cell colspan1"> </div>
 			 	</div>
 			 	<div class="row cells12">
 			 		<div class="cell colspan5"> </div>
@@ -108,8 +122,9 @@
 					<div class="cell colspan3 "> 
 			        	รหัส PO
 				        <div class="input-control text full-size"  data-role="input">
-				        	<s:textfield name="po.po_number" id="description" required="" readonly="true"/>
-						    <s:hidden name="po.project_code" id="description" required=""/>
+				        	<s:property value="po.po_number" />
+				        	<s:hidden name="po.po_number" id="po_number" required=""/>
+				        	<s:hidden name="po.project_code" id="project_code" required=""/>
 						</div>
 					</div>
 					<div class="cell colspan3"> 
@@ -148,13 +163,14 @@
 	         		<div class="cell colspan3"> 
 						จะส่งมอบงานจ้างหรือสิ่งของภายใน
 						<div class="input-control text full-size"  data-role="input">
-						    <s:textfield name="po.credit_date" id="description" required=""/>
+						    <s:textfield type="number" name="po.credit_date" id="description" required=""/>
 						</div>
+						วัน
 					</div>
 					<div class="cell colspan3 "> 
 			        	ค่าปรับวันละ
 				        <div class="input-control text full-size"  data-role="input">
-						    <s:textfield name="po.vender" id="description" required="" value="100"/>
+						    <input type="number" step="0.01" name="po.vender" id="description" required value="100"/>
 						</div>
 						หากส่งของช้า
 					</div>
@@ -199,6 +215,7 @@ function getpr() {
 	var load = window.open('/pcpnru/windowsPR.action','pr',
 	             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
 }
+
 $(function(){
 	$("#pocreate_date").datepicker({
     	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
@@ -206,7 +223,9 @@ $(function(){
 	$("#quotation_date").datepicker({
     	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
     });
-	
+	$("#delete").click(function(){
+    	$("#pre_loadpr").val("");
+    });
 	
 });
 </script>

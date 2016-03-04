@@ -59,22 +59,30 @@ public class RecordApproveDB {
 		
 		return getListAuthen;
 	}
-	public List ListRecordApproveDT(String docno, String year) throws IOException, Exception{
+	public List ListRecordApproveDT(String docno, String month, String year) throws IOException, Exception{
 		String itemno = "", description = "", qty = "0", unit = "";
 		
 		String sqlWhere = "";
 		if(!docno.equals("")){
-			sqlWhere += "docno = '"+docno+"' AND ";
+			sqlWhere += "b.docno = '"+docno+"' AND ";
 		}
 		if(!year.equals("")){
-			sqlWhere += "year = '"+year+"' AND ";
+			sqlWhere += "b.year = '"+year+"' AND ";
 		}
 		
-		String sqlQuery = "SELECT docno, year, itemno, description, qty, unit " 
-				+ "FROM record_approve_dt "
-				+ " where ";
+		if(!month.equals("")){
+			sqlWhere += "substr(a.record_approve_date from 6 for 2) = '"+month+"' AND ";
+		}
+		
+		String sqlQuery = "SELECT "
+				+ "b.docno,b.`year`,a.record_approve_date,b.itemno,b.numthai_itemno,b.description,"
+				+ "b.qty,b.numthai_qty,b.unit,b.create_by "
+				+ "FROM "
+				+ "record_approve_hd AS a "
+				+ "INNER JOIN record_approve_dt AS b ON a.docno = b.docno AND a.`year` = b.`year` "
+				+ "where ";
 				sqlQuery += sqlWhere;
-		sqlQuery +=  "docno <> '' order by itemno ";
+		sqlQuery +=  "b.docno <> '' order by itemno ";
 		
 		conn = agent.getConnectMYSql();
 		pStmt = conn.createStatement();
@@ -100,14 +108,14 @@ public class RecordApproveDB {
 	}
 	
 	public void AddRecordApprovehd(String docno, String year, String record_approve_hd, String record_approve_t, String record_approve_date, String record_approve_title, String record_approve_rian,
-			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep)  throws Exception{
+			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep, String create_by)  throws Exception{
 		
 		
 		
 		String dateTime = "";
 		String sqlStmt = "INSERT IGNORE INTO record_approve_hd(docno, year, record_approve_hd, record_approve_t, record_approve_date, record_approve_title, record_approve_rian, "
-				+ "record_approve_des1, record_approve_des2,record_approve_des3, record_approve_cen, record_approve_dep,thaidate_report) " +
-				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "record_approve_des1, record_approve_des2,record_approve_des3, record_approve_cen, record_approve_dep,thaidate_report,create_by,create_datetime) " +
+				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,now())";
 		
 		String[] splitdate = record_approve_date.split("-");
 		
@@ -134,12 +142,36 @@ public class RecordApproveDB {
 		ppStmt.setString(11, record_approve_cen);
 		ppStmt.setString(12, record_approve_dep);
 		ppStmt.setString(13, thaidate_report);
+		ppStmt.setString(14, create_by);
 		ppStmt.executeUpdate();
 		conn.commit();
 		ppStmt.close();
 		conn.close();
 	}
-	public void AddRecordApprovedt(String docno, String year, String description, String qty, String unit)  throws Exception{
+	
+	public boolean CheckHaveAddHD(String docno){
+		String sqlQuery="SELECT * FROM `record_approve_hd` where docno = '"+docno+"'";
+		boolean GetResult = false;
+		try {
+			conn = agent.getConnectMYSql();
+			pStmt = conn.createStatement();
+			rs = pStmt.executeQuery(sqlQuery);
+			while(rs.next()){
+				GetResult = true;
+			}
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return GetResult;
+		
+		
+	}
+	public void AddRecordApprovedt(String docno, String year, String description, String qty, String unit,String create_by)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
 		ThaiNumber thnumber = new ThaiNumber();
@@ -169,8 +201,8 @@ public class RecordApproveDB {
 		
 		conn = agent.getConnectMYSql();
 		conn.setAutoCommit(false);
-		sqlStmt = "INSERT IGNORE INTO record_approve_dt(docno, year, itemno, numthai_itemno, description, qty,numthai_qty, unit) " +
-				"VALUES (?,?,?,?,?,?,?,?)";
+		sqlStmt = "INSERT IGNORE INTO record_approve_dt(docno, year, itemno, numthai_itemno, description, qty,numthai_qty, unit,create_by,create_datetime) " +
+				"VALUES (?,?,?,?,?,?,?,?,?,now())";
 		//System.out.println(sqlStmt);
 		ppStmt = conn.prepareStatement(sqlStmt);
 		ppStmt.setString(1, docno);
@@ -181,6 +213,7 @@ public class RecordApproveDB {
 		ppStmt.setInt(6, Integer.parseInt(qty));
 		ppStmt.setString(7, numthai_qty);
 		ppStmt.setString(8, unit);
+		ppStmt.setString(9, create_by);
 		ppStmt.executeUpdate();
 		ppStmt.close();
 		conn.commit();
@@ -306,7 +339,11 @@ public class RecordApproveDB {
 		
 		List ListPR = new ArrayList();
 		
-		String sqlQuery = "SELECT * FROM `record_approve_hd` "
+		String sqlQuery = "SELECT docno,`year`+543 as year,record_approve_hd,record_approve_t,"
+				+ "CONCAT(substr(record_approve_date from 9 for 2),\"-\",substr(record_approve_date from 6 for 2),\"-\",year(record_approve_date)+543) as record_approve_date,record_approve_title,record_approve_rian,"
+						+ "record_approve_des1,record_approve_des2,record_approve_des3,"
+						+ "record_approve_cen,record_approve_dep,thaidate_report,create_by "
+						+ "FROM `record_approve_hd` "
 				+ "where ";
 		
 				if(!pr_number.equals(""))
@@ -350,14 +387,13 @@ public class RecordApproveDB {
 	public Map GetAllValueHeader_byDocno(String docno,String year) throws IOException, Exception{
 		Map mapresultGet = new HashMap();
 		
-		String sqlQuery = "SELECT "
-				+ "a.docno,a.`year`,a.record_approve_hd,a.record_approve_t,a.record_approve_date,a.record_approve_title,"
-				+ "a.record_approve_rian,a.record_approve_des1,a.record_approve_des2,a.record_approve_des3,a.record_approve_cen,"
-				+ "a.record_approve_dep,a.thaidate_report,a.create_by "
-				+ "FROM "
-				+ "record_approve_hd AS a "
+		String sqlQuery = "SELECT docno,`year`+543 as year,record_approve_hd,record_approve_t,"
+				+ "CONCAT(substr(record_approve_date from 9 for 2),\"-\",substr(record_approve_date from 6 for 2),\"-\",year(record_approve_date)+543) as record_approve_date,record_approve_title,record_approve_rian,"
+				+ "record_approve_des1,record_approve_des2,record_approve_des3,"
+				+ "record_approve_cen,record_approve_dep,thaidate_report,create_by "
+				+ "FROM `record_approve_hd` "
 				+ "WHERE "
-				+ "a.docno = '"+docno+"' and year = '"+year+"'";
+				+ "docno = '"+docno+"' and year = '"+year+"'";
 		
 		conn = agent.getConnectMYSql();
 		pStmt = conn.createStatement();

@@ -11,7 +11,20 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <%
-	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
+	
+	if(session.getAttribute("username") == null){
+		response.sendRedirect("login.jsp");
+	}else{
+		String username = session.getAttribute("username").toString();
+		boolean chkAuthen = false;
+		String page_code = "015";
+		
+		chkAuthen = new CheckAuthenPageDB().getCheckAuthen(username, page_code);
+		
+		if(chkAuthen==false){
+			response.sendRedirect("no-authen.jsp");
+		}
+	}
 
 	RecordApproveDB ra = new RecordApproveDB();
 	DateUtil dateUtil = new DateUtil();
@@ -79,6 +92,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<body>
 		<s:set name="fromwindow" value="recordApproveModel.fromwindow"/>
+		
 		<s:if test="%{#fromwindow=='true'}">
 			<div><%@include file="window-topmenu.jsp" %></div>
 		</s:if>
@@ -87,19 +101,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</s:else>
 		 
 		 <form action="recordApprove.action" method="post">
+		 <s:hidden name="recordApproveModel.fromwindow"/>
 		 <div class="grid" >
 		 <div class="row cells12 " >
 		 			<div class="cell align-center colspan2">
-	         	 		<s:set name="fromwindow" value="recordApproveModel.fromwindow"/>
+
 						<s:if test="%{#fromwindow=='true'}">
-						<a class="button success back" id="back" href="searchPR.action"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
+						<a class="button success" id="back" href="windowsPR.action"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
 						</s:if>
 	         	 	</div>
 	         	 	<div class="cell align-center colspan3">
 	         	 	</div>
 		 			<div class="cell align-left colspan5"><h3>บันทึกข้อความ </h3></div>
 		 			<div class="cell align-left colspan2"><br>
+
+						<s:if test="%{#fromwindow!='true'}">
 						<a class="button success next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการถัดไป</span></a>
+						</s:if>
 					</div>
 		</div>
 		</div>
@@ -280,9 +298,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	</div>
 			 	<div class="row cells12"> 
 	         	 	<div class="cell align-center colspan2">
-	         	 		<s:set name="fromwindow" value="recordApproveModel.fromwindow"/>
+
 						<s:if test="%{#fromwindow=='true'}">
-						<a class="button success back" id="back" href="searchPR.action"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
+						<a class="button success" id="back" href="windowsPR.action"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
 						</s:if>
 	         	 	</div>
 	         	 	<div class="cell align-center colspan3">
@@ -293,7 +311,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						  
 					</div>
 					<div class="cell align-right colspan2"><br>
+
+						<s:if test="%{#fromwindow!='true'}">
 						<a class="button success next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการถัดไป</span></a>
+						</s:if>
 					</div>
 			 	</div>
 			</div>
@@ -305,9 +326,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	 
         	$("#record_approve_date").datepicker({
             	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
-            	
             });   
-        	
+        	$(".back").click(function(){
+            	window.history.back();
+            });
         	$("#delete").click(function(){
         		$("#description").val("-");
         		$("#qty").val(0);
