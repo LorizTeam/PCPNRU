@@ -5,12 +5,30 @@
 <%@ page import="pcpnru.masterData.*" %>
 <%@ page import="pcpnru.projectData.*" %>
 <%@ page import="pcpnru.projectModel.*" %>
+<%@ page import="pcpnru.utilities.*" %>
 <%
-	if(session.getAttribute("username") == null)response.sendRedirect("login.jsp");
-
+	String username = "", project_code = "";
+	
+	if(session.getAttribute("username") == null){
+		response.sendRedirect("login.jsp");
+	}else{
+		username = session.getAttribute("username").toString();
+		boolean chkAuthen = false;
+		String page_code = "014";
+		
+		CheckAuthenPageDB capDB = new CheckAuthenPageDB();
+		
+		chkAuthen = capDB.getCheckAuthen(username, page_code);
+		
+		if(chkAuthen==false){
+			response.sendRedirect("no-authen.jsp");
+		}else{
+			project_code = capDB.getProjectCode(username);
+		}
+	} 
 %>
 <!DOCTYPE html>
-<html lang="en" ng-app="rocking-budget">
+<html lang="en" >
 	<head>
 		<title>อนุมัติ การโยกงบประมาณ</title>
 		<meta charset="utf-8">
@@ -28,34 +46,30 @@
 	    <script src="js/metro.js"></script>
 	    <script src="js/select2.js"></script>
         <script src="js/jquery.dataTables.min.js"></script> 
-        <script src="js/angular.min.js"></script>
-		<script src="js/rocking-budget.js"></script>
 	</head>
 
-	<body  ng-controller="myCtrl">
+	<body >
 		 <div><%@include file="topmenu.jsp" %></div>
 		 <h3 class="align-center">อนุมัติ การโยกงบประมาณ</h3>
-		 <div class="example" data-text="รายละเอียด">
-		 <form action="authenMaster.action" method="post">
+		 <form id="rbaAction" action="rockingBudgetApprove.action" method="post">
+		 <div class="example" data-text="รายละเอียด"> 
 	         <div class="grid">
 	         	<div class="row cells12">  
 					<div class="cell colspan6"> 
 			        	โครงการ
 				        <div class="input-control text full-size">
-						    <select id="project_code" ng-load="projectchange()" ng-change="projectchange()" o ng-model="project" name="rockingBudgetForm.project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
+						    <select id="project_code" name="rockingBudgetForm.project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
 							   <option value="">กรุณาเลือกโครงการ</option>
 							   <%
 							   
-							   	List projectMasterList1 = null;
-							   extendsprojectmaster ext = new extendsprojectmaster();
-							   	projectMasterList1 = ext.getListProject_Join_Projecthead("PCC006", "","","");
-							   	List projectMasterList = projectMasterList1;
+							   	List projectMasterList = (List) request.getAttribute("projectMasterList");
+							    
 				        		if (projectMasterList != null) {
 					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
 					        			ProjectModel pjModel = (ProjectModel) iterPj.next(); 
 						        				
 						        	%>
-						        			<option value="<%=pjModel.getProject_code()%> - <%=pjModel.getYear()%>" >
+						        			<option selected value="<%=pjModel.getProject_code()%> - <%=pjModel.getYear()%>" >
 							       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
 							       			</option>
 						        	<%
@@ -63,16 +77,32 @@
 			      						} 
 									}
 								%>
-					   		</select> 
+					   		</select>
+					   		<s:hidden id="year" name="rockingBudgetForm.year" /> 
 						</div>
 					</div> 
 			        <div class="cell colspan6"> 
 			        	ค่าใช้จ่าย
 				        <div class="input-control text full-size">
-						    <select name="rockingBudgetForm.gcostcode" ng-model="gcostcode" id="gcostcode" ng-change="gcostcodechange()" required>
-			    				<option value="">-- please Select --</option>
-						    	<option ng-repeat="option in datas" value="{{option.gcostcode}}">{{option.gcostcode_name}}</option> 
-						   	</select>
+				        	<% List groupcostCodeList = (List) request.getAttribute("groupcostCodeList");
+			    				String gcostcode = (String) request.getAttribute("gcostcode");
+			    			if (groupcostCodeList != null) {
+			    				Iterator Iterate = groupcostCodeList.iterator();
+			    				%>
+			    				<select name="rockingBudgetForm.gcostcode" id="gcostcode">
+			    					<option selected value="">-- please Select --</option>
+			    				<%
+			        			while(Iterate.hasNext()){
+			        				GroupCostCodeMasterModel gcc1Info = (GroupCostCodeMasterModel) Iterate.next(); 
+					        				
+					        	%> 
+					        	<option <%if(gcc1Info.getCostCode().equals(gcostcode)){ %> selected <%} %> value="<%=gcc1Info.getCostCode()%>" ><%=gcc1Info.getCostName()%></option> 
+					        	<% 	
+		      						} 
+			    				%>
+			    				</select>
+							<%	}  %>
+						     
 						</div>
 					</div>    
 			    </div>
@@ -80,12 +110,11 @@
 			 <div class="flex-grid">
 			  	<div class="row flex-just-center" >
 			    	<div class="cell colspan12" align="center">
-						<button class="button success" type="submit" name="add" ng-click="rockbudgetform.$valid && addrequisition()" >อนุมัติการโยกงบประมาณ</button>
+						<button class="button success" type="submit" name="save" >บันทึกการโยกงบประมาณ</button>
 						 
 					</div> 
 			    </div>
-			</div>
-		 </form>  
+			</div> 
 		</div>  
 		 
         <div class="example" data-text="รายการ">
@@ -105,10 +134,9 @@
                   
                 <tbody>
                 <%
-                List RockingBudgetDList = null;
-                RockingBudgetApproveDB rbga = new RockingBudgetApproveDB();
-                RockingBudgetDList = rbga.GetRockingBudgetDList("", "", "");
-        		int x = 1, y = 0;
+                List RockingBudgetDList = (List) request.getAttribute("RockingBudgetDList");
+                 
+        		int x = 1, y=0;
         		if(RockingBudgetDList != null){
         			
         			Iterator amIterate = RockingBudgetDList.iterator();
@@ -116,11 +144,42 @@
         				RockingBudgetForm anInfo = (RockingBudgetForm) amIterate.next();  
         		%>
         			<tr>
-	        			<td class="tdhidden" align="center"><input type="checkbox" name="archk" value="<%=y%>" /> <%=x%></td>
+	        			<td class="tdhidden" align="center"><div  class="input-control">
+	        				 
+	        				<% if(anInfo.getApprove_status().equals("CC")){%>
+	        						<label class="input-control small-check checkbox"> 
+			                			<input type="checkbox" name="archk" value="<%=y%>" data-show="indeterminate" disabled />
+			                		<span class="check"></span> 
+			                        </label>
+		        					<input type="hidden" name="approveStatus" value="CC" /><input type="text" value=" ยกเลิกรายการ" size="8" readonly="readonly" />
+	        				<% }else{ %>
+	        						<label class="input-control small-check checkbox"> 
+			                			<input type="checkbox" name="archk" value="<%=y%>" data-show="indeterminate" />
+			                		<span class="check"></span> 
+			                        </label>
+						    		<select name="approveStatus" >
+						    	 <% if(anInfo.getApprove_status().equals("AP")){%>
+							        	<option selected value="AP">อนุมัติ</option>
+							        	<option value="NA">รอการอนุมัติ</option>
+							        	<option value="CC">ยกเลิกรายการ</option>
+						         <%} else if (anInfo.getApprove_status().equals("NA")){%>
+						        		<option value="AP">อนุมัติ</option>
+							        	<option selected value="NA">รอการอนุมัติ</option>
+							        	<option value="CC">ยกเลิกรายการ</option> 
+						        <% } %> 
+						    	 	</select> 
+							    <%
+							    }	 
+							  %>  
+						    <input type="hidden" name="arDocno" value="<%=anInfo.getDocno()%>" />
+						    <input type="hidden" name="arGcostcode" value="<%=anInfo.getGcostcode()%>" />  
+						    <input type="hidden" name="arGcostcode_rock" value="<%=anInfo.getGcostcode_rock()%>" />
+						</div></td>
 	        			<td class="tdant" align="left"><%=anInfo.getDocno()%></td>  
-	                    <td class="tdantn" align="left"><%=anInfo.getGcostcode()%></td>  
+	                    <td class="tdantn" align="left"><%=anInfo.getGcostname()%></td>  
 	                    <td class="tdantn" align="left"><%=anInfo.getDocdate()%></td>  
-	                    <td align="center"><button class="button mini-button" type="button" onclick="javascript:getGcostcode('<%=anInfo.getDocno()%>','<%=anInfo.getProject_code()%>');"> <span class="mif-search"></span></button></td>
+	                    <td align="center"><button class="button mini-button" type="button" onclick="javascript:getRockingBudgetApprove('<%=anInfo.getDocno()%>','<%=anInfo.getProject_code()%>',
+	                    '<%=anInfo.getYear()%>','<%=anInfo.getGcostcode()%>');"> <span class="mif-search"></span></button></td>
                 	</tr>
         		<%		
         		x++;y++;
@@ -137,17 +196,21 @@
                 </tbody>
             </table>
         </div> <!-- End of example table -->  
+         </form>
          
    		<script>
-   		function getGcostcode(projectcode, year) {
-			var load = window.open('/pcpnru/window-groupcostcode-receive.jsp?projectcode='+projectcode+'&year='+year+' ','receive',
+   		function getRockingBudgetApprove(tdocno, tprojectcode, tyear, tgcostcode) {
+			var load = window.open('/pcpnru/windowRockingBudgetApprove.action?docno='+tdocno+'&project_code='+tprojectcode+'&year='+tyear+'&gcostcode='+tgcostcode+' ','',
 			             'scrollbars=yes,menubar=no,height=600,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
 		}
    		
         $(function(){
-         	
+        	$("#gcostcode").change(function () {
+        		
+        		$("#rbaAction").submit();
+        	});
         	
-        	$("#project_code").select2();
+        	$("#project_code").select2(); 
 			$("#gcostcode").select2();
         	
 			$("#checkAll").change(function () {

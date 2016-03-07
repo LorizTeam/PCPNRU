@@ -118,7 +118,8 @@ public class RockingBudgetDB {
 					"WHERE type_gcostcode = '2' and ";  
 					if(!projectcode.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+projectcode+"' AND ";
 					if(!year.equals("")) sqlStmt = sqlStmt+ "a.year = '"+year+"' AND ";
-					sqlStmt = sqlStmt + "b.gcostcode = '"+groupcostCode+"' order by b.gcostcode";
+					if(!groupcostCode.equals("")) sqlStmt = sqlStmt+ "b.gcostcode = '"+groupcostCode+"' AND ";
+					sqlStmt = sqlStmt + "b.gcostcode <> '' order by b.gcostcode";
 					  
 					//System.out.println(sqlStmt);				
 					pStmt = conn.createStatement();
@@ -213,10 +214,14 @@ public class RockingBudgetDB {
 		try {
 			conn = agent.getConnectMYSql(); 
 			
-			String sqlStmt = "SELECT ((IFNULL(SUM(a.budget),0)-IFNULL(SUM(c.amount_rock),0)+IFNULL(SUM(b.amount),0))) as frombalance "
-					+ " FROM projectplan_detail a "
-					+ " LEFT JOIN requisition b on (a.gcostcode = b.gcostcode and a.project_code = b.project_code and a.year = b.project_year) " 
-					+ " LEFT JOIN rocking_budget c on (a.gcostcode = c.gcostcode and a.project_code = c.project_code and a.year = c.year and c.approve_status = 'AP') "
+			String sqlStmt = "SELECT (IFNULL(SUM(a.budget),0)+IFNULL(rock.budget,0)-(IFNULL(gave_rock.gave_budget,0)+IFNULL(SUM(b.amount),0))) as frombalance "
+					+ ",SUM(a.budget),rock.budget,gave_rock.gave_budget,SUM(b.amount) "
+					+ "FROM projectplan_detail a "
+					+ "LEFT JOIN requisition b on (a.gcostcode = b.gcostcode and a.project_code = b.project_code and a.year = b.project_year) " 
+					+ "LEFT JOIN (SELECT IFNULL(SUM(c.amount_rock),0) as budget ,project_code,year,gcostcode FROM rocking_budget c where c.approve_status in ('AP','NA') GROUP BY c.gcostcode) " 
+					+ "as rock on(a.gcostcode = rock.gcostcode and a.project_code = rock.project_code and a.year = rock.year) " 
+					+ "LEFT JOIN (SELECT IFNULL(SUM(e.amount_rock),0) as gave_budget ,project_code,year,gcostcode_rock FROM rocking_budget e where e.approve_status in ('AP','NA') and e.gcostcode_rock = '"+gcostcode+"' GROUP BY e.gcostcode_rock) "
+					+ "as gave_rock on(a.gcostcode = gave_rock.gcostcode_rock and a.project_code = gave_rock.project_code and a.year = gave_rock.year) " 
 					+ " where a.project_code = '"+project_code+"' and a.`year` = '"+year+"' and a.gcostcode = '"+gcostcode+"'";
 			 
 			//System.out.println(sqlStmt);

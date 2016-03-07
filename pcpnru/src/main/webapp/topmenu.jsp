@@ -72,7 +72,7 @@
 			                        <li class="divider"></li>
 			                        <li><a href="createRockingBudget.action">โยกงบประมาณ</a></li>
 			                        <li class="divider"></li>
-			                        <li><a href="rocking-budget-approve.jsp">อนุมัติ การโยกงบประมาณ</a></li>
+			                        <li><a href="rbgBegin.action">อนุมัติ การโยกงบประมาณ</a></li>
 			                        <li class="divider"></li>
 			                        <li><a href="manage-approve-requisition.jsp">จัดการ ผู้มีอำนาจการอนุมัติ</a></li> 
 			                 </ul>
