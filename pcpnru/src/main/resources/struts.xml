@@ -146,6 +146,10 @@
     	<action name="windowRockingBudgetApprove" class="pcpnru.projectAction.WindowRockingBudgetApproveAction" method="execute">
       		<result name="success">/window-rockingbudget-approve.jsp</result>
     	</action> 
+    	
+    	<action name="windowRockingBudgetApprove_pj" class="pcpnru.projectAction.WindowRockingBudgetApproveAction" method="execute_projectdt">
+      		<result name="success">/window-rockingbudget-approve.jsp</result>
+    	</action> 
         <!-- 		Rocking Budget	 -->
         
         <!-- 		Receive and Requisition print report 		 -->

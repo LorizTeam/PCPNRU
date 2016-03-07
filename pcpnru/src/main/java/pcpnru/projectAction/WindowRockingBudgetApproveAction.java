@@ -62,4 +62,31 @@ public class WindowRockingBudgetApproveAction extends ActionSupport{
 	  return SUCCESS; 
 	}   
 	
+	public String execute_projectdt() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		RockingBudgetDB rbg = new RockingBudgetDB();
+		
+	    String docno="",project_code="",year="",gcostcode="";   
+	    
+	    docno				= "";
+	    project_code		= (String) request.getParameter("project_code");
+	    year				= (String) request.getParameter("year");
+	    gcostcode			= (String) request.getParameter("gcostcode");
+		
+		extendsprojectmaster ext = new extendsprojectmaster();
+		List projectMasterList = ext.getListProject_Join_Projecthead(project_code, "","","");
+		request.setAttribute("projectMasterList", projectMasterList);
+		
+		List groupcostCodeList = rbg.GetGroupCostCodeList(project_code, year, gcostcode);
+		request.setAttribute("groupcostCodeList", groupcostCodeList);  
+		
+		RockingBudgetApproveDB rbga = new RockingBudgetApproveDB();
+		List RockingBudgetDList = rbga.WindowRockingBudgetList(docno, project_code, year, gcostcode);
+        request.setAttribute("RockingBudgetDList", RockingBudgetDList);
+	    
+        request.setAttribute("gcostcode", gcostcode);
+        
+	  return SUCCESS; 
+	}   
+	
 }

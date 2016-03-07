@@ -134,12 +134,12 @@
 			<div class="grid ">	
 				<div class="window ">
 					<div class="row cells12 align-center  window-caption bg-cyan fg-white" >
-				  		<div class="cell colspan8">
+				  		<div class="cell colspan7">
 				  			รายการ
 				  		</div>
 				  		<div class="cell colspan4">
 				  			จำนวนเงิน
-				  		</div>
+				  		</div> 
 				  	</div>
 			  	</div>
 			 <!-- รายรับ -->	
@@ -157,7 +157,7 @@
 				  %>
 				  			<!-- ROW -->
 							  <div class="row cells12 " >			  
-							  	<h5 class="cell colspan8 subjob">
+							  	<h5 class="cell colspan7 subjob">
 							  		<%=pjmodel.getGcostcode_name() %>
 							  	</h5>
 							  	<div class="cell colspan4 align-center">
@@ -172,11 +172,11 @@
 				  	
 					  
 					  <!--Totle ROW -->  
-					   <div class="row cells6 " >			  
-					  	<div class="cell colspan4 align-right">
+					   <div class="row cells12 " >			  
+					  	<div class="cell colspan7 align-right">
 					  		<h4>รวม</h4>
 					  	</div>
-					  	<div class="cell colspan2 align-center">
+					  	<div class="cell colspan4 align-center">
 					  		<h4>{{<%=pjdt_receivetotal %>| currency:"฿"}}</h4>
 					  	</div>
 					  </div>
@@ -186,12 +186,17 @@
 			<!-- รายจ่าย -->
 				<div class="window ">
 					<div class="row cells12 align-center  window-caption bg-cyan fg-white" >
-				  		<div class="cell colspan8">
+				  		<div class="cell colspan7">
 				  			รายการ
 				  		</div>
 				  		<div class="cell colspan4">
 				  			จำนวนเงิน 
 				  		</div>
+				  		<% if(!projectcode.equals("PCC")) {%>
+				  		<div class="cell colspan1">
+				  			ส่วนโยกงบ
+				  		</div>
+				  		<%} %>
 				  	</div>
 			  	</div>
 				<div class="example" data-text="รายจ่าย" >				  
@@ -254,12 +259,18 @@
 									  			
 									  %>
 									  		<div class="row cells12 " >			  
-											  	<p class="cell colspan8 costcode">
+											  	<p class="cell colspan7 costcode">
 											  		<%=pjmodel_gcostcode.getGcostcode_name() %>	
 											  	</p>
 											  	<div class="cell colspan4 align-center">
 											  		{{ <%=pjmodel_gcostcode.getBudget() %> | currency:"฿"}}
 											  	</div>
+											  	<% if(!projectcode.equals("PCC")) {%>
+											  	<div class="cell colspan1 align-right">
+												  	<button class="button mini-button" type="button" onclick="javascript:getRockingBudgetApprove('<%=projectcode%>','<%=year%>','<%=pjmodel_gcostcode.getGcostcode()%>');"> 
+												  	<span class="mif-search"></span></button>
+											  	</div>
+											  	<%} %>
 											  </div>
 									  
 									  <%
@@ -285,7 +296,7 @@
 					
 					  <!--Totle subjob -->  
 					   <div class="row cells12 " >			  
-					  	<div class="cell colspan8 align-right">
+					  	<div class="cell colspan7 align-right">
 					  		<h4>รวม</h4>
 					  	</div>
 					  	<div class="cell colspan4 align-center">
@@ -304,5 +315,13 @@
 			</div>
 		</div>
 		</div>
+		
+		<script>
+   		function getRockingBudgetApprove(tprojectcode, tyear, tgcostcode) {
+   			var load = window.open('/pcpnru/windowRockingBudgetApprove_pj.action?project_code='+tprojectcode+'&year='+tyear+'&gcostcode='+tgcostcode+' ','',
+            'scrollbars=yes,menubar=no,height=600,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
+   		}
+   		</script>
+		
 	</body>
 </html>
