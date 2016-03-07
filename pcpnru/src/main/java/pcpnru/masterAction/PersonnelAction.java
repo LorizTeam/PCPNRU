@@ -1,6 +1,9 @@
 package pcpnru.masterAction;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -8,6 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import pcpnru.masterData.PersonnelMasterDB;
 import pcpnru.masterModel.PersonnelMasterModel;
+import pcpnru.utilities.CheckAuthenPageDB;
 import pcpnru.utilities.DateUtil;
 
 public class PersonnelAction extends ActionSupport {
@@ -79,4 +83,113 @@ public class PersonnelAction extends ActionSupport {
 		
 		return forwardText;
 	}
+	public String execute_profile() throws Exception{
+		HttpServletRequest request = ServletActionContext.getRequest();   
+		HttpSession session = request.getSession();
+		 
+		String username = "", project_code = "", forwardText = "";
+		
+		if(session.getAttribute("username") == null){ 
+			forwardText = "login";
+		}else{
+			username = session.getAttribute("username").toString();
+			CheckAuthenPageDB capDB = new CheckAuthenPageDB();
+			project_code = capDB.getProjectCode(username);
+			
+				PersonnelMasterDB pn = new PersonnelMasterDB();
+		        List grouPersonnelMasterList = pn.GetPersonnelList(project_code, username, "", "",""); 
+		        
+		        if(grouPersonnelMasterList.size()==1){
+		         
+		        	personnelMasterModel = (PersonnelMasterModel) grouPersonnelMasterList.get(0);
+		        	
+		        	personnelMasterModel.setPersonnel_id(personnelMasterModel.getPersonnel_id()); 
+		        	personnelMasterModel.setPersonnel_name(personnelMasterModel.getPersonnel_name());
+		        	personnelMasterModel.setPersonnel_lastname(personnelMasterModel.getPersonnel_lastname());
+		        	
+		        	DateUtil dateUtil = new DateUtil();  
+		        	personnelMasterModel.setDob(personnelMasterModel.getDob());
+		        	
+		        	personnelMasterModel.setTelephone(personnelMasterModel.getTelephone());
+		        	personnelMasterModel.setAddress(personnelMasterModel.getAddress());
+		        	
+		        	request.setAttribute("position", personnelMasterModel.getPosition()); 
+		        }
+		        
+		        forwardText = "success";
+			 
+	}
+		return forwardText;
+	}
+	
+	
+	public String update_profile() throws Exception{
+		HttpServletRequest request = ServletActionContext.getRequest();   
+		 
+				String personnel_id = personnelMasterModel.getPersonnel_id(); 
+				
+				String save = request.getParameter("save");
+				String clear = request.getParameter("clear");
+				String change = request.getParameter("change");
+				String forwardText = "success";
+				 
+				
+		        
+				PersonnelMasterDB pn = new PersonnelMasterDB();
+				if(change!=null){
+					String password = request.getParameter("password");
+					String password_comfirm = request.getParameter("password_comfirm");
+					if(password.equals(password_comfirm)){
+						pn.UpdateProfile_Password(personnel_id, password);
+					}
+					
+				}else if(save!=null){
+					String personnel_name = personnelMasterModel.getPersonnel_name()
+							, personnel_lastname = personnelMasterModel.getPersonnel_lastname() 
+							, dob = personnelMasterModel.getDob()
+							, telephone = personnelMasterModel.getTelephone()
+							, address = personnelMasterModel.getAddress();
+					DateUtil dateUtil = new DateUtil();  
+					
+					String position  = request.getParameter("position");
+					
+					pn.UpdatePersonnel_Profile(personnel_id, personnel_name, personnel_lastname, dateUtil.CnvToYYYYMMDDEngYear(dob, '-'), telephone, address, position);
+					
+					personnelMasterModel.setPersonnel_id(personnel_id); 
+		        	personnelMasterModel.setPersonnel_name(personnel_name);
+		        	personnelMasterModel.setPersonnel_lastname(personnel_lastname);
+		        	 
+		        	personnelMasterModel.setDob(dob);
+		        	
+		        	personnelMasterModel.setTelephone(telephone);
+		        	personnelMasterModel.setAddress(address);
+		        	
+		        	request.setAttribute("position", position);
+					
+				}else if(clear!=null){
+					
+					String project_code = new CheckAuthenPageDB().getProjectCode(personnel_id);
+					List grouPersonnelMasterList = pn.GetPersonnelList(project_code, personnel_id, "", "",""); 
+			        
+			        if(grouPersonnelMasterList.size()==1){
+			         
+			        	personnelMasterModel = (PersonnelMasterModel) grouPersonnelMasterList.get(0);
+			        	
+			        	personnelMasterModel.setPersonnel_id(personnelMasterModel.getPersonnel_id()); 
+			        	personnelMasterModel.setPersonnel_name(personnelMasterModel.getPersonnel_name());
+			        	personnelMasterModel.setPersonnel_lastname(personnelMasterModel.getPersonnel_lastname());
+			        	personnelMasterModel.setDob(personnelMasterModel.getDob());
+			        	
+			        	personnelMasterModel.setTelephone(personnelMasterModel.getTelephone());
+			        	personnelMasterModel.setAddress(personnelMasterModel.getAddress());
+			        	
+			        	request.setAttribute("position", personnelMasterModel.getPosition()); 
+			        }
+				}
+				
+				
+		return forwardText;
+	}
+	
 }
+

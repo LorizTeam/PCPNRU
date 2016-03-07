@@ -165,6 +165,17 @@
     	</action>
     	<!-- 		Personnel Master		 -->
     	
+    	<!-- 		profile Master		 -->
+    	<action name="profileMaster" class="pcpnru.masterAction.PersonnelAction" method="execute_profile">
+      		<result name="success">/profile.jsp</result> 
+    	</action>
+    	
+    	<action name="profile" class="pcpnru.masterAction.PersonnelAction" method="update_profile">
+      		<result name="success">/profile.jsp</result> 
+    	</action>
+    	<!-- 		profile Master		 -->
+    	
+    	
     	<!-- 		Authen Master		 -->
     	<action name="authenMaster" class="pcpnru.masterAction.AuthenAction" method="execute">
       		<result name="success">/authen.jsp</result> 

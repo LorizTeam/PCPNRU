@@ -37,8 +37,7 @@ app.controller('myCtrl', function($scope, $http,$window) {
 	          headers: {"Accept-Charset":"charset=utf-8",'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
 	          
 	        }).then(function(response) {
-	            $scope.frombalance = response.data;
-	            
+	            $scope.frombalance = response.data; 
 	        });
 	}
 	

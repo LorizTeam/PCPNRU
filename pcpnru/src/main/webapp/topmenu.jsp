@@ -128,7 +128,7 @@
                 
             </ul>
         </li>
-         <li><a href="profile.jsp" ><span class="mif-user"></span> ข้อมูลส่วนตัว</a></li> 
+         <li><a href="profileMaster.action" ><span class="mif-user"></span> ข้อมูลส่วนตัว</a></li> 
          <li><a href="logout.action" ><span class="mif-switch"></span> ออกจากระบบ</a></li> 
     </ul>
      

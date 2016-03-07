@@ -112,6 +112,30 @@ public class PersonnelMasterDB {
 		pStmt.close();
 		conn.close();
 	}
+	public void UpdatePersonnel_Profile(String personnel_id, String personnel_name, String personnel_lastname,
+			String dob, String telephone, String address, String position)  throws Exception{
+		conn = agent.getConnectMYSql();
+		
+		String sqlStmt = "UPDATE employee set name = '"+personnel_name+"', lastname = '"+personnel_lastname+"', "+ 
+				"dob = '"+dob+"', telephone = '"+telephone+"', address = '"+address+"', position = '"+position+"', datetime = now()" +
+				"WHERE username = '"+personnel_id+"'";
+		//System.out.println(sqlStmt);
+		pStmt = conn.createStatement();
+		pStmt.executeUpdate(sqlStmt);
+		pStmt.close();
+		conn.close();
+	}
+	public void UpdateProfile_Password(String personnel_id, String password)  throws Exception{
+		conn = agent.getConnectMYSql();
+		
+		String sqlStmt = "UPDATE employee set password = '"+password+"'" +
+				"WHERE username = '"+personnel_id+"'";
+		//System.out.println(sqlStmt);
+		pStmt = conn.createStatement();
+		pStmt.executeUpdate(sqlStmt);
+		pStmt.close();
+		conn.close();
+	}
 	
 	public void DeletePersonnelMaster(String personnel_id)  throws Exception{
 		conn = agent.getConnectMYSql();
