@@ -16,10 +16,11 @@
 		<link rel="shortcut icon" href="/favicon.ico">
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
-		<link href="css/metro-schemes.css" rel="stylesheet">
+		<link href="css/metro-schemes.css" rel="stylesheet"> 
 		<link href="css/bootstrap-datepicker3.css" rel="stylesheet">
 	 
 	 	<script src="js/jquery-2.1.3.min.js"></script> 
+	 	<script src="js/metro.js"></script> 
 	 	<script src="js/bootstrap-datepicker-th.js"></script>
   
 	</head>

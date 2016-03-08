@@ -2,9 +2,9 @@
 <div class="app-bar green" data-role="appbar">	
 		 <a href="index.jsp" style="width: 20%;margin-top: 0;padding-top: 0" class="app-bar-element branding"><img  src="images/pnru.png" /></a>
 		<ul class="app-bar-menu  small-dropdown">
-        <li><a href="index.jsp">หน้าหลัก</a></li>
+        <li><a href="index.jsp"><span class="mif-home"></span> หน้าหลัก</a></li>
         <li>
-            <a href="" class="dropdown-toggle">โครงการ</a>
+            <a href="" class="dropdown-toggle"><span class="mif-versions"></span> โครงการ</a>
             <ul class="d-menu " data-role="dropdown">
             	<li><a href="projecthd.jsp">ร่างรายละเอียด  โครงการ</a></li>
             	<li class="divider"></li>
@@ -32,7 +32,7 @@
             </ul>
         </li>
         <li>
-			<a href="" class="dropdown-toggle">บันทึกรายได้-รายจ่าย</a>
+			<a href="" class="dropdown-toggle"><span class="mif-menu"></span> บันทึกรายได้-รายจ่าย</a>
             <ul class="d-menu" data-role="dropdown">
                 <li><a href="" class="dropdown-toggle">รายได้</a>
                     <ul class="d-menu" data-role="dropdown">
@@ -82,7 +82,7 @@
             </ul>
         </li>  
         <li>
-			<a href="" class="dropdown-toggle">รายงาน</a>
+			<a href="" class="dropdown-toggle"><span class="mif-file-pdf"></span> รายงาน</a>
             <ul class="d-menu" data-role="dropdown">
                 <li><a href="" class="dropdown-toggle">รายงานการรับ</a>
                     <ul class="d-menu" data-role="dropdown"> 
@@ -103,7 +103,7 @@
             </ul>
         </li>
         <li>
-        	<a href="" class="dropdown-toggle">ข้อมูลบุคลากร</a>
+        	<a href="" class="dropdown-toggle"><span class="mif-users"></span> ข้อมูลบุคลากร</a>
         	<ul class="d-menu" data-role="dropdown">
                
                 <li><a href="personnel.jsp">จัดการข้อมูลบุคลากร</a>
@@ -128,8 +128,8 @@
                 
             </ul>
         </li>
-         <li><a href="profileMaster.action" ><span class="mif-user"></span> ข้อมูลส่วนตัว</a></li> 
-         <li><a href="logout.action" ><span class="mif-switch"></span> ออกจากระบบ</a></li> 
+         <li><a href="profileMaster.action" ><span class="mif-user"></span> ข้อมูลส่วนตัว </a></li> 
+         <li><a href="logout.action" ><span class="mif-exit"></span> ออกจากระบบ</a></li> 
     </ul>
      
     

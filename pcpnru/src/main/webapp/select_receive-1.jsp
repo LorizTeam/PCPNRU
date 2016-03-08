@@ -52,7 +52,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/bootstrap-datepicker3.css" rel="stylesheet">
-	 	<link href="css/select2.css" rel="stylesheet"> 
+	 	<link href="css/select2.css" rel="stylesheet">  
 	 
 		<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -63,6 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
+  	<div><%@include file="topmenu.jsp" %></div>
   	<%
   		DateUtil dateutil = new DateUtil();
   		List projectMasterList1 = null;
@@ -79,8 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		List amtFromList = receL.GetAmountFrom();
   		List localList	= receL.GetLocal();
   	%>
-  
-    <div><%@include file="topmenu.jsp" %></div>
+   
 	<h3 class="align-center">รายละเอียดรายได้</h3>
 	<form action="selectReceive1.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
 	<div class="example" data-text="รายละเอียดรายได้">
