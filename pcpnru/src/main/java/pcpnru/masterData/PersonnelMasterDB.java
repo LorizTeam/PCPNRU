@@ -20,6 +20,20 @@ public class PersonnelMasterDB {
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
+	public String encrypt(String x) throws Exception {		
+		String storepass = "";		
+		try {
+			java.security.Security.addProvider(new sun.security.provider.Sun());
+			java.security.MessageDigest lMessageDigest = java.security.MessageDigest.getInstance("SHA", "SUN");
+			byte[] _result = lMessageDigest.digest(x.getBytes());
+			storepass = new sun.misc.BASE64Encoder().encode(_result);
+	 	
+		} catch (java.security.NoSuchProviderException nspe) {
+			
+		}
+		return storepass;
+	}
+	
 	public List GetPersonnelList(String project_code, String personnel_id, String personnel_name, String personnel_lastname, String authen_type) 
 	throws Exception { //30-05-2014
 		List grouPersonnelMasterList = new ArrayList();
@@ -87,10 +101,11 @@ public class PersonnelMasterDB {
 		//DateUtil dateUtil = new DateUtil();
 		conn = agent.getConnectMYSql();
 		
+		String encrypPass = encrypt("password");
 		//String dateTime = dateUtil.curDateTime();
 		String sqlStmt = "INSERT INTO `employee` (project_code, username, `password`, `name`, lastname, authen_type, dow, " + 
 				"dob, telephone, address, position, datetime) " +
-					"VALUES ('"+project_code+"', '"+personnel_id+"', 'password', '"+personnel_name+"','"+personnel_lastname+"','"+authen_type+"', " +
+					"VALUES ('"+project_code+"', '"+personnel_id+"', '"+encrypPass+"', '"+personnel_name+"','"+personnel_lastname+"','"+authen_type+"', " +
 					"'"+dow+"','"+dob+"','"+telephone+"','"+address+"','"+position+"', now())";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
@@ -99,6 +114,39 @@ public class PersonnelMasterDB {
 		conn.close();
 	}
 	
+	public boolean checkPassword(String personnel_id, String password_old) throws Exception{
+		boolean chkpass = false; String password = "";
+		String encrypPass = encrypt(password_old); 
+		
+		conn = agent.getConnectMYSql();
+		
+		String sqlStmt = "Select password from employee " +
+						"WHERE username = '"+personnel_id+"'";
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlStmt);	
+		
+		while (rs.next()) {
+			password = rs.getString("password");
+		}
+		
+		if(encrypPass.equals(password)){
+			chkpass = true;
+		}
+		
+		return chkpass; 
+	}
+	public void UpdatePassword(String personnel_id, String password_new)  throws Exception{
+		conn = agent.getConnectMYSql();
+		String encrypPass = encrypt(password_new);
+		
+		String sqlStmt = "UPDATE employee set password = '"+encrypPass+"'" +
+				"WHERE username = '"+personnel_id+"'";
+		//System.out.println(sqlStmt);
+		pStmt = conn.createStatement();
+		pStmt.executeUpdate(sqlStmt);
+		pStmt.close();
+		conn.close();
+	}
 	public void UpdatePersonnelMaster(String project_code, String personnel_id, String personnel_name, String personnel_lastname, String authen_type, 
 			String dow, String dob, String telephone, String address, String position)  throws Exception{
 		conn = agent.getConnectMYSql();

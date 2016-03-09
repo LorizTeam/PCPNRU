@@ -120,10 +120,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="grid">
 		  	<div class="row cells12">
 		    	<div class="cell colspan7 offset2">
-		    		ค่าใช้จ่าย
+		    		รายได้
 		    		<div class="input-control full-size"> 
 					    <select id="gcostcode" name="gcostCode" data-validate-func="required" data-validate-hint="กรุณาเลือกประเภทค่าใช้จ่าย">
-					   		<option value="">กรุณาเลือกรายการค่าใช้จ่าย</option>
+					   		<option value="">กรุณาเลือกรายการรายได้</option>
 					   	</select>
 					   		<span class="input-state-success mif-checkmark"></span> 
 					</div>

@@ -11,6 +11,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import pcpnru.masterData.PersonnelMasterDB;
 import pcpnru.masterModel.PersonnelMasterModel;
+import pcpnru.projectAction.LogoutAction;
 import pcpnru.utilities.CheckAuthenPageDB;
 import pcpnru.utilities.DateUtil;
 
@@ -40,15 +41,16 @@ public class PersonnelAction extends ActionSupport {
 		, dob = personnelMasterModel.getDob()
 		, telephone = personnelMasterModel.getTelephone()
 		, address = personnelMasterModel.getAddress();  
-		
+		 
 		String add = request.getParameter("add");
 		String update = request.getParameter("update");
-		String delete = request.getParameter("delete");
+		String delete = request.getParameter("delete"); 
 		String forwardText = "success";
 		
 		String project_code = request.getParameter("project_code");
 		String authen_type  = request.getParameter("authen_type");
 		String position  = request.getParameter("position");
+		
 		
 		DateUtil dateUtil = new DateUtil(); 
 		dow	= dateUtil.CnvToYYYYMMDDEngYear(dow, '-');
@@ -132,16 +134,18 @@ public class PersonnelAction extends ActionSupport {
 				String clear = request.getParameter("clear");
 				String change = request.getParameter("change");
 				String forwardText = "success";
-				 
-				
-		        
+				  
 				PersonnelMasterDB pn = new PersonnelMasterDB();
 				if(change!=null){
-					String password = request.getParameter("password");
-					String password_comfirm = request.getParameter("password_comfirm");
-					if(password.equals(password_comfirm)){
-						pn.UpdateProfile_Password(personnel_id, password);
-					}
+					String password_old 	= request.getParameter("password_old");
+					String password_new 	= request.getParameter("password_new");
+					boolean chkpass = false;
+					chkpass = pn.checkPassword(personnel_id, password_old);
+					if(chkpass==true){
+						pn.UpdatePassword(personnel_id, password_new); 
+						
+						new LogoutAction().execute(); 
+					} 
 					
 				}else if(save!=null){
 					String personnel_name = personnelMasterModel.getPersonnel_name()
