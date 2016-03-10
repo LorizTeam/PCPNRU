@@ -100,7 +100,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div><%@include file="topmenu.jsp" %></div>
 		</s:else>
 		 
-		 <form action="recordApprove.action" method="post">
+		 <form action="recordApprove.action" method="post" enctype="multipart/form-data">
 		 <s:hidden name="recordApproveModel.fromwindow"/>
 		 <div class="grid" >
 		 <div class="row cells12 " >
@@ -260,8 +260,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    </div> 
 			 </div> 
 		</div>    
-		
-		<div class="example" data-text="ส่วนที่สอง"> 
+		<div class="example" data-text="ส่วนของร้านค้า">
+			<div class="grid">
+			 	<div class="row cells12">
+	         		<div class="cell colspan1"> </div>
+	         		<div class="cell colspan4"> 
+			        	ชื่อร้านค้า
+				        <div class="input-control text full-size">
+						    <s:textfield name="recordApproveModel.vender_name" id="vender_name" required=""/> 
+						</div>
+					</div> 
+	         		<div class="cell colspan2"> 
+			        	จำนวนเงินทั้งหมด
+				        <div class="input-control text full-size">
+						    <s:textfield name="recordApproveModel.total_amount" id="total_amount" required=""/>
+						</div>
+					</div>  
+	         	</div>
+	         	<div class="row cells12">
+	         		<div class="cell colspan1"> </div>
+	         		<div class="cell colspan4"> 
+			        	แนบไฟล์รูปภาพ
+				        <div class="input-control text full-size">
+						    <s:file name="recordApproveModel.quotation_img" id="quotation_img"/> 
+						</div>
+					</div>  
+	         	</div>
+         	</div>
+		</div>
+		<div class="example" data-text="ข้อมูลผู้ออกใบขออนุมัติเบิก"> 
 	         <div class="grid">
 	         	<div class="row cells12">
 	         		<div class="cell colspan1"> </div>  
@@ -318,7 +345,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 			 	</div>
 			</div>
-		</div> 
+		</div>
+		 
         </form> 
         
    		<script>

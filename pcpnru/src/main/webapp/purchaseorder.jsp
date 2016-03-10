@@ -56,7 +56,7 @@ String project_code = "";
 						    <s:textfield name="pomodel.pre_loadpr" id="pre_loadpr" required="" />
 						    <div class="button-group">
 						    <button class="button primary" type="button" onclick="getpr()"> <span class="mif-search"></span></button>
-							<button class="button danger" type="button" id="delete" onclick="deletepr()"><span class="mif-bin"></span></button>
+							<button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
 				 	 		<button class="button success" type="submit" name="pull_detailpr"><span class="mif-download"></span></button>
 				 	 		</div>
 						</div>
@@ -218,7 +218,6 @@ function getpr() {
 }
 
 $(function(){
-	alert($("#project_code").val());
 	$("#pocreate_date").datepicker({
     	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
     });

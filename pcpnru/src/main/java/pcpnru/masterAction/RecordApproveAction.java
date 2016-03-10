@@ -1,5 +1,6 @@
 package pcpnru.masterAction;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
 import org.junit.Assert;
 
@@ -53,9 +55,19 @@ public class RecordApproveAction extends ActionSupport {
 		  
 		if(save != null){ 
 			try {
+				String shopvender_name = recordApproveModel.getVender_name();
+				double total_amount = recordApproveModel.getTotal_amount();
+				File adwa = recordApproveModel.getQuotation_img();
+				String filename= "";
+				String filePath = request.getSession().getServletContext().getRealPath("/");
 				
-				
-
+	            System.out.println("Server path:" + filePath);
+	            File fileToCreate = new File("C:\"",filename);
+	 
+	            FileUtils.copyFile(adwa, fileToCreate);
+	            
+				System.out.print("File name :"+adwa.getName());
+				System.out.print("File name :"+filename);
 		 		ra.AddRecordApprovehd(docno, year,recordApproveModel.getRecord_approve_hd(),recordApproveModel.getRecord_approve_t()
 		 				,record_approve_date, recordApproveModel.getRecord_approve_title()
 		 				,recordApproveModel.getRecord_approve_rian(), recordApproveModel.getRecord_approve_des1()

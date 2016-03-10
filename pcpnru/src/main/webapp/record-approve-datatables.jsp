@@ -17,11 +17,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	RecordApproveDB ra = new RecordApproveDB();
 	if(request.getAttribute("docno") == null){
-		docno = ra.SelectUpdateDocNo();
+		docno = ra.SelectUpdateDocNo("pr");
 	}else{
 		docno = (String) request.getAttribute("docno");
 	}
 	DateUtil dateUtil = new DateUtil();
+	String month = dateUtil.curMonth();
     String year = dateUtil.curYear(); 
 
 %>
@@ -160,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <%
                 List ListRecordApproveDT = null; 
                 
-                ListRecordApproveDT = ra.ListRecordApproveDT(docno, year);
+                ListRecordApproveDT = ra.ListRecordApproveDT(docno,month, year);
         		int x = 1;
         		if(ListRecordApproveDT != null){
         			

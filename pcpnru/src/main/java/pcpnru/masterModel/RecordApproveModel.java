@@ -1,5 +1,7 @@
 package pcpnru.masterModel;
 
+import java.io.File;
+
 public class RecordApproveModel {
 
 	private String record_approve_hd;
@@ -13,6 +15,13 @@ public class RecordApproveModel {
 	private String record_approve_cen; 
 	private String record_approve_dep,record_approve_month; 
 	private String fromwindow,createwindow;
+	
+	//Vender --------------------------------------------------------
+	private String vender_name,quotation_name;
+	private double total_amount;
+	private File quotation_img;
+	
+	//Vender --------------------------------------------------------
 	
 	private String docno,docnohidden;
 	private String year;
@@ -84,6 +93,36 @@ public class RecordApproveModel {
 		this.description 	= ""; 
 		this.qty 			= ""; 
 		this.unit 			= ""; 
+	}
+	public String getQuotation_name() {
+		return quotation_name;
+	}
+
+	public void setQuotation_name(String quotation_name) {
+		this.quotation_name = quotation_name;
+	}
+	public String getVender_name() {
+		return vender_name;
+	}
+
+	public void setVender_name(String vender_name) {
+		this.vender_name = vender_name;
+	}
+
+	public double getTotal_amount() {
+		return total_amount;
+	}
+
+	public void setTotal_amount(double total_amount) {
+		this.total_amount = total_amount;
+	}
+
+	public File getQuotation_img() {
+		return quotation_img;
+	}
+
+	public void setQuotation_img(File quotation_img) {
+		this.quotation_img = quotation_img;
 	}
 	public String getCreatewindow() {
 		return createwindow;
