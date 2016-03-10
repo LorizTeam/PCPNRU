@@ -41,17 +41,17 @@
 		    </div> 
 		  	<div class="row cells12 ">
 		        <div class="cell colspan4 offset4"> 
-			       	รหัสผ่าน 
+			       	รหัสผ่านเดิม 
 			    	<div class="input-control password full-size"> 
-			       		 <input type="password">
+			       		 <input type="password" name="password_old" />
 					</div>
 		    	</div> 
 		    </div>
 		  	<div class="row cells12 ">
 		        <div class="cell colspan4 offset4"> 
-			       	ยืนยัน รหัสผ่าน  
+			       	รหัสผ่านใหม่ 
 			    	<div class="input-control password full-size"> 
-			       		 <input type="password">
+			       		 <input type="password" name="password_new" />
 					</div>
 		    	</div>
 		    </div>

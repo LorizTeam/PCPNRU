@@ -10,7 +10,7 @@
 	DBConnect dbcon = new DBConnect();
 	Connection conn = dbcon.getConnectMYSql();
 	String filejrxml = application.getRealPath("report/savetext.jrxml");
-	//System.out.println(filejrxml);
+	System.out.println(filejrxml);
 	String docno = (String) request.getParameter("docno");
 	String year = (String) request.getParameter("year");
 	 
