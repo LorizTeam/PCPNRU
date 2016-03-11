@@ -134,13 +134,28 @@
     	
         <!-- 		Requisition	 -->
         
+        <!-- 		Create Central Budget	 -->
+    	<action name="createCentralBudget" class="pcpnru.projectAction.CreateCentralBudgetAction" method="execute">
+      		<result name="success">/create_central_budget.jsp</result>
+      		<result name="authen">/no-authen.jsp</result>
+      		<result name="login">/login.jsp</result>
+    	</action>
+    	<!-- 		Create Central Budget	 -->
+        <!-- 		Central Budget	 -->
+    	<action name="centralBudget" class="pcpnru.projectAction.CentralBudgetAction" method="create">
+      		<result name="success">/central-budget.jsp</result>
+      		<result name="authen">/no-authen.jsp</result>
+      		<result name="login">/login.jsp</result>
+    	</action>
+    	<!-- 		Central Budget	 -->
+        
         <!-- 		Rocking Budget	 -->
         
         <action name="createRockingBudget" class="pcpnru.projectAction.RockingBudgetAction" method="create">
       		<result name="success">/rocking-budget.jsp</result>
       		<result name="authen">/no-authen.jsp</result>
       		<result name="login">/login.jsp</result>
-    	</action>
+    	</action> 
         
         <action name="rockingBudget" class="pcpnru.projectAction.RockingBudgetAction" method="execute">
       		<result name="success">/rocking-budget.jsp</result>

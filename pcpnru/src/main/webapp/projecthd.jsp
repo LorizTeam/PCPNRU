@@ -86,7 +86,7 @@
 		        <div class="cell colspan1"> 
 		        	ปี
 			        <div class="input-control text full-size">
-					    <s:textfield type="text" name="projectmodel.year" id="year" required=""/>
+					    <s:textfield type="text" name="projectmodel.year" id="year" maxLength="4" required=""/>
 					</div>
 				</div>
 				<div class="cell colspan3"><br>

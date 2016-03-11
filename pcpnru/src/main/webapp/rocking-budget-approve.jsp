@@ -58,18 +58,18 @@
 					<div class="cell colspan6"> 
 			        	โครงการ
 				        <div class="input-control text full-size">
-						    <select id="project_code" name="rockingBudgetForm.project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
+						    <select id="project_code" name="rockingBudgetForm.project_code" required="required">
 							   <option value="">กรุณาเลือกโครงการ</option>
 							   <%
 							   
 							   	List projectMasterList = (List) request.getAttribute("projectMasterList");
-							    
+							   String projectcode = (String) request.getAttribute("projectcode");
 				        		if (projectMasterList != null) {
 					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
 					        			ProjectModel pjModel = (ProjectModel) iterPj.next(); 
 						        				
 						        	%>
-						        			<option selected value="<%=pjModel.getProject_code()%> - <%=pjModel.getYear()%>" >
+						        			<option <%if(pjModel.getProject_code().equals(projectcode)){ %> selected <%} %> value="<%=pjModel.getProject_code()%> - <%=pjModel.getYear()%>" >
 							       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
 							       			</option>
 						        	<%
@@ -207,6 +207,10 @@
         $(function(){
         	$("#gcostcode").change(function () {
         		
+        		$("#rbaAction").submit();
+        	});
+			$("#project_code").change(function () {
+				$("#gcostcode").val("");
         		$("#rbaAction").submit();
         	});
         	

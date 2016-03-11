@@ -39,11 +39,11 @@ public class RockingBudgetApproveDB {
 					"left join (SELECT gcostcode,gcostcode_name as g2 FROM groupcostcode_master c where c.project_code = '"+project_code+"') AS t2 on(t2.gcostcode = a.gcostcode_rock) " +
 					"WHERE "; 
 					if(!docno.equals("")) sqlStmt = sqlStmt+ "docno = '"+docno+"' AND "; 
-					if(!project_code.equals("")) sqlStmt = sqlStmt+ "project_code = '"+project_code+"' AND "; 
+					//if(!project_code.equals("")) sqlStmt = sqlStmt+ "project_code = '"+project_code+"' AND "; 
 					if(!gcostcode.equals("")) sqlStmt = sqlStmt+ "a.gcostcode = '"+gcostcode+"' AND ";
 					if(!year.equals("")) sqlStmt = sqlStmt+ "year = '"+year+"' AND "; 
 					
-					sqlStmt = sqlStmt + "project_code <> '' group by docno order by docno, project_code, gcostcode";
+					sqlStmt = sqlStmt + "project_code = '"+project_code+"' group by docno order by docno, project_code, gcostcode";
 					
 					//System.out.println(sqlStmt);	 	
 					pStmt = conn.createStatement();

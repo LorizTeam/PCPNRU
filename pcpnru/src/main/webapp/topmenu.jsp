@@ -31,6 +31,8 @@
                 </li> 
                 <li class="divider"></li>
                 <li><a href="unitmaster.jsp">สร้าง  หน่วยนับ</a></li>
+                <li class="divider"></li>
+                <li><a href="create_central_budget.jsp">สร้าง งบกลาง</a></li>
             </ul>
         </li>
         <li>
@@ -75,6 +77,8 @@
 			                        <li><a href="createRockingBudget.action">โยกงบประมาณ</a></li>
 			                        <li class="divider"></li>
 			                        <li><a href="rbgBegin.action">อนุมัติ การโยกงบประมาณ</a></li>
+			                        <li class="divider"></li>
+			                        <li><a href="centralBudget.action">งบกลาง</a></li>
 			                        <li class="divider"></li>
 			                        <li><a href="manage-approve-requisition.jsp">จัดการ ผู้มีอำนาจการอนุมัติ</a></li> 
 			                 </ul>

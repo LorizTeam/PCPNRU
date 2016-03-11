@@ -40,12 +40,16 @@ public class RockingBudgetApproveAction extends ActionSupport{
 		RockingBudgetDB rbg = new RockingBudgetDB();
 		DateUtil dateUtil = new DateUtil();
 	    String docno="",project_code="",year="",gcostcode="",frombalance="",gcostcode_rock="",frombalance_rock="",rocking_budget="",balance="",docdate="",remark="",approve_status= "";   
-	     
-	   	 
+	      
 	    project_code 		= rockingBudgetForm.getProject_code();
+	    if(!project_code.equals("")){
 	    String[] spPC		= project_code.split(" - ");
 	    project_code 	= spPC[0];
 	    year			= spPC[1];
+	    }else{
+	    	project_code = "";
+	    	year = dateUtil.curTHYear();
+	    }
 	    
 	    gcostcode 			= rockingBudgetForm.getGcostcode(); 
 	     
@@ -71,16 +75,16 @@ public class RockingBudgetApproveAction extends ActionSupport{
 		} 
 		
 		extendsprojectmaster ext = new extendsprojectmaster();
-		List projectMasterList = ext.getListProject_Join_Projecthead(project_code, "","","");
+		List projectMasterList = ext.getListProject_Join_Projecthead("", "","","");
 		request.setAttribute("projectMasterList", projectMasterList);
 		
 		List groupcostCodeList = rbg.GetGroupCostCodeList(project_code, year, "");
 		request.setAttribute("groupcostCodeList", groupcostCodeList);  
 		
-		
 		RockingBudgetDList = rbga.GetRockingBudgetDList("", project_code, dateUtil.curTHYear(), gcostcode);
         request.setAttribute("RockingBudgetDList", RockingBudgetDList);
 	    
+        request.setAttribute("projectcode", project_code);
         request.setAttribute("gcostcode", gcostcode);
         
 	  return SUCCESS; 
@@ -120,14 +124,14 @@ public String begin() throws Exception{
 				rockingBudgetForm.setYear(dateUtil.curTHYear()); 
 				
 				extendsprojectmaster ext = new extendsprojectmaster();
-				List projectMasterList = ext.getListProject_Join_Projecthead(project_code, "","","");
+				List projectMasterList = ext.getListProject_Join_Projecthead("", "","","");
 				request.setAttribute("projectMasterList", projectMasterList);
 				
-		        List groupcostCodeList = rbg.GetGroupCostCodeList(project_code, dateUtil.curTHYear(), "");
+		        List groupcostCodeList = rbg.GetGroupCostCodeList("", dateUtil.curTHYear(), "");
 		 		request.setAttribute("groupcostCodeList", groupcostCodeList);
 				
 				RockingBudgetApproveDB rbga = new RockingBudgetApproveDB();
-		        List RockingBudgetDList = rbga.GetRockingBudgetDList("", project_code, dateUtil.curTHYear(), "");
+		        List RockingBudgetDList = rbga.GetRockingBudgetDList("", "", dateUtil.curTHYear(), "");
 		        request.setAttribute("RockingBudgetDList", RockingBudgetDList);
 				
 				request.setAttribute("project_code", project_code);
