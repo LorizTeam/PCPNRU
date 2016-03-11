@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import pcpnru.masterModel.GroupCostCodeMasterModel;
 import pcpnru.masterModel.GrpGCostCodeMasterModel;
 import pcpnru.projectModel.*;
 import pcpnru.utilities.*;
@@ -121,7 +122,7 @@ public class GrpGcostcodeMasterDB {
 					"INNER JOIN project_master b on(b.project_code = a.project_code) " +  
 					"WHERE ";
 					if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+project_code+"' AND ";
-					if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.grp_costyear = '"+grp_costyear+"' AND ";
+					if(!grp_costyear.equals("")) sqlStmt = sqlStmt+ "a.grp_costyear = '"+grp_costyear+"' AND ";
 					sqlStmt = sqlStmt + "grp_gcostcode <> '' "
 						//	+ "and a.grp_gcostcode not in (select DISTINCT(c.grp_gcostcode) from "
 						//	+ "groupcostcode_master c where c.grp_gcostcode <> '') "
@@ -154,6 +155,87 @@ public class GrpGcostcodeMasterDB {
 				}
 				return GrpCostCodeList;
 			 }
+	
+	public List GrpReqisToReceive(String project_code, String grp_costyear, String grp_gcostcode) 
+			throws Exception { //30-05-2014
+				List GrpReqisToReceiveList = new ArrayList();
+				String project_name = "",grp_gcostname = "", amounttotal = "0", qty = "0"; 
+				
+				DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
+				DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
+				try {
+				
+					conn = agent.getConnectMYSql();
+					
+					String sqlStmt = "SELECT a.project_code, b.project_name, a.gcostcode_c, c.gcostcode_name, a.grp_gcostcode, a.grp_gcostname, a.grp_costyear, a.qty, a.amounttotal " +
+					"FROM grp_gcostcode_master a " +
+					"INNER JOIN project_master b on(b.project_code = a.project_code) " +  
+					"LEFT JOIN groupcostcode_master c on(c.project_code = a.project_code and c.gcostcode = a.gcostcode_c) " +
+					"WHERE ";
+					if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+project_code+"' AND ";
+					if(!grp_costyear.equals("")) sqlStmt = sqlStmt+ "a.grp_costyear = '"+grp_costyear+"' AND ";
+					if(!grp_gcostcode.equals("")) sqlStmt = sqlStmt+ "a.grp_gcostcode = '"+grp_gcostcode+"' "; 
+						 
+					//System.out.println(sqlStmt);				
+					pStmt = conn.createStatement();
+					rs = pStmt.executeQuery(sqlStmt);	
+					while (rs.next()) {
+						project_code	= rs.getString("project_code");
+						if (rs.getString("project_name") != null) 		project_name = rs.getString("project_name"); else project_name = "";
+						grp_gcostcode 		= rs.getString("gcostcode_c");
+						if (rs.getString("gcostcode_name") != null) 		grp_gcostname = rs.getString("gcostcode_name"); else grp_gcostname = "";
+						grp_costyear = rs.getString("grp_costyear");
+						
+						qty			= rs.getString("qty");
+						qty 		= df1.format(Float.parseFloat(qty));
+						
+						amounttotal		= rs.getString("amounttotal");
+						amounttotal 		= df2.format(Float.parseFloat(amounttotal));
+							
+						GrpReqisToReceiveList.add(new GrpGCostCodeMasterModel(project_code, project_name, grp_gcostcode, grp_gcostname, grp_costyear, amounttotal, qty));
+					}
+						
+					rs.close();
+					pStmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				    throw new Exception(e.getMessage());
+				}
+				return GrpReqisToReceiveList;
+			 }
+	public List GetGroupCostCodeList(String projectcode, String groupcostCode) 
+			throws Exception { //30-05-2014
+				List groupcostCodeList = new ArrayList(); 
+				String groupcostName = "";
+				try {
+				
+					conn = agent.getConnectMYSql();
+					
+					String sqlStmt = "SELECT gcostcode, gcostcode_name  " +
+					"from groupcostcode_master "+ 
+					"WHERE type_gcostcode = '1' and ";  
+					if(!projectcode.equals("")) sqlStmt = sqlStmt+ "project_code = '"+projectcode+"' AND ";
+					if(!groupcostCode.equals("")) sqlStmt = sqlStmt+ "gcostcode = '"+groupcostCode+"' AND ";
+					sqlStmt = sqlStmt + "gcostcode <> '' order by gcostcode";
+					  
+					//System.out.println(sqlStmt);				
+					pStmt = conn.createStatement();
+					rs = pStmt.executeQuery(sqlStmt);	
+					while (rs.next()) {
+						groupcostCode 	= rs.getString("gcostcode"); 
+						if (rs.getString("gcostcode_name") != null) 		groupcostName = rs.getString("gcostcode_name"); else groupcostName = "";
+						  
+						groupcostCodeList.add(new GroupCostCodeMasterModel(groupcostCode, groupcostName));
+					}
+					rs.close();
+					pStmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				    throw new Exception(e.getMessage());
+				}
+				return groupcostCodeList;
+			 }
+	
 	public void AddGrpGCostCodeMaster(String project_code, String groupcostcode_c, String grp_gcostcode, String grp_gcostname,
 			String grp_costyear, String qty, String amount)  throws Exception{
 		

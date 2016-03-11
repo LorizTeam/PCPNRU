@@ -121,7 +121,8 @@
                     <th>ชื่อ-รายได้</th>
                     <th>ราคากลาง</th> 
                     <th>ต้นทุน</th>  
-                    <th>วันเวลา-รายการค่าใช้จ่าย</th>
+                    <th>วันเวลา-รายได้</th>
+                    <th> </th>
                 </tr>
                 </thead> 
                   
@@ -140,13 +141,17 @@
         				
         		%>
         			<tr>
-        			<td align="center"><%=x%></td>
-        			<td class="tdprojectCode" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>  
-                    <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
-                    <td class="tdcostName" align="left"><%=gccInfo.getCostName()%></td>
-                    <td class="tdstandardprice" align="right"><%=gccInfo.getStandardprice()%></td>
-                    <td class="tdfundprice" align="right"><%=gccInfo.getFundprice()%></td>   
-                    <td align="left"><%=gccInfo.getDateTime()%></td>
+	        			<td align="center"><%=x%></td>
+	        			<td class="tdprojectCode" align="left"><%=gccInfo.getProject_code()%> - <%=gccInfo.getProject_name()%></td>  
+	                    <td class="tdcostCode" align="center"><%=gccInfo.getCostCode()%></td>
+	                    <td class="tdcostName" align="left"><%=gccInfo.getCostName()%></td>
+	                    <td class="tdstandardprice" align="right"><%=gccInfo.getStandardprice()%></td>
+	                    <td class="tdfundprice" align="right"><%=gccInfo.getFundprice()%></td>   
+	                    <td align="left"><%=gccInfo.getDateTime()%></td>
+	                    <td align="center"><div class="cell colspan1 align-right">
+							<button class="button mini-button" type="button" onclick="javascript:getReqiToRec('<%=gccInfo.getProject_code()%>','<%=gccInfo.getCostCode()%>','<%=gccInfo.getGrp_gcostcode()%>');"> 
+							<span class="mif-search"></span></button>
+						</div></td>
                 	</tr>
         		<%		
         		x++;
@@ -170,7 +175,10 @@
 			var load = window.open('/pcpnru/grp-gcostcode-receive.jsp?projectcode='+projectcode+'&year='+year+' ','receive',
 			             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
 		}
-   		
+   		function getReqiToRec(tprojectcode, tgcostcode, tgrp_gcostcode) {
+   			var load = window.open('/pcpnru/windowRequisitionToReceive.action?project_code='+tprojectcode+'&gcostcode='+tgcostcode+'&grp_gcostcode='+tgrp_gcostcode+' ','',
+            'scrollbars=yes,menubar=no,height=600,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
+   		}
    		 
    			$("#standardprice").blur(function (){
    				 
@@ -196,7 +204,7 @@
         	var select2projectcode = $("#project_code").select2();
         	
         	var table = $('#table_project_rec').DataTable( { 
-         		scrollY: '35vh',
+         		scrollY: '39vh',
          		scrollX: true, 
          		scrollCollapse: true,
                 ordering: false,

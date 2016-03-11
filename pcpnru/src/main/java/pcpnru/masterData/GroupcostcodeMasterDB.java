@@ -24,7 +24,7 @@ public class GroupcostcodeMasterDB {
 	public List GetGroupCostCodeMasterList(String project_code, String groupcostCode, String groupcostName,String type_gcostcode) 
 	throws Exception { //30-05-2014
 		List groupcostCodeMasterList = new ArrayList();
-		String project_name = "",dateTime = "",standardprice="",fundprice="",amount="";
+		String project_name = "",dateTime = "",standardprice="",fundprice="",amount="",grp_gcostcode="";
 		
 		DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
 		DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
@@ -32,7 +32,8 @@ public class GroupcostcodeMasterDB {
 		
 			conn = agent.getConnectMYSql();
 			
-			String sqlStmt = "SELECT a.project_code,project_name, gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice,amount, DATE_FORMAT(a.datetime,'%d-%m-%Y %T') as datetime " +
+			String sqlStmt = "SELECT a.project_code,project_name, gcostcode, gcostcode_name,gcostcode_standardprice,gcostcode_fundprice,amount, "
+					+ "DATE_FORMAT(a.datetime,'%d-%m-%Y %T') as datetime, grp_gcostcode " +
 			"FROM groupcostcode_master a " +
 			"INNER JOIN project_master b on(b.project_code = a.project_code) " +
 			"WHERE "; 
@@ -59,6 +60,7 @@ public class GroupcostcodeMasterDB {
 					
 				String time 	= dateTime.substring(11);
 				dateTime		= day+"-"+month+"-"+year+" "+time; 
+				grp_gcostcode 	= rs.getString("grp_gcostcode");  
 			//	amount 			= df2.format(Float.parseFloat(amount));
 				if(type_gcostcode.equals("1")){
 					standardprice = rs.getString("gcostcode_standardprice");
@@ -74,7 +76,7 @@ public class GroupcostcodeMasterDB {
 				}
 				
 				
-				groupcostCodeMasterList.add(new GroupCostCodeMasterModel(project_code,project_name, groupcostCode, groupcostName,standardprice,fundprice, dateTime, amount));
+				groupcostCodeMasterList.add(new GroupCostCodeMasterModel(project_code,project_name, groupcostCode, groupcostName,standardprice,fundprice, dateTime, amount, grp_gcostcode));
 			}
 			rs.close();
 			pStmt.close();
@@ -243,7 +245,7 @@ public class GroupcostcodeMasterDB {
 						amount	= rs.getString("amount");
 						amount 			= df2.format(Float.parseFloat(amount));
 						
-						groupcostCodeMasterList.add(new GroupCostCodeMasterModel(project_code,project_name, groupcostCode, groupcostName,standardprice,fundprice, dateTime, amount));
+						groupcostCodeMasterList.add(new GroupCostCodeMasterModel(project_code,project_name, groupcostCode, groupcostName,standardprice,fundprice, dateTime, amount, ""));
 					}
 					rs.close();
 					pStmt.close();
@@ -298,7 +300,7 @@ public class GroupcostcodeMasterDB {
 						amount	= rs.getString("amount");
 						amount 	= df2.format(Float.parseFloat(amount));
 						
-						groupcostCodeMasterList.add(new GroupCostCodeMasterModel(project_code,project_name, groupcostCode, groupcostName,standardprice,fundprice, dateTime, amount));
+						groupcostCodeMasterList.add(new GroupCostCodeMasterModel(project_code,project_name, groupcostCode, groupcostName,standardprice,fundprice, dateTime, amount, ""));
 					}
 					rs.close();
 					pStmt.close();

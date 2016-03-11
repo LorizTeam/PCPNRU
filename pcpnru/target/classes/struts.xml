@@ -54,6 +54,9 @@
       		<result name="requisition">/window-groupcostcode-requisition.jsp</result>
     	</action>
     	 
+    	 <action name="windowRequisitionToReceive" class="pcpnru.projectAction.WindowRequisitionToReceiveAction" method="execute">
+      		<result name="success">/window-requisition-to-receive.jsp</result>
+    	</action>
     	<!-- 							MASTER 							-->
     	
     	
