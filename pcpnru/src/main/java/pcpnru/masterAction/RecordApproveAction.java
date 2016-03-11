@@ -31,6 +31,32 @@ public class RecordApproveAction extends ActionSupport {
 	public void setRecordApproveModel(RecordApproveModel recordApproveModel) {
 		this.recordApproveModel = recordApproveModel;
 	} 
+	private File toBeUploaded; 
+	private String toBeUploadedFileName;  
+    private String toBeUploadedContentType;  
+	
+    public File getToBeUploaded() {
+		return toBeUploaded;
+	}
+
+	public void setToBeUploaded(File toBeUploaded) {
+		this.toBeUploaded = toBeUploaded;
+	}
+	public String getToBeUploadedFileName() {
+		return toBeUploadedFileName;
+	}
+
+	public void setToBeUploadedFileName(String toBeUploadedFileName) {
+		this.toBeUploadedFileName = toBeUploadedFileName;
+	}
+
+	public String getToBeUploadedContentType() {
+		return toBeUploadedContentType;
+	}
+
+	public void setToBeUploadedContentType(String toBeUploadedContentType) {
+		this.toBeUploadedContentType = toBeUploadedContentType;
+	}
 
 	public String execute() throws Exception{
 		HttpServletRequest request = ServletActionContext.getRequest(); 
@@ -54,34 +80,41 @@ public class RecordApproveAction extends ActionSupport {
 		
 		  
 		if(save != null){ 
+			
 			try {
-				String shopvender_name = recordApproveModel.getVender_name();
-				double total_amount = recordApproveModel.getTotal_amount();
-				File adwa = recordApproveModel.getQuotation_img();
-				String filename= "";
-				String filePath = request.getSession().getServletContext().getRealPath("/");
 				
-	            System.out.println("Server path:" + filePath);
-	            File fileToCreate = new File("C:\"",filename);
-	 
-	            FileUtils.copyFile(adwa, fileToCreate);
+				String filePath = request.getSession().getServletContext().getRealPath("/")+"img/";
+	            String filename = this.toBeUploadedFileName;
 	            
-				System.out.print("File name :"+adwa.getName());
-				System.out.print("File name :"+filename);
+	            String[] nameimg = filename.split("[.]");
+	            if(nameimg.length > 2){
+	            	recordApproveModel.setAlertmsg("กรุณาทำการลบ . ในชื่อของรูปภาพด้วยค่ะ");
+	            	return "alertmsg";
+	            }
+	            File fileToCreate = new File(filePath,nameimg[0]+"2016-03-10."+nameimg[1]);
+	            String pathimg_todb = "img/"+fileToCreate.getName();
+	            FileUtils.copyFile(this.toBeUploaded, fileToCreate);
+	            
+				
 		 		ra.AddRecordApprovehd(docno, year,recordApproveModel.getRecord_approve_hd(),recordApproveModel.getRecord_approve_t()
 		 				,record_approve_date, recordApproveModel.getRecord_approve_title()
 		 				,recordApproveModel.getRecord_approve_rian(), recordApproveModel.getRecord_approve_des1()
 		 				,recordApproveModel.getRecord_approve_des2()
 		 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
-		 				,recordApproveModel.getRecord_approve_dep(),username);
+		 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVender_id(),recordApproveModel.getTotal_amount());
 				List ListRecordApproveDT =  ra.ListRecordApproveDT(docno,"", year);
 				request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);
 				
+				ra.Add_PurchaseRequest_Image(docno,year,pathimg_todb);
+				recordApproveModel.setImg_path(pathimg_todb);
 		 		recordApproveModel.reset_ListItem();
+		 		recordApproveModel.reset_alert();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			
 		}  else if(delete != null){
 			
 			String[] itemno = request.getParameterValues("itemno");
@@ -110,8 +143,23 @@ public class RecordApproveAction extends ActionSupport {
 		 				,recordApproveModel.getRecord_approve_rian(), recordApproveModel.getRecord_approve_des1()
 		 				,recordApproveModel.getRecord_approve_des2()
 		 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
-		 				,recordApproveModel.getRecord_approve_dep(),username);
+		 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVender_id(),recordApproveModel.getTotal_amount());
 				ra.AddRecordApprovedt(docno, year, description, qty, unit,username);
+				
+				String filePath = request.getSession().getServletContext().getRealPath("/")+"img/";
+	            String filename = this.toBeUploadedFileName;
+	            
+	            String[] nameimg = filename.split("[.]");
+	            if(nameimg.length > 2){
+	            	recordApproveModel.setAlertmsg("กรุณาทำการลบ . ในชื่อของรูปภาพด้วยค่ะ");
+	            	return "alertmsg";
+	            }
+	            File fileToCreate = new File(filePath,nameimg[0]+"2016-03-10."+nameimg[1]);
+	            String pathimg_todb = "img/"+fileToCreate.getName();
+	            FileUtils.copyFile(this.toBeUploaded, fileToCreate);
+	            
+	            ra.Add_PurchaseRequest_Image(docno,year,pathimg_todb);
+				recordApproveModel.setImg_path(pathimg_todb);
 			}
 			
 			
@@ -230,9 +278,15 @@ public class RecordApproveAction extends ActionSupport {
 			recordApproveModel.setRecord_approve_cen(MapResultValue.get("record_approve_cen").toString());
 			recordApproveModel.setRecord_approve_dep(MapResultValue.get("record_approve_dep").toString());
 			recordApproveModel.setCreate_by(MapResultValue.get("create_by").toString());
+			recordApproveModel.setVender_id(MapResultValue.get("vender_id").toString());
+			recordApproveModel.setTotal_amount((Double) MapResultValue.get("total_amount"));
+			recordApproveModel.setVender_name(MapResultValue.get("vender_name").toString());
 			recordApproveModel.setFromwindow(fromwindow);
 			List ListRecordApproveDT =  ra.ListRecordApproveDT(recordApproveModel.getDocno(),"", year);
 			request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);
+			
+			List ResultImageList = ra.GET_PurchaseRequest_Image(recordApproveModel.getDocno(), year, "");
+			request.setAttribute("ResultImageList", ResultImageList);
 			
 			forwardText = "viewdetail";
 		}

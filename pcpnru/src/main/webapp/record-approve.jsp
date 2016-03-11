@@ -46,12 +46,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="css/bootstrap-datepicker3.css" rel="stylesheet"> 
 		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
 		<link href="css/sweetalert.css" rel="stylesheet" />
+		<link href="css/lightgallery.css" rel="stylesheet" />
+		<link href="css/swiper.css" rel="stylesheet" />
+		
+		<style type="text/css">
+		
+.swiper-container {
+    width: 600px;
+    height: 300px;
+}
+		</style>
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
         <script src="js/jquery.dataTables.min.js"></script> 
   		<script src="js/bootstrap-datepicker-th.js"></script>
   		<script src="js/sweetalert.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
+		<script src="js/lightgallery.js"></script>
+		<script src="js/lg-fullscreen.js"></script>
+		<script src="js/lg-thumbnail.js"></script>
+		<script src="js/lg-zoom.js"></script>
+		<script src="js/lg-hash.js"></script>
+		<script src="js/lg-pager.js"></script>
+		<script src="js/swiper.js"></script>
+		
 	</head>
 	
 	<script>
@@ -267,7 +286,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         		<div class="cell colspan4"> 
 			        	ชื่อร้านค้า
 				        <div class="input-control text full-size">
-						    <s:textfield name="recordApproveModel.vender_name" id="vender_name" required=""/> 
+				        	<s:hidden name="recordApproveModel.vender_id" id="vender_id" required=""/>
+						    <s:textfield name="recordApproveModel.vender_name" id="vender_name" readonly="true" required=""/> 
 						</div>
 					</div> 
 	         		<div class="cell colspan2"> 
@@ -282,10 +302,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         		<div class="cell colspan4"> 
 			        	แนบไฟล์รูปภาพ
 				        <div class="input-control text full-size">
-						    <s:file name="recordApproveModel.quotation_img" id="quotation_img"/> 
+						    <s:file name="toBeUploaded" id="toBeUploaded"/> 
 						</div>
-					</div>  
+					</div>
 	         	</div>
+	         	<div class="swiper-container">
+				    <!-- Additional required wrapper -->
+				    <div class="swiper-wrapper">
+				        
+				    
+	         	<%
+	         		if(request.getAttribute("ResultImageList") != null){
+	         			List ResultImageList = (List) request.getAttribute("ResultImageList");
+	         			for(Iterator imageIter = ResultImageList.iterator();imageIter.hasNext();){
+	         				RecordApproveModel recordapprovemodel = (RecordApproveModel) imageIter.next();
+	         	%>		
+	         			<div class="swiper-slide lightgallery">
+							<a href="<%=recordapprovemodel.getImg_path()%>">
+						      <img src="<%=recordapprovemodel.getImg_path()%>" />
+						  	</a>
+						</div>
+	         	<%
+	         			}
+	         	%>
+	         		<script type="text/javascript">
+						$('.lightgallery').on('click', function() {
+						    $(this).lightGallery({
+						       dynamic: true,
+						      dynamicEl: [
+	         	<%
+	         			for(Iterator imageIter1 = ResultImageList.iterator();imageIter1.hasNext();){
+	         				RecordApproveModel recordapprovemodel = (RecordApproveModel) imageIter1.next();
+	         	%>
+	         		
+										{
+											"src": '<%=recordapprovemodel.getImg_path()%>'
+										},
+
+										    	  	
+	         	<%
+	         			}
+	         	%>
+                				]
+						    })
+							 
+						});
+					</script>
+	         	<%
+	         		}
+	         	%>
+	         		</div>
+				<!-- If we need pagination -->
+				    <div class="swiper-pagination"></div>
+				    
+				    <!-- If we need navigation buttons -->
+				    <div class="swiper-button-prev"></div>
+				    <div class="swiper-button-next"></div>
+				    
+				    <!-- If we need scrollbar -->
+				    <div class="swiper-scrollbar"></div>
+				</div>
          	</div>
 		</div>
 		<div class="example" data-text="ข้อมูลผู้ออกใบขออนุมัติเบิก"> 
@@ -346,12 +422,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	</div>
 			</div>
 		</div>
-		 
+		 <s:hidden name="recordApproveModel.alertmsg" id="alertmsg"/>
         </form> 
-        
+		        
    		<script>
         $(function(){
-        	 
+        	if($("#alertmsg").val() != ""){
+        		swal("Error",$("#alertmsg").val() , "error");
+        	}
         	$("#record_approve_date").datepicker({
             	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
             });   
@@ -377,5 +455,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	
         }); // close function
     	</script>
+    	<script>        
+		  var mySwiper = new Swiper ('.swiper-container', {
+		    // Optional parameters
+		    loop: true,
+		    
+		    // If we need pagination
+		    pagination: '.swiper-pagination',
+		    
+		    // Navigation arrows
+		    nextButton: '.swiper-button-next',
+		    prevButton: '.swiper-button-prev',
+		    
+		    // And if we need scrollbar
+		    scrollbar: '.swiper-scrollbar',
+		  })        
+		  </script>
 	</body>
 </html>

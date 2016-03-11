@@ -1,5 +1,7 @@
 package test.pcpnru.masterModel;
 
+import java.io.File;
+
 public class TestRecordApproveModel {
 	private String record_approve_hd;
 	private String record_approve_t;
@@ -10,9 +12,18 @@ public class TestRecordApproveModel {
 	private String record_approve_des2;
 	private String record_approve_des3;
 	private String record_approve_cen; 
-	private String record_approve_dep; 
+	private String record_approve_dep,record_approve_month; 
+	private String fromwindow,createwindow,alertmsg;
+
+	//Vender --------------------------------------------------------
+	private File quotation_img;
+	private String vender_name,vender_id,quotation_imgFileName,quotation_imgContentType,img_path;
+	private double total_amount;
+
 	
-	private String docno;
+	//Vender --------------------------------------------------------
+	
+	private String docno,docnohidden;
 	private String year;
 	private String itemno;
 	private String description;
@@ -58,6 +69,14 @@ public class TestRecordApproveModel {
 			this.record_approve_date = s6;
 		}
 	}
+	
+	
+
+	public TestRecordApproveModel(String img_path, String docno, String year) {
+		this.img_path = img_path;
+		this.docno = docno;
+		this.year = year;
+	}
 
 	public void reset_hd(){
 		this.record_approve_hd 		= "";
@@ -83,6 +102,104 @@ public class TestRecordApproveModel {
 		this.qty 			= ""; 
 		this.unit 			= ""; 
 	}
+	
+	
+	public String getImg_path() {
+		return img_path;
+	}
+
+	public void setImg_path(String img_path) {
+		this.img_path = img_path;
+	}
+
+	public String getRecord_approve_month() {
+		return record_approve_month;
+	}
+
+	public void setRecord_approve_month(String record_approve_month) {
+		this.record_approve_month = record_approve_month;
+	}
+
+	public String getFromwindow() {
+		return fromwindow;
+	}
+
+	public void setFromwindow(String fromwindow) {
+		this.fromwindow = fromwindow;
+	}
+
+	public String getCreatewindow() {
+		return createwindow;
+	}
+
+	public void setCreatewindow(String createwindow) {
+		this.createwindow = createwindow;
+	}
+
+	public String getAlertmsg() {
+		return alertmsg;
+	}
+
+	public void setAlertmsg(String alertmsg) {
+		this.alertmsg = alertmsg;
+	}
+
+	public File getQuotation_img() {
+		return quotation_img;
+	}
+
+	public void setQuotation_img(File quotation_img) {
+		this.quotation_img = quotation_img;
+	}
+
+	public String getVender_name() {
+		return vender_name;
+	}
+
+	public void setVender_name(String vender_name) {
+		this.vender_name = vender_name;
+	}
+
+	public String getVender_id() {
+		return vender_id;
+	}
+
+	public void setVender_id(String vender_id) {
+		this.vender_id = vender_id;
+	}
+
+	public String getQuotation_imgFileName() {
+		return quotation_imgFileName;
+	}
+
+	public void setQuotation_imgFileName(String quotation_imgFileName) {
+		this.quotation_imgFileName = quotation_imgFileName;
+	}
+
+	public String getQuotation_imgContentType() {
+		return quotation_imgContentType;
+	}
+
+	public void setQuotation_imgContentType(String quotation_imgContentType) {
+		this.quotation_imgContentType = quotation_imgContentType;
+	}
+
+	public double getTotal_amount() {
+		return total_amount;
+	}
+
+	public void setTotal_amount(double total_amount) {
+		this.total_amount = total_amount;
+	}
+
+	public String getDocnohidden() {
+		return docnohidden;
+	}
+
+	public void setDocnohidden(String docnohidden) {
+		this.docnohidden = docnohidden;
+	}
+
 	public String getCreate_by() {
 		return create_by;
 	}

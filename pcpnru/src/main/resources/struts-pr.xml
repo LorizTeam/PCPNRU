@@ -19,6 +19,7 @@
         <action name="recordApprove" class="pcpnru.masterAction.RecordApproveAction" method="execute">
       		<result name="success">/record-approve.jsp</result>
       		<result name="print">/savetext-report.jsp</result>
+      		<result name="alertmsg">/record-approve.jsp</result>
     	</action> 
     	 
     	<action name="windowsPR" class="pcpnru.masterAction.RecordApproveAction" method="entrancSearch">

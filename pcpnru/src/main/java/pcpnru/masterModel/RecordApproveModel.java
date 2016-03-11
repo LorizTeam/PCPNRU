@@ -14,12 +14,13 @@ public class RecordApproveModel {
 	private String record_approve_des3;
 	private String record_approve_cen; 
 	private String record_approve_dep,record_approve_month; 
-	private String fromwindow,createwindow;
-	
+	private String fromwindow,createwindow,alertmsg;
+
 	//Vender --------------------------------------------------------
-	private String vender_name,quotation_name;
-	private double total_amount;
 	private File quotation_img;
+	private String vender_name,vender_id,quotation_imgFileName,quotation_imgContentType,img_path;
+	private double total_amount;
+
 	
 	//Vender --------------------------------------------------------
 	
@@ -69,7 +70,14 @@ public class RecordApproveModel {
 		this.qty = qty;
 		this.unit = unit;
 	}
+	
+	public RecordApproveModel(String img_path, String docno, String year) {
+		this.img_path = img_path;
+		this.docno = docno;
+		this.year = year;
+	}
 
+	//Reset --------------------------------------------------------
 	public void reset_hd(){
 		this.record_approve_hd 		= "";
 		this.record_approve_t 		= ""; 
@@ -94,13 +102,52 @@ public class RecordApproveModel {
 		this.qty 			= ""; 
 		this.unit 			= ""; 
 	}
-	public String getQuotation_name() {
-		return quotation_name;
+	public void reset_alert(){  
+		this.alertmsg 	= ""; 
+	}
+	//Reset --------------------------------------------------------
+	
+	
+	public String getVender_id() {
+		return vender_id;
 	}
 
-	public void setQuotation_name(String quotation_name) {
-		this.quotation_name = quotation_name;
+	public String getImg_path() {
+		return img_path;
 	}
+
+	public void setImg_path(String img_path) {
+		this.img_path = img_path;
+	}
+
+	public void setVender_id(String vender_id) {
+		this.vender_id = vender_id;
+	}
+
+	
+	public String getAlertmsg() {
+		return alertmsg;
+	}
+
+	public void setAlertmsg(String alertmsg) {
+		this.alertmsg = alertmsg;
+	}
+	public String getQuotation_imgFileName() {
+		return quotation_imgFileName;
+	}
+
+	public void setQuotation_imgFileName(String quotation_imgFileName) {
+		this.quotation_imgFileName = quotation_imgFileName;
+	}
+
+	public String getQuotation_imgContentType() {
+		return quotation_imgContentType;
+	}
+
+	public void setQuotation_imgContentType(String quotation_imgContentType) {
+		this.quotation_imgContentType = quotation_imgContentType;
+	}
+
 	public String getVender_name() {
 		return vender_name;
 	}

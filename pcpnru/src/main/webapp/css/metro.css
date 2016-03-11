@@ -86,6 +86,7 @@ input[type="submit"] {
   cursor: pointer;
 }
 label,
+,
 select,
 button,
 input[type="button"],

@@ -108,14 +108,14 @@ public class RecordApproveDB {
 	}
 	
 	public void AddRecordApprovehd(String docno, String year, String record_approve_hd, String record_approve_t, String record_approve_date, String record_approve_title, String record_approve_rian,
-			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep, String create_by)  throws Exception{
+			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep, String create_by,String vender_id,double total_amount)  throws Exception{
 		
 		
 		
 		String dateTime = "";
 		String sqlStmt = "INSERT IGNORE INTO record_approve_hd(docno, year, record_approve_hd, record_approve_t, record_approve_date, record_approve_title, record_approve_rian, "
-				+ "record_approve_des1, record_approve_des2,record_approve_des3, record_approve_cen, record_approve_dep,thaidate_report,create_by,create_datetime) " +
-				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,now())";
+				+ "record_approve_des1, record_approve_des2,record_approve_des3, record_approve_cen, record_approve_dep,thaidate_report,create_by,create_datetime,vender_id,total_amount) " +
+				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),?,?)";
 		
 		String[] splitdate = record_approve_date.split("-");
 		
@@ -143,6 +143,8 @@ public class RecordApproveDB {
 		ppStmt.setString(12, record_approve_dep);
 		ppStmt.setString(13, thaidate_report);
 		ppStmt.setString(14, create_by);
+		ppStmt.setString(15, vender_id);
+		ppStmt.setDouble(16, total_amount);
 		ppStmt.executeUpdate();
 		conn.commit();
 		ppStmt.close();
@@ -390,8 +392,9 @@ public class RecordApproveDB {
 		String sqlQuery = "SELECT docno,`year`+543 as year,record_approve_hd,record_approve_t,"
 				+ "CONCAT(substr(record_approve_date from 9 for 2),\"-\",substr(record_approve_date from 6 for 2),\"-\",year(record_approve_date)+543) as record_approve_date,record_approve_title,record_approve_rian,"
 				+ "record_approve_des1,record_approve_des2,record_approve_des3,"
-				+ "record_approve_cen,record_approve_dep,thaidate_report,create_by "
+				+ "record_approve_cen,record_approve_dep,thaidate_report,record_approve_hd.create_by,total_amount,b.vender_id,b.vender_name "
 				+ "FROM `record_approve_hd` "
+				+ "inner join vender_master as b on (record_approve_hd.vender_id = b.vender_id)"
 				+ "WHERE "
 				+ "docno = '"+docno+"' and year = '"+year+"'";
 		
@@ -414,6 +417,9 @@ public class RecordApproveDB {
 			mapresultGet.put("record_approve_dep", rs.getString("record_approve_dep"));
 			mapresultGet.put("thaidate_report", rs.getString("thaidate_report"));
 			mapresultGet.put("create_by", rs.getString("create_by"));
+			mapresultGet.put("total_amount", rs.getDouble("total_amount"));
+			mapresultGet.put("vender_id", rs.getString("vender_id"));
+			mapresultGet.put("vender_name", rs.getString("vender_name"));
 		}		
 		
 		if(!rs.isClosed())
@@ -424,5 +430,64 @@ public class RecordApproveDB {
 			conn.close();
 		
 		return mapresultGet;
+	}
+	public void Add_PurchaseRequest_Image(String docno,String year,String img_path) throws IOException, Exception{
+		
+		String sqlQuery = "insert ignore into record_approve_imgref values (?,?,?)";
+		
+		conn = agent.getConnectMYSql();
+		ppStmt = conn.prepareStatement(sqlQuery);
+		ppStmt.setString(1, docno);
+		ppStmt.setString(2, year);
+		ppStmt.setString(3, img_path);
+		ppStmt.executeUpdate();
+		
+		if(!ppStmt.isClosed())
+			ppStmt.close();
+		if(!conn.isClosed())
+			conn.close();
+	}
+	
+	public List<RecordApproveModel> GET_PurchaseRequest_Image(String docno,String year,String img_path) throws IOException, Exception{
+		
+		String sqlQuery = "select * from record_approve_imgref where ";
+		
+		if(!docno.equals("")) sqlQuery += "docno = '"+docno+"' and ";
+		if(!year.equals("")) sqlQuery += "year = '"+year+"' and ";
+		if(!img_path.equals("")) sqlQuery += "img_path = '"+img_path+"' and ";
+		
+		sqlQuery += "docno != ''";
+		
+		conn = agent.getConnectMYSql();
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlQuery);
+		List<RecordApproveModel> ResultList = new ArrayList<RecordApproveModel>();
+		while (rs.next()) {
+			ResultList.add(new RecordApproveModel(rs.getString("img_path"),rs.getString("docno"),rs.getString("year")));
+		}
+		
+		if(!pStmt.isClosed())
+			pStmt.close();
+		if(!conn.isClosed())
+			conn.close();
+		
+		return ResultList;
+	}
+	
+	public void Delete_PR_Image(String docno,String year,String img_path) throws IOException, Exception{
+		
+		String sqlQuery = "delete from record_approve_imgref where docno = ? and year = ? and img_path = ?";
+		
+		conn = agent.getConnectMYSql();
+		ppStmt = conn.prepareStatement(sqlQuery);
+		ppStmt.setString(1, docno);
+		ppStmt.setString(2, year);
+		ppStmt.setString(3, img_path);
+		ppStmt.executeUpdate();
+		
+		if(!ppStmt.isClosed())
+			ppStmt.close();
+		if(!conn.isClosed())
+			conn.close();
 	}
 }
