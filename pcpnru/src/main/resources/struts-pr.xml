@@ -5,7 +5,8 @@
  
 <struts>
     <constant name="struts.devMode" value="true" />
- 
+ 	<constant name="struts.multipart.maxSize" value="5000000" />
+ 	
     <package name="pr" extends="struts-default">
     	<global-results>
 		    <result name="nologin">/login.jsp</result>
@@ -17,9 +18,17 @@
     	</action>
         
         <action name="recordApprove" class="pcpnru.masterAction.RecordApproveAction" method="execute">
+        	<interceptor-ref name="defaultStack"/>
+	        <interceptor-ref name="fileUpload">
+				<param name="maximumSize">5000000</param>
+				<param name="allowedTypes"> image/jpeg,image/gif,image/png</param>
+			</interceptor-ref>
+		    <interceptor-ref name="validation"/>
+    		<interceptor-ref name="workflow"/>
       		<result name="success">/record-approve.jsp</result>
       		<result name="print">/savetext-report.jsp</result>
       		<result name="alertmsg">/record-approve.jsp</result>
+      		<result name="input">/record-approve.jsp</result>
     	</action> 
     	 
     	<action name="windowsPR" class="pcpnru.masterAction.RecordApproveAction" method="entrancSearch">

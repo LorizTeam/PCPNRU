@@ -17,10 +17,9 @@ public class RecordApproveModel {
 	private String fromwindow,createwindow,alertmsg;
 
 	//Vender --------------------------------------------------------
-	private File quotation_img;
-	private String vender_name,vender_id,quotation_imgFileName,quotation_imgContentType,img_path;
+	private File toBeUploaded;
+	private String vender_name,vender_id,toBeUploadedFileName,toBeUploadedContentType,img_path;
 	private double total_amount;
-
 	
 	//Vender --------------------------------------------------------
 	
@@ -112,6 +111,30 @@ public class RecordApproveModel {
 		return vender_id;
 	}
 
+	public File getToBeUploaded() {
+		return toBeUploaded;
+	}
+
+	public void setToBeUploaded(File toBeUploaded) {
+		this.toBeUploaded = toBeUploaded;
+	}
+
+	public String getToBeUploadedFileName() {
+		return toBeUploadedFileName;
+	}
+
+	public void setToBeUploadedFileName(String toBeUploadedFileName) {
+		this.toBeUploadedFileName = toBeUploadedFileName;
+	}
+
+	public String getToBeUploadedContentType() {
+		return toBeUploadedContentType;
+	}
+
+	public void setToBeUploadedContentType(String toBeUploadedContentType) {
+		this.toBeUploadedContentType = toBeUploadedContentType;
+	}
+
 	public String getImg_path() {
 		return img_path;
 	}
@@ -132,22 +155,7 @@ public class RecordApproveModel {
 	public void setAlertmsg(String alertmsg) {
 		this.alertmsg = alertmsg;
 	}
-	public String getQuotation_imgFileName() {
-		return quotation_imgFileName;
-	}
-
-	public void setQuotation_imgFileName(String quotation_imgFileName) {
-		this.quotation_imgFileName = quotation_imgFileName;
-	}
-
-	public String getQuotation_imgContentType() {
-		return quotation_imgContentType;
-	}
-
-	public void setQuotation_imgContentType(String quotation_imgContentType) {
-		this.quotation_imgContentType = quotation_imgContentType;
-	}
-
+	
 	public String getVender_name() {
 		return vender_name;
 	}
@@ -164,13 +172,6 @@ public class RecordApproveModel {
 		this.total_amount = total_amount;
 	}
 
-	public File getQuotation_img() {
-		return quotation_img;
-	}
-
-	public void setQuotation_img(File quotation_img) {
-		this.quotation_img = quotation_img;
-	}
 	public String getCreatewindow() {
 		return createwindow;
 	}

@@ -306,62 +306,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>
 	         	</div>
-	         	<div class="swiper-container">
-				    <!-- Additional required wrapper -->
-				    <div class="swiper-wrapper">
-				        
-				    
-	         	<%
-	         		if(request.getAttribute("ResultImageList") != null){
-	         			List ResultImageList = (List) request.getAttribute("ResultImageList");
-	         			for(Iterator imageIter = ResultImageList.iterator();imageIter.hasNext();){
-	         				RecordApproveModel recordapprovemodel = (RecordApproveModel) imageIter.next();
-	         	%>		
-	         			<div class="swiper-slide lightgallery">
-							<a href="<%=recordapprovemodel.getImg_path()%>">
-						      <img src="<%=recordapprovemodel.getImg_path()%>" />
-						  	</a>
-						</div>
-	         	<%
-	         			}
-	         	%>
-	         		<script type="text/javascript">
-						$('.lightgallery').on('click', function() {
-						    $(this).lightGallery({
-						       dynamic: true,
-						      dynamicEl: [
-	         	<%
-	         			for(Iterator imageIter1 = ResultImageList.iterator();imageIter1.hasNext();){
-	         				RecordApproveModel recordapprovemodel = (RecordApproveModel) imageIter1.next();
-	         	%>
-	         		
-										{
-											"src": '<%=recordapprovemodel.getImg_path()%>'
-										},
+	         	<div class="accordion" data-role="accordion">
+			    	<div class="frame">
+			            <div class="heading">รูปภาพไฟล์แนบ</div>
+			            <div class="content">
+			            	<div id="lightgallery">
+			         	<%
+			         		if(request.getAttribute("ResultImageList") != null){
+			         			List ResultImageList = (List) request.getAttribute("ResultImageList");
+			         			for(Iterator imageIter = ResultImageList.iterator();imageIter.hasNext();){
+			         				RecordApproveModel recordapprovemodel = (RecordApproveModel) imageIter.next();
+			         	%>		
+			         			
+									<a href="<%=recordapprovemodel.getImg_path()%>">
+								      <img src="<%=recordapprovemodel.getImg_path()%>" style="width: 10%; height: 10%" />
+								  	</a>
+								
+			         	<%
+			         			}
+			         		}
+			         	%>
+			         		</div>
+			            </div>
+			        </div>
+         		</div>
 
-										    	  	
-	         	<%
-	         			}
-	         	%>
-                				]
-						    })
-							 
-						});
-					</script>
-	         	<%
-	         		}
-	         	%>
-	         		</div>
-				<!-- If we need pagination -->
-				    <div class="swiper-pagination"></div>
-				    
-				    <!-- If we need navigation buttons -->
-				    <div class="swiper-button-prev"></div>
-				    <div class="swiper-button-next"></div>
-				    
-				    <!-- If we need scrollbar -->
-				    <div class="swiper-scrollbar"></div>
-				</div>
          	</div>
 		</div>
 		<div class="example" data-text="ข้อมูลผู้ออกใบขออนุมัติเบิก"> 
@@ -430,6 +399,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	if($("#alertmsg").val() != ""){
         		swal("Error",$("#alertmsg").val() , "error");
         	}
+        	$('#lightgallery').lightGallery();
         	$("#record_approve_date").datepicker({
             	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
             });   

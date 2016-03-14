@@ -32,4 +32,21 @@ public class Validate {
 		
 		return checkListNotEmpty;
 	}
+	
+	public boolean Check_String_notnull_notempty(String value){
+		boolean resultcheck = false;
+		if(value != null){
+			resultcheck = true;
+		}else{
+			resultcheck = false;
+		}
+			
+		if(!value.equals("")){
+			resultcheck = true;
+		}else{
+			resultcheck = false;
+		}
+		
+		return resultcheck;
+	}
 }
