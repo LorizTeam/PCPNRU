@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div>
 			    	<div class="cell colspan6"> 
 			       		 <h4><small class="input-control full-size" > 
-				       		 <select id="projectcode_central" ng-change="projectcentral()" ng-model="project_central" name="rockingBudgetForm.project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
+				       		 <select id="projectcode_central" ng-change="projectcentral()" ng-model="project_central" name="centralBudgetForm.project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
 							   <option value="">กรุณาเลือกโครงการ</option>
 							   <% 
 							   List projectCentralList = (List) request.getAttribute("projectCentralList");
@@ -115,7 +115,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan6">
 			    		<h4><small class="input-control full-size"> 
-			    			<select name="rockingBudgetForm.gcostcode_rock" ng-model="gcostcode" id="gcostcode" required>
+			    			<select name="centralBudgetForm.gcostcode" ng-change="central_amt()" ng-model="gcostcode" id="gcostcode" required>
 			    				<option value="">-- please Select --</option>
 						    	<option ng-repeat="option in datas" value="{{option.gcostcode}}">{{option.gcostcode_name}}</option> 
 						   	</select>
@@ -123,11 +123,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</small></h4> 
 			    	</div>
 			    	<div class="cell colspan1"> 
-			       		<h4 align="right">คงเหลือ ยกมา</h4> 	  
+			       		<h4 align="right">คงเหลือ&nbsp;</h4> 	  
 			    	</div> 
-			    	<div class="cell colspan1" ng-init="frombalance_rock=0"> 
+			    	<div class="cell colspan1" > 
 			    		<h4><small class="input-control full-size"> 
-			       			<s:textfield dir="rtl" id="frombalance_rock" name="rockingBudgetForm.frombalance_rock" value="{{ frombalance_rock | currency:'฿' }}" />
+			       			<s:textfield dir="rtl" id="frombalance" name="centralBudgetForm.frombalance" value="{{frombalance}}" />
 			       		</small></h4>
 			    	</div> 
 				</div>
@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan1">
 			    		<h4><small class="input-control full-size">
-			    			<input type="text" dir="rtl" id="rocking_budget" name="rockingBudgetForm.rocking_budget" value="{{ rocking_budget }}" required>			
+			    			<input type="text" dir="rtl" id="rocking_budget" name="centralBudgetForm.rocking_budget" value="{{rocking_budget}}" required>			
 			    		</small></h4>		 
 			    	</div> 
 			    	<div class="cell colspan1"> 
@@ -146,7 +146,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan1">
 			    		<h4><small class="input-control full-size">
-			    			<input type="text" dir="rtl" id="balance" name="rockingBudgetForm.balance" value="{{ balance }}" readonly="readonly">			
+			    			<input type="text" dir="rtl" id="balance" name="centralBudgetForm.balance" value="{{ balance }}" readonly="readonly">			
 			    		</small></h4>		 
 			    	</div> 
 			    	<div class="cell colspan1"> 
@@ -154,7 +154,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan6">
 			    		<h4><small class="input-control full-size">
-			    			<input type="text" id="remark" name="rockingBudgetForm.remark" value="{{ remark }}" >			
+			    			<input type="text" id="remark" name="centralBudgetForm.remark" value="{{ remark }}" >			
 			    		</small></h4>		 
 			    	</div> 
 				</div> 
@@ -215,8 +215,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$(function(){
 			
 			$("#projectcode_central").select2();
-			$("#gcostcode").select2();
-			$("#gcostcode_rock").select2();
+			$("#gcostcode").select2(); 
 			
 			$('#table_rocking').DataTable( {
 	          	scrollY:  '35vh',
