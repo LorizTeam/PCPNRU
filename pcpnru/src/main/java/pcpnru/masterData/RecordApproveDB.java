@@ -143,7 +143,7 @@ public class RecordApproveDB {
 		ppStmt.setString(12, record_approve_dep);
 		ppStmt.setString(13, thaidate_report);
 		ppStmt.setString(14, create_by);
-		ppStmt.setString(15, vender_id);
+		ppStmt.setString(15, "0001");
 		ppStmt.setDouble(16, total_amount);
 		ppStmt.executeUpdate();
 		conn.commit();

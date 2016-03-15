@@ -8,6 +8,7 @@ app.controller('myCtrl', function($scope, $http,$window) {
 	$scope.frombalance_rock=0;
 	$scope.rocking_budget=0;
 	$scope.balance=0;
+	$scope.remark="135444เทสๆ";
 	
 	$scope.projectcentral = function() { 
 		alert($scope.project_central.split(' - ')[0]);

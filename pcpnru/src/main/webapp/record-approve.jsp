@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="css/sweetalert.css" rel="stylesheet" />
 		<link href="css/lightgallery.css" rel="stylesheet" />
 		<link href="css/swiper.css" rel="stylesheet" />
-		
+		<link href="css/select2.css" rel="stylesheet">
 		<style type="text/css">
 		
 .swiper-container {
@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="js/lg-hash.js"></script>
 		<script src="js/lg-pager.js"></script>
 		<script src="js/swiper.js"></script>
-		
+		<script src="js/select2.js"></script>
 	</head>
 	
 	<script>
@@ -135,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 			<div class="cell align-left colspan2"><br>
 
 						<s:if test="%{#fromwindow!='true'}">
-						<a class="button success next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการถัดไป</span></a>
+						<a class="button success next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการใหม่</span></a>
 						</s:if>
 					</div>
 		</div>
@@ -162,7 +162,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         		<div class="cell colspan1"> 
 			        	หน่วย
 				        <div class="input-control text full-size">
-						    <s:textfield name="recordApproveModel.unit" id="unit" required=""/>
+				        	<select id="unit" name="recordApproveModel.unit" required="">
+						    	<option value="">โปรดเลือก</option> 
+						        <% 
+						        UnitMasterDB unitM = new UnitMasterDB();
+						    	List unitMasterList = unitM.GetUnitMasterList("");
+						        
+				        		if (unitMasterList != null) {
+					        		for (Iterator iter = unitMasterList.iterator(); iter.hasNext();) {
+					        			UnitMasterForm unitjMaster = (UnitMasterForm) iter.next();
+			      				%>  
+				      			<option value="<%=unitjMaster.getUnit()%>" ><%=unitjMaster.getUnit()%></option>
+								<%		} 
+									}
+								%>
+						    </select>
 						</div>
 					</div>  
 	         	 	<div class="cell align-left colspan3"><br>
@@ -287,7 +301,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        	ชื่อร้านค้า
 				        <div class="input-control text full-size">
 				        	<s:hidden name="recordApproveModel.vender_id" id="vender_id" required=""/>
-						    <s:textfield name="recordApproveModel.vender_name" id="vender_name" readonly="true" required=""/> 
+						    <s:textfield name="recordApproveModel.vender_name" id="vender_name" readonly="true"/>
+						    <div class="button-group">
+						 	<button class="button primary" type="button" onclick="getpr()"> <span class="mif-search"></span></button>
+							<button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
+							</div>
 						</div>
 					</div> 
 	         		<div class="cell colspan2"> 
@@ -385,7 +403,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="cell align-right colspan2"><br>
 
 						<s:if test="%{#fromwindow!='true'}">
-						<a class="button success next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการถัดไป</span></a>
+						<a class="button success next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการใหม่</span></a>
 						</s:if>
 					</div>
 			 	</div>
@@ -396,6 +414,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        
    		<script>
         $(function(){
+        	var select2unit = $("#unit").select2();
         	if($("#alertmsg").val() != ""){
         		swal("Error",$("#alertmsg").val() , "error");
         	}

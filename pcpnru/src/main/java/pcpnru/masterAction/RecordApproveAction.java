@@ -78,9 +78,9 @@ public class RecordApproveAction extends ActionSupport {
 		String record_approve_date = recordApproveModel.getRecord_approve_date();
 		record_approve_date = dateUtil.CnvToYYYYMMDDEngYear(record_approve_date, '-');
 		
-		  
+		Validate valid = new Validate();
 		if(save != null){ 
-			Validate valid = new Validate();
+			
 			try {
 				
 				if(!valid.Check_String_notnull_notempty(docno)){
@@ -143,6 +143,9 @@ public class RecordApproveAction extends ActionSupport {
 			recordApproveModel.setFromwindow(recordApproveModel.getFromwindow());
 			recordApproveModel.reset_ListItem();
 			
+			List ResultImageList = ra.GET_PurchaseRequest_Image(recordApproveModel.getDocno(), year, "");
+			request.setAttribute("ResultImageList", ResultImageList);
+			
 		}else if (add != null){
 			
 			String description = recordApproveModel.getDescription().trim();
@@ -162,20 +165,26 @@ public class RecordApproveAction extends ActionSupport {
 				
 				String filePath = request.getSession().getServletContext().getRealPath("/")+"img/";
 	            String filename = this.toBeUploadedFileName;
-	            
-	            String[] nameimg = filename.split("[.]");
-	            if(nameimg.length > 2){
-	            	recordApproveModel.setAlertmsg("กรุณาทำการลบ . ในชื่อของรูปภาพด้วยค่ะ");
-	            	return "alertmsg";
+	            String pathimg_todb = "";
+	            if(valid.Check_String_notnull_notempty(filename)){
+	            	String[] nameimg = filename.split("[.]");
+		            if(nameimg.length > 2){
+		            	recordApproveModel.setAlertmsg("กรุณาทำการลบ . ในชื่อของรูปภาพด้วยค่ะ");
+		            	return "alertmsg";
+		            }
+		            File fileToCreate = new File(filePath,dateUtil.GetDatetime_YYYY_MM_DD_HH_MM_SS()+"."+nameimg[1]);
+		            pathimg_todb = "img/"+fileToCreate.getName();
+		            FileUtils.copyFile(this.toBeUploaded, fileToCreate);
+		            
+		            ra.Add_PurchaseRequest_Image(docno,year,pathimg_todb);
+		            
 	            }
-	            File fileToCreate = new File(filePath,nameimg[0]+"2016-03-10."+nameimg[1]);
-	            String pathimg_todb = "img/"+fileToCreate.getName();
-	            FileUtils.copyFile(this.toBeUploaded, fileToCreate);
 	            
-	            ra.Add_PurchaseRequest_Image(docno,year,pathimg_todb);
-				recordApproveModel.setImg_path(pathimg_todb);
+	            
 			}
 			
+			List ResultImageList = ra.GET_PurchaseRequest_Image(recordApproveModel.getDocno(), year, "");
+			request.setAttribute("ResultImageList", ResultImageList);
 			
 			List ListRecordApproveDT =  ra.ListRecordApproveDT(docno,"", year);
 			request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);			
