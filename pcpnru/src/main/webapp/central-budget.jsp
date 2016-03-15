@@ -5,37 +5,16 @@
 <%@ page import="pcpnru.projectModel.*" %>
 <%@ page import="pcpnru.utilities.*" %>
 <%
-	String username = "", project_code = "";
-	
-	if(session.getAttribute("username") == null){
-		response.sendRedirect("login.jsp");
-	}else{
-		username = session.getAttribute("username").toString();
-		boolean chkAuthen = false;
-		String page_code = "014";
-		
-		CheckAuthenPageDB capDB = new CheckAuthenPageDB();
-		
-		chkAuthen = capDB.getCheckAuthen(username, page_code);
-		
-		if(chkAuthen==false){
-			response.sendRedirect("no-authen.jsp");
-		}else{
-			project_code = capDB.getProjectCode(username);
-		}
-	} 
-%>
-<%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
  
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html >
+<html>
   <head>
     <base href="<%=basePath%>">
     
-    <title>หน้าโยกงบประมาณ</title>
+    <title>งบกลาง</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -68,105 +47,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="js/central-budget.js"></script>
   </head>
   
-  <body ng-app="central-budget" ng-controller="myCtrl">
+  <body ng-app="central-budget1" ng-controller="myCtrl">
   	
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
-	<form id="rocking-budget" action="rockingBudget.action" method="post" name="rockbudgetform">
+	<form  action="rockingBudget.action" method="post" >
 		<div class="example" data-text="โครงการที่ต้องการโยก">
 			<div class="flex-grid">
 			  	<div class="row flex-just-left">
-			        <div class="cell colspan1 "> 
-			       		<h4 class="align-right">โครงการ&nbsp;</h4>
-			    	</div>
-			    	<div class="cell colspan6"> 
-			       		 <h4><small class="input-control full-size" > 
-				       		 <select id="project_code" ng-change="projectchange()" ng-model="project" name="rockingBudgetForm.project_code" data-validate-func="required" data-validate-hint="กรุณาเลือกโครงการที่รับ">
-							   <option value="">กรุณาเลือกโครงการ</option>
-							   <% 
-							   		List projectMasterList = (List) request.getAttribute("projectMasterList");
-				        		if (projectMasterList != null) {
-				        			 
-					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
-					        			ProjectModel pjModel = (ProjectModel) iterPj.next(); 
-					        			String p1 = pjModel.getProject_code();
-						        	%> 
-						        		<option value="<%=pjModel.getProject_code()%> - <%=pjModel.getYear()%>" >
-							       			 <%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
-							       		</option>
-						        	<%
-						        			
-			      						} 
-									}
-								%>
-					   		</select>
-						</small></h4>
-			    	</div>
-			    	<div class="cell colspan1 "> 
-			       		<h4 class="align-right">วันที่&nbsp;</h4>
+			        <div class="cell colspan2 " ng-init="year=<s:property value="centralBudgetForm.year" />"> 
+			       		<h4 class="align-right">งบกลางประจำปี&nbsp;<s:property value="centralBudgetForm.year" /> </h4>
+			       		<s:hidden id="yearhd" value="{{year}}" />
 			    	</div>
 			    	<div class="cell colspan1"> 
-			    		<h4>
-			    		<small class="input-control full-size"> 
-						    <input id="day" name="rockingBudgetForm.docdate" ng-model="day" required/>
-						</small>
-						</h4>
+			       		 <h4 class="align-right"> 
+				       		จำนวนเงิน&nbsp; 
+						 </h4> 
 			    	</div>
 			    	<div class="cell colspan1 "> 
-			       		<h4 class="align-right">เลขที่เอกสาร&nbsp;</h4>
-			    	</div>
-			    	<div class="cell colspan2">  
-		    		<div class="input-control full-size"> 
-					    <h4 class="sub-header fg-black"><s:property value="rockingBudgetForm.docno"/></h4>
-					    <s:hidden id="docno" name="rockingBudgetForm.docno" />
-					    <s:hidden id="year" name="rockingBudgetForm.year" />
-					    <s:hidden id="g1" name="g1" value="{{ g1 }}" />
-					    <s:hidden id="g2" name="g2" value="{{ g2 }}" />
-					</div>
-					
-		    	</div>
-			    </div>
-			</div> 
-			<div class="flex-grid" >
-			  	<div class="row flex-just-left">
-			        <div class="cell colspan1"> 
-			       		<h4 align="right">ค่าใช้จ่าย&nbsp;</h4> 	  
-			    	</div> 
-			    	<div class="cell colspan6">
-			    		<h4><small class="input-control full-size">
-			    			<% List groupcostCodeList = (List) request.getAttribute("groupcostCodeList");
-			    			
-			    			if (groupcostCodeList != null) {
-			    				Iterator costcodeIterate = groupcostCodeList.iterator();
-			        			while(costcodeIterate.hasNext()){
-			        				GroupCostCodeMasterModel gccInfo = (GroupCostCodeMasterModel) costcodeIterate.next(); 
-					        				
-					        	%>
-					        		<select name="rockingBudgetForm.gcostcode" id="gcostcode">
-					        			<option value="<%=gccInfo.getCostCode()%>" ><%=gccInfo.getCostName()%></option>
-						       		</select>
-					        	<%
-					        			
-		      						} 
-								}else{
-							%>
-			    			<select name="rockingBudgetForm.gcostcode" ng-model="gcostcode" id="gcostcode" ng-change="gcostcodechange()" required>
-			    				<option value="">-- please Select --</option>
-						    	<option ng-repeat="option in datas" value="{{option.gcostcode}}">{{option.gcostcode_name}}</option> 
-						   	</select>
-						   	<%} %>
-						</small></h4> 
-			    	</div>
-			    	<div class="cell colspan1"> 
-			       		<h4 align="right">คงเหลือ ยกมา</h4> 	  
-			    	</div> 
-			    	<div class="cell colspan1" ng-init="frombalance=<%=request.getAttribute("frombalance")%>"> 
-			    		<h4><small class="input-control full-size"> 
-			       			<s:textfield dir="rtl" id="frombalance" name="rockingBudgetForm.frombalance" value="{{ frombalance | currency:'฿' }}" />
+			       		<h4><small class="input-control full-size"> 
+			       			<s:textfield dir="rtl" id="amt" name="centralBudgetForm.amt" />
 			       		</small></h4>
 			    	</div> 
-				</div>
-			</div>   
+			    	<div class="cell colspan8 "> 
+			       		<h4 class="align-right">เลขที่เอกสาร&nbsp;<s:property value="centralBudgetForm.docno" /> </h4>
+			    	</div> 
+			    </div>
+			</div> 
 		
 		</div> <!-- End of example --> 
 		
@@ -207,31 +114,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			       		<h4 align="right">ค่าใช้จ่าย&nbsp;</h4> 	  
 			    	</div> 
 			    	<div class="cell colspan6">
-			    		<h4><small class="input-control full-size">
-			    			<% List groupcostCode2List = (List) request.getAttribute("groupcostCode2List");
-			    			
-			    			if (groupcostCode2List != null) {
-			    				Iterator Iterate = groupcostCode2List.iterator();
-			    				%>
-			    				<select name="rockingBudgetForm.gcostcode_rock" id="gcostcode_rock" ng-model="gcostcode_rock" ng-change="gcostcodecentral()">
-			    				<option selected value="">-- please Select --</option>
-			    				<%
-			        			while(Iterate.hasNext()){
-			        				GroupCostCodeMasterModel gcc1Info = (GroupCostCodeMasterModel) Iterate.next(); 
-					        				
-					        	%> 
-					        		<option value="<%=gcc1Info.getCostCode()%>" ><%=gcc1Info.getCostName()%></option> 
-					        	<% 	
-		      						} 
-			    				%>
-			    				</select>
-							<%	}else{
-							%>
-			    			<select name="rockingBudgetForm.gcostcode_rock" ng-model="gcostcode_rock" id="gcostcode_rock" ng-change="gcostcodecentral()" required>
+			    		<h4><small class="input-control full-size"> 
+			    			<select name="rockingBudgetForm.gcostcode_rock" ng-model="gcostcode" id="gcostcode" required>
 			    				<option value="">-- please Select --</option>
-						    	<option ng-repeat="option in datas_rock" value="{{option.gcostcode}}">{{option.gcostcode_name}}</option> 
+						    	<option ng-repeat="option in datas" value="{{option.gcostcode}}">{{option.gcostcode_name}}</option> 
 						   	</select>
-						   	<%} %>
+						    
 						</small></h4> 
 			    	</div>
 			    	<div class="cell colspan1"> 

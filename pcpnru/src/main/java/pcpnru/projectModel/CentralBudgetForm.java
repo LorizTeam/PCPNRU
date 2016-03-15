@@ -3,7 +3,9 @@ package pcpnru.projectModel;
 public class CentralBudgetForm{
 
 	private String year;
-	private String amt;    
+	private String amt; 
+	
+	private String docno;
 	
 	public CentralBudgetForm() {
 		super();
@@ -36,6 +38,14 @@ public class CentralBudgetForm{
 
 	public void setAmt(String amt) {
 		this.amt = amt;
+	}
+
+	public String getDocno() {
+		return docno;
+	}
+
+	public void setDocno(String docno) {
+		this.docno = docno;
 	}
 	 
 }

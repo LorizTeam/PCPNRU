@@ -175,7 +175,7 @@ public class CentralBudgetDB {
 		try {
 			conn = agent.getConnectMYSql(); 
 			
-			String sqlStmt = "SELECT max(docno) as lno FROM rocking_budget "+
+			String sqlStmt = "SELECT max(docno) as lno FROM rocking_budget_central "+
 					"WHERE docno <> '' and project_code = '"+project_code+"' and year = '"+year+"' ";
 			//System.out.println(sqlStmt);
 			pStmt = conn.createStatement();
@@ -296,4 +296,25 @@ public List getListProject(String project_code,String project_name,String year,S
 		
 		return getListProject_Join_Projecthead;
 	}
+
+public String AmountBudget(String year) throws Exception {
+		String amt = "";
+		DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
+		conn = agent.getConnectMYSql(); 
+	
+		String sqlStmt = "SELECT IFNULL(SUM(budget_central),0) as amt " 
+				+ "FROM central_budget "
+				+ "where year = '"+dateUtil.curTHYear()+"'";
+
+		conn = agent.getConnectMYSql();
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlStmt);
+		
+		while(rs.next()){ 
+			amt = rs.getString("amt");
+			amt 			= df2.format(Float.parseFloat(amt));
+		}
+		return amt;	
+
+}
 }
