@@ -1,0 +1,88 @@
+package InformationModel;
+
+public class VenderModel {
+	private String vender_id,vender_name,create_by,create_datetime,update_by,update_datetime;
+	
+	private String fromwindow,createwindow,alertmsg;
+	
+	public VenderModel() {}
+	
+	public String getFromwindow() {
+		return fromwindow;
+	}
+
+
+	public void setFromwindow(String fromwindow) {
+		this.fromwindow = fromwindow;
+	}
+
+
+	public String getCreatewindow() {
+		return createwindow;
+	}
+
+
+	public void setCreatewindow(String createwindow) {
+		this.createwindow = createwindow;
+	}
+
+
+	public String getAlertmsg() {
+		return alertmsg;
+	}
+
+
+	public void setAlertmsg(String alertmsg) {
+		this.alertmsg = alertmsg;
+	}
+
+
+	public String getVender_id() {
+		return vender_id;
+	}
+
+	public void setVender_id(String vender_id) {
+		this.vender_id = vender_id;
+	}
+
+	public String getVender_name() {
+		return vender_name;
+	}
+
+	public void setVender_name(String vender_name) {
+		this.vender_name = vender_name;
+	}
+
+	public String getCreate_by() {
+		return create_by;
+	}
+
+	public void setCreate_by(String create_by) {
+		this.create_by = create_by;
+	}
+
+	public String getCreate_datetime() {
+		return create_datetime;
+	}
+
+	public void setCreate_datetime(String create_datetime) {
+		this.create_datetime = create_datetime;
+	}
+
+	public String getUpdate_by() {
+		return update_by;
+	}
+
+	public void setUpdate_by(String update_by) {
+		this.update_by = update_by;
+	}
+
+	public String getUpdate_datetime() {
+		return update_datetime;
+	}
+
+	public void setUpdate_datetime(String update_datetime) {
+		this.update_datetime = update_datetime;
+	}
+	
+}
