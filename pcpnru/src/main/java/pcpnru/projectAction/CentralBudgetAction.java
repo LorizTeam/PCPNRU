@@ -36,6 +36,59 @@ public class CentralBudgetAction extends ActionSupport{
 		this.centralBudgetForm = centralBudgetForm;
 	}
  
+	public String execute() throws Exception {
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		CentralBudgetDB cbg = new CentralBudgetDB();
+		DateUtil dateUtil = new DateUtil();
+	    String docno="",project_code="",year="",gcostcode="",frombalance="",rocking_budget="",balance="",docdate="",remark="",approve_status= "";
+	    
+	    String g1 			= (String) request.getParameter("g1");
+	    String g2 			= (String) request.getParameter("g2"); 
+	    
+	    docno				= centralBudgetForm.getDocno();
+	    year				= centralBudgetForm.getYear();
+	    project_code 		= centralBudgetForm.getProject_code();
+	    String[] spPC		= project_code.split(" - ");
+	    project_code = spPC[0];
+	    
+	    gcostcode 			= centralBudgetForm.getGcostcode();  
+	    
+	    if(g1!=null&&!g1.equals("")&&g2!=null&&!g2.equals("")){
+	    	cbg.DeleteCentralBudget(docno, g1, year, g2);
+	    	centralBudgetForm.reset();
+	    }else{ 
+	    	frombalance 		= centralBudgetForm.getFrombalance();
+	 	    frombalance 		= frombalance.replace("฿", "").replace(",", "");
+	    	rocking_budget		= centralBudgetForm.getRocking_budget();
+	    	rocking_budget 		= rocking_budget.replace("฿", "").replace(",", ""); 
+		    balance				= centralBudgetForm.getBalance();
+		    balance 			= balance.replace(",", ""); 
+		    remark				= centralBudgetForm.getRemark();
+		    approve_status      = "NA";
+		    docdate				= centralBudgetForm.getDocdate();
+		    docdate 			= dateUtil.CnvToYYYYMMDDEngYear(docdate, '-');
+	    	
+		String add = request.getParameter("add");
+		
+		if(add!=null){ 
+			cbg.AddCentralBudget(docno, project_code, year, gcostcode, frombalance, rocking_budget, balance, docdate, remark, approve_status);
+		}
+	    } 
+		 
+		
+		List projectCentralList = cbg.getListProject(project_code, "","","");
+		request.setAttribute("projectCentralList", projectCentralList); 
+		
+		List CentralBudgetList = cbg.GetCentralBudgetList(docno,"",dateUtil.curTHYear());
+		request.setAttribute("CentralBudgetList", CentralBudgetList); 
+		
+		String amt = cbg.AmountBudget(dateUtil.curTHYear());
+		centralBudgetForm.setAmt(amt);
+		centralBudgetForm.setYear(year); 
+		centralBudgetForm.setDocno(docno);
+		
+	  return SUCCESS; 
+	}
 	
 public String create() throws Exception{
 		
@@ -65,8 +118,8 @@ public String create() throws Exception{
 				DateUtil dateUtil = new DateUtil();
 				String docno = cbg.SelectUpdateDocNo(project_code, dateUtil.curTHYear()); 
 			 
-				List RockingBudgetList = cbg.GetRockingBudgetList(docno,project_code,dateUtil.curTHYear());
-				request.setAttribute("RockingBudgetList", RockingBudgetList);
+				List CentralBudgetList = cbg.GetCentralBudgetList(docno,"",dateUtil.curTHYear());
+				request.setAttribute("CentralBudgetList", CentralBudgetList); 
 				
 				extendsprojectmaster ext = new extendsprojectmaster();
 				List projectMasterList = ext.getListProject_Join_Projecthead(project_code, "","","");

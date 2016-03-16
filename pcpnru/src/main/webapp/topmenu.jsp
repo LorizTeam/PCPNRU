@@ -78,7 +78,7 @@
 			                        <li class="divider"></li>
 			                        <li><a href="rbgBegin.action">อนุมัติ การโยกงบประมาณ</a></li>
 			                        <li class="divider"></li>
-			                        <li><a href="centralBudget.action">งบกลาง</a></li>
+			                        <li><a href="createCentralBudget.action">งบกลาง</a></li>
 			                        <li class="divider"></li>
 			                        <li><a href="manage-approve-requisition.jsp">จัดการ ผู้มีอำนาจการอนุมัติ</a></li> 
 			                 </ul>

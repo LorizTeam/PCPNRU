@@ -3,11 +3,12 @@ var app = angular.module('central-budget1', [], function($httpProvider) {
 }); 
 
 app.controller('myCtrl', function($scope, $http,$window) {
-	   
+	$scope.frombalance="";
 	$scope.project_central=""; 
-	$scope.frombalance_rock=0;
-	$scope.rocking_budget=0;
-	$scope.balance=0;
+	$scope.gcostcode="";
+	$scope.frombalance_rock="";
+	$scope.rocking_budget="";
+	$scope.balance="";
 	$scope.remark="";
 	
 	$scope.projectcentral = function() {  
@@ -34,7 +35,7 @@ app.controller('myCtrl', function($scope, $http,$window) {
 	          headers: {"Accept-Charset":"charset=utf-8",'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
 	          
 	        }).then(function(response) {
-	        	 $scope.frombalance = response.data;
+	        $scope.frombalance = response.data.trim();
 	        }); 
 	}
 	

@@ -61,11 +61,8 @@
 		Statement pStmt = conn.createStatement();
 		rs = pStmt.executeQuery(sql); 
 		while(rs.next()){
-				 
-			out.println(df2.format(Float.parseFloat(rs.getString("frombalance"))));
-	    		
-		}
-		
+		out.println(df2.format(Float.parseFloat(rs.getString("frombalance"))));
+		} 
 		rs.close();
 		pStmt.close(); 
 		conn.close();

@@ -142,10 +142,13 @@
     	</action>
     	<!-- 		Create Central Budget	 -->
         <!-- 		Central Budget	 -->
-    	<action name="centralBudget" class="pcpnru.projectAction.CentralBudgetAction" method="create">
+    	<action name="createCentralBudget" class="pcpnru.projectAction.CentralBudgetAction" method="create">
       		<result name="success">/central-budget.jsp</result>
       		<result name="authen">/no-authen.jsp</result>
       		<result name="login">/login.jsp</result>
+    	</action>
+    	<action name="centralBudget" class="pcpnru.projectAction.CentralBudgetAction" method="execute">
+      		<result name="success">/central-budget.jsp</result> 
     	</action>
     	<!-- 		Central Budget	 -->
         

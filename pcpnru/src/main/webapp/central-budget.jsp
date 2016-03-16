@@ -51,13 +51,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	
     <div><%@include file="topmenu.jsp" %></div>
 	<br>
-	<form  action="rockingBudget.action" method="post" >
+	<form id="central-budget" action="centralBudget.action" method="post" >
 		<div class="example" data-text="โครงการที่ต้องการโยก">
 			<div class="flex-grid">
 			  	<div class="row flex-just-left">
-			        <div class="cell colspan2 " ng-init="year=<s:property value="centralBudgetForm.year" />"> 
+			        <div class="cell colspan2 "> 
 			       		<h4 class="align-right">งบกลางประจำปี&nbsp;<s:property value="centralBudgetForm.year" /> </h4>
-			       		<s:hidden id="yearhd" value="{{year}}" />
+			       		<s:hidden id="year" name="centralBudgetForm.year" />
 			    	</div>
 			    	<div class="cell colspan1"> 
 			       		 <h4 class="align-right"> 
@@ -69,8 +69,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			       			<s:textfield dir="rtl" id="amt" name="centralBudgetForm.amt" />
 			       		</small></h4>
 			    	</div> 
-			    	<div class="cell colspan8 "> 
+			    	<div class="cell colspan1 "> 
+			       		<h4 class="align-right">วันที่&nbsp;</h4>
+			    	</div>
+			    	<div class="cell colspan1"> 
+			    		<h4>
+			    		<small class="input-control full-size"> 
+						    <input id="day" name="centralBudgetForm.docdate" ng-model="day" required/>
+						</small>
+						</h4>
+			    	</div>
+			    	<div class="cell colspan6 "> 
 			       		<h4 class="align-right">เลขที่เอกสาร&nbsp;<s:property value="centralBudgetForm.docno" /> </h4>
+			    		<s:hidden id="docno" name="centralBudgetForm.docno" />
+			    		<s:hidden id="g1" name="g1" />
+			    		<s:hidden id="g2" name="g2" /> 
 			    	</div> 
 			    </div>
 			</div> 
@@ -123,11 +136,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</small></h4> 
 			    	</div>
 			    	<div class="cell colspan1"> 
-			       		<h4 align="right">คงเหลือ&nbsp;</h4> 	  
+			       		<h4 align="right">เงินคงเหลือ&nbsp;</h4> 	  
 			    	</div> 
 			    	<div class="cell colspan1" > 
 			    		<h4><small class="input-control full-size"> 
-			       			<s:textfield dir="rtl" id="frombalance" name="centralBudgetForm.frombalance" value="{{frombalance}}" />
+			       			<s:textfield dir="rtl" id="frombalance" name="centralBudgetForm.frombalance" value="{{frombalance}}" readonly="true" />
 			       		</small></h4>
 			    	</div> 
 				</div>
@@ -146,7 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	</div> 
 			    	<div class="cell colspan1">
 			    		<h4><small class="input-control full-size">
-			    			<input type="text" dir="rtl" id="balance" name="centralBudgetForm.balance" value="{{ balance }}" readonly="readonly">			
+			    			<input type="text" dir="rtl" id="balance" name="centralBudgetForm.balance" value="{{balance}}" readonly="readonly">			
 			    		</small></h4>		 
 			    	</div> 
 			    	<div class="cell colspan1"> 
@@ -163,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="flex-grid">
 			  	<div class="row flex-just-center" >
 			    	<div class="cell colspan12" align="center">
-						<button class="button success" type="submit" name="add" ng-click="rockbudgetform.$valid && addrequisition()" >บันทึกการโยกงบประมาณ</button>
+						<button class="button success" type="submit" name="add" >บันทึกการโยกงบประมาณ</button>
 						 
 					</div> 
 			    </div>
@@ -177,32 +190,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <thead>
                 <tr>  
                     <th>ลำดับ</th>
+                    <th>โครงการ</th> 
                     <th>ค่าใช้จ่าย</th> 
-                    <th>คงเหลือ</th>
-                    <th>ค่าใช้จ่าย ที่โยก</th>
-                    <th>คงเหลือ</th>
                     <th>จำนวนเงินที่โยก</th>
                     <th>เงินคงเหลือ</th> 
+                    <th>งบกลางคงเหลือ</th>
                     <th> </th>
                 </tr>
                 </thead>  
                 <tbody>
                 <%		 
-                		List RockingBudgetList = (List) request.getAttribute("RockingBudgetList");
-                		if (RockingBudgetList != null) {
+                		List CentralBudgetList = (List) request.getAttribute("CentralBudgetList");
+                		if (CentralBudgetList != null) {
 						int x = 0;
-						for (Iterator iter = RockingBudgetList.iterator(); iter.hasNext();) {
+						for (Iterator iter = CentralBudgetList.iterator(); iter.hasNext();) {
 						x++; 
-						RockingBudgetForm rbgform = (RockingBudgetForm) iter.next();
+						CentralBudgetForm rbgform = (CentralBudgetForm) iter.next();
+						 
 				%>
                 <tr>  
                     <td align="center"><%=x%></td>
-                    <td class="tdgcostcode" align="left"><%=rbgform.getGcostcode()%> - <%=rbgform.getGcostname()%></td>
-                    <td class="" align="right"><%=rbgform.getFrombalance()%></td>  
-                    <td class="tdgcostcode_rock" align="left"><%=rbgform.getGcostcode_rock()%> - <%=rbgform.getGcostname_rock()%></td>
-                    <td class="" align="right"><%=rbgform.getFrombalance_rock()%></td>  
-                    <td class="" align="right"><%=rbgform.getRocking_budget()%></td>
-                    <td class="" align="right"><%=rbgform.getBalance()%></td> 
+                    <td class="tdpj" align="left"><%=rbgform.getProject_code()%> - <%=rbgform.getProject_name()%></td>
+                    <td class="tdgcostcode_rock" align="left"><%=rbgform.getGcostcode()%> - <%=rbgform.getGcostname()%></td>
+                    <td class="" align="right">{{<%=rbgform.getRocking_budget()%> | currency:'฿'}}</td> 
+                    <td class="" align="right">{{<%=rbgform.getBalance()%> | currency:'฿'}}</td>
+                    <td class="" align="right">{{<%=Float.parseFloat(rbgform.getAmt())-Float.parseFloat(rbgform.getRocking_budget())%> | currency:'฿'}}</td>
                     <td class="" align="center"><div class="cell"><a href=""><span class="mif-cross deletebt"></span></a></div></td>
                 </tr>	 
                  <% 	} %>
@@ -239,13 +251,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   			} 
 	   			$("#rocking_budget").val(t1);
 	   			
-	   			var fb = $("#frombalance_rock").val();
+	   			var fb = $("#frombalance").val();
 	   			fb = fb.replace(/,/g,"").replace("฿","");
 	   			
 	   			var rgb = $("#rocking_budget").val();
 	   			rgb = rgb.replace(/,/g,"");
 	   			
-	   			if(parseFloat(fb)<parseFloat(rgb)){
+	   			var amt = $("#amt").val();
+	   			amt = amt.replace(/,/g,"");
+	   			
+	   			if(parseFloat(amt)<parseFloat(rgb)){
 	   				$("#balance").val("");  
 	   			}else if(rgb==''){
 	   				$("#balance").val(""); 
@@ -253,7 +268,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   				$("#balance").val(""); 
 	   			}else{
 	   			
-	   				var balance = fb-rgb;
+	   				var balance = parseFloat(fb)+parseFloat(rgb);
 		   			 
 		   			balance = parseFloat(balance).toLocaleString("en-US");
 		   			$("#balance").val(balance);  
@@ -288,16 +303,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	 
         		var index = $(".deletebt").index(this);
         		  
-        		var forsplit1 = $(".tdgcostcode").eq(index).text().split(" - "); 
+        		var forsplit1 = $(".tdpj").eq(index).text().split(" - "); 
         		var td1 =  forsplit1[0];
-        		
+        		 
         		var forsplit2 = $(".tdgcostcode_rock").eq(index).text().split(" - "); 
         		var td2 =  forsplit2[0];
         		
         		$("#g1").val(td1); 
-        		$("#g2").val(td2); 
+        		$("#g2").val(td2);  
         		
-		    	$("#rocking-budget").submit();
+		    	$("#central-budget").submit();
         	  
     	}); 
 			

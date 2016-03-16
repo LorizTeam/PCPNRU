@@ -22,70 +22,72 @@ public class CentralBudgetDB {
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
-	public List GetRockingBudgetList(String docno,String project_code,String year) 
-	throws Exception { //30-05-2014
-		List RockingBudgetList = new ArrayList();
-		String gcostcode = "" ,gcostname = "", amount1 = "", gcostcode_rock = "", gcostname_rock = "", amount2 = "",
-				amount_rock = "", balance = "", docdate = "",remark = "", approve_status = "";
-		DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
-		DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
-		try {
-		
-			conn = agent.getConnectMYSql();
-			
-			String sqlStmt = "SELECT docno,project_code,year,a.gcostcode,amount1,gcostcode_rock,amount2,amount_rock,balance,docdate,remark,approve_status,t1.g1,t2.g2 " +
-			"FROM rocking_budget a " +
-			"left join (SELECT gcostcode,gcostcode_name as g1 FROM groupcostcode_master b where b.project_code = '"+project_code+"') AS t1 on(t1.gcostcode = a.gcostcode) " +
-			"left join (SELECT gcostcode,gcostcode_name as g2 FROM groupcostcode_master c where c.project_code = '"+project_code+"') AS t2 on(t2.gcostcode = a.gcostcode_rock) " +
-			"WHERE "; 
-			if(!docno.equals("")) sqlStmt = sqlStmt+ "docno = '"+docno+"' AND "; 
-			if(!project_code.equals("")) sqlStmt = sqlStmt+ "project_code = '"+project_code+"' AND "; 
-			if(!year.equals("")) sqlStmt = sqlStmt+ "year = '"+year+"' AND "; 
-			
-			sqlStmt = sqlStmt + "project_code <> '' order by gcostcode";
-			
-			//System.out.println(sqlStmt);				
-			pStmt = conn.createStatement();
-			rs = pStmt.executeQuery(sqlStmt);	
-			while (rs.next()) {
-				docno 				= rs.getString("docno");
-				project_code 		= rs.getString("project_code");
-				year				= rs.getString("year");
-				gcostcode 			= rs.getString("gcostcode");
-				gcostname			= rs.getString("g1");
-				amount1 			= rs.getString("amount1");
-				gcostcode_rock 		= rs.getString("gcostcode_rock");
-				gcostname_rock 		= rs.getString("g2");
-				amount2 			= rs.getString("amount2");
-				amount_rock 		= rs.getString("amount_rock");
-				balance 			= rs.getString("balance");
-				docdate				= rs.getString("docdate");
-				remark				= rs.getString("remark");
-				approve_status		= rs.getString("approve_status");
-				 
-				amount1 			= df2.format(Float.parseFloat(amount1));
-				amount2 			= df2.format(Float.parseFloat(amount2));
-				amount_rock 		= df2.format(Float.parseFloat(amount_rock));
-				balance				= df2.format(Float.parseFloat(balance));
-			
+	public List GetCentralBudgetList(String docno,String project_code,String year) 
+			throws Exception { //30-05-2014
+				List CentralBudgetList = new ArrayList();
+				String project_name = "",gcostcode = "" ,gcostname = "", amt_budget = "", frombalance = "", rocking_budget = "", balance = "", docdate = "",remark = "", approve_status = "";
+				DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
+				DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
+				try {
 				
-				RockingBudgetList.add(new RockingBudgetForm(docno, project_code, year, gcostcode, gcostname, amount1, gcostcode_rock, gcostname_rock, amount2, amount_rock, balance, docdate, remark, approve_status));
-			}
-			rs.close();
-			pStmt.close();
-			conn.close();
-		} catch (SQLException e) {
-		    throw new Exception(e.getMessage());
-		}
-		return RockingBudgetList;
-	 } 
-	public void AddRockingBudget(String docno, String project_code, String year, String gcostcode, String amount1, String gcostcode_rock, String amount2,
-			String amount_rock, String balance, String docdate, String remark, String approve_status)  throws Exception{
+					conn = agent.getConnectMYSql();
+					
+					String sqlStmt = "SELECT docno,a.project_code,b.project_name,a.year,gcostcode_rock,amt_budget,amount_rock,balance,"
+							+ "docdate,remark,approve_status,t2.g2,e.budget_central as amt " +
+					"FROM rocking_budget_central a " +
+					"INNER JOIN project_master b on(b.project_code = a.project_code) " +
+					"left join (SELECT gcostcode,gcostcode_name as g2 FROM groupcostcode_master c GROUP BY gcostcode) AS t2 on(t2.gcostcode = a.gcostcode_rock) " +
+					"INNER JOIN central_budget e on(e.year = a.year) " +
+					"WHERE "; 
+					if(!docno.equals("")) sqlStmt = sqlStmt+ "docno = '"+docno+"' AND "; 
+					if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+project_code+"' AND "; 
+					if(!year.equals("")) sqlStmt = sqlStmt+ "a.year = '"+year+"' AND "; 
+					
+					sqlStmt = sqlStmt + "a.project_code <> '' order by a.gcostcode_rock";
+					
+					//System.out.println(sqlStmt);				
+					pStmt = conn.createStatement();
+					rs = pStmt.executeQuery(sqlStmt);	
+					while (rs.next()) {
+						docno 				= rs.getString("docno");
+						project_code 		= rs.getString("project_code");
+						project_name		= rs.getString("project_name");
+						year				= rs.getString("year");
+						gcostcode 			= rs.getString("gcostcode_rock");
+						gcostname			= rs.getString("g2");
+						amt_budget			= rs.getString("amt");
+						frombalance			= rs.getString("amt_budget");
+						rocking_budget		= rs.getString("amount_rock");
+						balance 			= rs.getString("balance");
+						remark				= rs.getString("remark");
+						docdate				= rs.getString("docdate"); 
+						approve_status		= rs.getString("approve_status");
+						 
+					/*	amt_budget 			= df2.format(Float.parseFloat(amt_budget));
+						frombalance 		= df2.format(Float.parseFloat(frombalance)); 
+						rocking_budget 		= df2.format(Float.parseFloat(rocking_budget)); 
+						balance				= df2.format(Float.parseFloat(balance));   */
+					
+						
+						CentralBudgetList.add(new CentralBudgetForm(docno, project_code, project_name, year, gcostcode, gcostname, amt_budget, frombalance, rocking_budget, balance, 
+								remark, docdate, approve_status));
+					}
+					rs.close();
+					pStmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				    throw new Exception(e.getMessage());
+				}
+				return CentralBudgetList;
+			 } 
+	 
+	public void AddCentralBudget(String docno, String project_code, String year, String gcostcode_rock, String amt_budget, String amount_rock, String balance,
+			String docdate, String remark, String approve_status)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "INSERT IGNORE INTO rocking_budget(docno,project_code,year,gcostcode,amount1,gcostcode_rock,amount2,amount_rock,balance,docdate,remark,approve_status) " +
-		"VALUES ('"+docno+"', '"+project_code+"', '"+year+"', '"+gcostcode+"', '"+amount1+"', '"+gcostcode_rock+"', '"+amount2+"', '"+amount_rock+"', "
-				+ "'"+balance+"', '"+docdate+"', '"+remark+"', '"+approve_status+"')";
+		String sqlStmt = "INSERT IGNORE INTO rocking_budget_central(docno,project_code,year,gcostcode_rock,amt_budget,amount_rock,balance,docdate,remark,approve_status) " +
+		"VALUES ('"+docno+"', '"+project_code+"', '"+year+"', '"+gcostcode_rock+"', '"+amt_budget+"', '"+amount_rock+"', '"+balance+"', "
+				+ "'"+docdate+"', '"+remark+"', '"+approve_status+"')";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -93,11 +95,11 @@ public class CentralBudgetDB {
 		conn.close();
 	}
 	
-	public void DeleteRockingBudget(String docno, String project_code, String year, String gcostcode,String gcostcode_rock)  throws Exception{
+	public void DeleteCentralBudget(String docno, String project_code, String year, String gcostcode)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
-		String sqlStmt = "DELETE From rocking_budget "+
-		"WHERE docno = '"+docno+"' and project_code = '"+project_code+"' and year = '"+year+"' and gcostcode = '"+gcostcode+"' and gcostcode_rock = '"+gcostcode_rock+"' ";
+		String sqlStmt = "DELETE From rocking_budget_central "+
+		"WHERE docno = '"+docno+"' and project_code = '"+project_code+"' and year = '"+year+"' and gcostcode_rock = '"+gcostcode+"' ";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -302,9 +304,11 @@ public String AmountBudget(String year) throws Exception {
 		DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
 		conn = agent.getConnectMYSql(); 
 	
-		String sqlStmt = "SELECT IFNULL(SUM(budget_central),0) as amt " 
-				+ "FROM central_budget "
-				+ "where year = '"+dateUtil.curTHYear()+"'";
+		String sqlStmt = "SELECT IFNULL(SUM(budget_central),0)-IFNULL(t1.amt,0) as amt " 
+				+ "FROM central_budget a "
+				+ "LEFT JOIN (select year, sum(amount_rock) as amt from rocking_budget_central where year = '"+year+"' "
+				+ "and approve_status not in ('CC') group by year) as t1 on(t1.year = a.year) "
+				+ "where a.year = '"+year+"'";
 
 		conn = agent.getConnectMYSql();
 		pStmt = conn.createStatement();
