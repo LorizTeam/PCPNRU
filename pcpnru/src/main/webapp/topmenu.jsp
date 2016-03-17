@@ -80,6 +80,8 @@
 			                        <li class="divider"></li>
 			                        <li><a href="createCentralBudget.action">งบกลาง</a></li>
 			                        <li class="divider"></li>
+			                        <li><a href="cbgBegin.action">อนุมัติ การโยกงบกลาง</a></li>
+			                        <li class="divider"></li>
 			                        <li><a href="manage-approve-requisition.jsp">จัดการ ผู้มีอำนาจการอนุมัติ</a></li> 
 			                 </ul>
 			            </li>  

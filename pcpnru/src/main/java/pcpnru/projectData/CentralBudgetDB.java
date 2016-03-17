@@ -178,7 +178,7 @@ public class CentralBudgetDB {
 			conn = agent.getConnectMYSql(); 
 			
 			String sqlStmt = "SELECT max(docno) as lno FROM rocking_budget_central "+
-					"WHERE docno <> '' and project_code = '"+project_code+"' and year = '"+year+"' ";
+					"WHERE docno <> '' and year = '"+year+"' ";
 			//System.out.println(sqlStmt);
 			pStmt = conn.createStatement();
 			rs = pStmt.executeQuery(sqlStmt);		
@@ -320,5 +320,180 @@ public String AmountBudget(String year) throws Exception {
 		}
 		return amt;	
 
+}
+
+// approve central budget
+
+public List GetCentralBudgetApproveList(String docno,String project_code,String year, String gcostcode, String approve_status) 
+		throws Exception { //30-05-2014
+			List CentralBudgetApproveList = new ArrayList();
+			String project_name = "" ,gcostname = "", amt_budget = "", frombalance = "", rocking_budget = "", balance = "", docdate = "",remark = "";
+			DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
+			DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
+			try {
+			
+				conn = agent.getConnectMYSql();
+				
+				String sqlStmt = "SELECT docno,a.project_code,b.project_name,a.year,gcostcode_rock,amt_budget,amount_rock,balance,"
+						+ "docdate,remark,approve_status,t2.g2,e.budget_central as amt " +
+				"FROM rocking_budget_central a " +
+				"INNER JOIN project_master b on(b.project_code = a.project_code) " +
+				"left join (SELECT project_code,gcostcode,gcostcode_name as g2 FROM groupcostcode_master c) AS t2 on(t2.gcostcode = a.gcostcode_rock "
+				+ "and t2.project_code = a.project_code) " +
+				"INNER JOIN central_budget e on(e.year = a.year) " +
+				"WHERE "; 
+				if(!docno.equals("")) sqlStmt = sqlStmt+ "docno = '"+docno+"' AND "; 
+				if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+project_code+"' AND "; 
+				if(!year.equals("")) sqlStmt = sqlStmt+ "a.year = '"+year+"' AND "; 
+				if(!approve_status.equals("")) sqlStmt = sqlStmt+ "a.approve_status = '"+approve_status+"' AND "; 
+				
+				sqlStmt = sqlStmt + "a.project_code <> '' group by docno order by a.approve_status, a.docdate";
+				
+				//System.out.println(sqlStmt);				
+				pStmt = conn.createStatement();
+				rs = pStmt.executeQuery(sqlStmt);	
+				while (rs.next()) {
+					docno 				= rs.getString("docno");
+					project_code 		= rs.getString("project_code");
+					project_name		= rs.getString("project_name");
+					year				= rs.getString("year");
+					gcostcode 			= rs.getString("gcostcode_rock");
+					gcostname			= rs.getString("g2");
+					amt_budget			= rs.getString("amt");
+					frombalance			= rs.getString("amt_budget");
+					rocking_budget		= rs.getString("amount_rock");
+					balance 			= rs.getString("balance");
+					remark				= rs.getString("remark");
+					docdate				= rs.getString("docdate"); 
+					approve_status		= rs.getString("approve_status"); 
+					
+					CentralBudgetApproveList.add(new CentralBudgetForm(docno, project_code, project_name, year, gcostcode, gcostname, amt_budget, frombalance, rocking_budget, balance, 
+							remark, docdate, approve_status));
+				}
+				rs.close();
+				pStmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			    throw new Exception(e.getMessage());
+			}
+			return CentralBudgetApproveList;
+		 } 
+public List WindowCentralBudgetList(String docno,String project_code,String year, String gcostcode) 
+		throws Exception { //30-05-2014
+			List WCentralBudgetApproveList = new ArrayList();
+			String project_name = "" ,gcostname = "", amt_budget = "", frombalance = "", rocking_budget = "", balance = "", docdate = "",remark = "", approve_status = "";
+			DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
+			DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
+			try {
+			
+				conn = agent.getConnectMYSql();
+				
+				String sqlStmt = "SELECT docno,a.project_code,b.project_name,a.year,gcostcode_rock,amt_budget,amount_rock,balance,"
+						+ "docdate,remark,approve_status,t2.g2,e.budget_central as amt " +
+				"FROM rocking_budget_central a " +
+				"INNER JOIN project_master b on(b.project_code = a.project_code) " +
+				"left join (SELECT project_code,gcostcode,gcostcode_name as g2 FROM groupcostcode_master c) AS t2 on(t2.gcostcode = a.gcostcode_rock "
+				+ "and t2.project_code = a.project_code) " +
+				"INNER JOIN central_budget e on(e.year = a.year) " +
+				"WHERE "; 
+				if(!docno.equals("")) sqlStmt = sqlStmt+ "docno = '"+docno+"' AND "; 
+				if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+project_code+"' AND "; 
+				if(!year.equals("")) sqlStmt = sqlStmt+ "a.year = '"+year+"' AND "; 
+				
+				sqlStmt = sqlStmt + "a.project_code <> '' order by a.gcostcode_rock";
+				
+				//System.out.println(sqlStmt);				
+				pStmt = conn.createStatement();
+				rs = pStmt.executeQuery(sqlStmt);	
+				while (rs.next()) {
+					docno 				= rs.getString("docno");
+					project_code 		= rs.getString("project_code");
+					project_name		= rs.getString("project_name");
+					year				= rs.getString("year");
+					gcostcode 			= rs.getString("gcostcode_rock");
+					gcostname			= rs.getString("g2");
+					amt_budget			= rs.getString("amt");
+					frombalance			= rs.getString("amt_budget");
+					rocking_budget		= rs.getString("amount_rock");
+					balance 			= rs.getString("balance");
+					remark				= rs.getString("remark");
+					docdate				= rs.getString("docdate"); 
+					approve_status		= rs.getString("approve_status"); 
+					
+					WCentralBudgetApproveList.add(new CentralBudgetForm(docno, project_code, project_name, year, gcostcode, gcostname, amt_budget, frombalance, rocking_budget, balance, 
+							remark, docdate, approve_status));
+				}
+				rs.close();
+				pStmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			    throw new Exception(e.getMessage());
+			}
+			return WCentralBudgetApproveList;
+		 }
+public List WindowCentralBudget_DT(String docno,String project_code,String year, String gcostcode) 
+		throws Exception { //30-05-2014
+			List WCentralBudgetApproveList = new ArrayList();
+			String project_name = "" ,gcostname = "", amt_budget = "", frombalance = "", rocking_budget = "", balance = "", docdate = "",remark = "", approve_status = "";
+			DecimalFormat df1 = new DecimalFormat("#,###,##0.##");
+			DecimalFormat df2 = new DecimalFormat("#,###,##0.00");
+			try {
+			
+				conn = agent.getConnectMYSql();
+				
+				String sqlStmt = "SELECT docno,a.project_code,b.project_name,a.year,gcostcode_rock,amt_budget,amount_rock,balance,"
+						+ "docdate,remark,approve_status,t2.g2,e.budget_central as amt " +
+				"FROM rocking_budget_central a " +
+				"INNER JOIN project_master b on(b.project_code = a.project_code) " +
+				"left join (SELECT project_code,gcostcode,gcostcode_name as g2 FROM groupcostcode_master c) AS t2 on(t2.gcostcode = a.gcostcode_rock "
+				+ "and t2.project_code = a.project_code) " +
+				"INNER JOIN central_budget e on(e.year = a.year) " +
+				"WHERE "; 
+				if(!docno.equals("")) sqlStmt = sqlStmt+ "docno = '"+docno+"' AND "; 
+				if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+project_code+"' AND "; 
+				if(!year.equals("")) sqlStmt = sqlStmt+ "a.year = '"+year+"' AND "; 
+				if(!gcostcode.equals("")) sqlStmt = sqlStmt+ "a.gcostcode_rock = '"+gcostcode+"' AND "; 
+				
+				sqlStmt = sqlStmt + "a.project_code <> '' and a.approve_status = 'AP' order by a.docno,a.docdate";
+				
+				//System.out.println(sqlStmt);				
+				pStmt = conn.createStatement();
+				rs = pStmt.executeQuery(sqlStmt);	
+				while (rs.next()) {
+					docno 				= rs.getString("docno");
+					project_code 		= rs.getString("project_code");
+					project_name		= rs.getString("project_name");
+					year				= rs.getString("year");
+					gcostcode 			= rs.getString("gcostcode_rock");
+					gcostname			= rs.getString("g2");
+					amt_budget			= rs.getString("amt");
+					frombalance			= rs.getString("amt_budget");
+					rocking_budget		= rs.getString("amount_rock");
+					balance 			= rs.getString("balance");
+					remark				= rs.getString("remark");
+					docdate				= rs.getString("docdate"); 
+					approve_status		= rs.getString("approve_status"); 
+					
+					WCentralBudgetApproveList.add(new CentralBudgetForm(docno, project_code, project_name, year, gcostcode, gcostname, amt_budget, frombalance, rocking_budget, balance, 
+							remark, docdate, approve_status));
+				}
+				rs.close();
+				pStmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			    throw new Exception(e.getMessage());
+			}
+			return WCentralBudgetApproveList;
+		 }
+public void UpdateStatusCentralBudget(String docno, String year, String approve_status)  throws Exception{
+	conn = agent.getConnectMYSql();
+	
+	String sqlStmt = "UPDATE rocking_budget_central set approve_status = '"+approve_status+"' "
+			+ "WHERE docno = '"+docno+"' and year = '"+year+"' ";
+	//System.out.println(sqlStmt);
+	pStmt = conn.createStatement();
+	pStmt.executeUpdate(sqlStmt);
+	pStmt.close();
+	conn.close();
 }
 }

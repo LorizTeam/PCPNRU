@@ -150,6 +150,18 @@
     	<action name="centralBudget" class="pcpnru.projectAction.CentralBudgetAction" method="execute">
       		<result name="success">/central-budget.jsp</result> 
     	</action>
+    	<action name="cbgBegin" class="pcpnru.projectAction.CentralBudgetApproveAction" method="begin">
+      		<result name="success">/central-budget-approve.jsp</result>
+    	</action>
+    	<action name="centralBudgetApprove" class="pcpnru.projectAction.CentralBudgetApproveAction" method="execute">
+      		<result name="success">/central-budget-approve.jsp</result>
+    	</action> 
+    	<action name="windowCentralBudgetApprove" class="pcpnru.projectAction.WindowCentralBudgetApproveAction" method="execute">
+      		<result name="success">/window-centralbudget-approve.jsp</result>
+    	</action> 
+    	<action name="windowCentralBudgetApprove_pj" class="pcpnru.projectAction.WindowCentralBudgetApproveAction" method="execute_projectdt">
+      		<result name="success">/window-centralbudget-approve.jsp</result>
+    	</action>  
     	<!-- 		Central Budget	 -->
         
         <!-- 		Rocking Budget	 -->

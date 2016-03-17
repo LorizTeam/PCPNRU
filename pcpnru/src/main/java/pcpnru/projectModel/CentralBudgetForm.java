@@ -36,6 +36,8 @@ public class CentralBudgetForm{
 		this.rocking_budget = rocking_budget;
 		this.balance = balance;
 		this.remark = remark;
+		this.docdate = docdate;
+		this.approve_status = approve_status;
 	}
 
 	public CentralBudgetForm(String year,String amt) {
