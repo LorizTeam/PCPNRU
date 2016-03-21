@@ -17,6 +17,11 @@ public class VenderModel {
 		this.update_datetime = update_datetime;
 	}
 	
+	public void clear_vender(){
+		this.vender_id = "";
+		this.vender_name = "";
+	}
+	
 	public String getFromwindow() {
 		return fromwindow;
 	}

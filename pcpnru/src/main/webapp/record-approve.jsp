@@ -162,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         		<div class="cell colspan1"> 
 			        	หน่วย
 				        <div class="input-control text full-size">
-				        	<select id="unit" name="recordApproveModel.unit" required="">
+				        	<select id="unit" name="recordApproveModel.unit">
 						    	<option value="">โปรดเลือก</option> 
 						        <% 
 						        UnitMasterDB unitM = new UnitMasterDB();
@@ -303,7 +303,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        	<s:hidden name="recordApproveModel.vender_id" id="vender_id" required=""/>
 						    <s:textfield name="recordApproveModel.vender_name" id="vender_name" readonly="true"/>
 						    <div class="button-group">
-						 	<button class="button primary" type="button" onclick="getpr()"> <span class="mif-search"></span></button>
+						 	<button class="button primary" type="button" onclick="getvender()"> <span class="mif-search"></span></button>
 							<button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
 							</div>
 						</div>
@@ -413,6 +413,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </form> 
 		        
    		<script>
+   		function getvender() {
+   			var load = window.open('/pcpnru/windows_entrancvender.action','pr',
+   			             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
+   		}
+   		
         $(function(){
         	var select2unit = $("#unit").select2();
         	if($("#alertmsg").val() != ""){
@@ -428,18 +433,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	$("#delete").click(function(){
         		$("#description").val("-");
         		$("#qty").val(0);
-        		$("#unit").val("-");
         	});
             
         	$("#save").click(function(){
         		$("#description").val("-");
         		$("#qty").val(0);
-        		$("#unit").val("-");
         	});
         	$(".next").click(function(){
         		$("#description").val("-");
         		$("#qty").val(0);
-        		$("#unit").val("-");
         	}); 
         	
         }); // close function

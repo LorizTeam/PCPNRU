@@ -13,7 +13,16 @@
 		</global-results>
 		
 		<!--						 Vender						 -->
-		<action name="addvender" class="InformationAction.VenderAction" method="create">
+		
+		<action name="entrancvender" class="InformationAction.VenderAction" method="entrancVender">
+      		<result name="success">/vender.jsp</result>
+    	</action>
+		
+		<action name="vender" class="InformationAction.VenderAction" method="create">
+      		<result name="success">/vender.jsp</result>
+    	</action>
+    	
+    	<action name="windows_entrancvender" class="InformationAction.VenderAction" method="windows_entrancvender">
       		<result name="success">/vender.jsp</result>
     	</action>
 		<!--						 Vender						 -->
