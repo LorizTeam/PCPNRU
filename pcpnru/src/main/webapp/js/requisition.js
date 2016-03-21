@@ -12,7 +12,6 @@ app.controller('myCtrl', function($scope, $http,$window) {
 	$scope.docno = "";
 	$scope.projectchange = function() {
 		
-			
 			$scope.gcostcode = '';
 			
 			$http({

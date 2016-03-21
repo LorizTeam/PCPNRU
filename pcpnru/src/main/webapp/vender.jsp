@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page import="InformationModel.*" %>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -21,7 +22,7 @@
 	<body>
 		<div><%@include file="topmenu.jsp" %></div>
 		
-		<form>
+		<form action="addvender.action" method="post">
 			<div class="grid" >
 				 <div class="row cells12 " >
 		 			<div class="cell align-center colspan2">
@@ -38,7 +39,7 @@
 				 		<div class="cell colspan4">
 				 			รหัสผู้ขาย
 				 			<div class="input-control text full-size"> 
-				 				<s:textfield name="vendermodel.vender_id" id="vender_id" required=""/>
+				 				<s:textfield name="vendermodel.vender_id" id="vender_id" required="" readonly="true"/>
 				 			</div>
 				 		</div>
 				 		<div class="cell colspan4"> 
@@ -66,11 +67,24 @@
 		                </tr>
 		                </thead> 
 		                <tbody>
-		                <tr>
-		                	<td>0001</td>
-		                	<td>qwer</td>
-		                    <td>19/03/2559</td>
-		                </tr>
+		                <%
+			         		if(request.getAttribute("venderList") != null){
+			         			List venderList = (List) request.getAttribute("venderList");
+			         			for(Iterator venderIter = venderList.iterator();venderIter.hasNext();){
+			         				VenderModel vendermodel = (VenderModel) venderIter.next();
+			         	%>		
+			         			
+									<tr>
+					                	<td><%=vendermodel.getVender_id() %></td>
+					                	<td><%=vendermodel.getVender_name() %></td>
+					                    <td><%=vendermodel.getCreate_datetime() %></td>
+					                </tr>
+								
+			         	<%
+			         			}
+			         		}
+			         	%>
+		                
 		                </tbody>
 		           	</table>
 			    </div> 

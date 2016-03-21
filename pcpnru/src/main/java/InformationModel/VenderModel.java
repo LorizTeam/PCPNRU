@@ -7,6 +7,16 @@ public class VenderModel {
 	
 	public VenderModel() {}
 	
+	public VenderModel(String vender_id, String vender_name, String create_by, String create_datetime,
+			String update_by, String update_datetime) {
+		this.vender_id = vender_id;
+		this.vender_name = vender_name;
+		this.create_by = create_by;
+		this.create_datetime = create_datetime;
+		this.update_by = update_by;
+		this.update_datetime = update_datetime;
+	}
+	
 	public String getFromwindow() {
 		return fromwindow;
 	}
