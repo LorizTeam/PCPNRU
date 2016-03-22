@@ -154,7 +154,7 @@
 		            </ul>
          		</li>
          		<li class="divider"></li>
-         		<li><a href="#" > ผู้ขาย</a></li>
+         		<li><a href="vendor.action" > ผู้ขาย</a></li>
          		<li class="divider"></li>
          		<li><a href="logout.action" > ออกจากระบบ</a></li>
          	</ul>

@@ -15,15 +15,15 @@
 		<!--						 Vender						 -->
 		
 		<action name="entrancvendor" class="InformationAction.VendorAction" method="entrancVendor">
-      		<result name="success">/vender.jsp</result>
+      		<result name="success">/vendor.jsp</result>
     	</action>
 		
 		<action name="vendor" class="InformationAction.VendorAction" method="create">
-      		<result name="success">/vender.jsp</result>
+      		<result name="success">/vendor.jsp</result>
     	</action>
     	
     	<action name="windows_entrancvendor" class="InformationAction.VendorAction" method="windows_entrancvendor">
-      		<result name="success">/vender.jsp</result>
+      		<result name="success">/vendor.jsp</result>
     	</action>
 		<!--						 Vender						 -->
     </package>

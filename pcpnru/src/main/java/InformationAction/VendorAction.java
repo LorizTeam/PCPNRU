@@ -42,7 +42,8 @@ public class VendorAction extends ActionSupport {
 		if(add != null){
 			vendor_id = vendt.GetHighest_VendorID();
 			vendor_id = vendt.PlusOneID_FormatID(vendor_id);
-			vendt.Add_Vendor(vendor_id,vendormodel.getVendor_name(),username);
+			String vendor_name=vendormodel.getVendor_name();
+			vendt.Add_Vendor(vendor_id,vendor_name,username);
 			vendormodel.clear_vendor();
 
 		}else if(delete != null){
