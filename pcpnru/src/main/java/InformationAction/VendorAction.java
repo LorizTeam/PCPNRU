@@ -10,19 +10,19 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-import InformationData.VenderData;
-import InformationModel.VenderModel;
+import InformationData.VendorData;
+import InformationModel.VendorModel;
 import pcpnru.utilities.CheckAuthenPageDB;
 
-public class VenderAction extends ActionSupport {
-	VenderModel vendermodel;
+public class VendorAction extends ActionSupport {
+	VendorModel vendormodel;
 
-	public VenderModel getVendermodel() {
-		return vendermodel;
+	public VendorModel getvendormodel() {
+		return vendormodel;
 	}
 
-	public void setVendermodel(VenderModel vendermodel) {
-		this.vendermodel = vendermodel;
+	public void setvendormodel(VendorModel vendormodel) {
+		this.vendormodel = vendormodel;
 	}
 	
 	public String create() throws Exception{
@@ -36,61 +36,61 @@ public class VenderAction extends ActionSupport {
 		String add = request.getParameter("add");
 		String delete = request.getParameter("delete");
 		String update = request.getParameter("update");
-		VenderData vendt = new VenderData();
-		String vender_id = "";
-		List venderList = null;
+		VendorData vendt = new VendorData();
+		String vendor_id = "";
+		List vendorList = null;
 		if(add != null){
-			vender_id = vendt.GetHighest_VenderID();
-			vender_id = vendt.PlusOneID_FormatID(vender_id);
-			vendt.Add_Vender(vender_id,vendermodel.getVender_name(),username);
-			vendermodel.clear_vender();
+			vendor_id = vendt.GetHighest_VendorID();
+			vendor_id = vendt.PlusOneID_FormatID(vendor_id);
+			vendt.Add_Vendor(vendor_id,vendormodel.getVendor_name(),username);
+			vendormodel.clear_vendor();
 
 		}else if(delete != null){
 			
-			String[] delvender = request.getParameterValues("delvender");
-			if(delvender != null){
-				for(String venderid:delvender){
-					vendt.Delete_vender(venderid);
+			String[] delvendor = request.getParameterValues("delvendor");
+			if(delvendor != null){
+				for(String vendorid:delvendor){
+					vendt.Delete_vendor(vendorid);
 				}
 			}
-			vendermodel.clear_vender();
+			vendormodel.clear_vendor();
 			
 		}else if(update != null){
 			
-			vendt.Update_Vender(vendermodel.getVender_id(), vendermodel.getVender_name(), username);
-			vendermodel.clear_vender();
+			vendt.Update_Vendor(vendormodel.getVendor_id(), vendormodel.getVendor_name(), username);
+			vendormodel.clear_vendor();
 		}
 		
-		venderList = vendt.Get_venderList("");
-		request.setAttribute("venderList", venderList);
+		vendorList = vendt.Get_vendorList("");
+		request.setAttribute("vendorList", vendorList);
 		return SUCCESS;
 	}
 	
-	public String entrancVender() throws IOException, Exception{
+	public String entrancVendor() throws IOException, Exception{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "020";
 		if(checkauth(request, page_code).equals("noauth")) 
 			return "noauth";
 		
-		VenderData vendt = new VenderData();
-		List venderList = null;
-		venderList = vendt.Get_venderList("");
-		request.setAttribute("venderList", venderList);
+		VendorData vendt = new VendorData();
+		List vendorList = null;
+		vendorList = vendt.Get_vendorList("");
+		request.setAttribute("vendorList", vendorList);
 		return SUCCESS;
 	}
 	
-	public String windows_entrancvender() throws IOException, Exception{
+	public String windows_entrancvendor() throws IOException, Exception{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "020";
 		if(checkauth(request, page_code).equals("noauth")) 
 			return "noauth";
 		
-		VenderData vendt = new VenderData();
-		List venderList = null;
-		venderList = vendt.Get_venderList("");
-		request.setAttribute("venderList", venderList);
-		vendermodel = new VenderModel();
-		vendermodel.setFromwindow("true");
+		VendorData vendt = new VendorData();
+		List vendorList = null;
+		vendorList = vendt.Get_vendorList("");
+		request.setAttribute("vendorList", vendorList);
+		vendormodel = new VendorModel();
+		vendormodel.setFromwindow("true");
 		return SUCCESS;
 	}
 	

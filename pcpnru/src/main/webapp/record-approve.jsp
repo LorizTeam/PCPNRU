@@ -148,8 +148,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         		<div class="cell colspan1"> </div> 
 					<div class="cell colspan5"> 
 			        	รายการ
-				        <div class="input-control text full-size">
+				        <div class="input-control text full-size" data-role="input">
 						    <s:textfield name="recordApproveModel.description" id="description" required="" /> 
+						    <button class="button primary" type="button" onclick="getproduct()"> <span class="mif-search"></span></button>
+						    <button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
 						</div>
 						
 					</div>      

@@ -1,25 +1,25 @@
 package InformationModel;
 
-public class VenderModel {
-	private String vender_id,vender_name,create_by,create_datetime,update_by,update_datetime;
+public class VendorModel {
+	private String vendor_id,vendor_name,create_by,create_datetime,update_by,update_datetime;
 	
 	private String fromwindow,createwindow,alertmsg;
 	
-	public VenderModel() {}
+	public VendorModel() {}
 	
-	public VenderModel(String vender_id, String vender_name, String create_by, String create_datetime,
+	public VendorModel(String vendor_id, String vendor_name, String create_by, String create_datetime,
 			String update_by, String update_datetime) {
-		this.vender_id = vender_id;
-		this.vender_name = vender_name;
+		this.vendor_id = vendor_id;
+		this.vendor_name = vendor_name;
 		this.create_by = create_by;
 		this.create_datetime = create_datetime;
 		this.update_by = update_by;
 		this.update_datetime = update_datetime;
 	}
 	
-	public void clear_vender(){
-		this.vender_id = "";
-		this.vender_name = "";
+	public void clear_vendor(){
+		this.vendor_id = "";
+		this.vendor_name = "";
 	}
 	
 	public String getFromwindow() {
@@ -52,20 +52,20 @@ public class VenderModel {
 	}
 
 
-	public String getVender_id() {
-		return vender_id;
+	public String getVendor_id() {
+		return vendor_id;
 	}
 
-	public void setVender_id(String vender_id) {
-		this.vender_id = vender_id;
+	public void setVendor_id(String vendor_id) {
+		this.vendor_id = vendor_id;
 	}
 
-	public String getVender_name() {
-		return vender_name;
+	public String getVendor_name() {
+		return vendor_name;
 	}
 
-	public void setVender_name(String vender_name) {
-		this.vender_name = vender_name;
+	public void setVendor_name(String vendor_name) {
+		this.vendor_name = vendor_name;
 	}
 
 	public String getCreate_by() {

@@ -28,9 +28,7 @@
                         <li><a href="groupcostcode-requisition.jsp">สร้างกลุ่มรายจ่าย</a> 
                         </li> 
                     </ul>
-                </li> 
-                <li class="divider"></li>
-                <li><a href="unitmaster.jsp">สร้าง  หน่วยนับ</a></li>
+                </li>
                 <li class="divider"></li>
                 <li><a href="create_central_budget.jsp">สร้าง งบกลาง</a></li>
             </ul>
@@ -111,33 +109,64 @@
             </ul>
         </li>
         <li>
-        	<a href="" class="dropdown-toggle"><span class="mif-users"></span> ข้อมูลบุคลากร</a>
-        	<ul class="d-menu" data-role="dropdown">
-               
-                <li><a href="personnel.jsp">จัดการข้อมูลบุคลากร</a>
-                </li> 
-                <li class="divider"></li>
-                <li><a href="authen_page.jsp">กำหนดสิทธิ์การใช้งาน</a> 
-                </li>
-              	<li class="divider"></li>
-                <li><a href="authen.jsp">จัดการสิทธิ์การใช้งาน</a> 
-                </li>
-                <li class="divider"></li>
-                <li><a href="page.jsp">จัดการการเข้าใช้ของแต่ละหน้า</a> 
-                </li>
-                <li class="divider"></li>
-                <li><a href="" class="dropdown-toggle">จัดการข้อมูลตำแหน่งงาน</a>
-                    <ul class="d-menu" data-role="dropdown"> 
-                        <li><a href="">จัดการข้อมูลตำแหน่งงาน</a></li>
-                        <li class="divider"></li>
-                        <li><a href="">จัดการการเข้าถึงของตำแหน่ง</a></li> 
-                    </ul>
-                </li>
-                
-            </ul>
+        <a href="" class="dropdown-toggle"><span class="mif-users"></span> จัดการข้อมูลทั่วไป</a>
+	    	<ul class="d-menu" data-role="dropdown">
+	    		<li>
+		        	<a href="" class="dropdown-toggle"> ข้อมูลบุคลากร</a>
+		        	<ul class="d-menu" data-role="dropdown">
+		               
+		                <li><a href="personnel.jsp">จัดการข้อมูลบุคลากร</a>
+		                </li> 
+		                <li class="divider"></li>
+		                <li><a href="authen_page.jsp">กำหนดสิทธิ์การใช้งาน</a> 
+		                </li>
+		              	<li class="divider"></li>
+		                <li><a href="authen.jsp">จัดการสิทธิ์การใช้งาน</a> 
+		                </li>
+		                <li class="divider"></li>
+		                <li><a href="page.jsp">จัดการการเข้าใช้ของแต่ละหน้า</a></li>
+		                <li class="divider"></li>
+		                <li><a href="" class="dropdown-toggle">จัดการข้อมูลตำแหน่งงาน</a>
+		                    <ul class="d-menu" data-role="dropdown"> 
+		                        <li><a href="">จัดการข้อมูลตำแหน่งงาน</a></li>
+		                        <li class="divider"></li>
+		                        <li><a href="">จัดการการเข้าถึงของตำแหน่ง</a></li> 
+		                    </ul>
+		                </li>
+		                
+		            </ul>
+		        </li>
+	    	</ul> 	
         </li>
-         <li><a href="profileMaster.action" ><span class="mif-user"></span> ข้อมูลส่วนตัว </a></li> 
-         <li><a href="logout.action" ><span class="mif-exit"></span> ออกจากระบบ</a></li> 
+        <li><a href="" class="dropdown-toggle"><span class="mif-user"></span> คลังสินค้า </a>
+         	<ul class="d-menu" data-role="dropdown">
+         		<li><a href="" class="dropdown-toggle"> ข้อมูลสินค้า</a>
+         			<ul class="d-menu" data-role="dropdown">
+         				<li><a href="#">สินค้า</a></li>
+		                <li class="divider"></li>
+		                <li><a href="unitmaster.jsp">หน่วยนับ</a></li>
+		                <li class="divider"></li>
+		                <li><a href="#">หมวดสินค้า</a></li>
+		                <li class="divider"></li>
+		                <li><a href="#">ประเภทสินค้า</a></li>
+		                <li class="divider"></li>
+		                <li><a href="#">แบรนด์สินค้า</a></li>
+		            </ul>
+         		</li>
+         		<li class="divider"></li>
+         		<li><a href="#" > ผู้ขาย</a></li>
+         		<li class="divider"></li>
+         		<li><a href="logout.action" > ออกจากระบบ</a></li>
+         	</ul>
+         </li>
+         <li><a href="" class="dropdown-toggle"><span class="mif-user"></span> ข้อมูลส่วนตัว </a>
+         	<ul class="d-menu" data-role="dropdown">
+         		<li><a href="profileMaster.action"> แก้ไขข้อมูลส่วนตัว </a></li>
+         		<li class="divider"></li>
+         		<li><a href="logout.action" > ออกจากระบบ</a></li>
+         	</ul>
+         </li>
+         
     </ul>
      
     

@@ -23,14 +23,14 @@ public class TestAddDataPR {
 		  record_approve_cen = "รองศาสตราจารย์บุญเกียรติ ไทรชมภู่",
 		  record_approve_dep = "รักษาการ ผู้อำนวยการศูนย์วัฒนธรรมพระนคร",
 		  docno,
-		  year = "2016",create_by = "00001",vender_id = "00001";
+		  year = "2016",create_by = "00001",vendor_id = "0001";
 		double total_amount=25045.25;
 		TestRecordApproveDB TRAD = new TestRecordApproveDB();
 		docno = TRAD.SelectUpdateDocNo("pr");
 		record_approve_date = new DateUtil().CnvToYYYYMMDDEngYear(record_approve_date, '-');
 		int rowsupdate = TRAD.AddRecordApprovehd(docno, year, record_approve_hd, record_approve_t, record_approve_date, 
 				record_approve_title, record_approve_rian, record_approve_des1, record_approve_des2, record_approve_des3, 
-				record_approve_cen, record_approve_dep,create_by,vender_id,total_amount);
+				record_approve_cen, record_approve_dep,create_by,vendor_id,total_amount);
 		JSONObject obj = new JSONObject();
 		obj.put("docno", docno);
 		obj.put("year", year);
