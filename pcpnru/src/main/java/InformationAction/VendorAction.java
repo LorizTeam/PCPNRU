@@ -15,16 +15,19 @@ import InformationModel.VendorModel;
 import pcpnru.utilities.CheckAuthenPageDB;
 
 public class VendorAction extends ActionSupport {
+	
 	VendorModel vendormodel;
-
-	public VendorModel getvendormodel() {
+	
+	
+	
+	public VendorModel getVendormodel() {
 		return vendormodel;
 	}
 
-	public void setvendormodel(VendorModel vendormodel) {
+	public void setVendormodel(VendorModel vendormodel) {
 		this.vendormodel = vendormodel;
 	}
-	
+
 	public String create() throws Exception{
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		String page_code = "020";
