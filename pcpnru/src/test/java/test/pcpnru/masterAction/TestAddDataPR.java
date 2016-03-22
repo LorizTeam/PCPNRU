@@ -42,10 +42,17 @@ public class TestAddDataPR {
 	
 	public JSONObject AddDetail(String docno, String year, String description, String qty, String unit,String create_by) throws Exception{
 		TestRecordApproveDB TRAD = new TestRecordApproveDB();
-		int rowsupdate =  TRAD.AddRecordApprovedt(docno, year, description, qty, unit, create_by);
+		int rowsupdate =  0;
+		for (int i = 1 ; i<=10;i++){
+			rowsupdate += TRAD.AddRecordApprovedt(docno, year, description, qty, unit, create_by);
+		}
 		JSONObject obj = new JSONObject();
 		obj.put("rowsupdate", rowsupdate);
 		return obj;
+	}
+	
+	public void delete_itemno(String docno,String year,String itemno) throws Exception{
+		new TestRecordApproveDB().DeleteRecordApprovedt(docno, year, itemno);
 	}
 	
 	
@@ -62,6 +69,39 @@ public class TestAddDataPR {
 		JSONObject jsonobjdetail = new JSONObject();
 		jsonobjdetail = AddDetail(docno,year,description,qty,unit,create_by);
 		Assert.assertTrue((Integer) jsonobjdetail.get("rowsupdate") > 0);
+	}
+	
+	@Test
+	public void delete_andsortitemno () throws Exception{
+		
+			JSONObject jsonobj = new JSONObject();
+			jsonobj = AddHD();
+			String docno = (String) jsonobj.get("docno");
+			String year = (String) jsonobj.get("year");
+			String create_by = (String) jsonobj.get("create_by");
+			int getbyjson = (Integer) jsonobj.get("rowsupdate");
+			Assert.assertTrue(getbyjson>0);
+			String description="ปลั๊กเพาเวอร์ 63A. 380V.",qty = "5",unit = "ชุด";
+			JSONObject jsonobjdetail = new JSONObject();
+			jsonobjdetail = AddDetail(docno,year,description,qty,unit,create_by);
+			Assert.assertTrue((Integer) jsonobjdetail.get("rowsupdate") > 0);
+			String del_itemno[] = {"001","003","005","007","009"}; 
+			for(String value_del_itemno:del_itemno){
+				delete_itemno(docno, year, value_del_itemno);
+			}
+			new TestRecordApproveDB().update_itemno(docno, year);
+			List<TestRecordApproveModel> detailList = new TestRecordApproveDB().GetListDetail(docno, year);
+			int itemno = 1;
+			for(TestRecordApproveModel aa : detailList){
+				String itemno_Update = String.valueOf(itemno);
+				if (itemno_Update.length() == 1) {
+					itemno_Update = "00" + itemno_Update; 
+				} else if (itemno_Update.length() == 2) {
+					itemno_Update = "0" + itemno_Update;   
+				}
+				Assert.assertEquals(itemno_Update, aa.getItemno());
+				itemno++;
+			}
 	}
 	
 	@Test

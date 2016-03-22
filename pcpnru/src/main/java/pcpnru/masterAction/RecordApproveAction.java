@@ -116,9 +116,9 @@ public class RecordApproveAction extends ActionSupport {
 		 				,recordApproveModel.getRecord_approve_des2()
 		 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
 		 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVendor_id(),recordApproveModel.getTotal_amount());
-				List ListRecordApproveDT =  ra.ListRecordApproveDT(docno,"", year);
-				request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);
 				
+		 		List ListRecordApproveDT =  ra.ListRecordApproveDT(docno,"", year);
+				request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);	
 				
 				recordApproveModel.setImg_path(pathimg_todb);
 		 		recordApproveModel.reset_ListItem();
@@ -136,10 +136,11 @@ public class RecordApproveAction extends ActionSupport {
 			for(String del_itemno:itemno){
 				ra.DeleteRecordApprovedt(docno, year, del_itemno);
 			}
+			ra.update_itemno(docno, year);
 			
 			List ListRecordApproveDT =  ra.ListRecordApproveDT(docno,"", year);
 			request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);
-			System.out.println("from windows:"+recordApproveModel.getFromwindow());
+
 			recordApproveModel.setFromwindow(recordApproveModel.getFromwindow());
 			recordApproveModel.reset_ListItem();
 			

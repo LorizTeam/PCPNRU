@@ -35,16 +35,12 @@ public class Validate {
 	
 	public boolean Check_String_notnull_notempty(String value){
 		boolean resultcheck = false;
-		if(value != null){
+		if(value == null){
+			resultcheck = false;
+		}else if(!value.equals("")){
 			resultcheck = true;
 		}else{
-			resultcheck = false;
-		}
-			
-		if(!value.equals("")){
 			resultcheck = true;
-		}else{
-			resultcheck = false;
 		}
 		
 		return resultcheck;

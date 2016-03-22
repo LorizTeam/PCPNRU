@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -340,7 +341,7 @@ public class TestRecordApproveDB {
 	
 	public void DeleteRecordApprovedt(String docno, String year, String itemno)  throws Exception{
 		conn = agent.getConnectMYSql();
-		ThaiNumber thnumber = new ThaiNumber();
+		
 		
 		conn.setAutoCommit(false);
 		
@@ -351,16 +352,26 @@ public class TestRecordApproveDB {
 				pStmt.executeUpdate(sqlStmt);
 				pStmt.close();
 		
+		
+		conn.commit();
+		pStmt.close();
+		conn.close();
+	} 
+	
+	public void update_itemno(String docno, String year) throws IOException, Exception{
+		conn = agent.getConnectMYSql();
+		ThaiNumber thnumber = new ThaiNumber();
 		String sqlstmtS = "SELECT itemno FROM record_approve_dt "+
-		"where docno = '"+docno+"' and year = '"+year+"' and itemno > '"+itemno+"' ";
+		"where docno = '"+docno+"' and year = '"+year+"'";
 		pStmt = conn.createStatement();
-		rs = pStmt.executeQuery(sqlstmtS);		
+		rs = pStmt.executeQuery(sqlstmtS);
+		int rows = 1;
 		while (rs.next()) {
 			
-			itemno	= rs.getString("itemno"); 
-			String itemno_Update = String.valueOf(Integer.parseInt(itemno) - 1);
+			String itemno = rs.getString("itemno");
+			String itemno_Update = String.valueOf(rows);
 			
-			String itemno_thai 	= (thnumber.CenverT_To_ThaiNumberic(String.valueOf(Integer.parseInt(itemno) - 1))); 
+			String itemno_thai 	= (thnumber.CenverT_To_ThaiNumberic(itemno_Update)); 
 			
 			if (itemno_Update.length() == 1) {
 				itemno_Update = "00" + itemno_Update; 
@@ -374,15 +385,39 @@ public class TestRecordApproveDB {
 			pStmt = conn.createStatement();
 			pStmt.executeUpdate(sqlstmtS);
 			pStmt.close();
-			
+			rows++;
 		}
 		rs.close();
-		pStmt.close(); 
-		
-		conn.commit();
-		
+		pStmt.close();
 		conn.close();
-	} 
+	}
+	
+	public List<TestRecordApproveModel> GetListDetail(String docno, String year) throws IOException, Exception{
+		conn = agent.getConnectMYSql();
+		List<TestRecordApproveModel> resultList = new ArrayList<TestRecordApproveModel>();
+		String sqlstmtS = "SELECT * FROM record_approve_dt "+
+				"where docno = '"+docno+"' and year = '"+year+"'";
+				pStmt = conn.createStatement();
+				rs = pStmt.executeQuery(sqlstmtS);		
+				while (rs.next()) {
+					//docno,`year`,itemno,numthai_itemno,description,qty,numthai_qty,unit,create_by,create_datetime
+					/*this.docno = docno;
+					this.year = year;
+					this.itemno = itemno;
+					this.description = description;
+					this.qty = qty;
+					this.unit = unit;*/
+					resultList.add(new TestRecordApproveModel(rs.getString("docno"),rs.getString("year"),rs.getString("itemno")
+							,rs.getString("description"),rs.getString("qty"),rs.getString("unit")));
+				}
+				rs.close();
+				pStmt.close();
+				conn.close();
+				
+		return resultList;
+		
+		
+	}
 	public String SelectUpdateDocNo(String typedocno) throws Exception {
 		String requestno = "";
 		try {

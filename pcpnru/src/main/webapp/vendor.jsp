@@ -80,13 +80,8 @@
 			         	%>		
 			         			
 									<tr>
-										<td> <input type="checkbox" name="delvendor" id="delvendor" value="<%=vendormodel.getVendor_id() %>"> </td>
-										<s:if test="%{#fromwindow=='true'}">
-											<td class="vendor_id"><a href="#"><%=vendormodel.getVendor_id() %></a></td>
-										</s:if>
-										<s:else>
-											<td class="vendor_id"><%=vendormodel.getVendor_id() %></td>
-										</s:else>
+										<td><input type="checkbox" name="delvendor" id="delvendor" value="<%=vendormodel.getVendor_id() %>"> </td>
+										<td class="vendor_id"><a href="#" class="returnid"><%=vendormodel.getVendor_id() %></a></td>
 					                	<td class="vendor_name"><%=vendormodel.getVendor_name() %></td>
 					                    <td><%=vendormodel.getCreate_datetime() %></td>
 					                    
@@ -130,10 +125,11 @@
                 ordering: false,
                 "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
             } );
-			$("a").click(function(){
-				var index = $(this).index();
+			$(".returnid").click(function(){
 				
-				window.opener.document.getElementById("vendor_id").value= $("a").eq(index).text();
+				var index = $(this).index(".returnid");
+
+				window.opener.document.getElementById("vendor_id").value= $(this).text();
 				window.opener.document.getElementById("vendor_name").value= $(".vendor_name").eq(index).text();
 				
 				window.close();

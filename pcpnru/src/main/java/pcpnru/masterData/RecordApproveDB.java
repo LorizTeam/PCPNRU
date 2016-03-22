@@ -143,7 +143,7 @@ public class RecordApproveDB {
 		ppStmt.setString(12, record_approve_dep);
 		ppStmt.setString(13, thaidate_report);
 		ppStmt.setString(14, create_by);
-		ppStmt.setString(15, "0001");
+		ppStmt.setString(15, vendor_id);
 		ppStmt.setDouble(16, total_amount);
 		ppStmt.executeUpdate();
 		conn.commit();
@@ -236,7 +236,7 @@ public class RecordApproveDB {
 	
 	public void DeleteRecordApprovedt(String docno, String year, String itemno)  throws Exception{
 		conn = agent.getConnectMYSql();
-		ThaiNumber thnumber = new ThaiNumber();
+		
 		
 		conn.setAutoCommit(false);
 		
@@ -247,16 +247,26 @@ public class RecordApproveDB {
 				pStmt.executeUpdate(sqlStmt);
 				pStmt.close();
 		
+		
+		conn.commit();
+		pStmt.close();
+		conn.close();
+	} 
+	
+	public void update_itemno(String docno, String year) throws IOException, Exception{
+		conn = agent.getConnectMYSql();
+		ThaiNumber thnumber = new ThaiNumber();
 		String sqlstmtS = "SELECT itemno FROM record_approve_dt "+
-		"where docno = '"+docno+"' and year = '"+year+"' and itemno > '"+itemno+"' ";
+		"where docno = '"+docno+"' and year = '"+year+"'";
 		pStmt = conn.createStatement();
-		rs = pStmt.executeQuery(sqlstmtS);		
+		rs = pStmt.executeQuery(sqlstmtS);
+		int rows = 1;
 		while (rs.next()) {
 			
-			itemno	= rs.getString("itemno"); 
-			String itemno_Update = String.valueOf(Integer.parseInt(itemno) - 1);
+			String itemno = rs.getString("itemno");
+			String itemno_Update = String.valueOf(rows);
 			
-			String itemno_thai 	= (thnumber.CenverT_To_ThaiNumberic(String.valueOf(Integer.parseInt(itemno) - 1))); 
+			String itemno_thai 	= (thnumber.CenverT_To_ThaiNumberic(itemno_Update)); 
 			
 			if (itemno_Update.length() == 1) {
 				itemno_Update = "00" + itemno_Update; 
@@ -270,15 +280,13 @@ public class RecordApproveDB {
 			pStmt = conn.createStatement();
 			pStmt.executeUpdate(sqlstmtS);
 			pStmt.close();
-			
+			rows++;
 		}
 		rs.close();
-		pStmt.close(); 
-		
-		conn.commit();
-		
+		pStmt.close();
 		conn.close();
-	} 
+	}
+	
 	public String SelectUpdateDocNo(String typedocno) throws Exception {
 		String requestno = "";
 		try {
