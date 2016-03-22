@@ -115,7 +115,7 @@ public class RecordApproveAction extends ActionSupport {
 		 				,recordApproveModel.getRecord_approve_rian(), recordApproveModel.getRecord_approve_des1()
 		 				,recordApproveModel.getRecord_approve_des2()
 		 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
-		 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVender_id(),recordApproveModel.getTotal_amount());
+		 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVendor_id(),recordApproveModel.getTotal_amount());
 				List ListRecordApproveDT =  ra.ListRecordApproveDT(docno,"", year);
 				request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);
 				
@@ -160,7 +160,7 @@ public class RecordApproveAction extends ActionSupport {
 		 				,recordApproveModel.getRecord_approve_rian(), recordApproveModel.getRecord_approve_des1()
 		 				,recordApproveModel.getRecord_approve_des2()
 		 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
-		 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVender_id(),recordApproveModel.getTotal_amount());
+		 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVendor_id(),recordApproveModel.getTotal_amount());
 				ra.AddRecordApprovedt(docno, year, description, qty, unit,username);
 				
 				String filePath = request.getSession().getServletContext().getRealPath("/")+"img/";
@@ -301,9 +301,9 @@ public class RecordApproveAction extends ActionSupport {
 			recordApproveModel.setRecord_approve_cen(MapResultValue.get("record_approve_cen").toString());
 			recordApproveModel.setRecord_approve_dep(MapResultValue.get("record_approve_dep").toString());
 			recordApproveModel.setCreate_by(MapResultValue.get("create_by").toString());
-			recordApproveModel.setVender_id(MapResultValue.get("vender_id").toString());
+			recordApproveModel.setVendor_id(MapResultValue.get("vender_id").toString());
 			recordApproveModel.setTotal_amount((Double) MapResultValue.get("total_amount"));
-			recordApproveModel.setVender_name(MapResultValue.get("vender_name").toString());
+			recordApproveModel.setVendor_name(MapResultValue.get("vendor_name").toString());
 			recordApproveModel.setFromwindow(fromwindow);
 			List ListRecordApproveDT =  ra.ListRecordApproveDT(recordApproveModel.getDocno(),"", year);
 			request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);

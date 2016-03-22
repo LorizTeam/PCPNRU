@@ -108,13 +108,13 @@ public class RecordApproveDB {
 	}
 	
 	public void AddRecordApprovehd(String docno, String year, String record_approve_hd, String record_approve_t, String record_approve_date, String record_approve_title, String record_approve_rian,
-			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep, String create_by,String vender_id,double total_amount)  throws Exception{
+			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep, String create_by,String vendor_id,double total_amount)  throws Exception{
 		
 		
 		
 		String dateTime = "";
 		String sqlStmt = "INSERT IGNORE INTO record_approve_hd(docno, year, record_approve_hd, record_approve_t, record_approve_date, record_approve_title, record_approve_rian, "
-				+ "record_approve_des1, record_approve_des2,record_approve_des3, record_approve_cen, record_approve_dep,thaidate_report,create_by,create_datetime,vender_id,total_amount) " +
+				+ "record_approve_des1, record_approve_des2,record_approve_des3, record_approve_cen, record_approve_dep,thaidate_report,create_by,create_datetime,vendor_id,total_amount) " +
 				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),?,?)";
 		
 		String[] splitdate = record_approve_date.split("-");
@@ -392,9 +392,9 @@ public class RecordApproveDB {
 		String sqlQuery = "SELECT docno,`year`+543 as year,record_approve_hd,record_approve_t,"
 				+ "CONCAT(substr(record_approve_date from 9 for 2),\"-\",substr(record_approve_date from 6 for 2),\"-\",year(record_approve_date)+543) as record_approve_date,record_approve_title,record_approve_rian,"
 				+ "record_approve_des1,record_approve_des2,record_approve_des3,"
-				+ "record_approve_cen,record_approve_dep,thaidate_report,record_approve_hd.create_by,total_amount,b.vender_id,b.vender_name "
+				+ "record_approve_cen,record_approve_dep,thaidate_report,record_approve_hd.create_by,total_amount,b.vendor_id,b.vendor_name "
 				+ "FROM `record_approve_hd` "
-				+ "inner join vender_master as b on (record_approve_hd.vender_id = b.vender_id)"
+				+ "inner join vendor_master as b on (record_approve_hd.vendor_id = b.vendor_id)"
 				+ "WHERE "
 				+ "docno = '"+docno+"' and year = '"+year+"'";
 		
@@ -418,8 +418,8 @@ public class RecordApproveDB {
 			mapresultGet.put("thaidate_report", rs.getString("thaidate_report"));
 			mapresultGet.put("create_by", rs.getString("create_by"));
 			mapresultGet.put("total_amount", rs.getDouble("total_amount"));
-			mapresultGet.put("vender_id", rs.getString("vender_id"));
-			mapresultGet.put("vender_name", rs.getString("vender_name"));
+			mapresultGet.put("vendor_id", rs.getString("vendor_id"));
+			mapresultGet.put("vendor_name", rs.getString("vendor_name"));
 		}		
 		
 		if(!rs.isClosed())

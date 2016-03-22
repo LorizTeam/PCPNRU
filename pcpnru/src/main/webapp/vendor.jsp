@@ -14,10 +14,9 @@
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
+		<link href="css/sweetalert.css" rel="stylesheet" />
 		
-		<script src="js/jquery-2.1.3.min.js"></script>
-	    <script src="js/metro.js"></script>
-	    <script src="js/jquery.dataTables.min.js"></script>
+		
 	</head>
 	<body>
 		<s:set name="fromwindow" value="vendormodel.fromwindow"/>
@@ -113,6 +112,10 @@
 		 	<s:hidden name="vendormodel.fromwindow" id="fromwindow"/>
 		</form>
 		
+		<script src="js/jquery-2.1.3.min.js"></script>
+	    <script src="js/metro.js"></script>
+	    <script src="js/jquery.dataTables.min.js"></script>
+	    <script src="js/sweetalert.min.js"></script>
 		<script type="text/javascript">
 		
 		
@@ -132,6 +135,7 @@
 				
 				window.opener.document.getElementById("vendor_id").value= $("a").eq(index).text();
 				window.opener.document.getElementById("vendor_name").value= $(".vendor_name").eq(index).text();
+				
 				window.close();
 			});
 			$("#checkall").click(function(){

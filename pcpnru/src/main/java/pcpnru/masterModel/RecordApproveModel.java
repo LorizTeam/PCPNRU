@@ -16,9 +16,9 @@ public class RecordApproveModel {
 	private String record_approve_dep,record_approve_month; 
 	private String fromwindow,createwindow,alertmsg;
 
-	//Vender --------------------------------------------------------
+	//Vendor --------------------------------------------------------
 	private File toBeUploaded;
-	private String vender_name,vender_id,toBeUploadedFileName,toBeUploadedContentType,img_path;
+	private String vendor_name,vendor_id,toBeUploadedFileName,toBeUploadedContentType,img_path;
 	private double total_amount;
 	
 	//Vender --------------------------------------------------------
@@ -107,8 +107,8 @@ public class RecordApproveModel {
 	//Reset --------------------------------------------------------
 	
 	
-	public String getVender_id() {
-		return vender_id;
+	public String getVendor_id() {
+		return vendor_id;
 	}
 
 	public File getToBeUploaded() {
@@ -143,8 +143,8 @@ public class RecordApproveModel {
 		this.img_path = img_path;
 	}
 
-	public void setVender_id(String vender_id) {
-		this.vender_id = vender_id;
+	public void setVendor_id(String vendor_id) {
+		this.vendor_id = vendor_id;
 	}
 
 	
@@ -156,12 +156,12 @@ public class RecordApproveModel {
 		this.alertmsg = alertmsg;
 	}
 	
-	public String getVender_name() {
-		return vender_name;
+	public String getVendor_name() {
+		return vendor_name;
 	}
 
-	public void setVender_name(String vender_name) {
-		this.vender_name = vender_name;
+	public void setVendor_name(String vendor_name) {
+		this.vendor_name = vendor_name;
 	}
 
 	public double getTotal_amount() {

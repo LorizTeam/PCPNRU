@@ -183,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>  
 	         	 	<div class="cell align-left colspan3"><br>
 						  <button type="submit" class="button success" name="add" id="add"><span class="mif-plus mif-lg fg-white"></span></button>
-						  <button type="submit" class="button danger" name="delete" id="delete"><span class="mif-minus mif-lg fg-white"></span></button>  
+						  <button type="submit" class="button danger" name="delete" id="delete_product"><span class="mif-minus mif-lg fg-white"></span></button>  
 					</div>
 			 	</div>  
 			</div>
@@ -302,10 +302,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         		<div class="cell colspan4"> 
 			        	ชื่อร้านค้า
 				        <div class="input-control text full-size">
-				        	<s:hidden name="recordApproveModel.vender_id" id="vender_id" required=""/>
-						    <s:textfield name="recordApproveModel.vender_name" id="vender_name" readonly="true"/>
+				        	<s:hidden name="recordApproveModel.vendor_id" id="vendor_id" required=""/>
+						    <s:textfield name="recordApproveModel.vendor_name" id="vendor_name" readonly="true"/>
 						    <div class="button-group">
-						 	<button class="button primary" type="button" onclick="getvender()"> <span class="mif-search"></span></button>
+						 	<button class="button primary" type="button" onclick="getvendor()"> <span class="mif-search"></span></button>
 							<button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
 							</div>
 						</div>
@@ -415,8 +415,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </form> 
 		        
    		<script>
-   		function getvender() {
-   			var load = window.open('/pcpnru/windows_entrancvender.action','pr',
+   		function getvendor() {
+   			var load = window.open('/pcpnru/windows_entrancvendor.action','pr',
    			             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
    		}
    		
@@ -432,7 +432,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	$(".back").click(function(){
             	window.history.back();
             });
-        	$("#delete").click(function(){
+        	$("#delete_product").click(function(){
         		$("#description").val("-");
         		$("#qty").val(0);
         	});
