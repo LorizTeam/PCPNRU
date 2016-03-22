@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,9 @@ public class VendorData {
 			ResultString = rs.getString("vendor_id");
 		}
 		
-		
+		if(!rs.isClosed()) rs.close();
+		if(!pStmt.isClosed()) pStmt.close();
+		if(!conn.isClosed()) conn.close();
 		
 		return ResultString;
 	}
@@ -127,25 +130,46 @@ public class VendorData {
 		return ResultList;
 	}
 	
-	public boolean Delete_vendor(String vendor_id) throws IOException, Exception{
+	public boolean Delete_vendor(String vendor_id){
 		
 		String sqlQuery = "delete from vendor_master where vendor_id = ?";
-		
-		conn = agent.getConnectMYSql();
-		conn.setAutoCommit(false);
-		ppStmt = conn.prepareStatement(sqlQuery);
-		ppStmt.setString(1, vendor_id);
-		ppStmt.executeUpdate();
-		conn.commit();
-		
-		if(!conn.isClosed()) conn.close();
-		if(!ppStmt.isClosed()) ppStmt.close();
-		
-		List ResultList = Get_vendorList(vendor_id);
 		boolean resultboolean = false;
-		if(ResultList.isEmpty()){
-			resultboolean = true;
+		try {
+			conn = agent.getConnectMYSql();
+			conn.setAutoCommit(false);
+			ppStmt = conn.prepareStatement(sqlQuery);
+			ppStmt.setString(1, vendor_id);
+			ppStmt.executeUpdate();
+			conn.commit();
+			
+			if(!conn.isClosed()) conn.close();
+			if(!ppStmt.isClosed()) ppStmt.close();
+			
+			List ResultList = Get_vendorList(vendor_id);
+			
+			if(ResultList.isEmpty()){
+				resultboolean = true;
+			}
+			
+			if(!ppStmt.isClosed()) ppStmt.close();
+			if(!conn.isClosed()) conn.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				if(!ppStmt.isClosed()) ppStmt.close();
+				if(!conn.isClosed()) conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
 		return resultboolean;
 	}
 	

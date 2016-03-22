@@ -110,7 +110,7 @@
 			    </div> 
 		 	</div>
 		 	<s:hidden name="vendormodel.alertmsg" id="alertmsg"/>
-		 	<s:hidden name="vendormodel.fromwindow" id="alertmsg"/>
+		 	<s:hidden name="vendormodel.fromwindow" id="fromwindow"/>
 		</form>
 		
 		<script type="text/javascript">

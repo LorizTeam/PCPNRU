@@ -49,4 +49,21 @@ public class Validate {
 		
 		return resultcheck;
 	}
+	public boolean Check_String_notnull_notempty(String[] value){
+		boolean resultcheck = false;
+		for(String value_array:value){
+			if(value_array != null){
+				resultcheck = true;
+			}else{
+				resultcheck = false;
+			}
+				
+			if(!value_array.equals("")){
+				resultcheck = true;
+			}else{
+				resultcheck = false;
+			}
+		}
+		return resultcheck;
+	}
 }

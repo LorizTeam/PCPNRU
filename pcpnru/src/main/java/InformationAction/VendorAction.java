@@ -1,6 +1,7 @@
 package InformationAction;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import InformationData.VendorData;
 import InformationModel.VendorModel;
 import pcpnru.utilities.CheckAuthenPageDB;
+import pcpnru.utilities.Validate;
 
 public class VendorAction extends ActionSupport {
 	
@@ -51,12 +53,25 @@ public class VendorAction extends ActionSupport {
 
 		}else if(delete != null){
 			
+			List<Boolean> delete_status = new ArrayList<Boolean>();
 			String[] delvendor = request.getParameterValues("delvendor");
-			if(delvendor != null){
+			
+			if(new Validate().Check_String_notnull_notempty(delvendor)){
+				
 				for(String vendorid:delvendor){
-					vendt.Delete_vendor(vendorid);
+					
+					delete_status .add(vendt.Delete_vendor(vendorid));
+						
+				}
+				
+			}
+			
+			for(Boolean result_value : delete_status){
+				if(!result_value){
+					vendormodel.setAlertmsg("ไม่สามารถลบผู้ขายที่ถูกใช้งานอยู่ได้");
 				}
 			}
+			
 			vendormodel.clear_vendor();
 			
 		}else if(update != null){
