@@ -1,7 +1,10 @@
 package test.pcpnru.inventoryModel;
 
 public class Create_UpdateModel {
-	private String create_by,create_datetime,update_by,update_datetime;
+	public String create_by;
+	public String create_datetime;
+	public String update_by;
+	public String update_datetime;
 
 	public String getCreate_by() {
 		return create_by;

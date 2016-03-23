@@ -22,13 +22,13 @@ public class TestVenderDB {
 	
 	public String GetHighest_VenderID() throws IOException, Exception{
 		
-		String sqlQuery = "select MAX(vender_id) as vender_id from vender_master";
+		String sqlQuery = "select MAX(vendor_id) as vendor_id from vendor_master";
 		String ResultString = "";
 		conn = agent.getConnectMYSql();
 		pStmt = conn.createStatement();
 		rs = pStmt.executeQuery(sqlQuery);
 		if(rs.next()){
-			ResultString = rs.getString("vender_id");
+			ResultString = rs.getString("vendor_id");
 		}
 		
 		
@@ -59,7 +59,7 @@ public class TestVenderDB {
 	
 	public boolean Add_Vender(String vender_id,String vender_name,String create_by) throws IOException, Exception{
 		
-		String sqlQuery = "insert ignore into vender_master(vender_id,vender_name,create_by,create_datetime) values (?,?,?,now())";
+		String sqlQuery = "insert ignore into vendor_master(vendor_id,vendor_name,create_by,create_datetime) values (?,?,?,now())";
 		
 		
 		conn = agent.getConnectMYSql();
@@ -83,7 +83,7 @@ public class TestVenderDB {
 	}
 	
 	public List<TestVenderMaster> Get_venderList(String vender_id) throws IOException, Exception{
-		String sqlQuery = "select * from vender_master where vender_id = ?";
+		String sqlQuery = "select * from vendor_master where vendor_id = ?";
 		conn = agent.getConnectMYSql();
 		ppStmt = conn.prepareStatement(sqlQuery);
 		ppStmt.setString(1, vender_id);
@@ -92,8 +92,8 @@ public class TestVenderDB {
 		List<TestVenderMaster> ResultList = new ArrayList<TestVenderMaster>();
 		while(rs.next()){
 			//vender_id,vender_name,create_by,create_datetime,update_by,update_datetime
-			ResultList.add(new TestVenderMaster(rs.getString("vender_id"),
-					rs.getString("vender_name"),
+			ResultList.add(new TestVenderMaster(rs.getString("vendor_id"),
+					rs.getString("vendor_name"),
 					rs.getString("create_by"),
 					rs.getString("create_datetime"),
 					rs.getString("update_by"),
@@ -109,7 +109,7 @@ public class TestVenderDB {
 	
 	public boolean Delete_vender(String vender_id) throws IOException, Exception{
 		
-		String sqlQuery = "delete from vender_master where vender_id = ?";
+		String sqlQuery = "delete from vendor_master where vendor_id = ?";
 		
 		conn = agent.getConnectMYSql();
 		conn.setAutoCommit(false);
@@ -131,7 +131,7 @@ public class TestVenderDB {
 	
 	public void Update_Vender(String vender_id,String update_vender_name,String update_by) throws IOException, Exception{
 		
-		String sqlQuery = "update vender_master set vender_name = ?,update_by = ?,update_datetime = now() where vender_id = ?";
+		String sqlQuery = "update vendor_master set vendor_name = ?,update_by = ?,update_datetime = now() where vendor_id = ?";
 		
 		
 		conn = agent.getConnectMYSql();

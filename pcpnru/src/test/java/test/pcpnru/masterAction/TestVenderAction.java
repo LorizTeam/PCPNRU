@@ -43,7 +43,7 @@ public class TestVenderAction {
 	public void UpdateVender() throws IOException, Exception{
 		TestVenderDB tvd = new TestVenderDB();
 		String vender_id = tvd.GetHighest_VenderID();
-		tvd.Update_Vender(vender_id, this.update_vender_name, this.update_by);
+		tvd.Update_Vender(vender_id, "Update VendorName", this.update_by);
 		
 	}
 	
