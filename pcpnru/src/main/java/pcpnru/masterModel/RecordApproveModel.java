@@ -29,6 +29,7 @@ public class RecordApproveModel {
 	private String description;
 	private String qty; 
 	private String unit,create_by; 
+	private String saved;
 	
 	public RecordApproveModel() { 
 	} 
@@ -109,6 +110,14 @@ public class RecordApproveModel {
 	
 	public String getVendor_id() {
 		return vendor_id;
+	}
+
+	public String getSaved() {
+		return saved;
+	}
+
+	public void setSaved(String saved) {
+		this.saved = saved;
 	}
 
 	public File getToBeUploaded() {

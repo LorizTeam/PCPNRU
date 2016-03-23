@@ -90,6 +90,23 @@ public class RecordApproveAction extends ActionSupport {
 					recordApproveModel.setYear(year);
 				}
 				
+				if(!recordApproveModel.equals("True")){
+					ra.AddRecordApprovehd(docno, year,recordApproveModel.getRecord_approve_hd(),recordApproveModel.getRecord_approve_t()
+			 				,record_approve_date, recordApproveModel.getRecord_approve_title()
+			 				,recordApproveModel.getRecord_approve_rian(), recordApproveModel.getRecord_approve_des1()
+			 				,recordApproveModel.getRecord_approve_des2()
+			 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
+			 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVendor_id(),recordApproveModel.getTotal_amount());
+					recordApproveModel.setSaved("True");
+				}else{
+					ra.UpdateApprovehd(docno, year,recordApproveModel.getRecord_approve_hd(),recordApproveModel.getRecord_approve_t()
+			 				,record_approve_date, recordApproveModel.getRecord_approve_title()
+			 				,recordApproveModel.getRecord_approve_rian(), recordApproveModel.getRecord_approve_des1()
+			 				,recordApproveModel.getRecord_approve_des2()
+			 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
+			 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVendor_id(),recordApproveModel.getTotal_amount());
+				}
+					
 				String filePath = request.getSession().getServletContext().getRealPath("/")+"img/";
 	            String filename = this.toBeUploadedFileName;
 	            String pathimg_todb = "";
@@ -109,13 +126,6 @@ public class RecordApproveAction extends ActionSupport {
 	            
 	            List ResultImageList = ra.GET_PurchaseRequest_Image(recordApproveModel.getDocno(), year, "");
 				request.setAttribute("ResultImageList", ResultImageList);
-				
-		 		ra.AddRecordApprovehd(docno, year,recordApproveModel.getRecord_approve_hd(),recordApproveModel.getRecord_approve_t()
-		 				,record_approve_date, recordApproveModel.getRecord_approve_title()
-		 				,recordApproveModel.getRecord_approve_rian(), recordApproveModel.getRecord_approve_des1()
-		 				,recordApproveModel.getRecord_approve_des2()
-		 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
-		 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVendor_id(),recordApproveModel.getTotal_amount());
 				
 		 		List ListRecordApproveDT =  ra.ListRecordApproveDT(docno,"", year);
 				request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);	
@@ -163,6 +173,7 @@ public class RecordApproveAction extends ActionSupport {
 		 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
 		 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVendor_id(),recordApproveModel.getTotal_amount());
 				ra.AddRecordApprovedt(docno, year, description, qty, unit,username);
+				recordApproveModel.setSaved("True");
 				
 				String filePath = request.getSession().getServletContext().getRealPath("/")+"img/";
 	            String filename = this.toBeUploadedFileName;

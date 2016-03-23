@@ -81,7 +81,12 @@
 			         			
 									<tr>
 										<td><input type="checkbox" name="delvendor" id="delvendor" value="<%=vendormodel.getVendor_id() %>"> </td>
-										<td class="vendor_id"><a href="#" class="returnid"><%=vendormodel.getVendor_id() %></a></td>
+										<s:if test="%{#fromwindow=='true'}">
+											<td class="vendor_id"><a href="#" class="returnid"><%=vendormodel.getVendor_id() %></a></td>
+										</s:if>
+										<s:else>
+											<td class="vendor_id"><%=vendormodel.getVendor_id() %></td>
+										</s:else>
 					                	<td class="vendor_name"><%=vendormodel.getVendor_name() %></td>
 					                    <td><%=vendormodel.getCreate_datetime() %></td>
 					                    

@@ -412,6 +412,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 		 <s:hidden name="recordApproveModel.alertmsg" id="alertmsg"/>
+		 <s:hidden name="recordApproveModel.saved" id="saved"/>
         </form> 
 		        
    		<script>

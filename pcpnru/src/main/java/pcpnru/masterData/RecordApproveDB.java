@@ -106,7 +106,52 @@ public class RecordApproveDB {
 		
 		return ListRecordApproveDT;
 	}
-	
+	public int UpdateApprovehd(String docno, String year, String record_approve_hd, String record_approve_t, String record_approve_date, String record_approve_title, String record_approve_rian,
+			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep,String create_by,String vendor_id,double total_amount)  throws Exception{
+		
+		String sqlStmt = "update record_approve_hd "
+				+ "set record_approve_hd =?, record_approve_t =?, record_approve_date =?"
+				+ ", record_approve_title =?, record_approve_rian =? , record_approve_des1 =?"
+				+ ", record_approve_des2 =?, record_approve_des3 =?, record_approve_cen =?"
+				+ ", record_approve_dep =?, thaidate_report =?, vendor_id =?"
+				+ ", total_amount =? " +
+				"where docno =? and year  =?";
+		
+		String[] splitdate = record_approve_date.split("-");
+		
+		ThaiNumber thnumber = new ThaiNumber();
+		ThaiMonth thmonth = new ThaiMonth();
+		
+		String thaidate_report = (thnumber.CenverT_To_ThaiNumberic(splitdate[2])+"-"
+		+thmonth.Convert_To_ThaiMonth(record_approve_date)+"-"
+		+thnumber.CenverT_To_ThaiNumberic(String.valueOf(Integer.parseInt(splitdate[0])+543)).replace(",","")).replace("-"," ");
+		
+		conn = agent.getConnectMYSql();
+		conn.setAutoCommit(false);
+		
+		ppStmt = conn.prepareStatement(sqlStmt);
+		ppStmt.setString(1, record_approve_hd);
+		ppStmt.setString(2, record_approve_t);
+		ppStmt.setDate(3, Date.valueOf(record_approve_date));
+		ppStmt.setString(4, record_approve_title);
+		ppStmt.setString(5, record_approve_rian);
+		ppStmt.setString(6, record_approve_des1);
+		ppStmt.setString(7, record_approve_des2);
+		ppStmt.setString(8, record_approve_des3);
+		ppStmt.setString(9, record_approve_cen);
+		ppStmt.setString(10, record_approve_dep);
+		ppStmt.setString(11, thaidate_report);
+		ppStmt.setString(12, vendor_id);
+		ppStmt.setDouble(13, total_amount);
+		ppStmt.setString(14, docno);
+		ppStmt.setString(15, year);
+		
+		int rowsupdate = ppStmt.executeUpdate();
+		conn.commit();
+		ppStmt.close();
+		conn.close();
+		return rowsupdate;
+	}
 	public void AddRecordApprovehd(String docno, String year, String record_approve_hd, String record_approve_t, String record_approve_date, String record_approve_title, String record_approve_rian,
 			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep, String create_by,String vendor_id,double total_amount)  throws Exception{
 		
