@@ -138,7 +138,7 @@
 		        </li>
 	    	</ul> 	
         </li>
-        <li><a href="" class="dropdown-toggle"><span class="mif-user"></span> คลังสินค้า </a>
+        <li><a href="" class="dropdown-toggle"><span class="mif-drive"></span> คลังสินค้า </a>
          	<ul class="d-menu" data-role="dropdown">
          		<li><a href="" class="dropdown-toggle"> ข้อมูลสินค้า</a>
          			<ul class="d-menu" data-role="dropdown">
