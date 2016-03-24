@@ -9,11 +9,16 @@
     <package name="inventory" extends="struts-default">
     	<global-results>
 		    <result name="nologin">/login.jsp</result>
+		    <result name="noauth">/no-authen.jsp</result>
 		</global-results>
 		
 		
 		<action name="unitMaster" class="pcpnru.projectAction.UnitMasterAction" method="execute">
       		<result name="success">/unitmaster.jsp</result>
+    	</action>
+    	
+    	<action name="protypemaster" class="pcpnru.inventoryAction.ProductTypeAction" method="execute">
+      		<result name="success">/producttype.jsp</result>
     	</action>
 		
     </package>
