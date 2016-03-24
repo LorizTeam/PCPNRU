@@ -33,18 +33,26 @@ public class VendorAction extends ActionSupport {
 	public String create() throws Exception{
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		String page_code = "020";
-		if(checkauth(request, page_code).equals("noauth")) 
-			return "noauth";
-		
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
+		
+		if(!new CheckAuthenPageDB().getCheckAuthen(username, page_code)) 
+			return "noauth";
+		
 		String add = request.getParameter("add");
 		String delete = request.getParameter("delete");
 		String update = request.getParameter("update");
 		VendorData vendt = new VendorData();
 		String vendor_id = "";
 		List vendorList = null;
+		
+		
+		
+		
 		if(add != null){
+			
+			if(new Validate().Check_String_notnull_notempty(vendormodel.getAlertmsg())) vendormodel.setAlertmsg("");
+			
 			vendor_id = vendt.GetHighest_VendorID();
 			vendor_id = vendt.PlusOneID_FormatID(vendor_id);
 			String vendor_name=vendormodel.getVendor_name();
@@ -53,6 +61,8 @@ public class VendorAction extends ActionSupport {
 
 		}else if(delete != null){
 			
+			if(new Validate().Check_String_notnull_notempty(vendormodel.getAlertmsg())) vendormodel.setAlertmsg("");
+			
 			List<Boolean> delete_status = new ArrayList<Boolean>();
 			String[] delvendor = request.getParameterValues("delvendor");
 			
@@ -60,7 +70,7 @@ public class VendorAction extends ActionSupport {
 				
 				for(String vendorid:delvendor){
 					
-					delete_status .add(vendt.Delete_vendor(vendorid));
+					delete_status.add(vendt.Delete_vendor(vendorid));
 						
 				}
 				
@@ -76,6 +86,8 @@ public class VendorAction extends ActionSupport {
 			
 		}else if(update != null){
 			
+			if(new Validate().Check_String_notnull_notempty(vendormodel.getAlertmsg())) vendormodel.setAlertmsg("");
+			
 			vendt.Update_Vendor(vendormodel.getVendor_id(), vendormodel.getVendor_name(), username);
 			vendormodel.clear_vendor();
 		}
@@ -88,7 +100,10 @@ public class VendorAction extends ActionSupport {
 	public String entrancVendor() throws IOException, Exception{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "020";
-		if(checkauth(request, page_code).equals("noauth")) 
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		
+		if(!new CheckAuthenPageDB().getCheckAuthen(username, page_code)) 
 			return "noauth";
 		
 		VendorData vendt = new VendorData();
@@ -101,7 +116,11 @@ public class VendorAction extends ActionSupport {
 	public String windows_entrancvendor() throws IOException, Exception{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "020";
-		if(checkauth(request, page_code).equals("noauth")) 
+		
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		
+		if(!new CheckAuthenPageDB().getCheckAuthen(username, page_code)) 
 			return "noauth";
 		
 		VendorData vendt = new VendorData();
@@ -111,22 +130,6 @@ public class VendorAction extends ActionSupport {
 		vendormodel = new VendorModel();
 		vendormodel.setFromwindow("true");
 		return SUCCESS;
-	}
-	
-	public String checkauth(HttpServletRequest request,String page_code) throws Exception{
-		String forwardText = "";
-		request = ServletActionContext.getRequest(); 
-		HttpSession session = request.getSession();
-		String username = (String) session.getAttribute("username");
-		boolean chkAuthen = false;
-		
-		chkAuthen = new CheckAuthenPageDB().getCheckAuthen(username, page_code);
-		
-		if(chkAuthen==false){
-			forwardText =  "noauth";
-		}
-		
-		return forwardText;
 	}
 	
 }

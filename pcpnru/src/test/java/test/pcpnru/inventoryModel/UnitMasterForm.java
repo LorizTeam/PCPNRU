@@ -1,6 +1,4 @@
-package pcpnru.projectModel;
-
-import pcpnru.inventoryModel.Create_UpdateModel;
+package test.pcpnru.inventoryModel;
 
 public class UnitMasterForm extends Create_UpdateModel{
 

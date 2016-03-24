@@ -1,6 +1,10 @@
 package pcpnru.projectAction;
 
-import javax.servlet.http.HttpServletRequest; 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.ServletActionContext;
 
@@ -8,7 +12,9 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import pcpnru.projectData.*;
 import pcpnru.projectModel.*;
+import pcpnru.utilities.CheckAuthenPageDB;
 import pcpnru.utilities.DateUtil;
+import pcpnru.utilities.Validate;
  
 
 public class UnitMasterAction extends ActionSupport {
@@ -24,35 +30,66 @@ public class UnitMasterAction extends ActionSupport {
 	}  
 
 	public String execute() throws Exception {
-		HttpServletRequest request = ServletActionContext.getRequest(); 
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String page_code = "021";
+		
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		
+		if(new CheckAuthenPageDB().getCheckAuthen(username, page_code)) 
+			return "noauth";
 		
 		UnitMasterDB unitMasterDB = new UnitMasterDB();
-		
-		String unit 	= unitMaster.getUnit(); 
  
 		String add 					= request.getParameter("add");
 		String update 				= request.getParameter("update");
 		String delete 				= request.getParameter("delete"); 
 		
+		String unit_id = "";
+		
 		if(add!=null){
-			if(!unit.equals("")){  
+			
+			if(new Validate().Check_String_notnull_notempty(unitMaster.getAlertmsg())) unitMaster.setAlertmsg("");
+			
+			unit_id = unitMasterDB.GetHighest_AddUnitID();
+			unit_id = unitMasterDB.PlusOneID_FormatID(unit_id);
+			String unit_name=unitMaster.getUnit_name();
+			unitMasterDB.AddUnitMaster(unit_id,unit_name,username);
+			
+			/* if(!unit.equals("")){  
 				boolean checkhave = unitMasterDB.checkunit(unit);
 				if(checkhave==true) unitMasterDB.AddUnitMaster(unit);
 				unitMaster.reset();
-			} 
+			} */
 		}
 		if(update!=null){
-			String unitHD 	= unitMaster.getUnitHD();
-			if(!unit.equals("")&&!unitHD.equals("")){
-				unitMasterDB.UpdateUnitMaster(unit, unitHD);
-				unitMaster.reset();
-			} 	
+			
+			if(new Validate().Check_String_notnull_notempty(unitMaster.getAlertmsg())) unitMaster.setAlertmsg("");
+			
+			unitMasterDB.UpdateUnitMaster(unitMaster.getUnit_id(), unitMaster.getUnit_name(), username);	
 		}
 		if(delete!=null){
-			if(!unit.equals("")){
-				unitMasterDB.DeleteSubjobMaster(unit);;
-				unitMaster.reset(); 
-			} 
+			
+			if(new Validate().Check_String_notnull_notempty(unitMaster.getAlertmsg())) unitMaster.setAlertmsg("");
+			
+			List<Boolean> delete_status = new ArrayList<Boolean>();
+			String[] delunit = request.getParameterValues("delunit");
+			
+			if(new Validate().Check_String_notnull_notempty(delunit)){
+				
+				for(String unitid:delunit){
+					
+					delete_status.add(unitMasterDB.DeleteUnitMaster(unitid));
+						
+				}
+				
+			}
+			
+			for(Boolean result_value : delete_status){
+				if(!result_value){
+					unitMaster.setAlertmsg("ไม่สามารถลบผู้ขายที่ถูกใช้งานอยู่ได้");
+				}
+			}
 		}
 	 
 		return SUCCESS;

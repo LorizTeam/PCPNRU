@@ -141,10 +141,7 @@ public class VendorData {
 			ppStmt.setString(1, vendor_id);
 			ppStmt.executeUpdate();
 			conn.commit();
-			
-			if(!conn.isClosed()) conn.close();
-			if(!ppStmt.isClosed()) ppStmt.close();
-			
+						
 			List ResultList = Get_vendorList(vendor_id);
 			
 			if(ResultList.isEmpty()){

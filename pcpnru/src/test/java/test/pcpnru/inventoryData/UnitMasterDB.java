@@ -1,4 +1,4 @@
-package pcpnru.projectData;
+package test.pcpnru.inventoryData;
  
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,7 +11,7 @@ import java.util.List;
 
 
 import pcpnru.utilities.*;
-import pcpnru.projectModel.UnitMasterForm;
+import test.pcpnru.inventoryModel.UnitMasterForm;
 
 public class UnitMasterDB {
 	
@@ -22,7 +22,7 @@ public class UnitMasterDB {
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
-public String GetHighest_AddUnitID() throws IOException, Exception{
+	public String GetHighest_AddUnitID() throws IOException, Exception{
 		
 		String sqlQuery = "select MAX(unit_id) as unit_id from unit_master";
 		String ResultString = "";
@@ -138,6 +138,7 @@ public String GetHighest_AddUnitID() throws IOException, Exception{
 		
 		return rowsupdate;
 	}
+	
 	public Boolean DeleteUnitMaster(String unit_id){
 		String sqlQuery = "delete from unit_master where unit_id = ?";
 		Boolean resultboolean = false;
@@ -149,7 +150,7 @@ public String GetHighest_AddUnitID() throws IOException, Exception{
 			ppStmt.setString(1, unit_id);
 			ppStmt.executeUpdate();
 			conn.commit();
-			
+						
 			if(Get_UnitList(unit_id, "").isEmpty()){
 				resultboolean = true;
 			}

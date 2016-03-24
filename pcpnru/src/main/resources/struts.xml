@@ -35,9 +35,7 @@
     	</action>
     	
     	<!-- 		SubjobMaster 		 -->
-        <action name="unitMaster" class="pcpnru.projectAction.UnitMasterAction" method="execute">
-      		<result name="success">/unitmaster.jsp</result>
-    	</action>
+        
     	<!-- 		SubjobMaster 		 -->
     	
     	<action name="groupcostcodeMaster" class="pcpnru.masterAction.GroupcostcodeAction" method="execute">
@@ -240,4 +238,5 @@
  	<include file="struts-pr.xml"></include>
  	<include file="struts-po.xml"></include>
  	<include file="struts-information.xml"></include>
+ 	<include file="struts-inventory.xml"></include>
 </struts>

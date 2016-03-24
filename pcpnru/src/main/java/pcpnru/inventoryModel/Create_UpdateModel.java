@@ -1,8 +1,12 @@
 package pcpnru.inventoryModel;
 
 public class Create_UpdateModel {
-	private String create_by,create_datetime,update_by,update_datetime;
-
+	public String create_by;
+	public String create_datetime;
+	public String update_by;
+	public String update_datetime;
+	public String alertmsg;
+	
 	public String getCreate_by() {
 		return create_by;
 	}
@@ -33,6 +37,14 @@ public class Create_UpdateModel {
 
 	public void setUpdate_datetime(String update_datetime) {
 		this.update_datetime = update_datetime;
+	}
+
+	public String getAlertmsg() {
+		return alertmsg;
+	}
+
+	public void setAlertmsg(String alertmsg) {
+		this.alertmsg = alertmsg;
 	}
 	
 }

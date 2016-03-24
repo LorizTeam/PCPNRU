@@ -5,10 +5,11 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import test.pcpnru.inventoryAction.BrandAction;
 import test.pcpnru.inventoryAction.ProductGroupAction;
+import test.pcpnru.inventoryAction.ProductTypeAction;
 
 @RunWith(Suite.class)
 @SuiteClasses({TestRecordApproveAction.class,TestViewDetailPR.class,TestDateUtils.class,TestAddDataPR.class
-	,TestVenderAction.class,BrandAction.class,ProductGroupAction.class})
+	,TestVenderAction.class,BrandAction.class,ProductGroupAction.class,ProductTypeAction.class})
 public class RunAllTest {
 
 }

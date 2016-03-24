@@ -22,7 +22,7 @@ public class ProductGroupDB {
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
-public String GetHighest_AddProductGroupID() throws IOException, Exception{
+	public String GetHighest_AddProductGroupID() throws IOException, Exception{
 		
 		String sqlQuery = "select MAX(progroup_id) as progroup_id from productgroup_master";
 		String ResultString = "";

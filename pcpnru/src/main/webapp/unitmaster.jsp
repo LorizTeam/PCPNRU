@@ -22,7 +22,7 @@
 %>
 <%
 	UnitMasterDB unitM = new UnitMasterDB();
-	List unitMasterList = unitM.GetUnitMasterList("");
+	List<UnitMasterForm> unitMasterList = unitM.Get_UnitList("","");
 %> 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,58 +49,73 @@
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <h3 class="align-center">สร้าง ชื่อหน่วยนับ</h3>
+		 <h3 class="align-center">หน่วยนับ</h3>
 		 <form action="unitMaster.action" method="post">
-		 <div class="example" data-text="รายละเอียด">
-         <div class="grid">
-		  	<div class="row cells12">
-		  		<div class="cell colspan4"> 
-		        	ชื่อ หน่วยนับ
-			        <div class="input-control text full-size"> 
-					    <s:textfield id="unit" name="unitMaster.unit" required="" />
-					    <s:hidden id="unithd" name="unitMaster.unitHD" />
-					</div> 
-				</div>
-				<div class="cell colspan4"><br>
-					  <button class="button success" type="submit" name="add">สร้าง</button> 
-					  <button class="button primary" type="submit" name="update">แก้ไข</button> 
-					  <button class="button danger" type="submit" name="delete">ลบ</button>
-				</div> 
-		    </div>
-		 </div>  
-		</div>  
+		 <div class="grid" >
+		 		<div class="example" data-text="Add">
+			        <div class="row cells12 ">
+				 		<div class="cell colspan1"> </div>
+				 		<div class="cell colspan4">
+				 			รหัสหน่วยนับ
+				 			<div class="input-control text"> 
+				 				<s:textfield name="unitMaster.unit_id" id="unit_id" readonly="true"/>
+				 			</div>
+				 		</div>
+				 		<div class="cell colspan4"> 
+				 			ชื่อหน่วยนับ
+				 			<div class="input-control text">
+				 				<s:textfield name="unitMaster.unit_name" id="unit_name" required=""/>
+				 			</div>
+				 			
+				 			<button type="submit" class="button success" name="add" id="add"><span class="mif-plus mif-lg fg-white"></span></button>
+				 			<button type="submit" class="button primary" name="update" id="update"><span class="mif-checkmark mif-lg fg-white"></span></button>
+				 		</div>
+				 		
+				 	</div>
+			    </div>  
 		
-        <div class="example" data-text="รายการ" >
-            <table id="table_unit" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
-                <thead>
-                <tr> 
-                	<th width="10%">เลขที่</th>
-                    <th width="90%">หน่วยนับ</th>  
-                </tr>
-                </thead> 
-                  
-                <tbody>
-                <%	if (unitMasterList != null) {
-						int x = 0;
-						for (Iterator iter = unitMasterList.iterator(); iter.hasNext();) {
-						x++; 
-						UnitMasterForm unitjMaster = (UnitMasterForm) iter.next();
-				%>
-                <tr> 
-                    <td align="center" width="10%"><%=x%></td>
-                    <td class="tdunit" align="left" width="90%"><%=unitjMaster.getUnit()%></td> 
-                </tr>	  
-                <% 	} %>
-                
-                <%} else { %> 
-                	<tr> 
-                    <td colspan="3">ไม่พบข้อมูล</td> 
-                	</tr> 
-                <%	} %>
-                </tbody>
-            </table> 
-            
-        </div> <!-- End of example table --> 
+	        <div class="example" data-text="รายการ" >
+	            <table id="table_unit" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
+	                <thead>
+	                <tr> 
+	                	<th>ลบข้อมูล <input type="checkbox" id="checkall"></th>
+	                	<th width="10%">รหัสหน่วยนับ</th>
+	                    <th width="90%">หน่วยนับ</th>  
+	                </tr>
+	                </thead> 
+	                  
+	                <tbody>
+	                <%	if (unitMasterList != null) {
+							int x = 1;
+							for (UnitMasterForm unitjMaster:unitMasterList) {
+					%>
+	                <tr> 
+	                	<td><input type="checkbox" name="delunit" id="delunit" value="<%=unitjMaster.getUnit_id() %>"> </td>
+	                    <td align="center" width="10%" class="unit_id"><%=unitjMaster.getUnit_id()%></td>
+	                    <td class="unit_name" align="left" width="90%"><%=unitjMaster.getUnit_name()%></td> 
+	                </tr>	  
+	                <% 	x++;
+	                
+						} %>
+	                
+	                <%} else { %> 
+	                	<tr> 
+	                    <td colspan="3">ไม่พบข้อมูล</td> 
+	                	</tr> 
+	                <%	} %>
+	                </tbody>
+	            </table> 
+	            <div class="row cells12 ">
+			 		<div class="cell colspan4"> </div>
+			 		<div class="cell colspan4"> 
+			 			<button type="submit" class="button danger" name="delete" id="delete"><span class="mif-minus mif-lg fg-white"></span></button>
+			 		</div>
+			 		
+			 	</div> 
+	        </div> <!-- End of example table -->
+        	
+        </div>
+        <s:hidden name="vendormodel.alertmsg" id="alertmsg"/>
      	</form>
      	
    		<script>
@@ -113,19 +128,29 @@
           	ordering: false,
           	"lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
       	} ); 
-        	
-		$('#table_unit tbody').on( 'click', 'tr', function () { 
+
+		$("#checkall").click(function(){
+			if($(this).prop("checked")){
+				$('[name="delunit"]').prop("checked",true);
+			}else{
+				$('[name="delunit"]').prop("checked",false);
+			}
+		});
+		$("#delete").click(function(){
+			$("#unit_name").val("-");
+		});
+    	$('#table_unit tbody').on( 'click', 'tr', function () {
 	        if ( $(this).hasClass('selected') ) {
 	            $(this).removeClass('selected');
-	            $("#unit").val("");
-	            $("#unithd").val(""); 
+	            $("#unit_id").val("");
+	            $("#unit_name").val("");
 	        }
 	        else {
 	            table.$('tr.selected').removeClass('selected');
 	            $(this).addClass('selected');
 	            var $index = $(this).index();
-	            $("#unit").val($(".tdunit").eq($index).text());
-	            $("#unithd").val($(".tdunit").eq($index).text()); 
+	            $("#unit_id").val($(".unit_id").eq($index).text());
+	            $("#unit_name").val($(".unit_name").eq($index).text());
 	        }
 	    });
 	} );

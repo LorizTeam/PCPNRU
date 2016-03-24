@@ -39,8 +39,6 @@ public class Validate {
 			resultcheck = false;
 		}else if(!value.equals("")){
 			resultcheck = true;
-		}else{
-			resultcheck = true;
 		}
 		
 		return resultcheck;
@@ -48,16 +46,10 @@ public class Validate {
 	public boolean Check_String_notnull_notempty(String[] value){
 		boolean resultcheck = false;
 		for(String value_array:value){
-			if(value_array != null){
-				resultcheck = true;
-			}else{
+			if(value_array == null){
 				resultcheck = false;
-			}
-				
-			if(!value_array.equals("")){
+			}else if(!value_array.equals("")){
 				resultcheck = true;
-			}else{
-				resultcheck = false;
 			}
 		}
 		return resultcheck;
