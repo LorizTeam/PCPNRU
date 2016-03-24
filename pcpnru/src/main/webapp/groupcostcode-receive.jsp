@@ -100,9 +100,9 @@
 						</div>
 					</div> 
 					<div class="cell colspan6 align-left"><br>
-						  <button class="button success" name="add">สร้างชื่อรายการค่าใช้จ่าย</button> 
-						  <button class="button primary" name="update">แก้ไขชื่อรายการค่าใช้จ่าย</button> 
-						  <button class="button danger" name="delete">ลบชื่อรายการค่าใช้จ่าย</button> 
+						  <button class="button success" name="add">สร้างชื่อ รายได้</button> 
+						  <button class="button primary" name="update">แก้ไขชื่อ รายได้</button> 
+						  <button class="button danger" name="delete">ลบชื่อ รายได้</button> 
 					</div> 
 			    </div>  
 			 
