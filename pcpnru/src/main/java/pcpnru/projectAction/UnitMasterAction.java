@@ -83,11 +83,13 @@ public class UnitMasterAction extends ActionSupport {
 						
 				}
 				
+			}else{
+				unitMaster.setAlertmsg("กรุณาติ๊กถูกข้อมูลที่ต้องการลบด้วยค่ะ");
 			}
 			
 			for(Boolean result_value : delete_status){
 				if(!result_value){
-					unitMaster.setAlertmsg("ไม่สามารถลบผู้ขายที่ถูกใช้งานอยู่ได้");
+					unitMaster.setAlertmsg("ไม่สามารถลบผู้ขายที่ถูกใช้งานอยู่ได้ค่ะ");
 				}
 			}
 		}

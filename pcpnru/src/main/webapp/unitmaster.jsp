@@ -38,13 +38,8 @@
 		<link href="css/metro-schemes.css" rel="stylesheet">
 		<link href="css/docs.css" rel="stylesheet"> 
 		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
-	 
-		<script src="js/jquery-2.1.3.min.js"></script>
-	    <script src="js/metro.js"></script>
-	    <script src="js/docs.js"></script>
-	    <script src="js/prettify/run_prettify.js"></script>
-	    <script src="js/ga.js"></script> 
- 		<script src="js/jquery.dataTables.min.js"></script>
+	 	<link href="css/sweetalert.css" rel="stylesheet" />
+
 	</head>
 
 	<body>
@@ -115,12 +110,20 @@
 	        </div> <!-- End of example table -->
         	
         </div>
-        <s:hidden name="vendormodel.alertmsg" id="alertmsg"/>
+        <s:hidden name="unitMaster.alertmsg" id="alertmsg"/>
      	</form>
-     	
+		<script src="js/jquery-2.1.3.min.js"></script>
+	    <script src="js/metro.js"></script>
+	    <script src="js/docs.js"></script>
+	    <script src="js/prettify/run_prettify.js"></script>
+	    <script src="js/ga.js"></script> 
+ 		<script src="js/jquery.dataTables.min.js"></script>
+ 		<script src="js/sweetalert.min.js"></script>
    		<script>
         $(document).ready(function() {
-        	
+       	if($("#alertmsg").val() != ""){
+       		swal("Error",$("#alertmsg").val() , "error");
+       	}
     	var table = $('#table_unit').DataTable( {
           	scrollY:  '36.5vh',
           	scrollX: true,

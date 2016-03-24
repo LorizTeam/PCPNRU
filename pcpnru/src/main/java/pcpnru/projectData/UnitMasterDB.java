@@ -69,13 +69,13 @@ public String GetHighest_AddUnitID() throws IOException, Exception{
 			"WHERE "; 
 			if(new Validate().Check_String_notnull_notempty(unit_name)) sqlStmt = sqlStmt+ "unit_name like '"+unit_name+"%' AND "; 
 			
-			sqlStmt = sqlStmt + "unit <> '' order by unit";
+			sqlStmt = sqlStmt + "unit_name <> '' order by unit_name";
 			
 			//System.out.println(sqlStmt);				
 			pStmt = conn.createStatement();
 			rs = pStmt.executeQuery(sqlStmt);	
 			while (rs.next()) {
-				unit_name 	= rs.getString("unit"); 
+				unit_name 	= rs.getString("unit_name"); 
 				
 				unitMasterList.add(new UnitMasterForm(unit_name));
 			}

@@ -212,13 +212,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    	<option value="">โปรดเลือก</option> 
 							        <% 
 							        UnitMasterDB unitM = new UnitMasterDB();
-							    	List unitMasterList = unitM.GetUnitMasterList("");
+							    	List<UnitMasterForm> unitMasterList = unitM.GetUnitMasterList("");
 							        
 					        		if (unitMasterList != null) {
-						        		for (Iterator iter = unitMasterList.iterator(); iter.hasNext();) {
-						        			UnitMasterForm unitjMaster = (UnitMasterForm) iter.next();
+						        		for (UnitMasterForm unitjMaster:unitMasterList) {
 				      				%>  
-					      			<option value="<%=unitjMaster.getUnit()%>" ><%=unitjMaster.getUnit()%></option>
+					      			<option value="<%=unitjMaster.getUnit_name()%>" ><%=unitjMaster.getUnit_name()%></option>
 									<%		} 
 										}
 									%>
@@ -262,10 +261,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							    	unitMasterList = unitM.GetUnitMasterList("");
 							        
 					        		if (unitMasterList != null) {
-						        		for (Iterator iter = unitMasterList.iterator(); iter.hasNext();) {
-						        			UnitMasterForm unitjMaster = (UnitMasterForm) iter.next();
+						        		for (UnitMasterForm unitjMaster:unitMasterList) {
 				      				%>  
-					      			<option value="<%=unitjMaster.getUnit()%>" ><%=unitjMaster.getUnit()%></option>
+					      			<option value="<%=unitjMaster.getUnit_name()%>" ><%=unitjMaster.getUnit_name()%></option>
 									<%		} 
 										}
 									%>

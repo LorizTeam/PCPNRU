@@ -45,12 +45,10 @@ public class Validate {
 	}
 	public boolean Check_String_notnull_notempty(String[] value){
 		boolean resultcheck = false;
-		for(String value_array:value){
-			if(value_array == null){
-				resultcheck = false;
-			}else if(!value_array.equals("")){
-				resultcheck = true;
-			}
+		if(value == null){
+			resultcheck = false;
+		}else if(!value.equals("")){
+			resultcheck = true;
 		}
 		return resultcheck;
 	}
