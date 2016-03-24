@@ -74,6 +74,8 @@ public class VendorAction extends ActionSupport {
 						
 				}
 				
+			}else{
+				vendormodel.setAlertmsg("กรุณาติ๊กถูกเลือกข้อมูลที่ต้องการลบด้วยค่ะ");
 			}
 			
 			for(Boolean result_value : delete_status){
