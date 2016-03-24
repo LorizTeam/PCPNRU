@@ -57,9 +57,9 @@ public String GetHighest_AddUnitID() throws IOException, Exception{
 		return unit_id;
 	}
 	
-	public List GetUnitMasterList(String unit_name) 
+	public List<UnitMasterForm> GetUnitMasterList(String unit_name) 
 	throws Exception { //09-03-2016
-		List unitMasterList = new ArrayList(); 
+		List<UnitMasterForm> unitMasterList = new ArrayList<UnitMasterForm>(); 
 		try {
 		
 			conn = agent.getConnectMYSql();
