@@ -17,13 +17,13 @@ public Connection getConnectMYSql()  throws Exception, IOException {
 			//Class.forName ("org.gjt.mm.mysql.Driver");
 			String dbName = "pcpnru";
 			//String hostname = "pcpnru.cre4njgwawzc.ap-southeast-1.rds.amazonaws.com";  // amazon
-			//String hostname = "smartict.ar-bro.net";  // smart server
-			String hostname = "localhost";
+			String hostname = "smartict.ar-bro.net";  // smart server
+			//String hostname = "localhost";
 			String port = "3306";
 			String dbUserName = "root";
 			//String dbPassword = "a8s5T5d4"; // amazon
-			//String dbPassword = "a010103241c"; // smart server
-			String dbPassword = "1234";
+			String dbPassword = "a010103241c"; // smart server
+			//String dbPassword = "1234";
 			String jdbcUrl = "jdbc:mysql://" + hostname + ":" +
 			port + "/" + dbName + "?useUnicode=yes&characterEncoding=UTF-8&user=" + dbUserName + "&password=" + dbPassword;
 
@@ -84,7 +84,7 @@ public Connection getConnectPostgreSqlSrv()  throws Exception, IOException
 		String dbUserName = "admin";
 		String dbPassword = "Stu250i";
 		String url = "jdbc:postgresql://localhost/worldsip";	
-		 */
+*/
 		//	Test Database 203.149.0.20
 	//   String dbUserName = "admin";
 	//   String dbPassword = "wip12345";

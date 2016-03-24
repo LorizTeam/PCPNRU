@@ -5,17 +5,8 @@ public class Create_UpdateModel {
 	public String create_datetime;
 	public String update_by;
 	public String update_datetime;
-	public String alertmsg,fromwindow;
+	public String alertmsg;
 	
-	
-	public String getFromwindow() {
-		return fromwindow;
-	}
-
-	public void setFromwindow(String fromwindow) {
-		this.fromwindow = fromwindow;
-	}
-
 	public String getCreate_by() {
 		return create_by;
 	}
