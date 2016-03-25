@@ -221,4 +221,23 @@ public class ProjectDTReceiveDB {
 		
 		return target;
 		}
+	
+	public String SelectProjFreeze(String projectcode, String year) throws Exception{
+		conn = agent.getConnectMYSql();
+		String freeze = "";
+		String sqlStmt = "SELECT status_freeze From projectplan_header "+
+				"WHERE project_code = '"+projectcode+"' and year = '"+year+"'";
+		 
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlStmt);	
+		
+		while (rs.next()) {
+			freeze = rs.getString("status_freeze");
+		}
+		
+		rs.close();
+		pStmt.close();
+		conn.close();
+		return freeze;
+	}
 }

@@ -30,9 +30,16 @@ public class ProjectDTReceiveAction extends ActionSupport{
 	public String execute() throws Exception{ 
 		HttpServletRequest request = ServletActionContext.getRequest();
 		ProjectDTReceiveDB projDtR = new ProjectDTReceiveDB();
-	 
-		String add			= (String) request.getParameter("add");
+	  
 		String projectcode 	= (String) request.getParameter("projectcode");
+		String year			= (String) request.getParameter("year");
+		
+		String freeze 	= projDtR.SelectProjFreeze(projectcode, year);
+		
+		if(freeze.equals("N")){
+		
+		String add			= (String) request.getParameter("add");
+		 
 		String gcostname	= (String) request.getParameter("gcostname");
 		String budget		= (String) request.getParameter("budget");
 		if(budget.equals("")) budget = "0";  
@@ -41,7 +48,7 @@ public class ProjectDTReceiveAction extends ActionSupport{
 	//	if(csubjob.equals("")) csubjob = "0000";
 		String subjob		= "0003";
 		String gcostcode		= (String) request.getParameter("gcostcode");
-		String year			= (String) request.getParameter("year");
+		
 	//	String projectcode 	= projModel.getProject_code();
 	//	String costname		= projModel.getCostname();
 	//	String budget		= projModel.getBudget();
@@ -109,7 +116,7 @@ public class ProjectDTReceiveAction extends ActionSupport{
 		}else{
 			projDtR.DeleteProjDTReceive(projectcode, gcostcode, year);
 		}
-		 
+	}	 
 		return SUCCESS;
 	}
 	 

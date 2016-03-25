@@ -66,4 +66,16 @@ public class ProjectHDAction extends ActionSupport{
 		}
 		return SUCCESS;
 	}
+	public String freeze()throws Exception{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		ProjectData pjData = new ProjectData();
+		
+		String freeze		= request.getParameter("freeze"); 
+		String projectcode 	= request.getParameter("projectcode"); 
+		String year 		= request.getParameter("year"); 
+		
+		pjData.UpdateFreeze(projectcode, year, freeze);
+		 
+		return SUCCESS;
+	}
 }

@@ -3,7 +3,7 @@ package pcpnru.projectModel;
 public class ProjectModel {
 
 	//HD
-	private String project_code,target,percen,year,datetime_response;
+	private String project_code,target,percen,year,datetime_response,freeze;
 	private String project_name;
 	
 	//DT receive
@@ -36,7 +36,7 @@ public class ProjectModel {
 	}
 	
 	public ProjectModel(String project_code,String project_name, String target, String percen,
-			String year, String datetime_response, String forwat){
+			String year, String datetime_response, String freeze, String forwat){
 		
 		this.project_code = project_code;
 		this.project_name = project_name;
@@ -44,6 +44,7 @@ public class ProjectModel {
 		this.percen = percen;
 		this.year = year;
 		this.datetime_response = datetime_response;
+		this.freeze		= freeze;
 		
 	}
 	public ProjectModel(String project_code,String gcostcode,String gcostname,String budget){
@@ -174,5 +175,11 @@ public class ProjectModel {
 	}
 	public void setPercen(String percen) {
 		this.percen = percen;
+	}
+	public String getFreeze() {
+		return freeze;
+	}
+	public void setFreeze(String freeze) {
+		this.freeze = freeze;
 	} 
 }

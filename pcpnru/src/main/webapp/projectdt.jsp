@@ -86,6 +86,14 @@
 	    		});
 	    		
 	    		}
+			
+			function freeze(){ 
+				swal({
+					  title: 'โครงการถูกล็อค!',
+					  text: 'โครงการนี้ถูกล็อคไม่ให้ทำการแก้ไข',
+					  timer: 3000
+					})
+		   		}
     </script>
 	
 	<body ng-app="" ng-init="">
@@ -94,34 +102,65 @@
 		 	
 		 	ProjectData pdb = new ProjectData();
 		 	String projectname = pdb.selectProjectname(projectcode);
+		 	String freeze 	= pdb.SelectProjFreeze(projectcode, year);
 		 %>
 		 <%@include file="topmenu.jsp" %>
 		 <div class="container-fluid">
+		 	<!-- รายได้ -->
 		 	<% if(projectcode.equals("PCC")) {%>
-		 	<a href="projectdt-receive-pcc.jsp?projectcode=<%=projectcode%>&year=<%=year%>" class="command-button primary">
-			    <span class="icon mif-chart-dots"></span>
-			  	  รายได้
-			    <small>จัดการรายรับของโครงการ</small>
-			</a>
-			<%} else { %>
-			<a href="projectdt-receive.jsp?projectcode=<%=projectcode%>&year=<%=year%>" class="command-button primary">
-			    <span class="icon mif-chart-dots"></span>
-			  	  รายได้
-			    <small>จัดการรายรับของโครงการ</small>
-			</a>
+		 		<% if(freeze.equals("N")) {%>
+			 	<a href="projectdt-receive-pcc.jsp?projectcode=<%=projectcode%>&year=<%=year%>" class="command-button primary">
+				    <span class="icon mif-chart-dots"></span>
+				  	  รายได้
+				    <small>จัดการรายรับของโครงการ</small>
+				</a>
+				<%}else{ %>
+				<a href="javascript:freeze()" class="command-button primary">
+				    <span class="icon mif-chart-dots"></span>
+				  	  รายได้
+				    <small>จัดการรายรับของโครงการ</small>
+				</a>
+				<%} %>
+			<%} else { %> 
+				<% if(freeze.equals("N")) {%>
+			 	<a href="projectdt-receive.jsp?projectcode=<%=projectcode%>&year=<%=year%>" class="command-button primary">
+				    <span class="icon mif-chart-dots"></span>
+				  	  รายได้
+				    <small>จัดการรายรับของโครงการ</small>
+				</a>
+				<%}else{ %>
+				<a href="javascript:freeze()" class="command-button primary">
+				    <span class="icon mif-chart-dots"></span>
+				  	  รายได้
+				    <small>จัดการรายรับของโครงการ</small>
+				</a>
+				<%} %>
 			<%} %>
-			<a href="projectdt-charges.jsp?projectcode=<%=projectcode%>&year=<%=year%>" class="command-button info">
+			<!-- รายได้ -->
+			
+			<!-- รายจ่าย -->
+			<% if(freeze.equals("N")) {%>
+			 	<a href="projectdt-charges.jsp?projectcode=<%=projectcode%>&year=<%=year%>" class="command-button info">
 			    <span class="icon mif-coins"></span>
 			  	 ค่าใช้จ่าย
 			    <small>จัดการค่าใช้จ่ายของโครงการ</small>
-			</a>
-		<!--  	<a href="projectplan.pdf" class="command-button success"> -->
+				</a>
+			<%}else{ %>
+				<a href="javascript:freeze()" class="command-button info">
+				    <span class="icon mif-chart-dots"></span>
+				  	  รายได้
+				    <small>จัดการรายรับของโครงการ</small>
+				</a>
+			<%} %>
+			<!-- รายจ่าย -->
+			
+			<!--  	<a href="projectplan.pdf" class="command-button success"> -->
 			<% if(projectcode.equals("PCC")) {%>
-			<a href="javascript:printProj_PCC('<%=projectcode%>','<%=year%>');" class="command-button success" >
-			    <span class="icon mif-printer"></span>
-			  	 พิมพ์
-			    <small>พิมพ์รายงานประมาณการรายได้ รายจ่าย</small>
-			</a>
+				<a href="javascript:printProj_PCC('<%=projectcode%>','<%=year%>');" class="command-button success" >
+				    <span class="icon mif-printer"></span>
+				  	 พิมพ์
+				    <small>พิมพ์รายงานประมาณการรายได้ รายจ่าย</small>
+				</a>
 			<%} else { %>
 			<a href="javascript:printProj('<%=projectcode%>','<%=year%>');" class="command-button success" >
 			    <span class="icon mif-printer"></span>

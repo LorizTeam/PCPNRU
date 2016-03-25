@@ -31,15 +31,22 @@ public class ProjectDTChargesAction extends ActionSupport{
 		HttpServletRequest request = ServletActionContext.getRequest();
 		ProjectDTChargesDB projDtC = new ProjectDTChargesDB();
 	 
-		String add			= (String) request.getParameter("add");
 		String projectcode 	= (String) request.getParameter("projectcode");
+		String year			= (String) request.getParameter("year");
+		
+		String freeze 	= projDtC.SelectProjFreeze(projectcode, year);
+		
+		if(freeze.equals("N")){
+		
+		String add			= (String) request.getParameter("add");
+		 
 		String gcostname	= (String) request.getParameter("gcostname");
 		String budget		= (String) request.getParameter("budget");
 		if(budget.equals("")) budget = "0";
 		String childsubjobcode	= (String) request.getParameter("childsubjobcode");
 		String subjobcode	= (String) request.getParameter("subjobcode");
 		String gcostcode		= (String) request.getParameter("gcostcode");
-		String year			= (String) request.getParameter("year");
+		 
 		String balance		= (String) request.getParameter("balance"); 
 		
 		if(add!=null){ 
@@ -120,6 +127,8 @@ public class ProjectDTChargesAction extends ActionSupport{
 		//	String costcodedelete = hdgcostcode[Integer.parseInt(arnumber)];
 			
 			projDtC.DeleteProjDTCharges(projectcode, subjob, csubjob, gcostcode);
+		}
+		
 		}
 		return SUCCESS;
 	}

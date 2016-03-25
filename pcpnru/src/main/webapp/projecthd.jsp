@@ -35,6 +35,7 @@
 		<link href="css/docs.css" rel="stylesheet"> 
 	 	<link href="css/select2.css" rel="stylesheet">
 	 	<link href="css/jquery.dataTables.min.css" rel="stylesheet">
+		<link href="css/sweetalert.css" rel="stylesheet" />
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -42,6 +43,7 @@
         <script src="js/jquery.dataTables.min.js"></script>
   		<script src="js/select2.js"></script>
   		<script src="js/angular.min.js"></script>
+  		<script src="js/sweetalert.min.js"></script>
 	</head>
 
 	<body>
@@ -103,6 +105,7 @@
             <table id="table_project" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr> 
+                	<th>ล็อคโครงการ</th>
                     <th>รหัส-โครงการ</th>
                     <th>ชื่อ-โครงการ</th>
                     <th>ประจำปี</th>
@@ -120,6 +123,15 @@
                 	ProjectModel pjmodel = (ProjectModel) pjIterate.next();
                	%>
                	<tr> 
+               		<%if(pjmodel.getFreeze().equals("Y")){%>
+               			<td align="center">
+               			<a id="print" href="javascript:freeze('Y','<%=pjmodel.getProject_code()%>','<%=pjmodel.getYear() %>');" class="button rounded"><span class="mif-lock mif-lg" style="color: darkGreen;"></span></a>
+               			</td>
+               		<%}else{ %>
+               			<td align="center">
+               			<a id="print" href="javascript:freeze('N','<%=pjmodel.getProject_code()%>','<%=pjmodel.getYear() %>');" class="button rounded"><span class="mif-unlock mif-lg" style="color: red;"></span></a>
+               			</td>
+               		<%} %> 
                     <td class="tdproject_code" align="center"><%=pjmodel.getProject_code()%></td>
                     <td align="left"><%=pjmodel.getProject_name() %></td>
                     <td class="tdyear" align="center"><%=pjmodel.getYear() %></td>
@@ -138,7 +150,71 @@
         <!-- End of example table -->  
         
         
-   		<script>
+   	<script>
+   	 function freeze(status_freeze, projectcode,year){
+     	  
+   		if(status_freeze=='N'){
+ 		swal({  title: "ยืนยันการล็อคโครงการ ?",   
+ 				text: "หากคุณต้องการล็อคโครงการให้กดปุ่มยืนยัน !",   
+ 				type: "warning",   
+ 				showCancelButton: true,   
+ 				confirmButtonColor: "#DD6B55",   
+ 				confirmButtonText: "ยืนยัน, ฉันต้องการล็อคโครงการ !",   
+ 				cancelButtonText: "ไม่, ฉันไม่ต้องการล็อคโครงการ !",   
+ 				closeOnConfirm: false,   
+ 				closeOnCancel: false,
+ 				showLoaderOnConfirm: true
+ 			}, 
+ 			
+ 		function (isConfirm){
+ 			 
+ 		  	if (isConfirm) {
+ 			setTimeout(function(){
+ 				var load = window.open("/pcpnru/projecthdFreeze.action?freeze=Y&projectcode="+projectcode+"&year="+year
+ 						,'_self');
+ 			swal("ล็อคโครงการสำเร็จแล้ว!", "สามารถปลดล็อคโครงการได้ หากมีข้อผิดพลาด !", "success");
+ 			} 
+ 			 , 1000);
+  
+ 			}else {    
+ 			 swal("ยกเลิกการล็อคโครงการ", "คุณสามารถล็อคโครงการได้อีกครั้งหลังจากปิดหน้าต่างนี้ !", "error");   
+ 			}
+ 		});
+ 		  
+ 		}else{
+ 			
+ 			swal({  title: "ยืนยันการปลดล็อคโครงการ ?",   
+ 				text: "หากคุณต้องการปลดล็อคโครงการให้กดปุ่มยืนยัน !",   
+ 				type: "warning",   
+ 				showCancelButton: true,   
+ 				confirmButtonColor: "#DD6B55",   
+ 				confirmButtonText: "ยืนยัน, ฉันต้องการปลดล็อคโครงการ !",   
+ 				cancelButtonText: "ไม่, ฉันไม่ต้องการปลดล็อคโครงการ !",   
+ 				closeOnConfirm: false,   
+ 				closeOnCancel: false,
+ 				showLoaderOnConfirm: true
+ 			}, 
+ 			
+ 		function (isConfirm){
+ 			 
+ 		  	if (isConfirm) {
+ 			setTimeout(function(){
+ 				var load = window.open("/pcpnru/projecthdFreeze.action?freeze=N&projectcode="+projectcode+"&year="+year
+ 						,'_self');
+ 			swal("ปลดล็อคโครงการสำเร็จแล้ว!", "สามารถล็อคโครงการได้อีกครั้ง !", "success");
+ 			} 
+ 			 , 1000);
+  
+ 			}else {    
+ 			 swal("ยกเลิกการปลดล็อคโครงการ", "คุณสามารถปลดล็อคโครงการได้อีกครั้งหลังจากปิดหน้าต่างนี้ !", "error");   
+ 			}
+ 		});
+ 			
+ 		}
+   		
+ 	}
+ </script>
+  <script>
 	   		$('#percen').blur(function () {   
 	   		var value = $('#percen').val();
 	   		$('#percen').val(value.toString().substr(0,2));
@@ -162,7 +238,7 @@
 		        
 		        var target = "";
 		        var table = $('#table_project').DataTable( { 
-	              	scrollY: '37.5vh', 
+	              	scrollY: '50.5vh', 
 	              	scrollX: true,
 	              	scrollCollapse: true,
 	                ordering: false,

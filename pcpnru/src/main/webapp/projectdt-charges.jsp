@@ -40,9 +40,10 @@
 		 	int percen = PDTC.getPercen(projectcode, year);
 		 	double percentage = PDTC.getAmtValue(projectcode, year, percen);
 		 	
-		 	
 		 	List SubjobList = PDTC.GetSubjobList();  
 		 	List groupcostCodeList = PDTC.GetGroupCostCodeList(projectcode, year);
+		 	
+		 	String freeze 	= pdb.SelectProjFreeze(projectcode, year);
 		 %>
 		 <form id="project-chargesdt" action="projectdtcharges.action" method="post">
 		 <%@include file="topmenu.jsp" %>
@@ -105,9 +106,11 @@
 			                    	<input id="budget" name="budget" onblur="CommaBudget()">
 			                    </div>
 							</div> 
+							<%if(freeze.equals("N")){%>
 							<div class="cell colspan5"><br>
 								 <button class="button success" type="submit" name="add">เพิ่มประมาณการรายได้</button>
-					    </div>
+					    	</div>
+					    	<%} %>
 					</div>
 				</div>  
 			</div>
@@ -350,11 +353,13 @@
 						 </span>
 					</div>
 				</div>
+				<%if(freeze.equals("N")){%>
 				  <div class="row"  >
 					 <div class="cell align-center"><br>
 							  <button class="button success" type="submit" name="add">เพิ่มประมาณการรายได้</button> 
 					</div>
 				</div>
+				<%} %>
 			</div>
 		</form>
 		 

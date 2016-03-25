@@ -101,6 +101,10 @@
       		<result name="success">/projecthd.jsp</result>
     	</action>
         
+        <!-- freeze project -->
+        <action name="projecthdFreeze" class="pcpnru.projectAction.ProjectHDAction" method="freeze">
+      		<result name="success">/projecthd.jsp</result>
+    	</action>
         <!-- 		ProjectHD	 -->
         
         <!-- 		ProjectDT Receive	 -->

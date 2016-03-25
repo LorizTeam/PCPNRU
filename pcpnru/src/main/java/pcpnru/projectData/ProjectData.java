@@ -29,7 +29,7 @@ public class ProjectData {
 	public List GetProjectHDList() 
 	throws Exception { //30-05-2014
 		List projectplanHDList = new ArrayList();
-		String datetime_response = "",project_name,target="",percen="",year_projectplan="",project_code="";
+		String datetime_response = "",project_name,target="",percen="",year_projectplan="",project_code="",freeze="";
 		try {
 		
 			
@@ -41,6 +41,7 @@ public class ProjectData {
 					+ "a.`year`,"
 					+ "a.`percen`,"
 					+ "DATE_FORMAT(a.datetime_response,'%d-%m-%Y %H:%i') as datetime_response "
+					+ ",a.`status_freeze` " 
 					+ "FROM "
 					+ "projectplan_header AS a "
 					+ "INNER JOIN project_master AS b ON b.project_code = a.project_code where a.project_code <> '' "
@@ -54,6 +55,7 @@ public class ProjectData {
 				project_name = rs.getString("project_name");
 				target = rs.getString("target");
 				percen = rs.getString("percen");
+				freeze = rs.getString("status_freeze");
 				year_projectplan = rs.getString("year");
 				datetime_response		= rs.getString("datetime_response");
 			//	dateTime = dateTime.replace(".0", "");
@@ -66,7 +68,7 @@ public class ProjectData {
 				datetime_response		= day+"-"+month+"-"+year+" "+time;
 			//	amount 			= df2.format(Float.parseFloat(amount));
 				
-				projectplanHDList.add(new ProjectModel(project_code, project_name,target,percen,year_projectplan, datetime_response, ""));
+				projectplanHDList.add(new ProjectModel(project_code, project_name,target,percen,year_projectplan, datetime_response, freeze, ""));
 			}
 			rs.close();
 			pStmt.close();
@@ -175,6 +177,36 @@ public class ProjectData {
 		conn.close();
 		return project_name;
 		}
+	
+	public void UpdateFreeze(String project_code, String year, String freeze)  throws Exception{
+		conn = agent.getConnectMYSql();
+		
+		String sqlStmt = "UPDATE projectplan_header set status_freeze = '"+freeze+"' "+
+				"WHERE project_code = '"+project_code+"' and year = '"+year+"'";
+		//System.out.println(sqlStmt);
+		pStmt = conn.createStatement();
+		pStmt.executeUpdate(sqlStmt);
+		pStmt.close();
+		conn.close();
+	}
+	public String SelectProjFreeze(String projectcode, String year) throws Exception{
+		conn = agent.getConnectMYSql();
+		String freeze = "";
+		String sqlStmt = "SELECT status_freeze From projectplan_header "+
+				"WHERE project_code = '"+projectcode+"' and year = '"+year+"'";
+		 
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlStmt);	
+		
+		while (rs.next()) {
+			freeze = rs.getString("status_freeze");
+		}
+		
+		rs.close();
+		pStmt.close();
+		conn.close();
+		return freeze;
+	}
 	
 	public List GetProjectDTDetailList(String project_code,String year,String project_name,
 			String subjob_code,String subjob_name,String childsubjobcode,

@@ -49,6 +49,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 	ProjectDTReceiveDB PDTR = new ProjectDTReceiveDB();
 		 	List childSubjobList = PDTR.GetChildSubjobList();
 		 	List groupcostCodeList = PDTR.GetGroupCostCodeList(projectcode, year);
+		 	
+		 	String freeze 	= pdb.SelectProjFreeze(projectcode, year);
 		 %>
 		 		<%@include file="topmenu.jsp" %>
 		 <form id="project-receivedt-pcc" action="projectdtreceivepcc.action" method="post">
@@ -114,9 +116,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        	 	<input id="budget" name="budget" type="number" step="0.01" dir="rtl" >
 	                     </div> 
 					</div>  
+					<%if(freeze.equals("N")){%>
 					<div class="cell colspan4"><br>
 						  <button class="button success" type="submit" name="add">เพิ่มประมาณการรายได้</button> 
 					</div>
+					<%} %>
 			 	</div>  
 			</div>  
 			 

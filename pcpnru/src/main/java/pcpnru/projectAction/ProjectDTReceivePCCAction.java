@@ -40,7 +40,11 @@ public class ProjectDTReceivePCCAction extends ActionSupport{
 			String[] spiltp = project_code.split("-");
 			 gcostcode = spiltp[0];
 			 gcostname = spiltp[1];
-		}
+		} 
+		
+		String freeze 	= projDtR.SelectProjFreeze(gcostcode, year);
+		
+		if(freeze.equals("N")){
 		
 		if(add!=null){ 
 		 
@@ -65,7 +69,7 @@ public class ProjectDTReceivePCCAction extends ActionSupport{
 		}
 		request.setAttribute("project_code", "PCC");
 		request.setAttribute("year", year);
-		
+		}
 		return SUCCESS;
 	}
 	 
