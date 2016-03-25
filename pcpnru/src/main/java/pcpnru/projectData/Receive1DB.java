@@ -88,7 +88,7 @@ public class Receive1DB {
 		return requestno;
 		}
 	
-	public void AddReceiveHD(String docNo, String projectCode,String project_year, String gcostCode, String docDate, String day, String month, String year, String amountFrom, String local)  throws Exception{
+	public void AddReceiveHD(String docNo, String vol, String projectCode, String project_year, String gcostCode, String docDate, String day, String month, String year, String amountFrom, String local)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
 		String[] parts = projectCode.split(" - ");
@@ -97,8 +97,8 @@ public class Receive1DB {
 		String[] parts1 = gcostCode.split(" - ");
 		String cCode = parts1[0];   
 		
-		String sqlStmt = "INSERT IGNORE INTO receivehd(docno, projectcode,project_year, gcostcode, docdate, day, month, year, amountfrom, local) " +
-		"VALUES ('"+docNo+"', '"+pjCode+"','"+project_year+"',  '"+cCode+"', '"+docDate+"', '"+day+"', '"+month+"', '"+year+"', '"+amountFrom+"', '"+local+"')";
+		String sqlStmt = "INSERT IGNORE INTO receivehd(docno, vol, projectcode,project_year, gcostcode, docdate, day, month, year, amountfrom, local) " +
+		"VALUES ('"+docNo+"', '"+vol+"', '"+pjCode+"','"+project_year+"',  '"+cCode+"', '"+docDate+"', '"+day+"', '"+month+"', '"+year+"', '"+amountFrom+"', '"+local+"')";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -215,13 +215,13 @@ public class Receive1DB {
 		throws Exception { //30-05-2014
 			List SelectReceiveList = new ArrayList();
 				 
-			String project = "", cost = "",approve_tobank="";
+			String vol = "", project = "", cost = "",approve_tobank="";
 				
 			try {
 				
 				conn = agent.getConnectMYSql();
 					
-				String sqlStmt = "SELECT docno, CONCAT(c.project_code,' - ',b.project_name) as project,a.project_year, "+
+				String sqlStmt = "SELECT docno, vol, CONCAT(c.project_code,' - ',b.project_name) as project,a.project_year, "+
 						"CONCAT(c.gcostcode,' - ',c.gcostcode_name) cost, docdate, amountfrom, local ,approve_tobank " +
 				"FROM receivehd a "+
 				"left join project_master b on(b.project_code = a.projectcode) "+
@@ -244,6 +244,7 @@ public class Receive1DB {
 				DateUtil dateutil = new DateUtil();
 				while (rs.next()) {
 					docNo 			= rs.getString("docno"); 
+					vol				= rs.getString("vol"); 
 					if (rs.getString("project") != null)  project = rs.getString("project"); else project = "";
 					if (rs.getString("cost") != null)  cost = rs.getString("cost"); else cost = "";
 					String docdatebeforechange = rs.getString("docdate");
@@ -253,7 +254,7 @@ public class Receive1DB {
 					amountfrom 	= rs.getString("amountfrom");
 					local 		= rs.getString("local"); 
 					project_year =rs.getString("project_year");
-					SelectReceiveList.add(new ReceiveForm(docNo, projectcode, project, cost, docdate, amountfrom, local,project_year,forwhat,approve_tobank));
+					SelectReceiveList.add(new ReceiveForm(docNo, projectcode, project, cost, docdate, amountfrom, local,project_year,forwhat,approve_tobank, vol));
 				}
 				rs.close();
 				pStmt.close();

@@ -19,6 +19,9 @@ where a.docno = $P{prmdocno} and a.projectcode = $P{prmprojectcode} order by ite
 	<field name="docno" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="vol" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="projectcode" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -28,7 +31,7 @@ where a.docno = $P{prmdocno} and a.projectcode = $P{prmprojectcode} order by ite
 	<field name="gcostcode" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="docdate" class="java.sql.Date">
+	<field name="docdate" class="java.sql.Timestamp">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="day" class="java.lang.String">
@@ -51,6 +54,9 @@ where a.docno = $P{prmdocno} and a.projectcode = $P{prmprojectcode} order by ite
 	</field>
 	<field name="changeamount" class="java.lang.Float">
 		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="approve_tobank" class="java.lang.String">
+		<fieldDescription><![CDATA[นำเงินเข้าธนาคาร]]></fieldDescription>
 	</field>
 	<field name="itemno" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -202,7 +208,7 @@ where a.docno = $P{prmdocno} and a.projectcode = $P{prmprojectcode} order by ite
 				<textFieldExpression><![CDATA[$F{local}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="108" y="149" width="437" height="23" uuid="26a501d1-cfce-4527-8037-9ae044aaf00a"/>
+				<reportElement x="108" y="150" width="437" height="23" uuid="26a501d1-cfce-4527-8037-9ae044aaf00a"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="TH SarabunPSK" size="20" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -216,7 +222,7 @@ where a.docno = $P{prmdocno} and a.projectcode = $P{prmprojectcode} order by ite
 				<textFieldExpression><![CDATA[$F{day}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="117" y="102" width="71" height="23" uuid="754ca3f8-1110-4e4b-93e3-8d739ac8a99a"/>
+				<reportElement x="117" y="103" width="71" height="23" uuid="754ca3f8-1110-4e4b-93e3-8d739ac8a99a"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="TH SarabunPSK" size="18" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -267,6 +273,13 @@ where a.docno = $P{prmdocno} and a.projectcode = $P{prmprojectcode} order by ite
 				</textElement>
 				<text><![CDATA[จำนวน]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="36" y="0" width="67" height="21" uuid="b6d54c50-f036-4e97-b10c-2c1a67552924"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="TH SarabunPSK" size="14" pdfFontName="THSarabun.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vol}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>

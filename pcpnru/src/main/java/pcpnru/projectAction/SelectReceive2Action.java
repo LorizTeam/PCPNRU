@@ -79,10 +79,12 @@ public class SelectReceive2Action extends ActionSupport {
 			//String local 		= request.getParameter("local");
 			String amountfrom	= receiveform.getAmountfrom();
 			String local		= receiveform.getLocal();
+			String vol 			= receiveform.getVol();
 			
 			Receive1DB receive1DB = new Receive1DB();
 			 
 			request.setAttribute("docNo", docno);
+			receiveform.setVol(vol);
 			request.setAttribute("projectCode", project);
 			request.setAttribute("dateTime", dateTime);
 			request.setAttribute("gcostCode", cost);

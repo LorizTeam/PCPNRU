@@ -61,7 +61,7 @@ public class Receive2DB {
 				return ReceiveList;
 			 }
 	
-	public void AddReceiveDT(String docNo, String projectCode, String receivedetail, String description, String qty, String amount, String amountTotal,String costcode)  throws Exception{
+	public void AddReceiveDT(String docNo, String vol, String projectCode, String receivedetail, String description, String qty, String amount, String amountTotal,String costcode)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
 		
@@ -83,36 +83,36 @@ public class Receive2DB {
 				if (itemNo.length() == 1) itemNo = "00" + itemNo;
 				if (itemNo.length() == 2) itemNo = "0" + itemNo;
 		
-		sqlStmt = "INSERT IGNORE INTO receivedt(docno, projectcode, itemno, receivedetail, description, qty, amount, amountTotal, costcode) " +
-		"VALUES ('"+docNo+"', '"+projectCode+"', '"+itemNo+"', '"+receivedetail+"', '"+description+"', '"+qty+"', '"+amount+"', '"+amountTotal+"', '"+costcode+"')";
+		sqlStmt = "INSERT IGNORE INTO receivedt(docno, vol, projectcode, itemno, receivedetail, description, qty, amount, amountTotal, costcode) " +
+		"VALUES ('"+docNo+"', '"+vol+"', '"+projectCode+"', '"+itemNo+"', '"+receivedetail+"', '"+description+"', '"+qty+"', '"+amount+"', '"+amountTotal+"', '"+costcode+"')";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();
 		conn.close();
 	}
-	public void UpdateReceive(String docNo, String projectCode, String itemNo, String receivedetail, String description, String qty, String amount, String amountTotal)  throws Exception{
+	public void UpdateReceive(String docNo, String vol, String projectCode, String itemNo, String receivedetail, String description, String qty, String amount, String amountTotal)  throws Exception{
 		conn = agent.getConnectMYSql();
 		  
 		if (itemNo.length() == 1) itemNo = "00" + itemNo;
 		if (itemNo.length() == 2) itemNo = "0" + itemNo;
 		
 		String sqlStmt = "UPDATE receivedt set receivedetail = '"+receivedetail+"', description = '"+description+"', qty = '"+qty+"', amount = '"+amount+"', amounttotal = '"+amountTotal+"' " +
-				"WHERE docno = '"+docNo+"' and projectcode = '"+projectCode+"' and itemno = '"+itemNo+"'";
+				"WHERE docno = '"+docNo+"' and vol = '"+vol+"' and projectcode = '"+projectCode+"' and itemno = '"+itemNo+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
 		pStmt.close();
 		conn.close();
 	}
-	public void DeleteReceiveDT(String docNo, String projectCode, String itemNo)  throws Exception{
+	public void DeleteReceiveDT(String docNo, String vol, String projectCode, String itemNo)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
 		if (itemNo.length() == 1) itemNo = "00" + itemNo;
 		if (itemNo.length() == 2) itemNo = "0" + itemNo;
 		
 		String sqlStmt = "DELETE From receivedt "+
-		"WHERE docno = '"+docNo+"' and projectcode = '"+projectCode+"' and itemno = '"+itemNo+"'";
+		"WHERE docno = '"+docNo+"' and vol = '"+vol+"' and projectcode = '"+projectCode+"' and itemno = '"+itemNo+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);

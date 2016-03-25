@@ -150,6 +150,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    	</div>   
 		    </div>
 	
+			<div class="row cells12">
+		       <div class="cell colspan4  offset2">
+		    		เล่มที่
+		    		<div class="input-control full-size"> 
+					    <s:textfield id="vol" name="receiveform.vol" data-validate-func="required" data-validate-hint="กรุณากรอกเล่มที่" /> 
+					 	<span class="input-state-success mif-checkmark"></span> 
+					</div>
+		    	</div>
+		    	<div class="cell colspan3">
+		    		เลขที่
+		    		<div class="input-control full-size">  
+					    <s:textfield id="docno" name="receiveform.docNo" data-validate-func="required" data-validate-hint="กรุณากรอก เลขที่" /> 
+					    <span class="input-state-success mif-checkmark"></span> 
+					    
+					</div>
+		    	</div>  
+		    </div>
+	
 		  	<div class="row cells12">
 		       <div class="cell colspan4  offset2">
 		    		ชื่อลูกค้า

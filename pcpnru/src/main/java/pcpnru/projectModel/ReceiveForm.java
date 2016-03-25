@@ -8,6 +8,7 @@ public class ReceiveForm {
 	private String local; 
 
 	private String docNo;
+	private String vol;
 	private String itemNo; 
 	private String receivedetail;
 	private String description;
@@ -33,7 +34,7 @@ public class ReceiveForm {
 	public ReceiveForm(String docNo, String itemNo, String receivedetail, String description, String qty, String amount, String amountTotal,
 			String err) {
 		
-		this.docNo = docNo;
+		this.docNo = docNo; 
 		this.itemNo = itemNo;
 		this.receivedetail = receivedetail;
 		this.description = description;
@@ -41,9 +42,10 @@ public class ReceiveForm {
 		this.amount = amount;
 		this.amountTotal = amountTotal;
 	}
-	public ReceiveForm(String s1, String s2, String s3, String s4, String s5, String s6, String s7,String s8,String forwhat,String s9) {
+	public ReceiveForm(String s1, String s2, String s3, String s4, String s5, String s6, String s7,String s8,String forwhat,String s9, String s10) {
 		if(forwhat.equals("selectList")){
 			this.docNo = s1;
+			this.vol = s10;
 			this.project = s3;
 			this.cost = s4;
 			this.docdate = s5;
@@ -234,5 +236,11 @@ public class ReceiveForm {
 	}
 	public void setReceivedetail(String receivedetail) {
 		this.receivedetail = receivedetail;
+	}
+	public String getVol() {
+		return vol;
+	}
+	public void setVol(String vol) {
+		this.vol = vol;
 	}
 }

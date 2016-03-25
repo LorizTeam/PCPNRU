@@ -84,6 +84,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         function printRev(tdocNo, tprojectCode){
         	var torn = document.getElementById("torn").value;
         	var receiveAmt = document.getElementById("receiveAmt").value; 
+        	var amt = document.getElementById("amtt").value;  
+        	
+        	if(parseFloat(receiveAmt)>=parseFloat(amt)&&receiveAmt!='0'&&amt!='0'){ 
+        	
     		swal({  title: "ยืนยันการพิมพ์เอกสาร ?",   
     				text: "หากคุณต้องการพิมพ์เอกสารให้กดปุ่มยืนยัน !",   
     				type: "warning",   
@@ -94,9 +98,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     				closeOnConfirm: false,   
     				closeOnCancel: false,
     				showLoaderOnConfirm: true
-    			},
-    				 
+    			}, 
+    			
     		function (isConfirm){
+    			 
     		  	if (isConfirm) {
     			setTimeout(function(){
     				var load = window.open("/pcpnru/receiveReport.action?docNoHD="+tdocNo+"&projectcode="+tprojectCode+"&receiveAmt="+receiveAmt+"&torn="+torn+"" 
@@ -110,7 +115,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			}
     		});
     		
-    		}
+        	}else if(receiveAmt=='0'&&torn=='0'){ 
+        		swal({
+        			  title: 'ยังไม่ได้ทำรายการ',
+        			  text: 'กรุณากรอกข้อมูลให้ครบถ้วน',
+        			  closeOnConfirm: true,
+        			  timer: 2500
+        			})
+        		
+        	}else{
+        		var valamt = amt-receiveAmt;
+        		valamt = parseFloat(valamt).toLocaleString("en-US");
+        		swal({
+        			  title: 'จำนวนเงินไม่เพียงพอ',
+        			  text: 'ขาดอีก '+valamt+' บาท',
+        			  closeOnConfirm: true,
+        			  timer: 3000
+        			})
+        		
+        	}
+        } 
     </script>
   
   <body ng-app="myApp" ng-controller="myCtrl">
@@ -147,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="example" data-text="รายการรับ">
 	<div class="grid">
 	<form action="selectreceive.action" method="post" data-role="validator" data-show-required-state="false" data-hint-mode="line" data-hint-background="bg-red" data-hint-color="fg-white" data-hide-error="5000">
-		  	<div class="row cells10"> 
+		  	<div class="row cells11"> 
 		    	<div class="cell colspan3" > 
 		       		  โครงการ<div class="input-control full-size "> 
 		       		 	<input type="text" name="projectCode" value="<%=projectCode%>" readonly="readonly">
@@ -157,17 +181,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		 ค่าใช้จ่าย<div class="input-control full-size "> 
 		    		 	<input type="text" name="gcostCode" value="<%=gcostCode%>" readonly="readonly">  
 					</div> 
-		    	</div>  
-		    	<div class="cell colspan2">  
+		    	</div>   
+				<div class="cell colspan2">  
 		        	 วันที่การรับ<div class="input-control full-size "> 
                         <input type="text" name="dateTime" value="<%=dateTime%>" readonly="readonly"> 
                     </div> 
 				</div> 
-		    	<div class="cell colspan2">  
+		    	<div class="cell colspan1">  
 		        	เลขที่เอกสาร<div class="input-control full-size "> 
                         <input type="text" name="docNo" value="<%=docNo%>" readonly="readonly"> 
                     </div>
 				</div> 
+				<div class="cell colspan2">  
+		        	เลขที่เล่ม<div class="input-control full-size "> 
+                        <s:textfield name="receiveform.vol" readonly="true" /> 
+                    </div>
+				</div>
 			</div>  
 		  	<div class="row cells12">  
 		  		<div class="cell colspan3">
@@ -215,7 +244,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  	<div class="row cells10"> 
 		    	<div class="cell colspan10">
 		    		รายละเอียด<div class="input-control full-size "> 
-					    <input type="text" ng-model="desc" id="description" name="description"> 
+					    <input type="text" ng-model="desc" id="description" name="description" data-validate-func="required" data-validate-hint="This field can not be empty"> 
 					</div>
 		    	</div>
 		    </div>  
@@ -307,7 +336,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		     	<div class="cell colspan3">
 		    		จำนวนเงินรวม<div class="input-control full-size "> 
 		    		<h3 class="no-margin">{{total_b | currency:"฿"}}</h3>
-		    		<input type="hidden" id="amtt"ng-model="total_b"  name="receiveform.amtt" data-validate-func="required" data-validate-hint="This field can not be empty" readonly="readonly" />					</div>
+		    		<input type="hidden" id="amtt"ng-model="total_b" value="{{total_b}}"  name="receiveform.amtt" data-validate-func="required" data-validate-hint="This field can not be empty" readonly="readonly" />					</div>
 		    	</div> 
 		    	<div class="cell colspan3">
 		    		จำนวนเงินที่ได้รับ<div class="input-control full-size "> 

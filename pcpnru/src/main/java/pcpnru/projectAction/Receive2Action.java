@@ -31,6 +31,7 @@ public class Receive2Action extends ActionSupport {
 		
 		// HD
 		String docNo		= request.getParameter("docNo");
+		String vol 			= receiveform.getVol();
 		String projectCode 	= request.getParameter("projectCode");
 		String dateTime 	= request.getParameter("dateTime");
 		String gcostCode 	= request.getParameter("gcostCode");
@@ -64,20 +65,20 @@ public class Receive2Action extends ActionSupport {
 		Receive2DB receive2DB = new Receive2DB();
 		if(add!=null){
 			
-			receive2DB.AddReceiveDT(docNo, splitgprojectcode[0], receivedetail, description, qty, amount, amountTotal,costcode);
+			receive2DB.AddReceiveDT(docNo, vol, splitgprojectcode[0], receivedetail, description, qty, amount, amountTotal,costcode);
 			
 			forwardText = "success";
 		}
 		if(update!=null){
 			
 			 
-			receive2DB.UpdateReceive(docNo, splitgprojectcode[0], itemNo, receivedetail, description, qty, amount, amountTotal);
+			receive2DB.UpdateReceive(docNo, vol, splitgprojectcode[0], itemNo, receivedetail, description, qty, amount, amountTotal);
 			forwardText = "success";
 		}
 		if(delete!=null){
 			
 			
-			receive2DB.DeleteReceiveDT(docNo, splitgprojectcode[0], itemNo);
+			receive2DB.DeleteReceiveDT(docNo, vol, splitgprojectcode[0], itemNo);
 			forwardText = "success";
 		}
 		
@@ -94,6 +95,7 @@ public class Receive2Action extends ActionSupport {
 		List Lcostcode_forreceive2 =receive1DB.ShowCostCodeforReceive2(splitgcostcode[0],"" );
 		request.setAttribute("Lcostcode_forreceive2", Lcostcode_forreceive2);
 		
+		receiveform.setVol(vol);
 		receiveform.setAmountfrom(amountfrom);
 		receiveform.setLocal(local);
 		receiveform.setStandardprice(standardprice);

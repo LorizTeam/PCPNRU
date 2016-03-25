@@ -60,6 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<form id="receive-2" action="selectReceive2.action" method="post">
 		<input type="hidden" id="docno" name="docno">
+		<input type="hidden" id="vol" name="receiveform.vol">
 		<input type="hidden" id="project" name="project">
 		<input type="hidden" id="cost" name="cost">
 		<input type="hidden" id="datetime" name="datetime">
@@ -85,6 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <tr>  
                 	<th>เลขที่</th>
                 	<th>เลขที่เอกสาร</th>
+                	<th>เลมที่</th>
                 	<th>โครงการ</th>
                     <th>ค่าใช้จ่าย</th>
                     <th>วันที่</th>
@@ -107,6 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <tr>  
                     <td align="center"><%=x%></td> 
                     <td class="tddocno" align="left"><%=receiveMaster.getDocNo()%></td>
+                    <td class="tdvol" align="left"><%=receiveMaster.getVol()%></td>
                     <td class="tdproject" align="left"><%=receiveMaster.getProject()%></td>  
                     <td class="tdcost" align="left"><%=receiveMaster.getCost()%></td> 
                     <td class="tddatetime" align="center"><%=receiveMaster.getDocdate()%></td> 
@@ -157,6 +160,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var $index = $("button.seedetail").index(this);
 		
         var docno = $(".tddocno").eq($index).text();
+        var vol = $(".tdvol").eq($index).text();
         var projectname = $(".tdproject").eq($index).text();
 	    var costname = $(".tdcost").eq($index).text();
 	    var datetime = $(".tddatetime").eq($index).text();
@@ -165,6 +169,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	    $("#project").val(projectname);
 	 	$("#docno").val(docno);
+	 	$("#vol").val(vol);
 	 	$("#cost").val(costname);
 	 	$("#datetime").val(datetime);
 	 	$("#amountfrom").val(amountfrom);

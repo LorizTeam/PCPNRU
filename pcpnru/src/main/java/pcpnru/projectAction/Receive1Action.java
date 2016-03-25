@@ -159,10 +159,13 @@ public class Receive1Action extends ActionSupport {
 			System.out.println(amountfrom);
 			String local 		= receiveform.getLocal();
 			
+			String docNo 		= receiveform.getDocNo();
+			String vol 			= receiveform.getVol();
 			
 			Receive1DB receive1DB = new Receive1DB();
-			String docNo = receive1DB.SelectUpdateDocNo(splitYear[2],"receive",splitgprojectcode[0],splitYear[2]);
-			receive1DB.AddReceiveHD(docNo, splitgprojectcode[0],splitYear[2], gcostCode, dateTime, day, month, year, amountfrom, local); 
+			//String docNo = receive1DB.SelectUpdateDocNo(splitYear[2],"receive",splitgprojectcode[0],splitYear[2]);
+			
+			receive1DB.AddReceiveHD(docNo, vol, splitgprojectcode[0],splitYear[2], gcostCode, dateTime, day, month, year, amountfrom, local); 
 
 			
 			String[] splitgcostcode = gcostCode.split(" - ");
@@ -181,6 +184,7 @@ public class Receive1Action extends ActionSupport {
 			receiveform.setAmountfrom(amountfrom);
 			receiveform.setLocal(local);
 			receiveform.setAmtt("0");
+			receiveform.setVol(vol);
 			
 			forwardText = "success";
 		}else{ 
