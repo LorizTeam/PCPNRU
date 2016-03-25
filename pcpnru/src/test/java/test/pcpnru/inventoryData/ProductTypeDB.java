@@ -93,18 +93,19 @@ public class ProductTypeDB {
 		return rowsupdate;
 	}
 	
-	public int DeleteProductType(String protype_id){
+	public Boolean DeleteProductType(String protype_id){
 		String sqlQuery = "delete from producttype_master where protype_id = ?";
-		int rowsupdate=0;
+		Boolean delete_success = false;
 		try {
 			
 			conn = agent.getConnectMYSql();
 			conn.setAutoCommit(false);
 			ppStmt = conn.prepareStatement(sqlQuery);
 			ppStmt.setString(1, protype_id);
-			rowsupdate = ppStmt.executeUpdate();
+			int rowsupdate = ppStmt.executeUpdate();
 			conn.commit();
 			
+			if(rowsupdate > 0)  delete_success = true;
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -122,7 +123,7 @@ public class ProductTypeDB {
 			}
 		}
 		
-		return rowsupdate;
+		return delete_success;
 	}
 	
 	public int UpdateProductType(String protype_id,String protype_name,String update_by){
@@ -165,7 +166,7 @@ public class ProductTypeDB {
 		
 		String sqlQuery = "select * from producttype_master where ";
 		
-				if(new Validate().Check_String_notnull_notempty(protype_id)) sqlQuery += "protype_id = "+protype_id+" and ";
+				if(new Validate().Check_String_notnull_notempty(protype_id)) sqlQuery += "protype_id = '"+protype_id+"' and ";
 				
 				if(new Validate().Check_String_notnull_notempty(protype_name)) sqlQuery += "protype_name like '%"+protype_name+"%' and ";
 				

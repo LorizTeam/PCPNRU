@@ -11,6 +11,7 @@ import java.util.List;
 
 import pcpnru.utilities.DBConnect;
 import pcpnru.utilities.DateUtil;
+import pcpnru.utilities.Validate;
 import test.pcpnru.inventoryModel.ProductGroupModel;
 
 public class ProductGroupDB {
@@ -93,18 +94,19 @@ public class ProductGroupDB {
 		return rowsupdate;
 	}
 	
-	public int DeleteProductGroup(String progroup_id){
+	public Boolean DeleteProductGroup(String progroup_id){
 		String sqlQuery = "delete from productgroup_master where progroup_id = ?";
-		int rowsupdate=0;
+		Boolean delete_success = false;
 		try {
 			
 			conn = agent.getConnectMYSql();
 			conn.setAutoCommit(false);
 			ppStmt = conn.prepareStatement(sqlQuery);
 			ppStmt.setString(1, progroup_id);
-			rowsupdate = ppStmt.executeUpdate();
+			int rowsupdate = ppStmt.executeUpdate();
 			conn.commit();
 			
+			if(rowsupdate > 0)  delete_success = true;
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -122,7 +124,7 @@ public class ProductGroupDB {
 			}
 		}
 		
-		return rowsupdate;
+		return delete_success;
 	}
 	
 	public int UpdateProductGroup(String progroup_id,String progroup_name,String update_by){
@@ -162,12 +164,17 @@ public class ProductGroupDB {
 	}
 	
 	public List<ProductGroupModel> Get_ProductGroupList(String progroup_id,String progroup_name) throws IOException, Exception{
-		String sqlQuery = "select * from productgroup_master where progroup_id = ? and progroup_name like ? ";
-		conn = agent.getConnectMYSql();
-		ppStmt = conn.prepareStatement(sqlQuery);
-		ppStmt.setString(1, progroup_id);
-		ppStmt.setString(2, "%"+progroup_name+"%");
-		rs = ppStmt.executeQuery();
+		String sqlQuery = "select * from productgroup_master where ";
+		
+		if(new Validate().Check_String_notnull_notempty(progroup_id)) sqlQuery += "progroup_id = '"+progroup_id+"' and ";
+		
+		if(new Validate().Check_String_notnull_notempty(progroup_name)) sqlQuery += "progroup_name like '%"+progroup_name+"%' and ";
+		
+		sqlQuery += "progroup_id != '' ";
+		
+	conn = agent.getConnectMYSql();
+	pStmt = conn.createStatement();
+	rs = pStmt.executeQuery(sqlQuery);
 		
 		List<ProductGroupModel> ResultList = new ArrayList<ProductGroupModel>();
 		while(rs.next()){
@@ -182,8 +189,9 @@ public class ProductGroupDB {
 		}
 		
 		if(!rs.isClosed()) rs.close();
+		if(!pStmt.isClosed()) pStmt.close();
 		if(!conn.isClosed()) conn.close();
-		if(!ppStmt.isClosed()) ppStmt.close();
+		
 		
 		return ResultList;
 	}

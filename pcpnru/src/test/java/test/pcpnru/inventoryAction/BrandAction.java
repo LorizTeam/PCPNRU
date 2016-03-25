@@ -46,4 +46,9 @@ public class BrandAction {
 		branddb.AddBrand(brand_id, brand_name, create_by);
 		return brand_id;
 	}
+	
+	public static void main (String[] args) throws IOException, Exception{
+		String brand_id= AddBrand();
+		Assert.assertTrue(new BrandDB().Get_BrandList(brand_id, "Test").size() > 0);
+	}
 }

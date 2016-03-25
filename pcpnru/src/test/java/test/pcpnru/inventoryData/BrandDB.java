@@ -11,6 +11,7 @@ import java.util.List;
 
 import pcpnru.utilities.DBConnect;
 import pcpnru.utilities.DateUtil;
+import pcpnru.utilities.Validate;
 import test.pcpnru.inventoryModel.BrandModel;
 
 public class BrandDB {
@@ -22,7 +23,7 @@ public class BrandDB {
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
-public String GetHighest_BrandID() throws IOException, Exception{
+	public String GetHighest_BrandID() throws IOException, Exception{
 		
 		String sqlQuery = "select MAX(brand_id) as brand_id from brand_master";
 		String ResultString = "";
@@ -94,18 +95,19 @@ public String GetHighest_BrandID() throws IOException, Exception{
 		return rowsupdate;
 	}
 	
-	public int DeleteBrand(String brand_id){
+	public Boolean DeleteBrand(String brand_id){
 		String sqlQuery = "delete from brand_master where brand_id = ?";
-		int rowsupdate=0;
+		Boolean delete_success = false;
 		try {
 			
 			conn = agent.getConnectMYSql();
 			conn.setAutoCommit(false);
 			ppStmt = conn.prepareStatement(sqlQuery);
 			ppStmt.setString(1, brand_id);
-			rowsupdate = ppStmt.executeUpdate();
+			int rowsupdate = ppStmt.executeUpdate();
 			conn.commit();
 			
+			if(rowsupdate > 0)  delete_success = true;
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -123,7 +125,7 @@ public String GetHighest_BrandID() throws IOException, Exception{
 			}
 		}
 		
-		return rowsupdate;
+		return delete_success;
 	}
 	
 	public int UpdateBrand(String brand_id,String brand_name,String update_by){
@@ -163,12 +165,17 @@ public String GetHighest_BrandID() throws IOException, Exception{
 	}
 	
 	public List<BrandModel> Get_BrandList(String brand_id,String brand_name) throws IOException, Exception{
-		String sqlQuery = "select * from brand_master where brand_id = ? and brand_name like ? ";
-		conn = agent.getConnectMYSql();
-		ppStmt = conn.prepareStatement(sqlQuery);
-		ppStmt.setString(1, brand_id);
-		ppStmt.setString(2, "%"+brand_name+"%");
-		rs = ppStmt.executeQuery();
+		String sqlQuery = "select * from brand_master where ";
+		
+		if(new Validate().Check_String_notnull_notempty(brand_id)) sqlQuery += "brand_id = '"+brand_id+"' and ";
+		
+		if(new Validate().Check_String_notnull_notempty(brand_name)) sqlQuery += "brand_name like '%"+brand_name+"%' and ";
+		
+		sqlQuery += "brand_id != '' ";
+		
+	conn = agent.getConnectMYSql();
+	pStmt = conn.createStatement();
+	rs = pStmt.executeQuery(sqlQuery);
 		
 		List<BrandModel> ResultList = new ArrayList<BrandModel>();
 		while(rs.next()){
@@ -183,8 +190,9 @@ public String GetHighest_BrandID() throws IOException, Exception{
 		}
 		
 		if(!rs.isClosed()) rs.close();
+		if(!pStmt.isClosed()) pStmt.close();
 		if(!conn.isClosed()) conn.close();
-		if(!ppStmt.isClosed()) ppStmt.close();
+		
 		
 		return ResultList;
 	}

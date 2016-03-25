@@ -76,7 +76,7 @@ public class ProductTypeAction extends ActionSupport {
 			
 			for(Boolean result_value : delete_status){
 				if(!result_value){
-					protypemodel.setAlertmsg("ไม่สามารถลบผู้ขายที่ถูกใช้งานอยู่ได้");
+					protypemodel.setAlertmsg("ไม่สามารถลบประเภทสินค้าที่ถูกใช้งานอยู่ได้");
 				}
 			}
 			

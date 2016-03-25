@@ -144,13 +144,13 @@
          			<ul class="d-menu" data-role="dropdown">
          				<li><a href="#">สินค้า</a></li>
 		                <li class="divider"></li>
-		                <li><a href="unitmaster.jsp">หน่วยนับ</a></li>
+		                <li><a href="unitMaster.action">หน่วยนับ</a></li>
 		                <li class="divider"></li>
-		                <li><a href="#">หมวดสินค้า</a></li>
+		                <li><a href="productgroupmaster.action">หมวดสินค้า</a></li>
 		                <li class="divider"></li>
-		                <li><a href="#">ประเภทสินค้า</a></li>
+		                <li><a href="protypemaster.action">ประเภทสินค้า</a></li>
 		                <li class="divider"></li>
-		                <li><a href="#">แบรนด์สินค้า</a></li>
+		                <li><a href="brandmaster.action">แบรนด์สินค้า</a></li>
 		            </ul>
          		</li>
          		<li class="divider"></li>

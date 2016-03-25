@@ -167,7 +167,7 @@ public class ProductTypeDB {
 		
 		String sqlQuery = "select * from producttype_master where ";
 		
-				if(new Validate().Check_String_notnull_notempty(protype_id)) sqlQuery += "protype_id = "+protype_id+" and ";
+				if(new Validate().Check_String_notnull_notempty(protype_id)) sqlQuery += "protype_id = '"+protype_id+"' and ";
 				
 				if(new Validate().Check_String_notnull_notempty(protype_name)) sqlQuery += "protype_name like '%"+protype_name+"%' and ";
 				

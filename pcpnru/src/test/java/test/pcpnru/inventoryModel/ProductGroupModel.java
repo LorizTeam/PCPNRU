@@ -3,7 +3,7 @@ package test.pcpnru.inventoryModel;
 public class ProductGroupModel extends Create_UpdateModel {
 	private String progroup_id,progroup_name;
 	
-	
+	public ProductGroupModel(){}
 	public ProductGroupModel(String progroup_id, String progroup_name,String create_by,String create_datetime,String update_by,String update_datetime) {
 		this.progroup_id = progroup_id;
 		this.progroup_name = progroup_name;

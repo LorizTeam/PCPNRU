@@ -50,8 +50,6 @@ public String GetHighest_AddUnitID() throws IOException, Exception{
 			case 3:unit_id="0"+ResultString_plusone; break;
 			case 4:unit_id=ResultString_plusone; break;
 			}
-			
-			
 		}
 		
 		return unit_id;

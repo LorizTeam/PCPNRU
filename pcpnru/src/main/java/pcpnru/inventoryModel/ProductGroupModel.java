@@ -2,7 +2,22 @@ package pcpnru.inventoryModel;
 
 public class ProductGroupModel extends Create_UpdateModel {
 	private String progroup_id,progroup_name;
-
+	
+	public ProductGroupModel(){}
+	public ProductGroupModel(String progroup_id, String progroup_name,String create_by,String create_datetime,String update_by,String update_datetime) {
+		this.progroup_id = progroup_id;
+		this.progroup_name = progroup_name;
+		this.create_by = create_by;
+		this.create_datetime = create_datetime;
+		this.update_by = update_by;
+		this.update_datetime = update_datetime;
+	}
+	
+	public void ClearProductGroupModel(){
+		this.progroup_id = "";
+		this.progroup_name = "";
+	}
+	
 	public String getProgroup_id() {
 		return progroup_id;
 	}
