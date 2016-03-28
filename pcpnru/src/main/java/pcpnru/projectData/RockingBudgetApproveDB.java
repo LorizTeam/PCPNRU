@@ -216,4 +216,28 @@ public class RockingBudgetApproveDB {
 		}  
 		return requestno;
 		}
+	
+public List getAP() throws Exception {
+		 
+		List <String> listAP = new ArrayList <String> ();
+		 
+		conn = agent.getConnectMYSql();
+	 	
+	 	String sqlStmt = "select a.project_code, count(approve_status) as cap FROM projectplan_header a " +
+	 			"LEFT JOIN rocking_budget b on(b.project_code = a.project_code and approve_status = 'WA') " +  
+	 			"WHERE a.project_code <> ''  group by a.project_code order by a.project_code " ;
+	 	
+	 	pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlStmt);	
+		
+		while (rs.next()) { 
+			listAP.add(rs.getString("cap")); 
+		}  
+		
+		rs.close();
+		pStmt.close();
+		conn.close();
+		
+		return listAP;
+		} 
 }

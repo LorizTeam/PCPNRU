@@ -60,21 +60,25 @@
 				        <div class="input-control text full-size">
 						    <select id="project_code" name="rockingBudgetForm.project_code" required="required">
 							   <option value="">กรุณาเลือกโครงการ</option>
-							   <%
+							   <%  
+							   RockingBudgetApproveDB rbga = new RockingBudgetApproveDB();
+							   List <String> listAPB = rbga.getAP();  
 							   
-							   	List projectMasterList = (List) request.getAttribute("projectMasterList");
+							   List projectMasterList = (List) request.getAttribute("projectMasterList");
 							   String projectcode = (String) request.getAttribute("projectcode");
 				        		if (projectMasterList != null) {
+				        			int b = 0;
 					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
 					        			ProjectModel pjModel = (ProjectModel) iterPj.next(); 
 						        				
 						        	%>
 						        			<option <%if(pjModel.getProject_code().equals(projectcode)){ %> selected <%} %> value="<%=pjModel.getProject_code()%> - <%=pjModel.getYear()%>" >
-							       			 	<%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
+							       			  รออนุมัติ <%=listAPB.get(b)%> - <%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%> - ปี <%=pjModel.getYear() %>
 							       			</option>
 						        	<%
-						        			
-			      						} 
+						        	b++;
+			      						}
+					        		
 									}
 								%>
 					   		</select>
@@ -160,11 +164,11 @@
 						    		<select name="approveStatus" >
 						    	 <% if(anInfo.getApprove_status().equals("AP")){%>
 							        	<option selected value="AP">อนุมัติ</option>
-							        	<option value="NA">รอการอนุมัติ</option>
+							        	<option value="WA">รอการอนุมัติ</option>
 							        	<option value="CC">ยกเลิกรายการ</option>
-						         <%} else if (anInfo.getApprove_status().equals("NA")){%>
+						         <%} else if (anInfo.getApprove_status().equals("WA")){%>
 						        		<option value="AP">อนุมัติ</option>
-							        	<option selected value="NA">รอการอนุมัติ</option>
+							        	<option selected value="WA">รอการอนุมัติ</option>
 							        	<option value="CC">ยกเลิกรายการ</option> 
 						        <% } %> 
 						    	 	</select> 

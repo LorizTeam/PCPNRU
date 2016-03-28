@@ -122,11 +122,11 @@ public String begin() throws Exception{
 		        List groupcostCodeList = cbga.GetGroupCostCodeList("", dateUtil.curTHYear(), "");
 		 		request.setAttribute("groupcostCodeList", groupcostCodeList); 
 				
-		        List CentralBudgetApproveList = cbga.GetCentralBudgetApproveList("", "", dateUtil.curTHYear(), "", "NA");
+		        List CentralBudgetApproveList = cbga.GetCentralBudgetApproveList("", "", dateUtil.curTHYear(), "", "WA");
 		        request.setAttribute("CentralBudgetApproveList", CentralBudgetApproveList);
 				
 				request.setAttribute("project_code", project_code);
-				request.setAttribute("ap_status", "NA");
+				request.setAttribute("ap_status", "WA");
 				
 				forwardText = "success";
 			}

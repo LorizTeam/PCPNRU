@@ -1,4 +1,7 @@
+<%@page import="com.fasterxml.jackson.annotation.JsonFormat.Value"%>
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
+<%@ page import="pcpnru.utilities.*" %>
+
 <div class="app-bar green" data-role="appbar">	
 		 <a href="index.jsp" style="width: 20%;margin-top: 0;padding-top: 0" class="app-bar-element branding"><img  src="images/pnru.png" /></a>
 		<ul class="app-bar-menu  small-dropdown">
@@ -74,11 +77,7 @@
 			                        <li class="divider"></li>
 			                        <li><a href="createRockingBudget.action">โยกงบประมาณ</a></li>
 			                        <li class="divider"></li>
-			                        <li><a href="rbgBegin.action">อนุมัติ การโยกงบประมาณ</a></li>
-			                        <li class="divider"></li>
 			                        <li><a href="createCentralBudget.action">งบกลาง</a></li>
-			                        <li class="divider"></li>
-			                        <li><a href="cbgBegin.action">อนุมัติ การโยกงบกลาง</a></li>
 			                        <li class="divider"></li>
 			                        <li><a href="manage-approve-requisition.jsp">จัดการ ผู้มีอำนาจการอนุมัติ</a></li> 
 			                 </ul>
@@ -159,6 +158,25 @@
          		<li><a href="logout.action" > ออกจากระบบ</a></li>
          	</ul>
          </li>
+         
+         <% 
+         		ApprovePageDB ap = new ApprovePageDB();
+         		List <String> listAP = ap.getAP(); 
+         		String sumA = "0";
+         		 
+         		for(String sAp: listAP){
+         			sumA = String.valueOf(Integer.parseInt(sumA)+Integer.parseInt(sAp)); 
+         		}
+         		 
+         %>
+         <li><a href="" class="dropdown-toggle"><span class="mif-alarm-on"></span> <span class="tag warning"><%=sumA%></span> การแจ้งเตือน</a>
+         	<ul class="d-menu" data-role="dropdown">
+         		<li><a href="rbgBegin.action"><span class="tag warning"><%=listAP.get(0)%></span> Approve การโยกงบประมาณ</a></li>
+         		<li class="divider"></li>
+         		<li><a href="cbgBegin.action"><span class="tag warning"><%=listAP.get(1)%></span> Approve การโยกงบกลาง</a></li>
+         	</ul>
+         </li> 
+         
          <li><a href="" class="dropdown-toggle"><span class="mif-user"></span> ข้อมูลส่วนตัว </a>
          	<ul class="d-menu" data-role="dropdown">
          		<li><a href="profileMaster.action"> แก้ไขข้อมูลส่วนตัว </a></li>
@@ -166,7 +184,6 @@
          		<li><a href="logout.action" > ออกจากระบบ</a></li>
          	</ul>
          </li>
-         
     </ul>
      
     

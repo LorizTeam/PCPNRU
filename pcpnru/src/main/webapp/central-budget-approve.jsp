@@ -63,7 +63,7 @@
 						    <select id="project_code" name="centralBudgetForm.approve_status" required="required">
 						    	<option value="">โปรดเลือก</option>
 							   <option <% if(ap_status.equals("AP")) { %> selected <% } %> value="AP">อนุมัติ</option>
-							   <option <% if(ap_status.equals("NA")) { %> selected <% } %> value="NA">รอการอนุมัติ</option>
+							   <option <% if(ap_status.equals("WA")) { %> selected <% } %> value="WA">รอการอนุมัติ</option>
 							   <option <% if(ap_status.equals("CC")) { %> selected <% } %> value="CC">ยกเลิกรายการ</option>
 					   		</select>
 					   		<s:hidden id="year" name="centralBudgetForm.year" /> 
@@ -121,11 +121,11 @@
 						    		<select name="approveStatus" >
 						    	 <% if(anInfo.getApprove_status().equals("AP")){%>
 							        	<option selected value="AP">อนุมัติ</option>
-							        	<option value="NA">รอการอนุมัติ</option>
+							        	<option value="WA">รอการอนุมัติ</option>
 							        	<option value="CC">ยกเลิกรายการ</option>
-						         <%} else if (anInfo.getApprove_status().equals("NA")){%>
+						         <%} else if (anInfo.getApprove_status().equals("WA")){%>
 						        		<option value="AP">อนุมัติ</option>
-							        	<option selected value="NA">รอการอนุมัติ</option>
+							        	<option selected value="WA">รอการอนุมัติ</option>
 							        	<option value="CC">ยกเลิกรายการ</option> 
 						        <% } %> 
 						    	 	</select> 
