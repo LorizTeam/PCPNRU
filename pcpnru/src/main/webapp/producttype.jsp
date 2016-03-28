@@ -82,7 +82,7 @@
 									<tr>
 										<td><input type="checkbox" name="delprotype" id="delprotype" value="<%=protypemodel.getProtype_id() %>"> </td>
 										<s:if test="%{#fromwindow=='true'}">
-											<td class="protype_id"><a href="#" class="returnid"><%=protypemodel.getProtype_id() %></a></td>
+											<td class="protype_id"><a href="#" onclick="getProtype('<%=protypemodel.getProtype_id() %>','<%=protypemodel.getProtype_name() %>')"><%=protypemodel.getProtype_id() %></a></td>
 										</s:if>
 										<s:else>
 											<td class="protype_id"><%=protypemodel.getProtype_id() %></td>
@@ -118,6 +118,11 @@
 	    <script src="js/sweetalert.min.js"></script>
 	    
 		<script type="text/javascript">
+		function getProtype(protype_id,protype_name){
+			window.opener.document.getElementById("protype_id").value= protype_id;
+			window.opener.document.getElementById("protype_name").value= protype_name;
+			window.close();
+		}
 		$(function(){
 			if($("#alertmsg").val() != ""){
         		swal("Error",$("#alertmsg").val() , "error");
@@ -129,15 +134,6 @@
                 ordering: false,
                 "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
             } );
-			$(".returnid").click(function(){
-				
-				var index = $(this).index(".returnid");
-
-				window.opener.document.getElementById("protype_id").value= $(this).text();
-				window.opener.document.getElementById("protype_name").value= $(".protype_name").eq(index).text();
-				
-				window.close();
-			});
 			$("#checkall").click(function(){
 				if($(this).prop("checked")){
 					$('[name="delprotype"]').prop("checked",true);

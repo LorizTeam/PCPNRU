@@ -82,7 +82,7 @@
 									<tr>
 										<td><input type="checkbox" name="delbrand" id="delbrand" value="<%=brandmodel.getBrand_id() %>"> </td>
 										<s:if test="%{#fromwindow=='true'}">
-											<td class="brand_id"><a href="#" class="returnid"><%=brandmodel.getBrand_id() %></a></td>
+											<td class="brand_id"><a href="#" onclick="getBrand('<%=brandmodel.getBrand_id() %>','<%=brandmodel.getBrand_name() %>')"><%=brandmodel.getBrand_id() %></a></td>
 										</s:if>
 										<s:else>
 											<td class="brand_id"><%=brandmodel.getBrand_id() %></td>
@@ -118,6 +118,11 @@
 	    <script src="js/sweetalert.min.js"></script>
 	    
 		<script type="text/javascript">
+		function getBrand(brand_id,brand_name){
+			window.opener.document.getElementById("brand_id").value= brand_id;
+			window.opener.document.getElementById("brand_name").value= brand_name;
+			window.close();
+		}
 		$(function(){
 			if($("#alertmsg").val() != ""){
         		swal("Error",$("#alertmsg").val() , "error");
@@ -129,15 +134,6 @@
                 ordering: false,
                 "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
             } );
-			$(".returnid").click(function(){
-				
-				var index = $(this).index(".returnid");
-
-				window.opener.document.getElementById("brand_id").value= $(this).text();
-				window.opener.document.getElementById("brand_name").value= $(".brand_name").eq(index).text();
-				
-				window.close();
-			});
 			$("#checkall").click(function(){
 				if($(this).prop("checked")){
 					$('[name="delbrand"]').prop("checked",true);

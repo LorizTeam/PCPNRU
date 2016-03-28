@@ -17,7 +17,15 @@
       		<result name="success">/unitmaster.jsp</result>
     	</action>
     	
+    	<action name="windows_entranc_unitMaster" class="pcpnru.projectAction.UnitMasterAction" method="windows_entrancprotype">
+      		<result name="success">/unitmaster.jsp</result>
+    	</action>
+    	
     	<action name="protypemaster" class="pcpnru.inventoryAction.ProductTypeAction" method="execute">
+      		<result name="success">/producttype.jsp</result>
+    	</action>
+    	
+    	<action name="windows_entranc_protypemaster" class="pcpnru.inventoryAction.ProductTypeAction" method="windows_entrancprotype">
       		<result name="success">/producttype.jsp</result>
     	</action>
     	
@@ -25,7 +33,15 @@
       		<result name="success">/brand.jsp</result>
     	</action>
     	
+    	<action name="windows_entranc_brandmaster" class="pcpnru.inventoryAction.BrandAction" method="windows_entrancbrand">
+      		<result name="success">/brand.jsp</result>
+    	</action>
+    	
     	<action name="productgroupmaster" class="pcpnru.inventoryAction.ProductGroupAction" method="execute">
+      		<result name="success">/productgroup.jsp</result>
+    	</action>
+    	
+    	<action name="windows_entranc_productgroupmaster" class="pcpnru.inventoryAction.ProductGroupAction" method="windows_entrancprogroup">
       		<result name="success">/productgroup.jsp</result>
     	</action>
 		

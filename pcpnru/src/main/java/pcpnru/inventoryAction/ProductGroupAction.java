@@ -28,7 +28,7 @@ public class ProductGroupAction extends ActionSupport {
 	}
 	public String execute() throws Exception{
 		HttpServletRequest request = ServletActionContext.getRequest(); 
-		String page_code = "022";
+		String page_code = "024";
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
 		
@@ -97,7 +97,7 @@ public class ProductGroupAction extends ActionSupport {
 	
 	public String entrancbrand() throws IOException, Exception{
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String page_code = "022";
+		String page_code = "024";
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
 		
@@ -111,9 +111,9 @@ public class ProductGroupAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public String windows_entrancbrand() throws IOException, Exception{
+	public String windows_entrancprogroup() throws IOException, Exception{
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String page_code = "022";
+		String page_code = "024";
 		
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");

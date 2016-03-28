@@ -1,5 +1,6 @@
 package pcpnru.projectAction;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import pcpnru.inventoryData.ProductTypeDB;
+import pcpnru.inventoryModel.ProductTypeModel;
 import pcpnru.projectData.*;
 import pcpnru.projectModel.*;
 import pcpnru.utilities.CheckAuthenPageDB;
@@ -36,7 +39,7 @@ public class UnitMasterAction extends ActionSupport {
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
 		
-		if(new CheckAuthenPageDB().getCheckAuthen(username, page_code)) 
+		if(!new CheckAuthenPageDB().getCheckAuthen(username, page_code)) 
 			return "noauth";
 		
 		UnitMasterDB unitMasterDB = new UnitMasterDB();
@@ -94,6 +97,24 @@ public class UnitMasterAction extends ActionSupport {
 			}
 		}
 	 
+		return SUCCESS;
+	}
+	
+	public String windows_entrancprotype() throws IOException, Exception{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		String page_code = "021";
+		
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		
+		if(!new CheckAuthenPageDB().getCheckAuthen(username, page_code)) 
+			return "noauth";
+		
+		UnitMasterDB unitM = new UnitMasterDB();
+		List<UnitMasterForm> unitMasterList = unitM.Get_UnitList("","");
+		request.setAttribute("unitMasterList", unitMasterList);
+		unitMaster = new UnitMasterForm();
+		unitMaster.setFromwindow("true");
 		return SUCCESS;
 	}
 }

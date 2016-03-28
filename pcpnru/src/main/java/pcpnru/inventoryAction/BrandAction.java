@@ -29,7 +29,7 @@ public class BrandAction extends ActionSupport {
 	
 	public String execute() throws Exception{
 		HttpServletRequest request = ServletActionContext.getRequest(); 
-		String page_code = "022";
+		String page_code = "023";
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
 		
@@ -98,7 +98,7 @@ public class BrandAction extends ActionSupport {
 	
 	public String entrancbrand() throws IOException, Exception{
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String page_code = "022";
+		String page_code = "023";
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
 		
@@ -114,7 +114,7 @@ public class BrandAction extends ActionSupport {
 	
 	public String windows_entrancbrand() throws IOException, Exception{
 		HttpServletRequest request = ServletActionContext.getRequest();
-		String page_code = "022";
+		String page_code = "023";
 		
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");

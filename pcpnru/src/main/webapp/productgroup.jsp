@@ -82,7 +82,7 @@
 									<tr>
 										<td><input type="checkbox" name="delprogroup" id="delprogroup" value="<%=pdgmodel.getProgroup_id() %>"> </td>
 										<s:if test="%{#fromwindow=='true'}">
-											<td class="progroup_id"><a href="#" class="returnid"><%=pdgmodel.getProgroup_id() %></a></td>
+											<td class="progroup_id"><a href="#" onclick="getProgroup('<%=pdgmodel.getProgroup_id() %>','<%=pdgmodel.getProgroup_name() %>')"><%=pdgmodel.getProgroup_id() %></a></td>
 										</s:if>
 										<s:else>
 											<td class="progroup_id"><%=pdgmodel.getProgroup_id() %></td>
@@ -118,6 +118,11 @@
 	    <script src="js/sweetalert.min.js"></script>
 	    
 		<script type="text/javascript">
+		function getProgroup(progroup_id,progroup_name){
+			window.opener.document.getElementById("progroup_id").value= progroup_id;
+			window.opener.document.getElementById("progroup_name").value= progroup_name;
+			window.close();
+		}
 		$(function(){
 			if($("#alertmsg").val() != ""){
         		swal("Error",$("#alertmsg").val() , "error");
@@ -129,15 +134,6 @@
                 ordering: false,
                 "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
             } );
-			$(".returnid").click(function(){
-				
-				var index = $(this).index(".returnid");
-
-				window.opener.document.getElementById("progroup_id").value= $(this).text();
-				window.opener.document.getElementById("progroup_name").value= $(".progroup_name").eq(index).text();
-				
-				window.close();
-			});
 			$("#checkall").click(function(){
 				if($(this).prop("checked")){
 					$('[name="delprogroup"]').prop("checked",true);

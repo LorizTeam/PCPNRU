@@ -43,7 +43,14 @@
 	</head>
 
 	<body>
-		 <div><%@include file="topmenu.jsp" %></div>
+		<s:set name="fromwindow" value="unitMaster.fromwindow"/>
+		
+		<s:if test="%{#fromwindow=='true'}">
+			<div><%@include file="window-topmenu.jsp" %></div>
+		</s:if>
+		<s:else>
+			<div><%@include file="topmenu.jsp" %></div>
+		</s:else>
 		 <h3 class="align-center">หน่วยนับ</h3>
 		 <form action="unitMaster.action" method="post">
 		 <div class="grid" >
@@ -85,8 +92,13 @@
 							for (UnitMasterForm unitjMaster:unitMasterList) {
 					%>
 	                <tr> 
-	                	<td><input type="checkbox" name="delunit" id="delunit" value="<%=unitjMaster.getUnit_id() %>"> </td>
-	                    <td align="center" width="10%" class="unit_id"><%=unitjMaster.getUnit_id()%></td>
+	                	<td><input type="checkbox" name="delunit" id="delunit"  value="<%=unitjMaster.getUnit_id() %>"> </td>
+						<s:if test="%{#fromwindow=='true'}">
+	                    	<td align="center" width="10%" class="unit_id"> <a href="#" onclick="getUnit('<%=unitjMaster.getUnit_id()%>','<%=unitjMaster.getUnit_name()%>')"><%=unitjMaster.getUnit_id()%></a></td>
+	                    </s:if>
+						<s:else>
+							<td align="center" width="10%" class="unit_id"><%=unitjMaster.getUnit_id()%></td>
+						</s:else>
 	                    <td class="unit_name" align="left" width="90%"><%=unitjMaster.getUnit_name()%></td> 
 	                </tr>	  
 	                <% 	x++;
@@ -120,6 +132,11 @@
  		<script src="js/jquery.dataTables.min.js"></script>
  		<script src="js/sweetalert.min.js"></script>
    		<script>
+   		function getUnit(unit_id,unit_name){
+   			window.opener.document.getElementById("unit_id").value= unit_id;
+			window.opener.document.getElementById("unit_name").value= unit_name;
+			window.close();
+   		}
         $(document).ready(function() {
        	if($("#alertmsg").val() != ""){
        		swal("Error",$("#alertmsg").val() , "error");
