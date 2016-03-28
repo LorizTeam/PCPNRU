@@ -78,7 +78,7 @@ public class RockingBudgetAction extends ActionSupport{
 		    docdate				= rockingBudgetForm.getDocdate();
 		    docdate 			= dateUtil.CnvToYYYYMMDDEngYear(docdate, '-');
 		    remark				= rockingBudgetForm.getRemark();
-		    approve_status      = "NA";
+		    approve_status      = "WA";
 	    	
 		String add = request.getParameter("add");
 		

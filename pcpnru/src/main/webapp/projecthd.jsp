@@ -170,7 +170,7 @@
  			 
  		  	if (isConfirm) {
  			setTimeout(function(){
- 				var load = window.open("/pcpnru/projecthdFreeze.action?freeze=Y&projectcode="+projectcode+"&year="+year
+ 				var load = window.open("/pcpnru/projectHdFreeze.action?freeze=Y&projectcode="+projectcode+"&year="+year
  						,'_self');
  			swal("ล็อคโครงการสำเร็จแล้ว!", "สามารถปลดล็อคโครงการได้ หากมีข้อผิดพลาด !", "success");
  			} 
@@ -199,7 +199,7 @@
  			 
  		  	if (isConfirm) {
  			setTimeout(function(){
- 				var load = window.open("/pcpnru/projecthdFreeze.action?freeze=N&projectcode="+projectcode+"&year="+year
+ 				var load = window.open("/pcpnru/projectHdFreeze.action?freeze=N&projectcode="+projectcode+"&year="+year
  						,'_self');
  			swal("ปลดล็อคโครงการสำเร็จแล้ว!", "สามารถล็อคโครงการได้อีกครั้ง !", "success");
  			} 

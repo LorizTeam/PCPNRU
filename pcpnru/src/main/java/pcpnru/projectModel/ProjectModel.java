@@ -7,7 +7,7 @@ public class ProjectModel {
 	private String project_name;
 	
 	//DT receive
-	private String gcostcode,gcostname,budget;
+	private String gcostcode,gcostname,budget,budget_now;
 	
 	//Project plan DT
 	private String subjob_code,subjob_name,childsubjobcode,childsubjobname,gcostcode_name;
@@ -20,7 +20,7 @@ public class ProjectModel {
 	public ProjectModel(String project_code,String project_name,
 			String subjob_code,String subjob_name,String childsubjobcode,
 			String childsubjobname,String gcostcode,String gcostcode_name,
-			String budget,String datetime_response){
+			String budget,String budget_now,String datetime_response){
 		
 		this.project_code = project_code;
 		this.project_name = project_name;
@@ -31,6 +31,7 @@ public class ProjectModel {
 		this.gcostcode = gcostcode;
 		this.gcostcode_name = gcostcode_name;
 		this.budget = budget;
+		this.budget_now = budget_now;
 		this.datetime_response = datetime_response;
 		
 	}
@@ -181,5 +182,11 @@ public class ProjectModel {
 	}
 	public void setFreeze(String freeze) {
 		this.freeze = freeze;
+	}
+	public String getBudget_now() {
+		return budget_now;
+	}
+	public void setBudget_now(String budget_now) {
+		this.budget_now = budget_now;
 	} 
 }

@@ -64,7 +64,7 @@ public class CentralBudgetAction extends ActionSupport{
 		    balance				= centralBudgetForm.getBalance();
 		    balance 			= balance.replace(",", ""); 
 		    remark				= centralBudgetForm.getRemark();
-		    approve_status      = "NA";
+		    approve_status      = "WA";
 		    docdate				= centralBudgetForm.getDocdate();
 		    docdate 			= dateUtil.CnvToYYYYMMDDEngYear(docdate, '-');
 	    	

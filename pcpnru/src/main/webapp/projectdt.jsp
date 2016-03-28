@@ -176,7 +176,7 @@
 				  		<div class="cell colspan7">
 				  			รายการ
 				  		</div>
-				  		<div class="cell colspan4">
+				  		<div class="cell colspan3">
 				  			จำนวนเงิน
 				  		</div> 
 				  	</div>
@@ -199,7 +199,7 @@
 							  	<h5 class="cell colspan7 subjob">
 							  		<%=pjmodel.getGcostcode_name() %>
 							  	</h5>
-							  	<div class="cell colspan4 align-center">
+							  	<div class="cell colspan3 align-center">
 							  		{{ <%=pjmodel.getBudget() %> | currency:"฿"}}
 							  	</div>
 							  </div>
@@ -215,7 +215,7 @@
 					  	<div class="cell colspan7 align-right">
 					  		<h4>รวม</h4>
 					  	</div>
-					  	<div class="cell colspan4 align-center">
+					  	<div class="cell colspan3 align-center">
 					  		<h4>{{<%=pjdt_receivetotal %>| currency:"฿"}}</h4>
 					  	</div>
 					  </div>
@@ -225,11 +225,11 @@
 			<!-- รายจ่าย -->
 				<div class="window ">
 					<div class="row cells12 align-center  window-caption bg-cyan fg-white" >
-				  		<div class="cell colspan8">
+				  		<div class="cell colspan7">
 				  			รายการ
 				  		</div>
-				  		<div class="cell colspan2">
-				  			จำนวนเงิน 
+				  		<div class="cell colspan3">
+				  			เงินตั้งต้น - เงินคงเหลือปัจจุบัน 
 				  		</div>
 				  		<% if(!projectcode.equals("PCC")) {%>
 				  		<div class="cell colspan1">
@@ -301,11 +301,11 @@
 									  			
 									  %>
 									  		<div class="row cells12 " >			  
-											  	<p class="cell colspan8 costcode">
+											  	<p class="cell colspan7 costcode">
 											  		<%=pjmodel_gcostcode.getGcostcode_name() %>	
 											  	</p>
-											  	<div class="cell colspan2 align-center">
-											  		{{ <%=pjmodel_gcostcode.getBudget() %> | currency:"฿"}}
+											  	<div class="cell colspan3 align-center">
+											  		{{ <%=pjmodel_gcostcode.getBudget() %> | currency:"฿"}} - <span class="fg-grayDark" style="font: 500 1.040rem/1.1 Segoe UI, Open Sans, sans-serif, serif;">{{ <%=pjmodel_gcostcode.getBudget_now()%> | currency:"฿"}}</span>
 											  	</div>
 											  	<% if(!projectcode.equals("PCC")) {%>
 											  	<div class="cell colspan1 align-right">
@@ -342,10 +342,10 @@
 					
 					  <!--Totle subjob -->  
 					   <div class="row cells12 " >			  
-					  	<div class="cell colspan8 align-right">
+					  	<div class="cell colspan7 align-right">
 					  		<h4>รวม</h4>
 					  	</div>
-					  	<div class="cell colspan2 align-center">
+					  	<div class="cell colspan3 align-center">
 					  		<h4>{{ <%=pjdt_requisitiontotal %> | currency:"฿" }}</h4>
 					  	</div>
 					  </div>

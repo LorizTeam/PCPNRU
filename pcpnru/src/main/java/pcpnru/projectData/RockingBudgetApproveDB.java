@@ -43,7 +43,7 @@ public class RockingBudgetApproveDB {
 					if(!gcostcode.equals("")) sqlStmt = sqlStmt+ "a.gcostcode = '"+gcostcode+"' AND ";
 					if(!year.equals("")) sqlStmt = sqlStmt+ "year = '"+year+"' AND "; 
 					
-					sqlStmt = sqlStmt + "project_code = '"+project_code+"' group by docno order by docno, project_code, gcostcode";
+					sqlStmt = sqlStmt + "project_code = '"+project_code+"' group by docno order by approve_status desc, docno, project_code, gcostcode";
 					
 					//System.out.println(sqlStmt);	 	
 					pStmt = conn.createStatement();
@@ -80,7 +80,7 @@ public class RockingBudgetApproveDB {
 				}
 				return RockingBudgetList;
 			 } 
-	public List WindowRockingBudgetList(String docno,String project_code,String year, String gcostcode) 
+	public List WindowRockingBudgetList(String docno,String project_code,String year, String gcostcode, String pj) 
 			throws Exception { //30-05-2014
 				List RockingBudgetList = new ArrayList();
 				String gcostname = "", amount1 = "", gcostcode_rock = "", gcostname_rock = "", amount2 = "",
@@ -99,9 +99,10 @@ public class RockingBudgetApproveDB {
 					if(!docno.equals("")) sqlStmt = sqlStmt+ "docno = '"+docno+"' AND "; 
 					if(!project_code.equals("")) sqlStmt = sqlStmt+ "project_code = '"+project_code+"' AND "; 
 					if(!gcostcode.equals("")) sqlStmt = sqlStmt+ "a.gcostcode = '"+gcostcode+"' AND ";
-					if(!year.equals("")) sqlStmt = sqlStmt+ "year = '"+year+"' AND "; 
+					if(!year.equals("")) sqlStmt = sqlStmt+ "year = '"+year+"' AND ";
+					if(!pj.equals("")) sqlStmt = sqlStmt+ "approve_status  not in ('WA','CC') AND "; 
 					
-					sqlStmt = sqlStmt + "project_code <> '' order by gcostcode";
+					sqlStmt = sqlStmt + "project_code <> '' order by approve_status desc";
 					
 					//System.out.println(sqlStmt);				
 					pStmt = conn.createStatement();

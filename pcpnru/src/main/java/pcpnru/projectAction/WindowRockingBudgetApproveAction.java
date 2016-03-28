@@ -54,7 +54,7 @@ public class WindowRockingBudgetApproveAction extends ActionSupport{
 		request.setAttribute("groupcostCodeList", groupcostCodeList);  
 		
 		RockingBudgetApproveDB rbga = new RockingBudgetApproveDB();
-		List RockingBudgetDList = rbga.WindowRockingBudgetList(docno, project_code, year, gcostcode);
+		List RockingBudgetDList = rbga.WindowRockingBudgetList(docno, project_code, year, gcostcode, "");
         request.setAttribute("RockingBudgetDList", RockingBudgetDList);
 	    
         request.setAttribute("gcostcode", gcostcode);
@@ -81,7 +81,7 @@ public class WindowRockingBudgetApproveAction extends ActionSupport{
 		request.setAttribute("groupcostCodeList", groupcostCodeList);  
 		
 		RockingBudgetApproveDB rbga = new RockingBudgetApproveDB();
-		List RockingBudgetDList = rbga.WindowRockingBudgetList(docno, project_code, year, gcostcode);
+		List RockingBudgetDList = rbga.WindowRockingBudgetList(docno, project_code, year, gcostcode, "pj");
         request.setAttribute("RockingBudgetDList", RockingBudgetDList);
 	    
         request.setAttribute("gcostcode", gcostcode);

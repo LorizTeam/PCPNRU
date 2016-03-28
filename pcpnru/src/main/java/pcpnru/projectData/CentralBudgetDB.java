@@ -220,9 +220,9 @@ public class CentralBudgetDB {
 					+ ",SUM(a.budget),rock.budget,gave_rock.gave_budget,SUM(b.amount) "
 					+ "FROM projectplan_detail a "
 					+ "LEFT JOIN requisition b on (a.gcostcode = b.gcostcode and a.project_code = b.project_code and a.year = b.project_year) " 
-					+ "LEFT JOIN (SELECT IFNULL(SUM(c.amount_rock),0) as budget ,project_code,year,gcostcode FROM rocking_budget c where c.approve_status in ('AP','NA') GROUP BY c.gcostcode) " 
+					+ "LEFT JOIN (SELECT IFNULL(SUM(c.amount_rock),0) as budget ,project_code,year,gcostcode FROM rocking_budget c where c.approve_status in ('AP','WA') GROUP BY c.gcostcode) " 
 					+ "as rock on(a.gcostcode = rock.gcostcode and a.project_code = rock.project_code and a.year = rock.year) " 
-					+ "LEFT JOIN (SELECT IFNULL(SUM(e.amount_rock),0) as gave_budget ,project_code,year,gcostcode_rock FROM rocking_budget e where e.approve_status in ('AP','NA') and e.gcostcode_rock = '"+gcostcode+"' GROUP BY e.gcostcode_rock) "
+					+ "LEFT JOIN (SELECT IFNULL(SUM(e.amount_rock),0) as gave_budget ,project_code,year,gcostcode_rock FROM rocking_budget e where e.approve_status in ('AP','WA') and e.gcostcode_rock = '"+gcostcode+"' GROUP BY e.gcostcode_rock) "
 					+ "as gave_rock on(a.gcostcode = gave_rock.gcostcode_rock and a.project_code = gave_rock.project_code and a.year = gave_rock.year) " 
 					+ " where a.project_code = '"+project_code+"' and a.`year` = '"+year+"' and a.gcostcode = '"+gcostcode+"'";
 			 
@@ -251,7 +251,8 @@ public List getListProject(String project_code,String project_name,String year,S
 		
 		String sqlWhere = "";
 		if(!project_code.equals("")){
-			sqlWhere += "project_master.project_code not in ('"+project_code+"','PCC') AND ";
+		//	sqlWhere += "project_master.project_code not in ('"+project_code+"','PCC') AND ";
+			sqlWhere += "project_master.project_code not in ('PCC') AND ";
 		}
 		if(!project_name.equals("")){
 			sqlWhere += "project_master.project_name = '"+project_name+"' AND ";
@@ -452,7 +453,7 @@ public List WindowCentralBudget_DT(String docno,String project_code,String year,
 				if(!docno.equals("")) sqlStmt = sqlStmt+ "docno = '"+docno+"' AND "; 
 				if(!project_code.equals("")) sqlStmt = sqlStmt+ "a.project_code = '"+project_code+"' AND "; 
 				if(!year.equals("")) sqlStmt = sqlStmt+ "a.year = '"+year+"' AND "; 
-				if(!gcostcode.equals("")) sqlStmt = sqlStmt+ "a.gcostcode_rock = '"+gcostcode+"' AND "; 
+				if(!gcostcode.equals("")) sqlStmt = sqlStmt+ "a.gcostcode_rock = '"+gcostcode+"' AND ";  
 				
 				sqlStmt = sqlStmt + "a.project_code <> '' and a.approve_status = 'AP' order by a.docno,a.docdate";
 				

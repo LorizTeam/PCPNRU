@@ -20,11 +20,8 @@ public class ProjectData {
 	Connection conn		= null;
 	Statement pStmt 	= null;
 	ResultSet rs		= null;
-	DateUtil dateUtil = new DateUtil();
-	
-	
-
-	
+	ResultSet rs1		= null;
+	DateUtil dateUtil = new DateUtil(); 
 
 	public List GetProjectHDList() 
 	throws Exception { //30-05-2014
@@ -312,8 +309,26 @@ public class ProjectData {
 				gcostcode_name = rs.getString("gcostcode_name");
 				budget = rs.getString("budget");
 				datetime_response = rs.getString("datetime_response");
+				
+				String budget_now = "0";
+				String sql = "SELECT (IFNULL(SUM(a.budget),0)+IFNULL(rock.budget,0)-(IFNULL(gave_rock.gave_budget,0)+IFNULL(SUM(b.amount),0))) as frombalance "
+						+ ",SUM(a.budget),rock.budget,gave_rock.gave_budget,SUM(b.amount) "
+						+ "FROM projectplan_detail a "
+						+ "LEFT JOIN requisition b on (a.gcostcode = b.gcostcode and a.project_code = b.project_code and a.year = b.project_year) " 
+						+ "LEFT JOIN (SELECT IFNULL(SUM(c.amount_rock),0) as budget ,project_code,year,gcostcode FROM rocking_budget c where c.approve_status in ('AP') GROUP BY c.gcostcode) " 
+						+ "as rock on(a.gcostcode = rock.gcostcode and a.project_code = rock.project_code and a.year = rock.year) " 
+						+ "LEFT JOIN (SELECT IFNULL(SUM(e.amount_rock),0) as gave_budget ,project_code,year,gcostcode_rock FROM rocking_budget e where e.approve_status in ('AP') and e.gcostcode_rock = '"+gcostcode+"' GROUP BY e.gcostcode_rock) "
+						+ "as gave_rock on(a.gcostcode = gave_rock.gcostcode_rock and a.project_code = gave_rock.project_code and a.year = gave_rock.year) "
+						+ " where a.project_code = '"+project_code+"' and a.`year` = '"+year+"' and a.gcostcode = '"+gcostcode+"' GROUP BY a.gcostcode";
+				 
+				pStmt = conn.createStatement();
+				rs1 = pStmt.executeQuery(sql);
+				while(rs1.next()){
+					budget_now = rs1.getString("frombalance");
+				}
+				
 				ProjectDTList.add(new ProjectModel(project_code,project_name,subjob_code,subjob_name,childsubjobcode,childsubjobname,
-						gcostcode,gcostcode_name,budget,datetime_response));
+						gcostcode,gcostcode_name,budget,budget_now,datetime_response));
 			}
 			
 			rs.close();

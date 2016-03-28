@@ -19,9 +19,9 @@
 			+ ",SUM(a.budget),rock.budget,gave_rock.gave_budget,SUM(b.amount) "
 			+ "FROM projectplan_detail a "
 			+ "LEFT JOIN requisition b on (a.gcostcode = b.gcostcode and a.project_code = b.project_code and a.year = b.project_year) " 
-			+ "LEFT JOIN (SELECT IFNULL(SUM(c.amount_rock),0) as budget ,project_code,year,gcostcode FROM rocking_budget c where c.approve_status in ('AP','NA') GROUP BY c.gcostcode) " 
+			+ "LEFT JOIN (SELECT IFNULL(SUM(c.amount_rock),0) as budget ,project_code,year,gcostcode FROM rocking_budget c where c.approve_status in ('AP','WA') GROUP BY c.gcostcode) " 
 			+ "as rock on(a.gcostcode = rock.gcostcode and a.project_code = rock.project_code and a.year = rock.year) " 
-			+ "LEFT JOIN (SELECT IFNULL(SUM(e.amount_rock),0) as gave_budget ,project_code,year,gcostcode_rock FROM rocking_budget e where e.approve_status in ('AP','NA') and e.gcostcode_rock = '"+gcostcode+"' GROUP BY e.gcostcode_rock) "
+			+ "LEFT JOIN (SELECT IFNULL(SUM(e.amount_rock),0) as gave_budget ,project_code,year,gcostcode_rock FROM rocking_budget e where e.approve_status in ('AP','WA') and e.gcostcode_rock = '"+gcostcode+"' GROUP BY e.gcostcode_rock) "
 			+ "as gave_rock on(a.gcostcode = gave_rock.gcostcode_rock and a.project_code = gave_rock.project_code and a.year = gave_rock.year) "
 			+ " where a.project_code = '"+projectCode+"' and a.`year` = '"+year+"' and a.gcostcode = '"+gcostcode+"' GROUP BY a.gcostcode";
 	Connection conn = dbcon.getConnectMYSql();
