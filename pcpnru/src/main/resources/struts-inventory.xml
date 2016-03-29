@@ -8,7 +8,8 @@
  
     <package name="inventory" extends="struts-default">
     	<global-results>
-		    <result name="nologin">/login.jsp</result>
+		    <result name="gologin">/login.jsp</result>
+		    <result name="nologin">/nologin.jsp</result>
 		    <result name="noauth">/no-authen.jsp</result>
 		</global-results>
 		

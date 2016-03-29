@@ -28,6 +28,9 @@ public class BrandAction extends ActionSupport {
 	}
 	
 	public String execute() throws Exception{
+
+		if(!CheckLogin()) return "nologin";
+		
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		String page_code = "023";
 		HttpSession session = request.getSession();
@@ -97,6 +100,9 @@ public class BrandAction extends ActionSupport {
 	}
 	
 	public String entrancbrand() throws IOException, Exception{
+
+		if(!CheckLogin()) return "nologin";
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "023";
 		HttpSession session = request.getSession();
@@ -113,6 +119,9 @@ public class BrandAction extends ActionSupport {
 	}
 	
 	public String windows_entrancbrand() throws IOException, Exception{
+		
+		if(!CheckLogin()) return "nologin";
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "023";
 		
@@ -131,4 +140,15 @@ public class BrandAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	public boolean CheckLogin(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		boolean login = true;
+		
+		if(session.getAttribute("username") == null)
+			return login=false;
+			
+		return login;
+	}
 }
+

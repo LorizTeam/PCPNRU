@@ -27,6 +27,9 @@ public class ProductTypeAction extends ActionSupport {
 	}
 
 	public String execute() throws Exception{
+
+		if(!CheckLogin()) return "nologin";
+		
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		String page_code = "022";
 		HttpSession session = request.getSession();
@@ -112,6 +115,9 @@ public class ProductTypeAction extends ActionSupport {
 	}
 	
 	public String windows_entrancprotype() throws IOException, Exception{
+		
+		if(!CheckLogin()) return "nologin";
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "022";
 		
@@ -128,5 +134,16 @@ public class ProductTypeAction extends ActionSupport {
 		protypemodel = new ProductTypeModel();
 		protypemodel.setFromwindow("true");
 		return SUCCESS;
+	}
+	
+	public boolean CheckLogin(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		boolean login = true;
+		
+		if(session.getAttribute("username") == null)
+			return login=false;
+			
+		return login;
 	}
 }

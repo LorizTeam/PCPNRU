@@ -24,7 +24,8 @@
 		<div class="grid" >
 			<div class="row cells12 " >
 	 			<div class="cell colspan4"> </div>
-	 			<div class="cell align-right colspan1"><h3>สินค้า </h3></div>
+	 			<div class="cell align-right colspan1"><h3>สินค้า </h3>
+	 			</div>
 	 			<div class="cell colspan3"></div>
 	 			<div class="cell colspan4">
 				</div>
@@ -35,7 +36,7 @@
 			 		<div class="cell colspan4">
 			 			รหัสสินค้า
 			 			<div class="input-control text full-size"> 
-			 				<s:textfield name="product.product_id" id="product_id" readonly="true"/>
+			 				<s:textfield name="product.product_id" id="product_id" required=""/>
 			 			</div>
 			 		</div>
 			 		<div class="cell colspan4"> 

@@ -27,6 +27,9 @@ public class ProductGroupAction extends ActionSupport {
 		this.pdgmodel = pdgmodel;
 	}
 	public String execute() throws Exception{
+
+		if(!CheckLogin()) return "nologin";
+		
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		String page_code = "024";
 		HttpSession session = request.getSession();
@@ -96,6 +99,9 @@ public class ProductGroupAction extends ActionSupport {
 	}
 	
 	public String entrancbrand() throws IOException, Exception{
+
+		if(!CheckLogin()) return "nologin";
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "024";
 		HttpSession session = request.getSession();
@@ -112,6 +118,9 @@ public class ProductGroupAction extends ActionSupport {
 	}
 	
 	public String windows_entrancprogroup() throws IOException, Exception{
+		
+		if(!CheckLogin()) return "nologin";
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "024";
 		
@@ -128,5 +137,16 @@ public class ProductGroupAction extends ActionSupport {
 		pdgmodel = new ProductGroupModel();
 		pdgmodel.setFromwindow("true");
 		return SUCCESS;
+	}
+	
+	public boolean CheckLogin(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		boolean login = true;
+		
+		if(session.getAttribute("username") == null)
+			return login=false;
+			
+		return login;
 	}
 }

@@ -33,6 +33,9 @@ public class UnitMasterAction extends ActionSupport {
 	}  
 
 	public String execute() throws Exception {
+		
+		if(!CheckLogin()) return "nologin";
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "021";
 		
@@ -101,6 +104,9 @@ public class UnitMasterAction extends ActionSupport {
 	}
 	
 	public String windows_entrancprotype() throws IOException, Exception{
+		
+		if(!CheckLogin()) return "nologin";
+		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "021";
 		
@@ -116,5 +122,16 @@ public class UnitMasterAction extends ActionSupport {
 		unitMaster = new UnitMasterForm();
 		unitMaster.setFromwindow("true");
 		return SUCCESS;
+	}
+	
+	public boolean CheckLogin(){
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpSession session = request.getSession();
+		boolean login = true;
+		
+		if(session.getAttribute("username") == null)
+			return login=false;
+			
+		return login;
 	}
 }
