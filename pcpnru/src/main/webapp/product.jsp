@@ -103,7 +103,7 @@
 				 	<div class="cell colspan4">
 				 	สถานะสินค้า
 				 		<div class="input-control text full-size">
-					 		<select name="productModel.status_id" required="">
+					 		<select name="productModel.status_id" id="status_id" required="">
 					 			<option value="">กรุณาเลือกสถานะของสินค้า</option>
 					 			<option value="01">Enable</option>
 					 			<option value="02">Disable</option>
@@ -136,6 +136,7 @@
 		                	<th>หมวดสินค้า</th>
 		                	<th>ประเภทสินค้า</th>
 		                	<th>แบรนด์สินค้า</th>
+		                	<th>สถานะ</th>
 		                    <th>วันที่เพิ่มข้อมูล</th>
 		                    
 		                </tr>
@@ -161,6 +162,7 @@
 					                	<td class="progroup"><%=productModel.getProgroup_id() %>-<%=productModel.getProgroup_name() %></td>
 					                	<td class="protype"><%=productModel.getProtype_id() %>-<%=productModel.getProtype_name() %></td>
 					                	<td class="brand"><%=productModel.getBrand_id() %>-<%=productModel.getBrand_name() %></td>
+					                	<td class="status"><%=productModel.getStatus_id() %>-<%=productModel.getStatus_name() %></td>
 					                    <td><%=productModel.getCreate_datetime() %></td>
 					                    
 					                </tr>
@@ -244,6 +246,7 @@
 		            $("#progroup_id").val(""); $("#progroup_name").val("");
 		            $("#protype_id").val(""); $("#protype_name").val("");
 		            $("#brand_id").val(""); $("#brand_name").val("");
+		            $("#status_id").val("");
 		        }
 		        else {
 		            table.$('tr.selected').removeClass('selected');
@@ -259,6 +262,7 @@
 		            $("#protype_name").val($(".protype").eq($index).text().split("-")[1]);
 		            $("#brand_id").val($(".brand").eq($index).text().split("-")[0]); 
 		            $("#brand_name").val($(".brand").eq($index).text().split("-")[1]);
+		            $("#status_id").val($(".status").eq($index).text().split("-")[0]);
 		        }
 		    });
 			
