@@ -28,7 +28,7 @@ public class ProductGroupAction extends ActionSupport {
 	}
 	public String execute() throws Exception{
 
-		if(!CheckLogin()) return "nologin";
+		if(!CheckLogin()) return "gologin";
 		
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		String page_code = "024";
@@ -100,7 +100,7 @@ public class ProductGroupAction extends ActionSupport {
 	
 	public String entrancbrand() throws IOException, Exception{
 
-		if(!CheckLogin()) return "nologin";
+		if(!CheckLogin()) return "gologin";
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "024";

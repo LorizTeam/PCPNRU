@@ -29,7 +29,7 @@ public class BrandAction extends ActionSupport {
 	
 	public String execute() throws Exception{
 
-		if(!CheckLogin()) return "nologin";
+		if(!CheckLogin()) return "gologin";
 		
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		String page_code = "023";
@@ -101,7 +101,7 @@ public class BrandAction extends ActionSupport {
 	
 	public String entrancbrand() throws IOException, Exception{
 
-		if(!CheckLogin()) return "nologin";
+		if(!CheckLogin()) return "gologin";
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "023";

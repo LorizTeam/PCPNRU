@@ -141,7 +141,7 @@
          	<ul class="d-menu" data-role="dropdown">
          		<li><a href="" class="dropdown-toggle"> ข้อมูลสินค้า</a>
          			<ul class="d-menu" data-role="dropdown">
-         				<li><a href="product.jsp">สินค้า</a></li>
+         				<li><a href="product.action">สินค้า</a></li>
 		                <li class="divider"></li>
 		                <li><a href="unitMaster.action">หน่วยนับ</a></li>
 		                <li class="divider"></li>

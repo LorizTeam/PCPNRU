@@ -45,6 +45,14 @@
     	<action name="windows_entranc_productgroupmaster" class="pcpnru.inventoryAction.ProductGroupAction" method="windows_entrancprogroup">
       		<result name="success">/productgroup.jsp</result>
     	</action>
+    	
+    	<action name="product" class="pcpnru.inventoryAction.ProductAction" method="execute">
+      		<result name="success">/product.jsp</result>
+    	</action>
+    	
+    	<action name="windows_product" class="pcpnru.inventoryAction.ProductAction" method="windows_entrancprogroup">
+      		<result name="success">/product.jsp</result>
+    	</action>
 		
     </package>
 </struts>

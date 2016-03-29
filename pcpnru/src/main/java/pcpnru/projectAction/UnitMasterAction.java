@@ -34,7 +34,7 @@ public class UnitMasterAction extends ActionSupport {
 
 	public String execute() throws Exception {
 		
-		if(!CheckLogin()) return "nologin";
+		if(!CheckLogin()) return "gologin";
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "021";
@@ -105,7 +105,7 @@ public class UnitMasterAction extends ActionSupport {
 	
 	public String windows_entrancprotype() throws IOException, Exception{
 		
-		if(!CheckLogin()) return "nologin";
+		if(!CheckLogin()) return "gologin";
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "021";

@@ -2,8 +2,6 @@ package pcpnru.inventoryModel;
 
 public class ProductTypeModel extends Create_UpdateModel{
 	private String protype_id,protype_name;
-	
-	private String fromwindow;
 
 	public ProductTypeModel(){}
 	

@@ -11,6 +11,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 import pcpnru.inventoryData.ProductTypeDB;
+import pcpnru.inventoryModel.ProductModel;
 import pcpnru.inventoryModel.ProductTypeModel;
 import pcpnru.utilities.CheckAuthenPageDB;
 import pcpnru.utilities.Validate;
@@ -28,7 +29,7 @@ public class ProductTypeAction extends ActionSupport {
 
 	public String execute() throws Exception{
 
-		if(!CheckLogin()) return "nologin";
+		if(!CheckLogin()) return "gologin";
 		
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		String page_code = "022";
@@ -91,14 +92,19 @@ public class ProductTypeAction extends ActionSupport {
 			
 			pdtdb.UpdateProductType(protypemodel.getProtype_id(), protypemodel.getProtype_name(), username);
 			protypemodel.ClearProType();
+		}else{
+			protypemodel = new ProductTypeModel();
+			protypemodel.setAlertmsg("กรุณาติ๊กถูกเลือกข้อมูลที่ต้องการลบด้วยค่ะ");
 		}
-		
 		protypeList = pdtdb.Get_ProductTypeList("", "");
 		request.setAttribute("protypeList", protypeList);
 		return SUCCESS;
 	}
 	
 	public String entrancprotype() throws IOException, Exception{
+		
+		if(!CheckLogin()) return "gologin";
+	
 		HttpServletRequest request = ServletActionContext.getRequest();
 		String page_code = "022";
 		HttpSession session = request.getSession();

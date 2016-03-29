@@ -36,13 +36,13 @@
 			 		<div class="cell colspan4">
 			 			รหัสสินค้า
 			 			<div class="input-control text full-size"> 
-			 				<s:textfield name="product.product_id" id="product_id" required=""/>
+			 				<s:textfield name="productModel.product_code" id="product_code" required=""/>
 			 			</div>
 			 		</div>
 			 		<div class="cell colspan4"> 
 			 			ชื่อสินค้า
 			 			<div class="input-control text full-size">
-			 				<s:textfield name="product.product_name" id="product_name" required=""/>
+			 				<s:textfield name="productModel.product_name" id="product_name" required=""/>
 			 			</div>
 			 		</div>
 			 		
@@ -52,22 +52,22 @@
 			 		<div class="cell colspan4">
 			 			หน่วยนับ
 			 			<div class="input-control text full-size"> 
-			 				<s:hidden name="product.unit_id" id="unit_id" readonly="true"/>
-			 				<s:textfield name="product.unit_name" id="unit_name" readonly="true"/>
+			 				<s:hidden name="productModel.unit_id" id="unit_id" readonly="true"/>
+			 				<s:textfield name="productModel.unit_name" id="unit_name" required=""/>
 			 				<div class="button-group">
 						 	<button class="button primary" type="button" onclick="getunit()"> <span class="mif-search"></span></button>
-							<button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
+							<button class="button danger" type="button" id="deleteunit"><span class="mif-bin"></span></button>
 							</div>
 			 			</div>
 			 		</div>
 			 		<div class="cell colspan4"> 
 			 			หมวดสินค้า
 			 			<div class="input-control text full-size">
-			 				<s:hidden name="product.progroup_id" id="progroup_id" readonly="true"/>
-			 				<s:textfield name="product.progroup_name" id="progroup_name" required=""/>
+			 				<s:hidden name="productModel.progroup_id" id="progroup_id" readonly="true"/>
+			 				<s:textfield name="productModel.progroup_name" id="progroup_name" required=""/>
 			 				<div class="button-group">
 						 	<button class="button primary" type="button" onclick="getprogroup()"> <span class="mif-search"></span></button>
-							<button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
+							<button class="button danger" type="button" id="deleteprogroup"><span class="mif-bin"></span></button>
 							</div>
 			 			</div>
 			 			
@@ -78,70 +78,90 @@
 			 		<div class="cell colspan4">
 			 			ประเภทสินค้า
 			 			<div class="input-control text full-size"> 
-			 				<s:hidden name="product.protype_id" id="protype_id" readonly="true"/>
-			 				<s:textfield name="product.protype_name" id="protype_name" readonly="true"/>
+			 				<s:hidden name="productModel.protype_id" id="protype_id" readonly="true"/>
+			 				<s:textfield name="productModel.protype_name" id="protype_name" required=""/>
 			 				<div class="button-group">
 						 	<button class="button primary" type="button" onclick="getprotype()"> <span class="mif-search"></span></button>
-							<button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
+							<button class="button danger" type="button" id="deleteprotype"><span class="mif-bin"></span></button>
 							</div>
 			 			</div>
 			 		</div>
 			 		<div class="cell colspan4"> 
 			 			แบรนด์สินค้า
 			 			<div class="input-control text full-size">
-			 				<s:hidden name="product.brand_id" id="brand_id" readonly="true"/>
-			 				<s:textfield name="product.brand_name" id="brand_name" required=""/>
+			 				<s:hidden name="productModel.brand_id" id="brand_id" readonly="true"/>
+			 				<s:textfield name="productModel.brand_name" id="brand_name" required=""/>
 			 				<div class="button-group">
 						 	<button class="button primary" type="button" onclick="getbrand()"> <span class="mif-search"></span></button>
-							<button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
+							<button class="button danger" type="button" id="deletebrand"><span class="mif-bin"></span></button>
 							</div>
 			 			</div>
 			 		</div>
 			 	</div>
 			 	<div class="row cells12 ">
-			 	<div class="cell colspan4"> </div>
-			 	<div class="cell colspan4">
-			 		<button type="submit" class="button success" name="add" id="add"><span class="mif-plus mif-lg fg-white"></span></button>
-					<button type="submit" class="button primary" name="update" id="update"><span class="mif-checkmark mif-lg fg-white"></span></button>
+				 	<div class="cell colspan4"> </div>
+				 	<div class="cell colspan4">
+				 	สถานะสินค้า
+				 		<div class="input-control text full-size">
+					 		<select name="productModel.status_id">
+					 			<option value="">กรุณาเลือกสถานะของสินค้า</option>
+					 			<option value="01">Enable</option>
+					 			<option value="02">Disable</option>
+					 		</select>
+				 		</div>
+				 	</div>
+				 	<div class="cell colspan4"> </div>
 			 	</div>
-			 	<div class="cell colspan4"> </div>
+			 	<div class="row cells12 ">
+				 	<div class="cell colspan4"> </div>
+				 	<div class="cell colspan4">
+				 		<button type="submit" class="button success" name="add" id="add"><span class="mif-plus mif-lg fg-white"></span></button>
+						<button type="submit" class="button primary" name="update" id="update"><span class="mif-checkmark mif-lg fg-white"></span></button>
+				 	</div>
+				 	<div class="cell colspan4"> </div>
 			 	</div>
 		    </div>
 			
 		</div>
 		
-	 	<s:hidden name="product.alertmsg" id="alertmsg"/>
-	 	<s:hidden name="product.fromwindow" id="fromwindow"/>
-	</form>
+		
 	<div class="example" data-text="Display">
 			    	<table id="table_progroup" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
 		                <thead>
 		                <tr>  
 		                	<th>ลบข้อมูล <input type="checkbox" id="checkall"></th>
-		                	<th>รหัสหมวดสินค้า</th>
-		                	<th>ชื่อหมวดสินค้า</th>
+		                	<th>รหัสสินค้า</th>
+		                	<th>ชื่อสินค้า</th>
+		                	<th>หน่วยนับ</th>
+		                	<th>หมวดสินค้า</th>
+		                	<th>ประเภทสินค้า</th>
+		                	<th>แบรนด์สินค้า</th>
 		                    <th>วันที่เพิ่มข้อมูล</th>
 		                    
 		                </tr>
 		                </thead> 
 		                <tbody>
 		                <%
-			         		if(request.getAttribute("progroupList") != null){
-			         			List<ProductGroupModel> progroupList = (List) request.getAttribute("progroupList");
-			         			for(ProductGroupModel product:progroupList){
+			         		if(request.getAttribute("productList") != null){
+			         			List<ProductModel> productList = (List) request.getAttribute("productList");
+			         			for(ProductModel productModel:productList){
 			         				
 			         	%>		
 			         			
 									<tr>
-										<td><input type="checkbox" name="delprogroup" id="delprogroup" value="<%=product.getProgroup_id() %>"> </td>
+										<td><input type="checkbox" name="delproduct" id="delproduct" value="<%=productModel.getProduct_code() %>"> </td>
 										<s:if test="%{#fromwindow=='true'}">
-											<td class="progroup_id"><a href="#" class="returnid"><%=product.getProgroup_id() %></a></td>
+											<td class="product_code"><a href="#" onclick="getProduct('<%=productModel.getProduct_code() %>','<%=productModel.getProduct_name() %>')"><%=productModel.getProduct_code() %></a></td>
 										</s:if>
 										<s:else>
-											<td class="progroup_id"><%=product.getProgroup_id() %></td>
+											<td class="product_code"><%=productModel.getProduct_code() %></td>
 										</s:else>
-					                	<td class="progroup_name"><%=product.getProgroup_name() %></td>
-					                    <td><%=product.getCreate_datetime() %></td>
+										<td class="product_id"><%=productModel.getProduct_name() %></td>
+					                	<td class="product_name"><%=productModel.getUnit_id() %>-<%=productModel.getUnit_name() %></td>
+					                	<td class="product_name"><%=productModel.getProgroup_id() %>-<%=productModel.getProgroup_name() %></td>
+					                	<td class="product_name"><%=productModel.getProtype_id() %>-<%=productModel.getProtype_name() %></td>
+					                	<td class="product_name"><%=productModel.getBrand_id() %>-<%=productModel.getBrand_name() %></td>
+					                    <td><%=productModel.getCreate_datetime() %></td>
 					                    
 					                </tr>
 								
@@ -160,7 +180,10 @@
 				 		
 				 	</div>
 			    </div>
-
+		<s:hidden name="productModel.alertmsg" id="alertmsg"/>
+		<s:hidden name="productModel.fromwindow" id="fromwindow"/>
+		
+		</form>
 
 		<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -195,26 +218,23 @@
                 ordering: false,
                 "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
             } );
-			$(".returnid").click(function(){
-				
-				var index = $(this).index(".returnid");
-
-				window.opener.document.getElementById("progroup_id").value= $(this).text();
-				window.opener.document.getElementById("progroup_name").value= $(".progroup_name").eq(index).text();
-				
-				window.close();
-			});
 			$("#checkall").click(function(){
 				if($(this).prop("checked")){
-					$('[name="delprogroup"]').prop("checked",true);
+					$('[name="delproduct"]').prop("checked",true);
 				}else{
-					$('[name="delprogroup"]').prop("checked",false);
+					$('[name="delproduct"]').prop("checked",false);
 				}
 			});
 			
 			$("#delete").click(function(){
+				$("#product_code").val("-");
+				$("#product_name").val("-");
+				$("#unit_name").val("-");
 				$("#progroup_name").val("-");
+				$("#protype_name").val("-");
+				$("#brand_name").val("-");
 			});
+			
 			$('#table_progroup tbody').on( 'click', 'tr', function () {
 		        if ( $(this).hasClass('selected') ) {
 		            $(this).removeClass('selected');
