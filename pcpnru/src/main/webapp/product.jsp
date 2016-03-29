@@ -103,7 +103,7 @@
 				 	<div class="cell colspan4">
 				 	สถานะสินค้า
 				 		<div class="input-control text full-size">
-					 		<select name="productModel.status_id">
+					 		<select name="productModel.status_id" required="">
 					 			<option value="">กรุณาเลือกสถานะของสินค้า</option>
 					 			<option value="01">Enable</option>
 					 			<option value="02">Disable</option>
@@ -125,8 +125,8 @@
 		</div>
 		
 		
-	<div class="example" data-text="Display">
-			    	<table id="table_progroup" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
+				<div class="example" data-text="Display">
+			    	<table id="table_product" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
 		                <thead>
 		                <tr>  
 		                	<th>ลบข้อมูล <input type="checkbox" id="checkall"></th>
@@ -156,11 +156,11 @@
 										<s:else>
 											<td class="product_code"><%=productModel.getProduct_code() %></td>
 										</s:else>
-										<td class="product_id"><%=productModel.getProduct_name() %></td>
-					                	<td class="product_name"><%=productModel.getUnit_id() %>-<%=productModel.getUnit_name() %></td>
-					                	<td class="product_name"><%=productModel.getProgroup_id() %>-<%=productModel.getProgroup_name() %></td>
-					                	<td class="product_name"><%=productModel.getProtype_id() %>-<%=productModel.getProtype_name() %></td>
-					                	<td class="product_name"><%=productModel.getBrand_id() %>-<%=productModel.getBrand_name() %></td>
+										<td class="product_name"><%=productModel.getProduct_name() %></td>
+					                	<td class="unit"><%=productModel.getUnit_id() %>-<%=productModel.getUnit_name() %></td>
+					                	<td class="progroup"><%=productModel.getProgroup_id() %>-<%=productModel.getProgroup_name() %></td>
+					                	<td class="protype"><%=productModel.getProtype_id() %>-<%=productModel.getProtype_name() %></td>
+					                	<td class="brand"><%=productModel.getBrand_id() %>-<%=productModel.getBrand_name() %></td>
 					                    <td><%=productModel.getCreate_datetime() %></td>
 					                    
 					                </tr>
@@ -211,7 +211,7 @@
 			if($("#alertmsg").val() != ""){
         		swal("Error",$("#alertmsg").val() , "error");
         	}
-			var table = $('#table_progroup').DataTable( { 
+			var table = $('#table_product').DataTable( { 
          		scrollY: '39vh',
          		scrollX: true, 
          		scrollCollapse: true,
@@ -235,18 +235,30 @@
 				$("#brand_name").val("-");
 			});
 			
-			$('#table_progroup tbody').on( 'click', 'tr', function () {
+			$('#table_product tbody').on( 'click', 'tr', function () {
 		        if ( $(this).hasClass('selected') ) {
 		            $(this).removeClass('selected');
-		            $("#progroup_id").val("");
-		            $("#progroup_name").val("");
+		            $("#product_code").val("");
+		            $("#product_name").val("");
+		            $("#unit_id").val(""); $("#unit_name").val("");
+		            $("#progroup_id").val(""); $("#progroup_name").val("");
+		            $("#protype_id").val(""); $("#protype_name").val("");
+		            $("#brand_id").val(""); $("#brand_name").val("");
 		        }
 		        else {
 		            table.$('tr.selected').removeClass('selected');
 		            $(this).addClass('selected');
 		            var $index = $(this).index();
-		            $("#progroup_id").val($(".progroup_id").eq($index).text());
-		            $("#progroup_name").val($(".progroup_name").eq($index).text());
+		            $("#product_code").val($(".product_code").eq($index).text());
+		            $("#product_name").val($(".product_name").eq($index).text());
+		            $("#unit_id").val($(".unit").eq($index).text().split("-")[0]); 
+		            $("#unit_name").val($(".unit").eq($index).text().split("-")[1]);
+		            $("#progroup_id").val($(".progroup").eq($index).text().split("-")[0]); 
+		            $("#progroup_name").val($(".progroup").eq($index).text().split("-")[1]);
+		            $("#protype_id").val($(".protype").eq($index).text().split("-")[0]); 
+		            $("#protype_name").val($(".protype").eq($index).text().split("-")[1]);
+		            $("#brand_id").val($(".brand").eq($index).text().split("-")[0]); 
+		            $("#brand_name").val($(".brand").eq($index).text().split("-")[1]);
 		        }
 		    });
 			
