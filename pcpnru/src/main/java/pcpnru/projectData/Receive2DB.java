@@ -142,7 +142,7 @@ public class Receive2DB {
 	
 	return amountTotal;
 	}
-	public String SumReceive(String docNo) 
+	public String SumReceive(String docNo, String projectcode) 
 			throws Exception { //30-05-2014
 				 
 				String itemNo  = "", description = "", qty = "", amount = "", amountTotal = "";
@@ -152,7 +152,7 @@ public class Receive2DB {
 					conn = agent.getConnectMYSql();
 					
 					String sqlStmt = "SELECT sum(amounttotal) as sumamt " +
-					"FROM receivedt WHERE docno = '"+docNo+"' ";
+					"FROM receivedt WHERE docno = '"+docNo+"' and projectcode = '"+projectcode+"'";
 					
 					sqlStmt = sqlStmt + "group by docno order by itemno";
 					

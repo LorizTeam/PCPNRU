@@ -32,24 +32,25 @@
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
 		
 		<link rel="shortcut icon" href="/favicon.ico">
+		
 		<link href="css/metro.css" rel="stylesheet">
         <link href="css/metro-icons.css" rel="stylesheet">
 		<link href="css/metro-schemes.css" rel="stylesheet">
-		<link href="css/select2.css" rel="stylesheet">
 		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
-		
+		<link href="css/select2.css" rel="stylesheet"> 
+		 
 	 	<script src="js/jquery-2.1.3.min.js"></script> 
-	    <script src="js/metro.js"></script>
-	    <script src="js/jquery.dataTables.min.js"></script>
+	 	<script src="js/metro.js"></script> 
+	 	<script src="js/jquery.dataTables.min.js"></script> 
 	    <script src="js/select2.js"></script>      
-  		
+  	 		
 	</head>
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
 		 <h3 class="align-center">สร้าง รายการค่าใช้จ่ายของกลุ่ม รายจ่าย</h3>
 		 <div class="example" data-text="รายละเอียด">
-		 <form id="reset" action="groupcostcodeMaster.action" method="post"> 
+		 <form action="groupcostcodeMaster.action" method="post"> 
 	         <div class="grid">
 	         	<div class="row cells12">
 	         		<div class="cell colspan6"> 
@@ -59,7 +60,8 @@
 							   <option value="" >กรุณาเลือกโครงการ</option>
 							   <%
 							   	List projectMasterList1 = null;
-							    String project_code = (String) request.getAttribute("project_code");
+							    String project_code = "";
+							    if (request.getAttribute("project_code") != null) project_code = (String) request.getAttribute("project_code");
 							    if (request.getAttribute("projectMasterList") == null) {
 									ProjectMasterDB projM = new ProjectMasterDB();
 									projectMasterList1 = projM.getListProject_Join_Projecthead("", "","","");
@@ -72,11 +74,11 @@
 					        		for (Iterator iterPj = projectMasterList.iterator(); iterPj.hasNext();) {
 					        			ProjectModel pjModel = (ProjectModel) iterPj.next();
 			      				%>  
-				      			<option value="<%=pjModel.getProject_code()%>" ><%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%></option>
+				      			<option <%if(pjModel.getProject_code().equals(project_code)){ %> selected <%} %>  value="<%=pjModel.getProject_code()%>" ><%=pjModel.getProject_code()%> - <%=pjModel.getProject_name()%></option>
 								<%		} 
 									}
 								%>
-					   		</select> 
+					   		</select>  
 						</div>
 					</div>
 					<div class="cell colspan2"> 
@@ -120,16 +122,18 @@
                     <th>ชื่อ-รายการค่าใช้จ่าย</th>
                     <th>ราคาต่อหน่วย</th> 
                 </tr>
-                </thead> 
-                  
+                </thead>  
                 <tbody>
                 <%
                 List groupcostCodeMasterList = null;
-               	GroupcostcodeMasterDB ccM = new GroupcostcodeMasterDB();
-            	groupcostCodeMasterList = ccM.GetGroupCostCodeMasterList_Req("", "", "","2");
-				 
+                
         		int x = 1;
-        		if(groupcostCodeMasterList != null){
+        		if(request.getAttribute("groupcostCodeMasterList")!=null){
+        			groupcostCodeMasterList = (List) request.getAttribute("groupcostCodeMasterList");
+        		}else{
+        			GroupcostcodeMasterDB ccM = new GroupcostcodeMasterDB();
+                	groupcostCodeMasterList = ccM.GetGroupCostCodeMasterList_Req(project_code, "", "","2");
+        		}
         			
         			Iterator costcodeIterate = groupcostCodeMasterList.iterator();
         			while(costcodeIterate.hasNext()){
@@ -146,12 +150,32 @@
         		<%		
         		x++;
         			}
-        			
-        		}
+        			 
         		%>
                 </tbody>
             </table>
         </div> <!-- End of example table -->  
+        
+        <script type="text/javascript">
+        
+        $(document).ready(function() {
+            $('#table_project_req').DataTable( { 
+              	scrollY:        '35vh', 
+              	scrollX: true,
+              	scrollCollapse: true,
+                ordering: false,
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                "initComplete": function () {
+                        var api = this.api();
+                        api.$('td').click( function () {
+                            api.search( this.innerHTML ).draw();
+                        } );
+                    } 
+            }); 
+        });
+        
+        $("#project_code").select2();
+        </script>
         
    		<script> 
    			$("#amount").blur(function (){
@@ -226,9 +250,8 @@
    			//return amount;
    		//	alert(amount);  */
    			$("#amount").val(t1);
-   		});
-   		 
-   			$("#project_code").select2();
+   		}); 
+   			
    			
             $('#table_project_req tbody').on( 'click', 'tr', function () {
             	
@@ -241,6 +264,7 @@
     	            $("#costCodeHD").val("");
     	            $("#costName").val("");
     	            $("#amount").val("");
+    	           
     	        }
     	        else {
     	        	var table = $('#table_project_req').dataTable();
@@ -257,20 +281,12 @@
     	            amt = amt.replace(/,/g, "");
     	            amt = parseFloat(amt).toLocaleString("en-US");
     	            $("#amount").val(amt);
+    	            
     	        }
     	        
     	        
-    	    });  
+    	    });    
             
-	            $('#table_project_req').DataTable( { 
-	              	scrollY:        '35vh', 
-	              	scrollX: true,
-	              	scrollCollapse: true,
-	                ordering: false,
-	                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
-	            } ); 
-	        
-           
     	</script>
 	</body>
 </html>

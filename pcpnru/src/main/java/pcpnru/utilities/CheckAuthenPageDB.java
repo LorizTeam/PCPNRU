@@ -46,6 +46,31 @@ public class CheckAuthenPageDB {
 		
 		return chkAuthen;
 		}
+public boolean getCheckAuthenLockProject(String username) throws Exception {
+		
+		boolean chkAuthen = false;
+		conn = agent.getConnectMYSql();
+	 	 
+	 	
+	 	String sqlStmt = "SELECT b.authen_type " +
+	 	"FROM " +
+	 	"employee a " +
+	 	"INNER JOIN authen_master b ON a.authen_type = b.authen_type " +
+	 	"WHERE a.username = '"+username+"' and b.authen_type = '006' ";
+	 	
+	 	pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlStmt);	
+		
+		while (rs.next()) {
+			chkAuthen = true;
+		}
+		
+		conn.close();
+		rs.close();
+		pStmt.close();
+		
+		return chkAuthen;
+		}
 public String getProjectCode(String username) throws Exception {
 		
 		String project_code = "";

@@ -105,7 +105,7 @@ public class GroupcostcodeMasterDB {
 					if(!groupcostCode.equals("")) sqlStmt = sqlStmt+ "gcostcode like '"+groupcostCode+"%' AND ";
 					if(!groupcostName.equals("")) sqlStmt = sqlStmt+ "gcostcode_name like '"+groupcostName+"%' AND ";
 					
-					sqlStmt = sqlStmt + "gcostcode <> '' and type_gcostcode = '"+type_gcostcode+"' order by a.project_code, gcostcode asc";
+					sqlStmt = sqlStmt + "gcostcode <> '' and type_gcostcode = '"+type_gcostcode+"' order by a.project_code, datetime desc, gcostcode";
 					
 					//System.out.println(sqlStmt);				
 					pStmt = conn.createStatement();

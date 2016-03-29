@@ -116,6 +116,7 @@ public class GroupCostCodeMasterModel {
 		this.costName = "";
 		this.standardprice = "";
 		this.fundprice = "";
+		this.amount = "";
 	}
 
 	public String getDateTime() {

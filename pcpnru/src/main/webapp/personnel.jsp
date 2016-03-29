@@ -266,8 +266,8 @@
     	           	var personnelSplit = $(".tdpersonnel").eq($index).text().split(" ");
     	          // 	alert(personnelSplit[2]);
     	           	$("#personnelid").val(personnelSplit[0]);
-    	           	$("#personnelname").val(personnelSplit[2]+" "+personnelSplit[3]);
-    	           	$("#personnellastname").val(personnelSplit[4]);  
+    	           	$("#personnelname").val(personnelSplit[2]);
+    	           	$("#personnellastname").val(personnelSplit[3]);  
     	           	
     	            $("#authen_type").val($(".tdhidden > #atn").eq($index).val());
     	            $("#dow").val($(".tddow").eq($index).text());

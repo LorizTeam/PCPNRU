@@ -30,6 +30,7 @@ public class GroupcostcodeAction extends ActionSupport {
 		String forwardText = "";
 		
 		String project_code 	= request.getParameter("projectCode"); 
+		
 		String grp_gcostcode 	= request.getParameter("grp_gcostcode"); 
 		
 		String groupcostCode = "";//groupcostcodemastermodel.getCostCode()
@@ -89,6 +90,8 @@ public class GroupcostcodeAction extends ActionSupport {
 				e.printStackTrace();
 			}
 		}
+		
+		request.setAttribute("project_code", project_code);
 		 
 		return forwardText;
 	}

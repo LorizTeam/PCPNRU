@@ -208,8 +208,14 @@
          		scrollX: true, 
          		scrollCollapse: true,
                 ordering: false,
-                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
-            } );
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+                "initComplete": function () {
+                    var api = this.api();
+                    api.$('td').click( function () {
+                        api.search( this.innerHTML ).draw();
+                    } );
+                }  
+            });
         	
             $('#table_project_rec tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {

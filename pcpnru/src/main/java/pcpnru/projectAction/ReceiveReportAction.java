@@ -43,7 +43,7 @@ public class ReceiveReportAction extends ActionSupport {
 				receive2DB.UpdateReceiveMoney(docNoHD, projectcode, torn, receiveAmt);
 			}
 			
-			String amtt	= receive2DB.SumReceive(docNoHD);
+			String amtt	= receive2DB.SumReceive(docNoHD, projectcode);
 			
 			ThaiBaht thaiBaht = new ThaiBaht();
 			String valueTHB = thaiBaht.getText(amtt);

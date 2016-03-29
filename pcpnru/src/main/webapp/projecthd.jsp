@@ -4,6 +4,8 @@
 <%@ page import="pcpnru.projectData.*" %>
 <%@ page import="pcpnru.utilities.*" %>
 <%
+	boolean chkAuthenLockProject = false;
+
 	if(session.getAttribute("username") == null){
 		response.sendRedirect("login.jsp");
 	}else{
@@ -18,6 +20,8 @@
 		if(chkAuthen==false){
 			response.sendRedirect("no-authen.jsp");
 		}
+		
+		chkAuthenLockProject = capDB.getCheckAuthenLockProject(username);
 	} 
 %>
 <!DOCTYPE html>
@@ -104,8 +108,10 @@
         <div class="example" data-text="รายการ" ng-app="" ng-init="">
             <table id="table_project" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
-                <tr> 
+                <tr>
+                	<%if(chkAuthenLockProject==true){ %> 
                 	<th>ล็อคโครงการ</th>
+                	<%} %>
                     <th>รหัส-โครงการ</th>
                     <th>ชื่อ-โครงการ</th>
                     <th>ประจำปี</th>
@@ -122,16 +128,18 @@
                 while(pjIterate.hasNext()){
                 	ProjectModel pjmodel = (ProjectModel) pjIterate.next();
                	%>
+               	<%if(chkAuthenLockProject==true){ %> 
                	<tr> 
                		<%if(pjmodel.getFreeze().equals("Y")){%>
                			<td align="center">
-               			<a id="print" href="javascript:freeze('Y','<%=pjmodel.getProject_code()%>','<%=pjmodel.getYear() %>');" class="button rounded"><span class="mif-lock mif-lg" style="color: darkGreen;"></span></a>
+               			<a id="print" style="padding-top: 3px;" href="javascript:freeze('Y','<%=pjmodel.getProject_code()%>','<%=pjmodel.getYear() %>');" class="button rounded"><span class="mif-lock mif-lg" style="color: darkGreen;"></span></a>
                			</td>
                		<%}else{ %>
                			<td align="center">
-               			<a id="print" href="javascript:freeze('N','<%=pjmodel.getProject_code()%>','<%=pjmodel.getYear() %>');" class="button rounded"><span class="mif-unlock mif-lg" style="color: red;"></span></a>
+               			<a id="print" style="padding-top: 3px;" href="javascript:freeze('N','<%=pjmodel.getProject_code()%>','<%=pjmodel.getYear() %>');" class="button rounded"><span class="mif-unlock mif-lg" style="color: red;"></span></a>
                			</td>
                		<%} %> 
+               		<%} %>
                     <td class="tdproject_code" align="center"><%=pjmodel.getProject_code()%></td>
                     <td align="left"><%=pjmodel.getProject_name() %></td>
                     <td class="tdyear" align="center"><%=pjmodel.getYear() %></td>
