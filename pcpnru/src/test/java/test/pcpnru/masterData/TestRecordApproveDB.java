@@ -616,4 +616,21 @@ public class TestRecordApproveDB {
 		return ResultList;
 	}
 	
+	public void approve_pr(String docno,String year,String approve_status) throws IOException, Exception{
+		String sqlQuery = "update record_approve_hd set approve_status = ? where docno = ? and year = ?";
+
+		
+		conn = agent.getConnectMYSql();
+		ppStmt = conn.prepareStatement(sqlQuery);
+		ppStmt.setString(1, approve_status);
+		ppStmt.setString(2, docno);
+		ppStmt.setString(3, year);
+		ppStmt.executeUpdate();
+		
+		if(!ppStmt.isClosed())
+			ppStmt.close();
+		if(!conn.isClosed())
+			conn.close();
+	}
+	
 }

@@ -14,7 +14,7 @@ public class RecordApproveModel {
 	private String record_approve_des3;
 	private String record_approve_cen; 
 	private String record_approve_dep,record_approve_month; 
-	private String fromwindow,createwindow,alertmsg;
+	private String fromwindow,createwindow,alertmsg,create_name;
 
 	//Vendor --------------------------------------------------------
 	private File toBeUploaded;
@@ -71,6 +71,15 @@ public class RecordApproveModel {
 			this.unit_id = s7;
 			this.unit_name = s8;
 			this.product_name = s9;
+		}else if(s1.equals("prhd")){
+			this.docno = s2;
+			this.record_approve_title = s3;
+			this.record_approve_cen =s4;
+			this.create_by = s5;
+			this.year = s6;
+			this.record_approve_date = s7;
+			this.create_name = s8;
+			this.approve_status = s9;
 		}else{
 			this.record_approve_hd = s1;
 			this.record_approve_t = s2;
@@ -118,6 +127,15 @@ public class RecordApproveModel {
 			this.unit_id = s7;
 			this.unit_name = s8;
 		}
+		if(s1.equals("prhd")){
+			this.docno = s2;
+			this.record_approve_title = s3;
+			this.record_approve_cen =s4;
+			this.create_by = s5;
+			this.year = s6;
+			this.record_approve_date = s7;
+			this.create_name = s8;
+		}
 	}
 
 	//Reset --------------------------------------------------------
@@ -153,6 +171,14 @@ public class RecordApproveModel {
 	
 	public String getApprove_status() {
 		return approve_status;
+	}
+
+	public String getCreate_name() {
+		return create_name;
+	}
+
+	public void setCreate_name(String create_name) {
+		this.create_name = create_name;
 	}
 
 	public void setApprove_status(String approve_status) {

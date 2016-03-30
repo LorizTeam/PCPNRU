@@ -202,7 +202,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <s:textfield name="recordApproveModel.record_approve_date" id="record_approve_date" required=""/>
 						</div>
 					</div>
-					<div class="cell align-center colspan2"> 
+					<div class="cell align-right colspan4"> 
 			        	<s:if test="%{#approve_status=='CA' || #approve_status==null}">
 						   	สร้างใบขออนุมัติ
 						</s:if>

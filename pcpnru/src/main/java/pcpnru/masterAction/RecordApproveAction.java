@@ -319,4 +319,34 @@ public class RecordApproveAction extends ActionSupport {
 		}
 		return forwardText;
 	}
+	public String entrancPrApprove() throws IOException, Exception{
+		
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		
+		String save = request.getParameter("save");
+		String search = request.getParameter("search");
+		
+		if(search != null){
+			request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header("", "", "","", ""));
+		}else if(save != null){
+			
+			if(request.getParameterValues("chkrow") != null){
+				String[] chkrow = request.getParameterValues("chkrow");
+				String[] docno = request.getParameterValues("approve_docno");
+				String[] year = request.getParameterValues("approve_year");
+				String[] approveStatus = request.getParameterValues("approveStatus");
+				
+				for(String data_row:chkrow){
+					new RecordApproveDB().approve_pr(docno[Integer.parseInt(data_row)], String.valueOf(Integer.parseInt(year[Integer.parseInt(data_row)])-543) , approveStatus[Integer.parseInt(data_row)]);
+				}
+				
+			}
+			request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header("", "", "","", ""));
+		}else{
+			request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header("", "", "","", ""));
+		}
+		
+		
+		return SUCCESS;
+	}
 }

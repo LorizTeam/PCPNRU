@@ -20,6 +20,33 @@ public class TestAddDataPR {
 		List<TestRecordApproveModel> ProductList = trad.Get_Product();
 		Assert.assertTrue(!ProductList.isEmpty());
 	}
+	
+	@Test
+	public void Approve_PR() throws Exception{
+		JSONObject jsonobj = new JSONObject();
+		jsonobj = AddHD();
+		String docno = (String) jsonobj.get("docno");
+		String year = (String) jsonobj.get("year");
+		String create_by = (String) jsonobj.get("create_by");
+		int getbyjson = (Integer) jsonobj.get("rowsupdate");
+		Assert.assertTrue(getbyjson>0);
+		
+		String product_code="",qty = "5",unit_id = "";
+		JSONObject jsonobjdetail = new JSONObject();
+		TestRecordApproveDB trad = new TestRecordApproveDB();
+		List<TestRecordApproveModel> ProductList = trad.Get_Product();
+		for(TestRecordApproveModel tram:ProductList){
+			product_code = tram.getProduct_code();
+			unit_id = tram.getUnit_id();
+		}
+		jsonobjdetail = AddDetail(docno,year,product_code,qty,unit_id,create_by);
+		Assert.assertTrue((Integer) jsonobjdetail.get("rowsupdate") > 0);
+		
+		trad.approve_pr(docno, year, "AP");
+		Map MapResult = new TestRecordApproveDB().GetAllValueHeader_byDocno(docno,year);
+		Assert.assertEquals("AP", MapResult.get("approve_status").toString());
+	}
+	
 	@Test
 	public void Update_HeaderPR() throws Exception{
 		JSONObject jsonobj = new JSONObject();

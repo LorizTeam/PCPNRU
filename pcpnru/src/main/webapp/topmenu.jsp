@@ -173,9 +173,11 @@
          %>
          <li><a href="" class="dropdown-toggle"><span class="mif-alarm-on"></span> <span class="tag warning"><%=sumA%></span> การแจ้งเตือน</a>
          	<ul class="d-menu" data-role="dropdown">
-         		<li><a href="rbgBegin"><span class="tag warning"><%=listAP.get(0)%></span> Approve การโยกงบประมาณ</a></li>
+         		<li><a href="rbgBegin"><span class="tag warning"><%=listAP.get(0)%></span> อนุมัติการโยกงบประมาณ</a></li>
          		<li class="divider"></li>
-         		<li><a href="cbgBegin"><span class="tag warning"><%=listAP.get(1)%></span> Approve การโยกงบกลาง</a></li>
+         		<li><a href="cbgBegin"><span class="tag warning"><%=listAP.get(1)%></span> อนุมัติการโยกงบกลาง</a></li>
+         		<li class="divider"></li>
+         		<li><a href="prApprove"><span class="tag warning"><%=listAP.get(2)%></span> อนุมัติใบขออนุมัติซื้อ</a></li>
          	</ul>
          </li> 
          

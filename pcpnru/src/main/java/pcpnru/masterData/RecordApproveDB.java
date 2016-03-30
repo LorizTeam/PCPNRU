@@ -399,15 +399,18 @@ public class RecordApproveDB {
 		return requestno;
 	}
 	
-	public List GetListPR_Header(String pr_number,String pr_title,String pr_date,String pr_month,String pr_year) throws IOException, Exception{
+	public List<RecordApproveModel> GetListPR_Header(String pr_number,String pr_title,String pr_date,String pr_month,String pr_year) throws IOException, Exception{
 		
-		List ListPR = new ArrayList();
+		List<RecordApproveModel> ListPR = new ArrayList<RecordApproveModel>();
 		
 		String sqlQuery = "SELECT docno,`year`+543 as year,record_approve_hd,record_approve_t,"
 				+ "CONCAT(substr(record_approve_date from 9 for 2),\"-\",substr(record_approve_date from 6 for 2),\"-\",year(record_approve_date)+543) as record_approve_date,record_approve_title,record_approve_rian,"
 						+ "record_approve_des1,record_approve_des2,record_approve_des3,"
-						+ "record_approve_cen,record_approve_dep,thaidate_report,create_by "
-						+ "FROM `record_approve_hd` "
+						+ "record_approve_cen,record_approve_dep,thaidate_report,create_by,"
+						+ "CONCAT(b.name,' ',b.lastname) as create_name,approve_status "
+						+ "FROM `record_approve_hd` a "
+						+ "INNER JOIN employee b on (a.create_by = b.username)"
+
 				+ "where ";
 		
 				if(!pr_number.equals(""))
@@ -434,8 +437,9 @@ public class RecordApproveDB {
 		String forwhat = "prhd";
 		
 		while(rs.next()){
-			ListPR.add(new RecordApproveModel(forwhat,rs.getString("docno"),rs.getString("record_approve_title"),rs.getString("record_approve_cen")
-					,rs.getString("create_by"),rs.getString("year"),rs.getString("record_approve_date")));
+			ListPR.add(new RecordApproveModel(forwhat, rs.getString("docno"), rs.getString("record_approve_title"), rs.getString("record_approve_cen")
+					, rs.getString("create_by"), rs.getString("year"), rs.getString("record_approve_date"), rs.getString("create_name"),
+					rs.getString("approve_status")));
 		}
 		
 		if(!rs.isClosed())
@@ -577,5 +581,22 @@ public class RecordApproveDB {
 			conn.close();
 		
 		return unit_id;
+	}
+	
+	public void approve_pr(String docno,String year,String approve_status) throws IOException, Exception{
+		String sqlQuery = "update record_approve_hd set approve_status = ? where docno = ? and year = ?";
+
+		
+		conn = agent.getConnectMYSql();
+		ppStmt = conn.prepareStatement(sqlQuery);
+		ppStmt.setString(1, approve_status);
+		ppStmt.setString(2, docno);
+		ppStmt.setString(3, year);
+		ppStmt.executeUpdate();
+		
+		if(!ppStmt.isClosed())
+			ppStmt.close();
+		if(!conn.isClosed())
+			conn.close();
 	}
 }

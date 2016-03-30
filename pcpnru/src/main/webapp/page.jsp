@@ -63,7 +63,7 @@
 			        		<option value="" >กรุณาเลือก</option>
 					        <%
 						        List getListGroupPage = null;
-				                PageGroupMasterDB pgm = new PageGroupMasterDB();
+					        	PageGroupMasterDB pgm = new PageGroupMasterDB();
 				                getListGroupPage = pgm.getListGroupPage("");
 				        		if (getListGroupPage != null) {
 					        		for (Iterator pmIterate = getListGroupPage.iterator(); pmIterate.hasNext();) {

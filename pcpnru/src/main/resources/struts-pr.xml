@@ -40,5 +40,10 @@
       		<result name="viewdetail">/record-approve.jsp</result>
       		<result name="create">/record-approve.jsp</result>
     	</action>
+    	
+    	<action name="prApprove" class="pcpnru.masterAction.RecordApproveAction" method="entrancPrApprove">
+      		<result name="success">/pr-approve.jsp</result>
+    	</action>
+    	
     </package>
 </struts>
