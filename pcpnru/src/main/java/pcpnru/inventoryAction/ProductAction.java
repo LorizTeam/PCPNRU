@@ -134,6 +134,7 @@ public class ProductAction extends ActionSupport{
 		request.setAttribute("productList", productList);
 		
 		productModel.setFromwindow("true");
+		
 		return SUCCESS;
 	}
 	

@@ -19,7 +19,14 @@
 		
 	</head>
 <body>
-	<div><%@include file="topmenu.jsp" %></div>
+		<s:set name="fromwindow" value="productModel.fromwindow"/>
+		
+		<s:if test="%{#fromwindow=='true'}">
+			<div><%@include file="window-topmenu.jsp" %></div>
+		</s:if>
+		<s:else>
+			<div><%@include file="topmenu.jsp" %></div>
+		</s:else>
 	<form action="product" method="post">
 		<div class="grid" >
 			<div class="row cells12 " >
@@ -152,7 +159,7 @@
 									<tr>
 										<td><input type="checkbox" name="delproduct" id="delproduct" value="<%=productModel.getProduct_code() %>"> </td>
 										<s:if test="%{#fromwindow=='true'}">
-											<td class="product_code"><a href="#" onclick="getProduct('<%=productModel.getProduct_code() %>','<%=productModel.getProduct_name() %>')"><%=productModel.getProduct_code() %></a></td>
+											<td class="product_code"><a href="#" onclick="sendProduct('<%=productModel.getProduct_code() %>','<%=productModel.getProduct_name() %>')"><%=productModel.getProduct_code() %></a></td>
 										</s:if>
 										<s:else>
 											<td class="product_code"><%=productModel.getProduct_code() %></td>
@@ -209,6 +216,11 @@
    			var load = window.open('/pcpnru/windows_entranc_brandmaster.action','pr',
    			             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
    		}
+	    function sendProduct(product_code,product_name){
+			window.opener.document.getElementById("product_code").value= product_code;
+			window.opener.document.getElementById("product_name").value= product_name;
+			window.close();
+		}
 		$(function(){
 			if($("#alertmsg").val() != ""){
         		swal("Error",$("#alertmsg").val() , "error");

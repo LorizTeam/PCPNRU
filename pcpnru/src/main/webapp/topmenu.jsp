@@ -51,9 +51,9 @@
                     <ul class="d-menu" data-role="dropdown">  
                         <li><a href="" class="dropdown-toggle">ใบขออนุมัติซื้อ</a>
                         	<ul class="d-menu" data-role="dropdown">  
-			                        <li><a href="createrecordApprove.action">สร้างรายการ</a></li>
+			                        <li><a href="createrecordApprove">สร้างรายการ</a></li>
 			                        <li class="divider"></li>
-			                        <li><a href="windowsPR.action">ดูประวัติ</a></li> 
+			                        <li><a href="windowsPR">ดูประวัติ</a></li> 
 			                        <li class="divider"></li>
 			                        <li><a href="">จัดการ ผู้มีอำนาจการอนุมัติ</a></li> 
 			                 </ul>
@@ -61,7 +61,7 @@
                         <li class="divider"></li>
                         <li><a href="" class="dropdown-toggle">ใบสั่งซื้อ</a>
                         	<ul class="d-menu" data-role="dropdown">  
-			                        <li><a href="pocheckauthen.action">สร้างรายการ</a></li>
+			                        <li><a href="pocheckauthen">สร้างรายการ</a></li>
 			                        <li class="divider"></li>
 			                        <li><a href="">ดูประวัติ</a></li> 
 			                        <li class="divider"></li>
@@ -75,9 +75,9 @@
 			                        <li class="divider"></li>
 			                        <li><a href="select_requisition-1.jsp">รายละเอียดการเบิกงบประมาณ</a></li> 
 			                        <li class="divider"></li>
-			                        <li><a href="createRockingBudget.action">โยกงบประมาณ</a></li>
+			                        <li><a href="createRockingBudget">โยกงบประมาณ</a></li>
 			                        <li class="divider"></li>
-			                        <li><a href="createCentralBudget.action">งบกลาง</a></li>
+			                        <li><a href="createCentralBudget">งบกลาง</a></li>
 			                        <li class="divider"></li>
 			                        <li><a href="manage-approve-requisition.jsp">จัดการ ผู้มีอำนาจการอนุมัติ</a></li> 
 			                 </ul>
@@ -153,9 +153,9 @@
 		            </ul>
          		</li>
          		<li class="divider"></li>
-         		<li><a href="vendor.action" > ผู้ขาย</a></li>
+         		<li><a href="vendor" > ผู้ขาย</a></li>
          		<li class="divider"></li>
-         		<li><a href="logout.action" > ออกจากระบบ</a></li>
+         		<li><a href="logout" > ออกจากระบบ</a></li>
          	</ul>
          </li>
          
@@ -171,17 +171,17 @@
          %>
          <li><a href="" class="dropdown-toggle"><span class="mif-alarm-on"></span> <span class="tag warning"><%=sumA%></span> การแจ้งเตือน</a>
          	<ul class="d-menu" data-role="dropdown">
-         		<li><a href="rbgBegin.action"><span class="tag warning"><%=listAP.get(0)%></span> Approve การโยกงบประมาณ</a></li>
+         		<li><a href="rbgBegin"><span class="tag warning"><%=listAP.get(0)%></span> Approve การโยกงบประมาณ</a></li>
          		<li class="divider"></li>
-         		<li><a href="cbgBegin.action"><span class="tag warning"><%=listAP.get(1)%></span> Approve การโยกงบกลาง</a></li>
+         		<li><a href="cbgBegin"><span class="tag warning"><%=listAP.get(1)%></span> Approve การโยกงบกลาง</a></li>
          	</ul>
          </li> 
          
          <li><a href="" class="dropdown-toggle"><span class="mif-user"></span> ข้อมูลส่วนตัว </a>
          	<ul class="d-menu" data-role="dropdown">
-         		<li><a href="profileMaster.action"> แก้ไขข้อมูลส่วนตัว </a></li>
+         		<li><a href="profileMaster"> แก้ไขข้อมูลส่วนตัว </a></li>
          		<li class="divider"></li>
-         		<li><a href="logout.action" > ออกจากระบบ</a></li>
+         		<li><a href="logout" > ออกจากระบบ</a></li>
          	</ul>
          </li>
     </ul>

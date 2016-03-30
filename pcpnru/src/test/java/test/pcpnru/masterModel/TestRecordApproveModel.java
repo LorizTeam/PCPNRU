@@ -28,34 +28,44 @@ public class TestRecordApproveModel {
 	private String itemno;
 	private String description;
 	private String qty; 
-	private String unit,create_by; 
+	private String unit_id,create_by,product_code,product_name,unit_name; 
 	
 	public TestRecordApproveModel() { 
 	} 
 	  
-	public TestRecordApproveModel(String record_approve_hd, String record_approve_t, String record_approve_date,
-			String record_approve_title, String record_approve_rian, String record_approve_des1,
-			String record_approve_des2, String record_approve_cen, String record_approve_dep) {
-		super();
-		this.record_approve_hd = record_approve_hd;
-		this.record_approve_t = record_approve_t;
-		this.record_approve_date = record_approve_date;
-		this.record_approve_title = record_approve_title;
-		this.record_approve_rian = record_approve_rian;
-		this.record_approve_des1 = record_approve_des1;
-		this.record_approve_des2 = record_approve_des2;
-		this.record_approve_cen = record_approve_cen;
-		this.record_approve_dep = record_approve_dep;
+	public TestRecordApproveModel(String s1, String s2, String s3,
+			String s4, String s5, String s6,
+			String s7, String s8, String s9) {
+		if(s1.equals("ListRecordApproveDT")){
+			
+			this.docno = s2;
+			this.year = s3;
+			this.itemno = s4;
+			this.product_code = s5;
+			this.qty = s6;
+			this.unit_id = s7;
+			this.unit_name = s8;
+			this.product_name = s9;
+		}else{
+			this.record_approve_hd = s1;
+			this.record_approve_t = s2;
+			this.record_approve_date = s3;
+			this.record_approve_title = s4;
+			this.record_approve_rian = s5;
+			this.record_approve_des1 = s6;
+			this.record_approve_des2 = s7;
+			this.record_approve_cen = s8;
+			this.record_approve_dep = s9;
+		}
 	}
 
-	public TestRecordApproveModel(String docno, String year, String itemno, String description, String qty, String unit) {
-		super();
+	public TestRecordApproveModel(String docno, String year, String itemno, String description, String qty, String unit_id) {
 		this.docno = docno;
 		this.year = year;
 		this.itemno = itemno;
 		this.description = description;
 		this.qty = qty;
-		this.unit = unit;
+		this.unit_id = unit_id;
 	}
 
 	public TestRecordApproveModel(String forwhat, String s1, String s2, String s3, String s4,
@@ -94,16 +104,71 @@ public class TestRecordApproveModel {
 		this.year 			= "";  
 		this.description 	= ""; 
 		this.qty 			= ""; 
-		this.unit 			= ""; 
+		this.unit_id 			= ""; 
 	}
 	
 	public void reset_ListItem(){  
 		this.description 	= ""; 
 		this.qty 			= ""; 
-		this.unit 			= ""; 
+		this.unit_id 			= ""; 
 	}
 	
 	
+	
+	public TestRecordApproveModel(String product_code, String product_name, String unit, String unit_name) {
+		this.unit_id = unit;
+		this.product_code = product_code;
+		this.product_name = product_name;
+		this.unit_name = unit_name;
+	}
+	
+	public TestRecordApproveModel(String s7,String docno, String year, String itemno, String description, String qty,
+			String unit_id, String unit_name,String product_name,String AA) {
+		if(s7.equals("s7")){
+			this.docno = docno;
+			this.year = year;
+			this.itemno = itemno;
+			this.description = description;
+			this.qty = qty;
+			this.unit_id = unit_id;
+			this.unit_name = unit_name;
+			this.product_name = product_name;
+		}
+		
+	}
+
+	public String getUnit_id() {
+		return unit_id;
+	}
+
+	public void setUnit_id(String unit_id) {
+		this.unit_id = unit_id;
+	}
+
+	public String getUnit_name() {
+		return unit_name;
+	}
+
+	public void setUnit_name(String unit_name) {
+		this.unit_name = unit_name;
+	}
+
+	public String getProduct_code() {
+		return product_code;
+	}
+
+	public void setProduct_code(String product_code) {
+		this.product_code = product_code;
+	}
+
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+
 	public String getImg_path() {
 		return img_path;
 	}
@@ -300,14 +365,6 @@ public class TestRecordApproveModel {
 
 	public void setQty(String qty) {
 		this.qty = qty;
-	}
-
-	public String getUnit() {
-		return unit;
-	}
-
-	public void setUnit(String unit) {
-		this.unit = unit;
 	}
 
 	public String getDocno() {

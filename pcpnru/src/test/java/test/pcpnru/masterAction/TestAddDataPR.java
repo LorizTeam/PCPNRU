@@ -15,6 +15,12 @@ import test.pcpnru.masterModel.TestRecordApproveModel;
 
 public class TestAddDataPR {
 	@Test
+	public void GetProductList() throws IOException, Exception{
+		TestRecordApproveDB trad = new TestRecordApproveDB();
+		List<TestRecordApproveModel> ProductList = trad.Get_Product();
+		Assert.assertTrue(!ProductList.isEmpty());
+	}
+	@Test
 	public void Update_HeaderPR() throws Exception{
 		JSONObject jsonobj = new JSONObject();
 		jsonobj = AddHD();
@@ -23,9 +29,16 @@ public class TestAddDataPR {
 		String create_by = (String) jsonobj.get("create_by");
 		int getbyjson = (Integer) jsonobj.get("rowsupdate");
 		Assert.assertTrue(getbyjson>0);
-		String description="ปลั๊กเพาเวอร์ 63A. 380V.",qty = "5",unit = "ชุด";
+		
+		String product_code="",qty = "5",unit_id = "";
 		JSONObject jsonobjdetail = new JSONObject();
-		jsonobjdetail = AddDetail(docno,year,description,qty,unit,create_by);
+		TestRecordApproveDB trad = new TestRecordApproveDB();
+		List<TestRecordApproveModel> ProductList = trad.Get_Product();
+		for(TestRecordApproveModel tram:ProductList){
+			product_code = tram.getProduct_code();
+			unit_id = tram.getUnit_id();
+		}
+		jsonobjdetail = AddDetail(docno,year,product_code,qty,unit_id,create_by);
 		Assert.assertTrue((Integer) jsonobjdetail.get("rowsupdate") > 0);
 		
 		String record_approve_hd = "TestUpdateHD",record_approve_t = "Test_Updateapprovet", record_approve_date = "05-03-2559"
@@ -69,9 +82,15 @@ public class TestAddDataPR {
 		String create_by = (String) jsonobj.get("create_by");
 		int getbyjson = (Integer) jsonobj.get("rowsupdate");
 		Assert.assertTrue(getbyjson>0);
-		String description="ปลั๊กเพาเวอร์ 63A. 380V.",qty = "5",unit = "ชุด";
+		String product_code="",qty = "5",unit_id = "";
 		JSONObject jsonobjdetail = new JSONObject();
-		jsonobjdetail = AddDetail(docno,year,description,qty,unit,create_by);
+		TestRecordApproveDB trad = new TestRecordApproveDB();
+		List<TestRecordApproveModel> ProductList = trad.Get_Product();
+		for(TestRecordApproveModel tram:ProductList){
+			product_code = tram.getProduct_code();
+			unit_id = tram.getUnit_id();
+		}
+		jsonobjdetail = AddDetail(docno,year,product_code,qty,unit_id,create_by);
 		Assert.assertTrue((Integer) jsonobjdetail.get("rowsupdate") > 0);
 	}
 	
@@ -85,9 +104,15 @@ public class TestAddDataPR {
 			String create_by = (String) jsonobj.get("create_by");
 			int getbyjson = (Integer) jsonobj.get("rowsupdate");
 			Assert.assertTrue(getbyjson>0);
-			String description="ปลั๊กเพาเวอร์ 63A. 380V.",qty = "5",unit = "ชุด";
+			String product_code="",qty = "5",unit = "";
 			JSONObject jsonobjdetail = new JSONObject();
-			jsonobjdetail = AddDetail(docno,year,description,qty,unit,create_by);
+			TestRecordApproveDB trad = new TestRecordApproveDB();
+			List<TestRecordApproveModel> ProductList = trad.Get_Product();
+			for(TestRecordApproveModel tram:ProductList){
+				product_code = tram.getProduct_code();
+				unit = tram.getUnit_id();
+			}
+			jsonobjdetail = AddDetail(docno,year,product_code,qty,unit,create_by);
 			Assert.assertTrue((Integer) jsonobjdetail.get("rowsupdate") > 0);
 			String del_itemno[] = {"001","003","005","007","009"}; 
 			for(String value_del_itemno:del_itemno){
@@ -151,11 +176,11 @@ public class TestAddDataPR {
 		return obj;
 	}
 	
-	public static JSONObject AddDetail(String docno, String year, String description, String qty, String unit,String create_by) throws Exception{
+	public static JSONObject AddDetail(String docno, String year, String product_code, String qty, String unit,String create_by) throws Exception{
 		TestRecordApproveDB TRAD = new TestRecordApproveDB();
 		int rowsupdate =  0;
 		for (int i = 1 ; i<=10;i++){
-			rowsupdate += TRAD.AddRecordApprovedt(docno, year, description, qty, unit, create_by);
+			rowsupdate += TRAD.AddRecordApprovedt(docno, year, product_code, qty, unit, create_by);
 		}
 		JSONObject obj = new JSONObject();
 		obj.put("rowsupdate", rowsupdate);
@@ -174,9 +199,15 @@ public class TestAddDataPR {
 		String create_by = (String) jsonobj.get("create_by");
 		int getbyjson = (Integer) jsonobj.get("rowsupdate");
 		Assert.assertTrue(getbyjson>0);
-		String description="ปลั๊กเพาเวอร์ 63A. 380V.",qty = "5",unit = "ชุด";
+		String product_code="",qty = "5",unit = "";
 		JSONObject jsonobjdetail = new JSONObject();
-		jsonobjdetail = AddDetail(docno,year,description,qty,unit,create_by);
+		TestRecordApproveDB trad = new TestRecordApproveDB();
+		List<TestRecordApproveModel> ProductList = trad.Get_Product();
+		for(TestRecordApproveModel tram:ProductList){
+			product_code = tram.getProduct_code();
+			unit = tram.getUnit_id();
+		}
+		jsonobjdetail = AddDetail(docno,year,product_code,qty,unit,create_by);
 		Assert.assertTrue((Integer) jsonobjdetail.get("rowsupdate") > 0);
 		
 		String record_approve_hd = "TestUpdateHD",record_approve_t = "Test_Updateapprovet", record_approve_date = "05-03-2559"

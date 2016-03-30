@@ -159,12 +159,13 @@ public class RecordApproveAction extends ActionSupport {
 			
 		}else if (add != null){
 			
-			String description = recordApproveModel.getDescription().trim();
+			String product_code = recordApproveModel.getProduct_code().trim();
 			String qty = recordApproveModel.getQty();
-			String unit = recordApproveModel.getUnit();
+			
+			String unit_id = ra.Get_Product(product_code);
 			
 			if(ra.CheckHaveAddHD(docno)){
-				ra.AddRecordApprovedt(docno, year, description, qty, unit,username);
+				ra.AddRecordApprovedt(docno, year, product_code, qty, unit_id,username);
 			}else{
 		 		ra.AddRecordApprovehd(docno, year,recordApproveModel.getRecord_approve_hd(),recordApproveModel.getRecord_approve_t()
 		 				,record_approve_date, recordApproveModel.getRecord_approve_title()
@@ -172,7 +173,7 @@ public class RecordApproveAction extends ActionSupport {
 		 				,recordApproveModel.getRecord_approve_des2()
 		 				,recordApproveModel.getRecord_approve_des2(), recordApproveModel.getRecord_approve_cen()
 		 				,recordApproveModel.getRecord_approve_dep(),username,recordApproveModel.getVendor_id(),recordApproveModel.getTotal_amount());
-				ra.AddRecordApprovedt(docno, year, description, qty, unit,username);
+				ra.AddRecordApprovedt(docno, year, product_code, qty, unit_id,username);
 				recordApproveModel.setSaved("True");
 				
 				String filePath = request.getSession().getServletContext().getRealPath("/")+"img/";
@@ -191,8 +192,6 @@ public class RecordApproveAction extends ActionSupport {
 		            ra.Add_PurchaseRequest_Image(docno,year,pathimg_todb);
 		            
 	            }
-	            
-	            
 			}
 			
 			List ResultImageList = ra.GET_PurchaseRequest_Image(recordApproveModel.getDocno(), year, "");

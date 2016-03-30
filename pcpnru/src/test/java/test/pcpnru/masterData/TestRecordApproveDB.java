@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import pcpnru.masterModel.AuthenMasterModel;
-import pcpnru.masterModel.RecordApproveModel;
 import pcpnru.utilities.DBConnect;
 import pcpnru.utilities.DateUtil;
 import pcpnru.utilities.ThaiMonth;
@@ -27,6 +26,7 @@ public class TestRecordApproveDB {
 	PreparedStatement ppStmt = null;
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
+	
 	public List getListAuthen(String authen_type) throws IOException, Exception{
 		String authen_type_name = "";
 		String sqlWhere = "";
@@ -149,7 +149,7 @@ public class TestRecordApproveDB {
 		return mapresultGet;
 	}
 	public List ListRecordApproveDT(String docno, String year) throws IOException, Exception{
-		String itemno = "", description = "", qty = "0", unit = "";
+		String itemno = "", description = "", qty = "0", unit_id = "";
 		
 		String sqlWhere = "";
 		if(!docno.equals("")){
@@ -159,7 +159,7 @@ public class TestRecordApproveDB {
 			sqlWhere += "year = '"+year+"' AND ";
 		}
 		
-		String sqlQuery = "SELECT docno, year, itemno, description, qty, unit " 
+		String sqlQuery = "SELECT docno, year, itemno, description, qty, unit_id " 
 				+ "FROM record_approve_dt "
 				+ " where ";
 				sqlQuery += sqlWhere;
@@ -176,9 +176,9 @@ public class TestRecordApproveDB {
 			itemno			 = rs.getString("itemno");
 			description 	= rs.getString("description");
 			qty 			= rs.getString("qty");
-			unit 			= rs.getString("unit");
+			unit_id 			= rs.getString("unit_id");
 			 
-			ListRecordApproveDT.add(new RecordApproveModel(docno, year, itemno, description, qty, unit));
+			ListRecordApproveDT.add(new TestRecordApproveModel(docno, year, itemno, description, qty, unit_id));
 		}
 		
 		rs.close();
@@ -188,7 +188,8 @@ public class TestRecordApproveDB {
 		return ListRecordApproveDT;
 	}
 	public List ListRecordApproveDT(String docno,String month, String year) throws IOException, Exception{
-		String itemno = "", description = "", qty = "0", unit = "";
+		String itemno = "", product_code = "", qty = "0", unit_id = "",
+			   unit_name = "", product_name="";
 		
 		String sqlWhere = "";
 		if(!docno.equals("")){
@@ -203,11 +204,13 @@ public class TestRecordApproveDB {
 		}
 		
 		String sqlQuery = "SELECT "
-				+ "b.docno,b.`year`,a.record_approve_date,b.itemno,b.numthai_itemno,b.description,"
-				+ "b.qty,b.numthai_qty,b.unit,b.create_by "
+				+ "b.docno,b.`year`,a.record_approve_date,b.itemno,b.numthai_itemno,b.product_code,"
+				+ "b.qty,b.numthai_qty,b.unit_id,b.create_by,c.unit_name,d.product_name "
 				+ "FROM "
 				+ "record_approve_hd AS a "
-				+ "INNER JOIN record_approve_dt AS b ON a.docno = b.docno AND a.`year` = b.`year` "
+				+ "INNER JOIN record_approve_dt AS b ON (a.docno = b.docno AND a.`year` = b.`year`) "
+				+ "INNER JOIN unit_master c on (b.unit_id = c.unit_id) "
+				+ "INNER JOIN product d on (b.product_code = d.product_code) "
 				+ "where ";
 				sqlQuery += sqlWhere;
 		sqlQuery +=  "b.docno <> '' order by itemno ";
@@ -221,11 +224,12 @@ public class TestRecordApproveDB {
 			docno		 	= rs.getString("docno");
 			year 			= rs.getString("year");
 			itemno			 = rs.getString("itemno");
-			description 	= rs.getString("description");
+			product_code 	= rs.getString("product_code");
 			qty 			= rs.getString("qty");
-			unit 			= rs.getString("unit");
-			 
-			ListRecordApproveDT.add(new RecordApproveModel(docno, year, itemno, description, qty, unit));
+			unit_id 			= rs.getString("unit_id");
+			unit_name 			= rs.getString("unit_name");
+			product_name	= rs.getString("product_name");
+			ListRecordApproveDT.add(new TestRecordApproveModel("PR",docno, year, itemno, product_code, qty, unit_id,unit_name,product_name));
 		}
 		
 		rs.close();
@@ -325,7 +329,7 @@ public class TestRecordApproveDB {
 		conn.close();
 		return rowsupdate;
 	}
-	public int AddRecordApprovedt(String docno, String year, String description, String qty, String unit,String create_by)  throws Exception{
+	public int AddRecordApprovedt(String docno, String year, String product_code, String qty, String unit_id,String create_by)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
 		ThaiNumber thnumber = new ThaiNumber();
@@ -355,7 +359,7 @@ public class TestRecordApproveDB {
 		
 		conn = agent.getConnectMYSql();
 		conn.setAutoCommit(false);
-		sqlStmt = "INSERT IGNORE INTO record_approve_dt(docno, year, itemno, numthai_itemno, description, qty,numthai_qty, unit,create_by,create_datetime) " +
+		sqlStmt = "INSERT IGNORE INTO record_approve_dt(docno, year, itemno, numthai_itemno, product_code, qty,numthai_qty, unit_id,create_by,create_datetime) " +
 				"VALUES (?,?,?,?,?,?,?,?,?,now())";
 		//System.out.println(sqlStmt);
 		ppStmt = conn.prepareStatement(sqlStmt);
@@ -363,10 +367,10 @@ public class TestRecordApproveDB {
 		ppStmt.setString(2, year);
 		ppStmt.setString(3, itemno);
 		ppStmt.setString(4, itemno_thai);
-		ppStmt.setString(5, description);
+		ppStmt.setString(5, product_code);
 		ppStmt.setInt(6, Integer.parseInt(qty));
 		ppStmt.setString(7, numthai_qty);
-		ppStmt.setString(8, unit);
+		ppStmt.setString(8, unit_id);
 		ppStmt.setString(9, create_by);
 		int rowsupdate = ppStmt.executeUpdate();
 		ppStmt.close();
@@ -455,7 +459,7 @@ public class TestRecordApproveDB {
 					this.qty = qty;
 					this.unit = unit;*/
 					resultList.add(new TestRecordApproveModel(rs.getString("docno"),rs.getString("year"),rs.getString("itemno")
-							,rs.getString("description"),rs.getString("qty"),rs.getString("unit")));
+							,rs.getString("product_code"),rs.getString("qty"),rs.getString("unit_id")));
 				}
 				rs.close();
 				pStmt.close();
@@ -578,5 +582,31 @@ public class TestRecordApproveDB {
 			ppStmt.close();
 		if(!conn.isClosed())
 			conn.close();
+	}
+	
+	public List<TestRecordApproveModel> Get_Product() throws IOException, Exception{
+		String sqlQuery = "select a.*,b.unit_name from product a "
+				+ "INNER JOIN unit_master b on (a.unit_id = b.unit_id) limit 1";
+
+		
+		conn = agent.getConnectMYSql();
+		pStmt = conn.createStatement();
+		List<TestRecordApproveModel> ResultList = new ArrayList<TestRecordApproveModel>();
+		rs = pStmt.executeQuery(sqlQuery);
+		while(rs.next()){
+			ResultList.add(new TestRecordApproveModel(rs.getString("product_code"),
+					rs.getString("product_name"),
+					rs.getString("unit_id"),
+					rs.getString("unit_name")
+					));
+		}
+		
+		if(!rs.isClosed())
+			rs.close();
+		if(!pStmt.isClosed())
+			pStmt.close();
+		if(!conn.isClosed())
+			conn.close();
+		return ResultList;
 	}
 }

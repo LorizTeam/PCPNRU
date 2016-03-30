@@ -82,7 +82,7 @@
 									<tr>
 										<td><input type="checkbox" name="delvendor" id="delvendor" value="<%=vendormodel.getVendor_id() %>"> </td>
 										<s:if test="%{#fromwindow=='true'}">
-											<td class="vendor_id"><a href="#" class="returnid"><%=vendormodel.getVendor_id() %></a></td>
+											<td class="vendor_id"><a href="#" onclick="sendVendor('<%=vendormodel.getVendor_id() %>','<%=vendormodel.getVendor_name() %>')"><%=vendormodel.getVendor_id() %></a></td>
 										</s:if>
 										<s:else>
 											<td class="vendor_id"><%=vendormodel.getVendor_id() %></td>
@@ -117,7 +117,12 @@
 	    <script src="js/jquery.dataTables.min.js"></script>
 	    <script src="js/sweetalert.min.js"></script>
 		<script type="text/javascript">
-		
+		function sendVendor(vendor_id,vendor_name){
+			window.opener.document.getElementById("vendor_id").value= vendor_id;
+			window.opener.document.getElementById("vendor_name").value= vendor_name;
+			
+			window.close();
+		}
 		
 		$(function(){
 			if($("#alertmsg").val() != ""){
@@ -130,15 +135,6 @@
                 ordering: false,
                 "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
             } );
-			$(".returnid").click(function(){
-				
-				var index = $(this).index(".returnid");
-
-				window.opener.document.getElementById("vendor_id").value= $(this).text();
-				window.opener.document.getElementById("vendor_name").value= $(".vendor_name").eq(index).text();
-				
-				window.close();
-			});
 			$("#checkall").click(function(){
 				if($(this).prop("checked")){
 					$('[name="delvendor"]').prop("checked",true);

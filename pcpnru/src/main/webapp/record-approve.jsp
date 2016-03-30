@@ -47,15 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link href="css/jquery.dataTables.min.css" rel="stylesheet">
 		<link href="css/sweetalert.css" rel="stylesheet" />
 		<link href="css/lightgallery.css" rel="stylesheet" />
-		<link href="css/swiper.css" rel="stylesheet" />
 		<link href="css/select2.css" rel="stylesheet">
-		<style type="text/css">
-		
-.swiper-container {
-    width: 600px;
-    height: 300px;
-}
-		</style>
 		
 	 	<script src="js/jquery-2.1.3.min.js"></script>
 	    <script src="js/metro.js"></script>
@@ -69,7 +61,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="js/lg-zoom.js"></script>
 		<script src="js/lg-hash.js"></script>
 		<script src="js/lg-pager.js"></script>
-		<script src="js/swiper.js"></script>
 		<script src="js/select2.js"></script>
 	</head>
 	
@@ -119,14 +110,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div><%@include file="topmenu.jsp" %></div>
 		</s:else>
 		 
-		 <form action="recordApprove.action" method="post" enctype="multipart/form-data">
+		 <form action="recordApprove" method="post" enctype="multipart/form-data">
 		 <s:hidden name="recordApproveModel.fromwindow"/>
 		 <div class="grid" >
 		 <div class="row cells12 " >
 		 			<div class="cell align-center colspan2">
 
 						<s:if test="%{#fromwindow=='true'}">
-						<a class="button success" id="back" href="windowsPR.action"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
+						<a class="button success" id="back" href="windowsPR"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
 						</s:if>
 	         	 	</div>
 	         	 	<div class="cell align-center colspan3">
@@ -135,7 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 			<div class="cell align-left colspan2"><br>
 
 						<s:if test="%{#fromwindow!='true'}">
-						<a class="button success next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการใหม่</span></a>
+						<a class="button success next" id="next" href="createrecordApprove"><span class="mif-lg fg-white">ทำรายการใหม่</span></a>
 						</s:if>
 					</div>
 		</div>
@@ -146,14 +137,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         <div class="grid">
 	         	<div class="row cells12">
 	         		<div class="cell colspan1"> </div> 
-					<div class="cell colspan5"> 
-			        	รายการ
+					<div class="cell colspan3"> 
+			        	เลือกสินค้า
 				        <div class="input-control text full-size" data-role="input">
-						    <s:textfield name="recordApproveModel.description" id="description" required="" /> 
-						    <button class="button primary" type="button" onclick="getproduct()"> <span class="mif-search"></span></button>
-						    <button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
+						    <s:textfield name="recordApproveModel.product_code" id="product_code" required="" /> 
+						    <div class="button-group">
+						    <button class="button primary" type="button" onclick="getProduct()"> <span class="mif-search"></span></button>
+						    <button class="button danger" type="button" id="empty_product"><span class="mif-bin"></span></button>
+						    </div>
 						</div>
-						
+					</div>
+					<div class="cell colspan4"> 
+	         			ชื่อสินค้า
+	         			<div class="input-control text full-size" data-role="input">
+	         				<s:textfield name="recordApproveModel.product_name" id="product_name"/>
+	         			</div>
 					</div>      
 	         		<div class="cell colspan1"> 
 			        	จำนวน
@@ -161,25 +159,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    <s:textfield type="number" name="recordApproveModel.qty" id="qty" required=""/> 
 						</div>
 					</div> 
-	         		<div class="cell colspan1"> 
-			        	หน่วย
-				        <div class="input-control text full-size">
-				        	<select id="unit" name="recordApproveModel.unit">
-						    	<option value="">โปรดเลือก</option> 
-						        <% 
-						        UnitMasterDB unitM = new UnitMasterDB();
-						    	List<UnitMasterForm> unitMasterList = unitM.GetUnitMasterList("");
-						        
-						    	if (unitMasterList != null) {
-					        		for (UnitMasterForm unitjMaster:unitMasterList) {
-			      				%>  
-				      			<option value="<%=unitjMaster.getUnit_name()%>" ><%=unitjMaster.getUnit_name()%></option>
-								<%		} 
-									}
-								%>
-						    </select>
-						</div>
-					</div>  
+	         		  
 	         	 	<div class="cell align-left colspan3"><br>
 						  <button type="submit" class="button success" name="add" id="add"><span class="mif-plus mif-lg fg-white"></span></button>
 						  <button type="submit" class="button danger" name="delete" id="delete_product"><span class="mif-minus mif-lg fg-white"></span></button>  
@@ -191,7 +171,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="window ">
 				<div class="row cells12 align-center  window-caption bg-cyan fg-white" >
 					<div class="cell colspan1"></div>
-			  		<div class="cell colspan6">รายละเอียด</div>
+			  		<div class="cell colspan3">รหัสสินค้า</div>
+			  		<div class="cell colspan3">ชื่อสินค้า</div>
 			  		<div class="cell colspan2 align-center">จำนวน</div>
 			  		<div class="cell colspan2 align-center">หน่วย</div>
 			  		<div class="cell colspan1"></div> 
@@ -209,9 +190,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		  				%>
 		  				<div class="row cells12 click" >	
 				  			<div class="cell colspan1 bt" ></div>
-				  			<h5 class="cell colspan6" > <input type="checkbox" name="itemno" id="itemno" value="<%=recordapprovemodel.getItemno() %>" /> <%=recordapprovemodel.getDescription() %></h5>
+				  			<h5 class="cell colspan3" > <input type="checkbox" name="itemno" id="itemno" value="<%=recordapprovemodel.getItemno() %>" /> <%=recordapprovemodel.getProduct_code() %></h5>
+				  			<h5 class="cell colspan3" > <%=recordapprovemodel.getProduct_name() %></h5>
 				  			<div class="cell colspan2 align-center"><%=recordapprovemodel.getQty() %></div>
-				  			<div class="cell colspan2 align-center"><%=recordapprovemodel.getUnit() %></div> 
+				  			<div class="cell colspan2 align-center"><%=recordapprovemodel.getUnit_name() %></div> 
 					  		<div class="cell align-right"></div>
 				  		</div>
 		  				<%
@@ -391,7 +373,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         	 	<div class="cell align-center colspan2">
 
 						<s:if test="%{#fromwindow=='true'}">
-						<a class="button success" id="back" href="windowsPR.action"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
+						<a class="button success" id="back" href="windowsPR"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
 						</s:if>
 	         	 	</div>
 	         	 	<div class="cell align-center colspan3">
@@ -404,7 +386,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="cell align-right colspan2"><br>
 
 						<s:if test="%{#fromwindow!='true'}">
-						<a class="button success next" id="next" href="createrecordApprove.action"><span class="mif-lg fg-white">ทำรายการใหม่</span></a>
+						<a class="button success next" id="next" href="createrecordApprove"><span class="mif-lg fg-white">ทำรายการใหม่</span></a>
 						</s:if>
 					</div>
 			 	</div>
@@ -415,8 +397,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </form> 
 		        
    		<script>
+		function getProduct() {
+   			var load = window.open('/pcpnru/windows_product','pr',
+   			             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
+   		}
    		function getvendor() {
-   			var load = window.open('/pcpnru/windows_entrancvendor.action','pr',
+   			var load = window.open('/pcpnru/windows_entrancvendor','pr',
    			             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
    		}
    		
@@ -433,36 +419,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	window.history.back();
             });
         	$("#delete_product").click(function(){
-        		$("#description").val("-");
+        		$("#product_code").val("-");
         		$("#qty").val(0);
         	});
-            
+        	$("#empty_product").click(function(){
+        		$("#product_code").val("");
+        		$("#product_name").val("");
+        		$("#qty").val(0);
+        	});
         	$("#save").click(function(){
-        		$("#description").val("-");
+        		$("#product_code").val("-");
         		$("#qty").val(0);
         	});
         	$(".next").click(function(){
-        		$("#description").val("-");
+        		$("#product_code").val("-");
         		$("#qty").val(0);
         	}); 
         	
         }); // close function
     	</script>
-    	<script>        
-		  var mySwiper = new Swiper ('.swiper-container', {
-		    // Optional parameters
-		    loop: true,
-		    
-		    // If we need pagination
-		    pagination: '.swiper-pagination',
-		    
-		    // Navigation arrows
-		    nextButton: '.swiper-button-next',
-		    prevButton: '.swiper-button-prev',
-		    
-		    // And if we need scrollbar
-		    scrollbar: '.swiper-scrollbar',
-		  })        
-		  </script>
 	</body>
 </html>

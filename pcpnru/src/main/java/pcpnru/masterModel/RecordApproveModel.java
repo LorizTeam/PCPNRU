@@ -26,9 +26,8 @@ public class RecordApproveModel {
 	private String docno,docnohidden;
 	private String year;
 	private String itemno;
-	private String description;
 	private String qty; 
-	private String unit,create_by; 
+	private String unit_id,create_by,product_code,product_name,unit_name;
 	private String saved;
 	
 	public RecordApproveModel() { 
@@ -46,35 +45,65 @@ public class RecordApproveModel {
 		}
 	}
 	
-	public RecordApproveModel(String record_approve_hd, String record_approve_t, String record_approve_date,
-			String record_approve_title, String record_approve_rian, String record_approve_des1,
-			String record_approve_des2, String record_approve_cen, String record_approve_dep) {
-		super();
-		this.record_approve_hd = record_approve_hd;
-		this.record_approve_t = record_approve_t;
-		this.record_approve_date = record_approve_date;
-		this.record_approve_title = record_approve_title;
-		this.record_approve_rian = record_approve_rian;
-		this.record_approve_des1 = record_approve_des1;
-		this.record_approve_des2 = record_approve_des2;
-		this.record_approve_cen = record_approve_cen;
-		this.record_approve_dep = record_approve_dep;
+	public RecordApproveModel(String s1, String s2, String s3,
+			String s4, String s5, String s6,
+			String s7, String s8, String s9) {
+		if(s1.equals("ListRecordApproveDT")){
+			this.docno = s2;
+			this.year = s3;
+			this.itemno = s4;
+			this.product_code = s5;
+			this.qty = s6;
+			this.unit_id = s7;
+			this.unit_name = s8;
+			this.product_name = s9;
+		}else{
+			this.record_approve_hd = s1;
+			this.record_approve_t = s2;
+			this.record_approve_date = s3;
+			this.record_approve_title = s4;
+			this.record_approve_rian = s5;
+			this.record_approve_des1 = s6;
+			this.record_approve_des2 = s7;
+			this.record_approve_cen = s8;
+			this.record_approve_dep = s9;
+		}
 	}
 
-	public RecordApproveModel(String docno, String year, String itemno, String description, String qty, String unit) {
+	public RecordApproveModel(String docno, String year, String itemno, String product_code, String qty, String unit_id) {
 		super();
 		this.docno = docno;
 		this.year = year;
 		this.itemno = itemno;
-		this.description = description;
+		this.product_code = product_code;
 		this.qty = qty;
-		this.unit = unit;
+		this.unit_id = unit_id;
 	}
 	
 	public RecordApproveModel(String img_path, String docno, String year) {
 		this.img_path = img_path;
 		this.docno = docno;
 		this.year = year;
+	}
+
+	public RecordApproveModel(String s1, String s2, String s3, String s4) {
+		this.product_code = s1;
+		this.product_name = s2;
+		this.unit_id = s3;
+		this.unit_name = s4;
+	}
+
+	public RecordApproveModel(String s1, String s2, String s3, String s4, String s5,
+			String s6, String s7, String s8) {
+		if(s1.equals("ListRecordApproveDT")){
+			this.docno = s2;
+			this.year = s3;
+			this.itemno = s4;
+			this.product_code = s5;
+			this.qty = s6;
+			this.unit_id = s7;
+			this.unit_name = s8;
+		}
 	}
 
 	//Reset --------------------------------------------------------
@@ -92,15 +121,16 @@ public class RecordApproveModel {
 	public void reset_dt(){
 		this.docno 			= ""; 
 		this.year 			= "";  
-		this.description 	= ""; 
+		this.product_code 	= ""; 
 		this.qty 			= ""; 
-		this.unit 			= ""; 
+		this.unit_id 			= ""; 
 	}
 	
 	public void reset_ListItem(){  
-		this.description 	= ""; 
+		this.product_code 	= "";
+		this.product_name 	= ""; 
 		this.qty 			= ""; 
-		this.unit 			= ""; 
+		this.unit_id 			= ""; 
 	}
 	public void reset_alert(){  
 		this.alertmsg 	= ""; 
@@ -110,6 +140,38 @@ public class RecordApproveModel {
 	
 	public String getVendor_id() {
 		return vendor_id;
+	}
+
+	public String getUnit_id() {
+		return unit_id;
+	}
+
+	public void setUnit_id(String unit_id) {
+		this.unit_id = unit_id;
+	}
+
+	public String getProduct_code() {
+		return product_code;
+	}
+
+	public void setProduct_code(String product_code) {
+		this.product_code = product_code;
+	}
+
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+
+	public String getUnit_name() {
+		return unit_name;
+	}
+
+	public void setUnit_name(String unit_name) {
+		this.unit_name = unit_name;
 	}
 
 	public String getSaved() {
@@ -295,28 +357,12 @@ public class RecordApproveModel {
 		this.record_approve_dep = record_approve_dep;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public String getQty() {
 		return qty;
 	}
 
 	public void setQty(String qty) {
 		this.qty = qty;
-	}
-
-	public String getUnit() {
-		return unit;
-	}
-
-	public void setUnit(String unit) {
-		this.unit = unit;
 	}
 
 	public String getDocno() {
