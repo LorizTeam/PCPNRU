@@ -24,7 +24,7 @@
     <script src="js/metro.js"></script>
     
     <div class="login-form padding20 block-shadow">
-        <form action="login.action" method="post">
+        <form action="login" method="post">
             <h1 class="text-light">Login to service</h1>
             <hr class="thin"/>
             <br />

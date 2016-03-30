@@ -20,7 +20,7 @@
 	</head>
 <body>
 	<div><%@include file="topmenu.jsp" %></div>
-	<form action="product.action" method="post">
+	<form action="product" method="post">
 		<div class="grid" >
 			<div class="row cells12 " >
 	 			<div class="cell colspan4"> </div>

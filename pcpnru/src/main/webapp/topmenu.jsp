@@ -141,15 +141,15 @@
          	<ul class="d-menu" data-role="dropdown">
          		<li><a href="" class="dropdown-toggle"> ข้อมูลสินค้า</a>
          			<ul class="d-menu" data-role="dropdown">
-         				<li><a href="product.action">สินค้า</a></li>
+         				<li><a href="product">สินค้า</a></li>
 		                <li class="divider"></li>
-		                <li><a href="unitMaster.action">หน่วยนับ</a></li>
+		                <li><a href="unitMaster">หน่วยนับ</a></li>
 		                <li class="divider"></li>
-		                <li><a href="productgroupmaster.action">หมวดสินค้า</a></li>
+		                <li><a href="productgroupmaster">หมวดสินค้า</a></li>
 		                <li class="divider"></li>
-		                <li><a href="protypemaster.action">ประเภทสินค้า</a></li>
+		                <li><a href="protypemaster">ประเภทสินค้า</a></li>
 		                <li class="divider"></li>
-		                <li><a href="brandmaster.action">แบรนด์สินค้า</a></li>
+		                <li><a href="brandmaster">แบรนด์สินค้า</a></li>
 		            </ul>
          		</li>
          		<li class="divider"></li>
