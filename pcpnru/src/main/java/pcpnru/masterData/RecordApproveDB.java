@@ -60,7 +60,7 @@ public class RecordApproveDB {
 	}
 	public List ListRecordApproveDT(String docno, String month, String year) throws IOException, Exception{
 		String itemno = "", product_code = "", qty = "0", unit_id = "", 
-				unit_name="", product_name="";
+				unit_name="", product_name="", approve_status="";
 		
 		String sqlWhere = "";
 		if(!docno.equals("")){
@@ -76,7 +76,7 @@ public class RecordApproveDB {
 		
 		String sqlQuery = "SELECT "
 				+ "b.docno,b.`year`,a.record_approve_date,b.itemno,b.numthai_itemno,b.product_code,"
-				+ "b.qty,b.numthai_qty,b.unit_id,b.create_by,c.unit_name,d.product_name "
+				+ "b.qty,b.numthai_qty,b.unit_id,b.create_by,c.unit_name,d.product_name,a.approve_status "
 				+ "FROM "
 				+ "record_approve_hd AS a "
 				+ "INNER JOIN record_approve_dt AS b ON (a.docno = b.docno AND a.`year` = b.`year`)"
@@ -100,7 +100,10 @@ public class RecordApproveDB {
 			unit_id 			= rs.getString("unit_id");
 			unit_name			= rs.getString("unit_name");
 			product_name	= rs.getString("product_name");
-			ListRecordApproveDT.add(new RecordApproveModel("ListRecordApproveDT",docno, year, itemno, product_code, qty, unit_id,unit_name,product_name));
+			approve_status = rs.getString("approve_status");
+			ListRecordApproveDT.add(new RecordApproveModel("ListRecordApproveDT", docno, year, itemno, 
+					product_code, qty, unit_id, unit_name,
+					product_name, approve_status));
 		}
 		
 		rs.close();
@@ -109,15 +112,17 @@ public class RecordApproveDB {
 		
 		return ListRecordApproveDT;
 	}
-	public int UpdateApprovehd(String docno, String year, String record_approve_hd, String record_approve_t, String record_approve_date, String record_approve_title, String record_approve_rian,
-			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep,String create_by,String vendor_id,double total_amount)  throws Exception{
+	public int UpdateApprovehd(String docno, String year, String record_approve_hd, String record_approve_t, 
+			String record_approve_date, String record_approve_title, String record_approve_rian, String record_approve_des1, 
+			String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep,
+			String create_by, String vendor_id, double total_amount, String approve_status)  throws Exception{
 		
 		String sqlStmt = "update record_approve_hd "
 				+ "set record_approve_hd =?, record_approve_t =?, record_approve_date =?"
 				+ ", record_approve_title =?, record_approve_rian =? , record_approve_des1 =?"
 				+ ", record_approve_des2 =?, record_approve_des3 =?, record_approve_cen =?"
 				+ ", record_approve_dep =?, thaidate_report =?, vendor_id =?"
-				+ ", total_amount =? " +
+				+ ", total_amount =? , approve_status=? " +
 				"where docno =? and year  =?";
 		
 		String[] splitdate = record_approve_date.split("-");
@@ -146,8 +151,9 @@ public class RecordApproveDB {
 		ppStmt.setString(11, thaidate_report);
 		ppStmt.setString(12, vendor_id);
 		ppStmt.setDouble(13, total_amount);
-		ppStmt.setString(14, docno);
-		ppStmt.setString(15, year);
+		ppStmt.setString(14, approve_status);
+		ppStmt.setString(15, docno);
+		ppStmt.setString(16, year);
 		
 		int rowsupdate = ppStmt.executeUpdate();
 		conn.commit();

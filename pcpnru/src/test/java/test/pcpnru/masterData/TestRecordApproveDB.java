@@ -110,7 +110,7 @@ public class TestRecordApproveDB {
 		String sqlQuery = "SELECT "
 				+ "a.docno,a.`year`,a.record_approve_hd,a.record_approve_t,a.record_approve_date,a.record_approve_title,"
 				+ "a.record_approve_rian,a.record_approve_des1,a.record_approve_des2,a.record_approve_des3,a.record_approve_cen,"
-				+ "a.record_approve_dep,a.thaidate_report,a.create_by,a.vendor_id,a.total_amount "
+				+ "a.record_approve_dep,a.thaidate_report,a.create_by,a.vendor_id,a.total_amount,a.approve_status "
 				+ "FROM "
 				+ "record_approve_hd AS a "
 				+ "WHERE "
@@ -137,6 +137,7 @@ public class TestRecordApproveDB {
 			mapresultGet.put("vendor_id", rs.getString("vendor_id"));
 			mapresultGet.put("total_amount", rs.getString("total_amount"));
 			mapresultGet.put("create_by", rs.getString("create_by"));
+			mapresultGet.put("approve_status", rs.getString("approve_status"));
 		}		
 		
 		if(!rs.isClosed())
@@ -238,15 +239,17 @@ public class TestRecordApproveDB {
 		
 		return ListRecordApproveDT;
 	}
-	public int UpdateApprovehd(String docno, String year, String record_approve_hd, String record_approve_t, String record_approve_date, String record_approve_title, String record_approve_rian,
-			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep,String create_by,String vendor_id,double total_amount)  throws Exception{
+	public int UpdateApprovehd(String docno, String year, String record_approve_hd, String record_approve_t, 
+			String record_approve_date, String record_approve_title, String record_approve_rian, String record_approve_des1, 
+			String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep,
+			String create_by, String vendor_id, double total_amount, String approve_status)  throws Exception{
 		
 		String sqlStmt = "update record_approve_hd "
 				+ "set record_approve_hd =?, record_approve_t =?, record_approve_date =?"
 				+ ", record_approve_title =?, record_approve_rian =? , record_approve_des1 =?"
 				+ ", record_approve_des2 =?, record_approve_des3 =?, record_approve_cen =?"
 				+ ", record_approve_dep =?, thaidate_report =?, vendor_id =?"
-				+ ", total_amount =? " +
+				+ ", total_amount =?, approve_status=? " +
 				"where docno =? and year  =?";
 		
 		String[] splitdate = record_approve_date.split("-");
@@ -275,8 +278,10 @@ public class TestRecordApproveDB {
 		ppStmt.setString(11, thaidate_report);
 		ppStmt.setString(12, vendor_id);
 		ppStmt.setDouble(13, total_amount);
-		ppStmt.setString(14, docno);
-		ppStmt.setString(15, year);
+		ppStmt.setString(14, approve_status);
+		ppStmt.setString(15, docno);
+		ppStmt.setString(16, year);
+		
 		
 		int rowsupdate = ppStmt.executeUpdate();
 		conn.commit();
@@ -286,14 +291,14 @@ public class TestRecordApproveDB {
 	}
 	
 	public int AddRecordApprovehd(String docno, String year, String record_approve_hd, String record_approve_t, String record_approve_date, String record_approve_title, String record_approve_rian,
-			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep,String create_by,String vendor_id,double total_amount)  throws Exception{
+			String record_approve_des1, String record_approve_des2, String record_approve_des3, String record_approve_cen, String record_approve_dep,String create_by,String vendor_id,double total_amount,String approve_status)  throws Exception{
 		
 		
 		
 		String dateTime = "";
 		String sqlStmt = "INSERT IGNORE INTO record_approve_hd(docno, year, record_approve_hd, record_approve_t, record_approve_date, record_approve_title, record_approve_rian, "
-				+ "record_approve_des1, record_approve_des2,record_approve_des3, record_approve_cen, record_approve_dep,thaidate_report,create_by,create_datetime,vendor_id,total_amount) " +
-				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),?,?)";
+				+ "record_approve_des1, record_approve_des2,record_approve_des3, record_approve_cen, record_approve_dep,thaidate_report,create_by,create_datetime,vendor_id,total_amount,approve_status) " +
+				"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),?,?,?)";
 		
 		String[] splitdate = record_approve_date.split("-");
 		
@@ -323,6 +328,7 @@ public class TestRecordApproveDB {
 		ppStmt.setString(14, create_by);
 		ppStmt.setString(15, vendor_id);
 		ppStmt.setDouble(16, total_amount);
+		ppStmt.setString(17, approve_status);
 		int rowsupdate = ppStmt.executeUpdate();
 		conn.commit();
 		ppStmt.close();
@@ -609,4 +615,5 @@ public class TestRecordApproveDB {
 			conn.close();
 		return ResultList;
 	}
+	
 }

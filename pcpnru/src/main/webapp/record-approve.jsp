@@ -64,45 +64,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="js/select2.js"></script>
 	</head>
 	
-	<script>
-	function print(){
-			
-			var tdocno = $("#docno").val();
-			var tyear = $("#year").val();
-			
-    		swal({  title: "ยืนยันการพิมพ์เอกสาร ?",   
-    				text: "หากคุณต้องการพิมพ์เอกสารให้กดปุ่มยืนยัน !",   
-    				type: "warning",   
-    				showCancelButton: true,   
-    				confirmButtonColor: "#DD6B55",   
-    				confirmButtonText: "ยืนยัน, ฉันต้องการพิมพ์เอกสาร !",   
-    				cancelButtonText: "ไม่, ฉันไม่ต้องการพิมพ์เอกสาร !",   
-    				closeOnConfirm: false,   
-    				closeOnCancel: false,
-    				showLoaderOnConfirm: true
-    			},
-    				 
-    		function (isConfirm){
-    		  	if (isConfirm) {
-    			setTimeout(function(){
-    				 
-    				var load = window.open("/pcpnru/report/savetext-report.jsp?docno="+tdocno+"&year="+tyear+"" 
-    						,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
-    			swal("พิมพ์เอกสารสำเร็จแล้ว!", "โปรดตรวจสอบรายละเอียดของเอกสารอีกครั้งเพื่อความถูกต้อง !", "success");
-    			} 
-    			 , 1000);
-     
-    			}else {    
-    			 swal("ยกเลิกการพิมพ์เอกสาร", "คุณสามารถพิมพ์เอกสารได้อีกครั้งหลังจากปิดหน้าต่างนี้ !", "error");   
-    			}
-    		});
-    		
-	    }
-    </script>
-	
 	<body>
 		<s:set name="fromwindow" value="recordApproveModel.fromwindow"/>
-		
+		<s:set name="approve_status" value="recordApproveModel.approve_status"/>
 		<s:if test="%{#fromwindow=='true'}">
 			<div><%@include file="window-topmenu.jsp" %></div>
 		</s:if>
@@ -110,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div><%@include file="topmenu.jsp" %></div>
 		</s:else>
 		 
-		 <form action="recordApprove" method="post" enctype="multipart/form-data">
+		 <form action="recordApprove" id="recordApprove" method="post" enctype="multipart/form-data">
 		 <s:hidden name="recordApproveModel.fromwindow"/>
 		 <div class="grid" >
 		 <div class="row cells12 " >
@@ -161,8 +125,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div> 
 	         		  
 	         	 	<div class="cell align-left colspan3"><br>
+	         	 		<s:if test="%{#approve_status=='CA' || #approve_status==null}">
 						  <button type="submit" class="button success" name="add" id="add"><span class="mif-plus mif-lg fg-white"></span></button>
 						  <button type="submit" class="button danger" name="delete" id="delete_product"><span class="mif-minus mif-lg fg-white"></span></button>  
+						</s:if>
 					</div>
 			 	</div>  
 			</div>
@@ -235,7 +201,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				        <div class="input-control text full-size">
 						    <s:textfield name="recordApproveModel.record_approve_date" id="record_approve_date" required=""/>
 						</div>
-					</div>  
+					</div>
+					<div class="cell align-center colspan2"> 
+			        	<s:if test="%{#approve_status=='CA' || #approve_status==null}">
+						   	สร้างใบขออนุมัติ
+						</s:if>
+						<s:elseif test="%{#approve_status=='WA'}">
+							รออนุมัติ
+						</s:elseif>
+					</div>   
 	         	</div>
 	         	<div class="row cells12">
 	         		<div class="cell colspan1"> </div>
@@ -379,9 +353,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	         	 	<div class="cell align-center colspan3">
 	         	 	</div>  
 					<div class="cell align-left colspan5"><br>
-						  <button class="button success" name="save" id="save"> <span class="mif-floppy-disk mif-lg fg-white"></span></button>   
-						  <a href="javascript:print();" id="print" class="button warning size"><span class="mif-print mif-lg fg-white"></span></a>
-						  
+						  <s:if test="%{#approve_status=='CA'}">
+							<button type="submit" class="button info" name="send_approve" onclick="sendApprove()" id="send_approve"> <span class="mif-paper-plane mif-lg fg-white"></span> ขออนุมัติ</button>
+						  </s:if>
+						  <s:if test="%{#approve_status=='CA' || #approve_status==null}">
+						  <button type="submit" class="button success" name="save" id="save"> <span class="mif-floppy-disk mif-lg fg-white"></span> บันทึก</button>
+						  <button type="button" class="button warning" onclick="getPrint()" id="print" ><span class="mif-print mif-lg fg-white"> ออกรายงาน</span></button>
+						  </s:if>
 					</div>
 					<div class="cell align-right colspan2"><br>
 
@@ -394,6 +372,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		 <s:hidden name="recordApproveModel.alertmsg" id="alertmsg"/>
 		 <s:hidden name="recordApproveModel.saved" id="saved"/>
+		 <s:hidden name="recordApproveModel.approve_status" id="approve_status"/>
         </form> 
 		        
    		<script>
@@ -405,7 +384,39 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    			var load = window.open('/pcpnru/windows_entrancvendor','pr',
    			             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
    		}
-   		
+		function getPrint(){
+			
+			var tdocno = $("#docno").val();
+			var tyear = $("#year").val();
+			
+    		swal({  title: "ยืนยันการพิมพ์เอกสาร ?",   
+    				text: "หากคุณต้องการพิมพ์เอกสารให้กดปุ่มยืนยัน !",   
+    				type: "warning",   
+    				showCancelButton: true,   
+    				confirmButtonColor: "#DD6B55",   
+    				confirmButtonText: "ยืนยัน, ฉันต้องการพิมพ์เอกสาร !",   
+    				cancelButtonText: "ไม่, ฉันไม่ต้องการพิมพ์เอกสาร !",   
+    				closeOnConfirm: false,   
+    				closeOnCancel: false,
+    				showLoaderOnConfirm: true
+    			},
+    				 
+    		function (isConfirm){
+    		  	if (isConfirm) {
+    			setTimeout(function(){
+    				 
+    				var load = window.open("/pcpnru/report/savetext-report.jsp?docno="+tdocno+"&year="+tyear+"" 
+    						,'scrollbars=yes,menubar=no,height=600,width=800,resizable=yes,toolbar=no,location=no,status=no');
+    			swal("พิมพ์เอกสารสำเร็จแล้ว!", "โปรดตรวจสอบรายละเอียดของเอกสารอีกครั้งเพื่อความถูกต้อง !", "success");
+    			} 
+    			 , 1000);
+     
+    			}else {    
+    			 swal("ยกเลิกการพิมพ์เอกสาร", "คุณสามารถพิมพ์เอกสารได้อีกครั้งหลังจากปิดหน้าต่างนี้ !", "error");   
+    			}
+    		});
+    		
+	    }
         $(function(){
         	var select2unit = $("#unit").select2();
         	if($("#alertmsg").val() != ""){
@@ -419,6 +430,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	window.history.back();
             });
         	$("#delete_product").click(function(){
+        		$("#product_code").val("-");
+        		$("#qty").val(0);
+        	});
+        	$("#send_approve").click(function(){
+        		
+        		$("#approve_status").val("WA");
         		$("#product_code").val("-");
         		$("#qty").val(0);
         	});

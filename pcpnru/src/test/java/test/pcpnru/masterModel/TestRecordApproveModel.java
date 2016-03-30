@@ -28,7 +28,7 @@ public class TestRecordApproveModel {
 	private String itemno;
 	private String description;
 	private String qty; 
-	private String unit_id,create_by,product_code,product_name,unit_name; 
+	private String unit_id,create_by,product_code,product_name,unit_name,approve_status; 
 	
 	public TestRecordApproveModel() { 
 	} 
@@ -135,6 +135,15 @@ public class TestRecordApproveModel {
 			this.product_name = product_name;
 		}
 		
+	}
+
+	
+	public String getApprove_status() {
+		return approve_status;
+	}
+
+	public void setApprove_status(String approve_status) {
+		this.approve_status = approve_status;
 	}
 
 	public String getUnit_id() {

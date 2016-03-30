@@ -27,7 +27,7 @@ public class RecordApproveModel {
 	private String year;
 	private String itemno;
 	private String qty; 
-	private String unit_id,create_by,product_code,product_name,unit_name;
+	private String unit_id,create_by,product_code,product_name,unit_name,approve_status;
 	private String saved;
 	
 	public RecordApproveModel() { 
@@ -44,7 +44,21 @@ public class RecordApproveModel {
 			this.record_approve_date = s6;
 		}
 	}
-	
+	public RecordApproveModel(String s1, String s2, String s3,
+			String s4, String s5, String s6,
+			String s7, String s8, String s9,String s10) {
+		if(s1.equals("ListRecordApproveDT")){
+			this.docno = s2;
+			this.year = s3;
+			this.itemno = s4;
+			this.product_code = s5;
+			this.qty = s6;
+			this.unit_id = s7;
+			this.unit_name = s8;
+			this.product_name = s9;
+			this.approve_status = s10;
+		}
+	}
 	public RecordApproveModel(String s1, String s2, String s3,
 			String s4, String s5, String s6,
 			String s7, String s8, String s9) {
@@ -137,7 +151,13 @@ public class RecordApproveModel {
 	}
 	//Reset --------------------------------------------------------
 	
-	
+	public String getApprove_status() {
+		return approve_status;
+	}
+
+	public void setApprove_status(String approve_status) {
+		this.approve_status = approve_status;
+	}
 	public String getVendor_id() {
 		return vendor_id;
 	}
