@@ -209,6 +209,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<s:elseif test="%{#approve_status=='WA'}">
 							รออนุมัติ
 						</s:elseif>
+						<s:else>
+							ยกเลิกใบขออนุมัติ
+						</s:else>
 					</div>   
 	         	</div>
 	         	<div class="row cells12">

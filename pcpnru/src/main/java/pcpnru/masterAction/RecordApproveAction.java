@@ -305,9 +305,10 @@ public class RecordApproveAction extends ActionSupport {
 			recordApproveModel.setRecord_approve_cen(MapResultValue.get("record_approve_cen").toString());
 			recordApproveModel.setRecord_approve_dep(MapResultValue.get("record_approve_dep").toString());
 			recordApproveModel.setCreate_by(MapResultValue.get("create_by").toString());
-			recordApproveModel.setVendor_id(MapResultValue.get("vender_id").toString());
+			recordApproveModel.setVendor_id(MapResultValue.get("vendor_id").toString());
 			recordApproveModel.setTotal_amount((Double) MapResultValue.get("total_amount"));
 			recordApproveModel.setVendor_name(MapResultValue.get("vendor_name").toString());
+			recordApproveModel.setApprove_status(MapResultValue.get("approve_status").toString());
 			recordApproveModel.setFromwindow(fromwindow);
 			List ListRecordApproveDT =  ra.ListRecordApproveDT(recordApproveModel.getDocno(),"", year);
 			request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);
@@ -327,7 +328,12 @@ public class RecordApproveAction extends ActionSupport {
 		String search = request.getParameter("search");
 		
 		if(search != null){
-			request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header("", "", "","", ""));
+			
+			
+			request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header(recordApproveModel.getDocno(), 
+					recordApproveModel.getRecord_approve_title(), recordApproveModel.getRecord_approve_date(),recordApproveModel.getRecord_approve_month(), recordApproveModel.getYear()));
+			recordApproveModel.Approve_pr();
+			
 		}else if(save != null){
 			
 			if(request.getParameterValues("chkrow") != null){

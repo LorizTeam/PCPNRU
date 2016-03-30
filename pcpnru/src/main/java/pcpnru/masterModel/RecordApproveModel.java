@@ -157,7 +157,13 @@ public class RecordApproveModel {
 		this.qty 			= ""; 
 		this.unit_id 			= ""; 
 	}
-	
+	public void Approve_pr(){  
+		this.docno 	= "";
+		this.year 	= ""; 
+		this.record_approve_title 	= ""; 
+		this.record_approve_month 	= ""; 
+		this.record_approve_date 	= ""; 
+	}
 	public void reset_ListItem(){  
 		this.product_code 	= "";
 		this.product_name 	= ""; 

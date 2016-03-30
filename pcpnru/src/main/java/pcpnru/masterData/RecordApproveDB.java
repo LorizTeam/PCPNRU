@@ -458,7 +458,7 @@ public class RecordApproveDB {
 		String sqlQuery = "SELECT docno,`year`+543 as year,record_approve_hd,record_approve_t,"
 				+ "CONCAT(substr(record_approve_date from 9 for 2),\"-\",substr(record_approve_date from 6 for 2),\"-\",year(record_approve_date)+543) as record_approve_date,record_approve_title,record_approve_rian,"
 				+ "record_approve_des1,record_approve_des2,record_approve_des3,"
-				+ "record_approve_cen,record_approve_dep,thaidate_report,record_approve_hd.create_by,total_amount,b.vendor_id,b.vendor_name "
+				+ "record_approve_cen,record_approve_dep,thaidate_report,record_approve_hd.create_by,total_amount,b.vendor_id,b.vendor_name,approve_status "
 				+ "FROM `record_approve_hd` "
 				+ "inner join vendor_master as b on (record_approve_hd.vendor_id = b.vendor_id)"
 				+ "WHERE "
@@ -486,6 +486,7 @@ public class RecordApproveDB {
 			mapresultGet.put("total_amount", rs.getDouble("total_amount"));
 			mapresultGet.put("vendor_id", rs.getString("vendor_id"));
 			mapresultGet.put("vendor_name", rs.getString("vendor_name"));
+			mapresultGet.put("approve_status", rs.getString("approve_status"));
 		}		
 		
 		if(!rs.isClosed())

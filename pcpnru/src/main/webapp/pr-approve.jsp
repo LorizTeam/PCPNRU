@@ -109,7 +109,7 @@
 												if(RAM.getApprove_status().equals("CC")){
 											%>
 												<label class="input-control small-check checkbox"> 
-						                			<input type="checkbox" name="chkrow" value="<%=i %>" data-show="indeterminate" disabled />
+						                			<input type="checkbox" name="chkrow" value="<%=i++ %>" data-show="indeterminate" disabled />
 						                		<span class="check"></span> 
 						                        </label>
 						                        <input type="hidden" name="approveStatus" value="CC" /><input type="text" value=" ยกเลิกรายการ" size="8" readonly="readonly" />
@@ -117,7 +117,7 @@
 												}else{
 											%>
 												<label class="input-control small-check checkbox"> 
-						                			<input type="checkbox" name="chkrow" value="<%=i %>" data-show="indeterminate" />
+						                			<input type="checkbox" name="chkrow" value="<%=i++ %>" data-show="indeterminate" />
 						                		<span class="check"></span> 
 						                        </label>
 						                        <select name="approveStatus" >
@@ -126,7 +126,7 @@
 										        	<option value="CC">ยกเลิกรายการ</option>
 									        	</select>
 											<%	
-												i++;
+												
 												}
 											%>
 												
