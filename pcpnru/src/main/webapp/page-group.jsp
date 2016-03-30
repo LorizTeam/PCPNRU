@@ -27,7 +27,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>จัดการ การใช้งานในแต่ละส่วน</title>
+		<title>จัดการ page group</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0">
@@ -45,49 +45,27 @@
 
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
-		 <h3 class="align-center">จัดการ การใช้งานในแต่ละส่วน</h3>
+		 <h3 class="align-center">จัดการ page group</h3>
 		 <div class="example" data-text="รายละเอียด">
-		 <form action="pageMaster.action" method="post">
+		 <form action="pageGroupMaster" method="post">
 	         <div class="grid">
 	         	<div class="row cells12">  
 					<div class="cell colspan2"> 
-			        	รหัส  การใช้งานในแต่ละส่วน
+			        	รหัส  page group
 				        <div class="input-control text full-size">
-						    <s:textfield name="pageMasterModel.page_code" id="pagecode" readonly="true"/> 
+						    <s:textfield name="pageGroupMasterModel.pagegroup_code" id="pagegroupcode" readonly="true"/> 
+						</div>
+					</div>  
+			        <div class="cell colspan3"> 
+			        	ชื่อ  page group
+				        <div class="input-control text full-size">
+						    <s:textfield name="pageGroupMasterModel.pagegroup_name" id="pagegroupname" required=""/>
 						</div>
 					</div> 
-					<div class="cell colspan3"> 
-			        	กลุ่ม
-			        	<div class="input-control text full-size">
-			        		<select id="pagegroupcode" name="pageMasterModel.pagegroup_code" required="">
-			        		<option value="" >กรุณาเลือก</option>
-					        <%
-						        List getListGroupPage = null;
-				                PageGroupMasterDB pgm = new PageGroupMasterDB();
-				                getListGroupPage = pgm.getListGroupPage("");
-				        		if (getListGroupPage != null) {
-					        		for (Iterator pmIterate = getListGroupPage.iterator(); pmIterate.hasNext();) {
-					        			PageGroupMasterModel pgInfo = (PageGroupMasterModel) pmIterate.next(); 
-			      				%>  
-				      			<option value="<%=pgInfo.getPagegroup_code()%>" >
-				       			 	<%=pgInfo.getPagegroup_code()%> - <%=pgInfo.getPagegroup_name()%>
-				       			</option>
-								<%		} 
-									}
-								%>
-								</select>
-						</div>
-					</div>
-			        <div class="cell colspan4"> 
-			        	ชื่อ  การใช้งานในแต่ละส่วน
-				        <div class="input-control text full-size">
-						    <s:textfield name="pageMasterModel.page_name" id="pagename" required=""/>
-						</div>
-					</div> 
-					<div class="cell align-left colspan3"><br>
-						  <button class="button success" name="add">สร้าง</button> 
-						  <button class="button primary" name="update">แก้ไข</button> 
-						  <button class="button danger" name="delete">ลบ</button> 
+					<div class="cell align-left colspan6"><br>
+						  <button class="button success" name="add">สร้างชื่อ page group</button> 
+						  <button class="button primary" name="update">แก้ไข page group</button> 
+						  <button class="button danger" name="delete">ลบชื่อ page group</button> 
 				</div>
 	         	 
 			    </div>
@@ -96,35 +74,31 @@
 		</div>  
 		 
         <div class="example" data-text="รายการ">
-            <table id="table_page" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
+            <table id="table_pagegroup" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
                 <thead>
                 <tr>  
                 	<th>ลำดับ</th>
-                	<th>รหัส - กลุ่ม</th>
-                    <th>ชื่อ - กลุ่ม</th>
-                	<th>รหัส - การใช้งานในแต่ละส่วน</th>
-                    <th>ชื่อ - การใช้งานในแต่ละส่วน</th> 
+                	<th>รหัส - page group</th>
+                    <th>ชื่อ - page group</th> 
                 </tr>
                 </thead> 
                   
                 <tbody>
                 <%
-                List getListPage = null;
-                PageMasterDB pm = new PageMasterDB();
-                getListPage = pm.getListPage("","");
+                List getListGroupPage = null;
+                PageGroupMasterDB pm = new PageGroupMasterDB();
+                getListGroupPage = pm.getListGroupPage("");
         		int x = 1;
-        		if(getListPage != null){
+        		if(getListGroupPage != null){
         			
-        			Iterator pmIterate = getListPage.iterator();
+        			Iterator pmIterate = getListGroupPage.iterator();
         			while(pmIterate.hasNext()){
-        				PageMasterModel pgInfo = (PageMasterModel) pmIterate.next();  
+        				PageGroupMasterModel pgInfo = (PageGroupMasterModel) pmIterate.next();  
         		%>
         			<tr>
-        			<td class="tdhidden" align="center"><%=x%></td>
-        			<td class="tdpagegroupcode" align="left"><%=pgInfo.getPagegroup_code()%></td>  
-                    <td class="tdpagegroupname" align="left"><%=pgInfo.getPagegroup_name()%></td>
-        			<td class="tdpagecode" align="left"><%=pgInfo.getPage_code()%></td>  
-                    <td class="tdpagename" align="left"><%=pgInfo.getPage_name()%></td> 
+	        			<td class="tdhidden" align="center"><%=x%></td>
+	        			<td class="tdpagegroupcode" align="left"><%=pgInfo.getPagegroup_code()%></td>  
+	                    <td class="tdpagegroupname" align="left"><%=pgInfo.getPagegroup_name()%></td> 
                 	</tr>
         		<%		
         		x++;
@@ -145,7 +119,7 @@
    		<script>
         $(function(){
          
-        	var table = $('#table_page').DataTable( { 
+        	var table = $('#table_pagegroup').DataTable( { 
               	scrollY: '50vh', 
               	scrollX: true,
               	scrollCollapse: true, 
@@ -153,21 +127,19 @@
                 "lengthMenu": [[14, 25, 50, 100, -1], [14, 25, 50, 100, "All"]] 
             } );
         	
-            $('#table_page tbody').on( 'click', 'tr', function () { 
+            $('#table_pagegroup tbody').on( 'click', 'tr', function () { 
     	        if ( $(this).hasClass('selected') ) {
     	            $(this).removeClass('selected');
     	            $("#pagegroupcode").val("");
-    	            $("#pagecode").val("");
-    	            $("#pagename").val(""); 
+    	            $("#pagegroupname").val(""); 
     	        }
     	        else {
     	            table.$('tr.selected').removeClass('selected');
     	            $(this).addClass('selected');
     	            var $index = $(this).index();
-    	            
+    	              
     	            $("#pagegroupcode").val($(".tdpagegroupcode").eq($index).text()); 
-    	            $("#pagecode").val($(".tdpagecode").eq($index).text()); 
-    	            $("#pagename").val($(".tdpagename").eq($index).text()); 
+    	            $("#pagegroupname").val($(".tdpagegroupname").eq($index).text()); 
     	        }
     	    });
         });

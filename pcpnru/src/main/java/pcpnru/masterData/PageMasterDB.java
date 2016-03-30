@@ -20,18 +20,22 @@ public class PageMasterDB {
 	ResultSet rs		= null;
 	DateUtil dateUtil = new DateUtil();
 	
-	public List getListPage(String page_code) throws IOException, Exception{
-		String page_name = "";
+	public List getListPage(String pagegroup_code, String page_code) throws IOException, Exception{
+		String pagegroup_name = "", page_name = "";
 		String sqlWhere = "";
 		if(!page_code.equals("")){
 			sqlWhere += "page_master.page_code = '"+page_code+"' AND ";
+		}else if(!pagegroup_code.equals("")){
+			sqlWhere += "page_master.pagegroup_code = '"+pagegroup_code+"' AND ";
 		}
 		
-		String sqlQuery = "SELECT "
+		String sqlQuery = "SELECT page_master.pagegroup_code, "
 				+ "page_master.page_code, "
-				+ "page_master.page_name "
+				+ "page_master.page_name, "
+				+ "pagegroup_master.pagegroup_name "
 				+ "FROM "
-				+ "page_master where ";
+				+ "page_master left join pagegroup_master on(pagegroup_master.pagegroup_code = page_master.pagegroup_code) "
+				+ "where ";
 				sqlQuery += sqlWhere;
 		sqlQuery +=  "page_master.page_code <> '' order by page_master.page_code ";
 		
@@ -41,10 +45,12 @@ public class PageMasterDB {
 		
 		List getListPage = new ArrayList(); 
 		while(rs.next()){
+			pagegroup_code	= rs.getString("pagegroup_code");
+			pagegroup_name 	= rs.getString("pagegroup_name");
 			page_code		 = rs.getString("page_code");
 			page_name 		 = rs.getString("page_name");
 			 
-			getListPage.add(new PageMasterModel(page_code, page_name));
+			getListPage.add(new PageMasterModel(pagegroup_code, pagegroup_name, page_code, page_name));
 		}
 		
 		rs.close();
@@ -54,13 +60,13 @@ public class PageMasterDB {
 		return getListPage;
 	}
 	
-	public void AddPageMaster(String page_code, String page_name)  throws Exception{
+	public void AddPageMaster(String pagegroup_code, String page_code, String page_name)  throws Exception{
 		
 		conn = agent.getConnectMYSql();
 		
 		String dateTime = "";
-		String sqlStmt = "INSERT INTO page_master (page_code, page_name, datetime) " +
-				"VALUES ('"+page_code+"', '"+page_name+"', now())";
+		String sqlStmt = "INSERT INTO page_master (pagegroup_code, page_code, page_name, datetime) " +
+				"VALUES ('"+pagegroup_code+"', '"+page_code+"', '"+page_name+"', now())";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -68,11 +74,11 @@ public class PageMasterDB {
 		conn.close();
 	}
 	
-	public void UpdatePageMaster(String page_code, String page_name)  throws Exception{
+	public void UpdatePageMaster(String pagegroup_code, String page_code, String page_name)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
 		String sqlStmt = "UPDATE page_master set page_name = '"+page_name+"', datetime = now()" +
-				"WHERE page_code = '"+page_code+"'";
+				"WHERE pagegroup_code = '"+pagegroup_code+"' and page_code = '"+page_code+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);
@@ -80,11 +86,11 @@ public class PageMasterDB {
 		conn.close();
 	}
 	
-	public void DeletePageMaster(String page_code)  throws Exception{
+	public void DeletePageMaster(String pagegroup_code, String page_code)  throws Exception{
 		conn = agent.getConnectMYSql();
 		
 		String sqlStmt = "DELETE From page_master "+
-		"WHERE page_code = '"+page_code+"'";
+		"WHERE pagegroup_code = '"+pagegroup_code+"' and page_code = '"+page_code+"'";
 		//System.out.println(sqlStmt);
 		pStmt = conn.createStatement();
 		pStmt.executeUpdate(sqlStmt);

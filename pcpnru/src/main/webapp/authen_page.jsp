@@ -79,7 +79,7 @@
 							   <%
 							   	List Page = null;
 							   	PageMasterDB pageMasterDB = new PageMasterDB();
-							   	Page = pageMasterDB.getListPage(""); 
+							   	Page = pageMasterDB.getListPage("",""); 
 				        		if (Authen != null) {
 					        		for (Iterator iterP = Page.iterator(); iterP.hasNext();) {
 					        			PageMasterModel pModel = (PageMasterModel) iterP.next();

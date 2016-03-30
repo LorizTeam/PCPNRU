@@ -117,13 +117,15 @@
 		                <li><a href="personnel.jsp">จัดการข้อมูลบุคลากร</a>
 		                </li> 
 		                <li class="divider"></li>
-		                <li><a href="authen_page.jsp">กำหนดสิทธิ์การใช้งาน</a> 
+		                <li><a href="authen_page2.jsp">กำหนดสิทธิ์การใช้งาน</a> 
 		                </li>
 		              	<li class="divider"></li>
 		                <li><a href="authen.jsp">จัดการสิทธิ์การใช้งาน</a> 
 		                </li>
 		                <li class="divider"></li>
 		                <li><a href="page.jsp">จัดการการเข้าใช้ของแต่ละหน้า</a></li>
+		                <li class="divider"></li>
+		                <li><a href="page-group.jsp">จัดการ page group</a></li>
 		                <li class="divider"></li>
 		                <li><a href="" class="dropdown-toggle">จัดการข้อมูลตำแหน่งงาน</a>
 		                    <ul class="d-menu" data-role="dropdown"> 

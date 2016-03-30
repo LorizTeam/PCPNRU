@@ -22,7 +22,11 @@ public class AuthenPageMasterModel {
 		this.page_code = page_code;
 		this.page_name = page_name;
 	}
-
+	public AuthenPageMasterModel(String page_code, String page_name) {
+		super();
+		this.page_code = page_code;
+		this.page_name = page_name;
+	}
 
 
 	public void reset(){

@@ -2,6 +2,8 @@ package pcpnru.masterModel;
 
 public class PageMasterModel {
 
+	private String pagegroup_code;
+	private String pagegroup_name;
 	private String page_code;
 	private String page_name;
 	
@@ -12,14 +14,18 @@ public class PageMasterModel {
 	public PageMasterModel() {
 		 
 	} 
-	public PageMasterModel(String page_code, String page_name) {
+	public PageMasterModel(String pagegroup_code, String pagegroup_name, String page_code, String page_name) {
 		super();
+		this.pagegroup_code = pagegroup_code;
+		this.pagegroup_name = pagegroup_name;
 		this.page_code = page_code;
 		this.page_name = page_name;
 	}
 
 
 	public void reset(){
+		this.pagegroup_code = "";
+		this.pagegroup_name = "";
 		this.page_code 	= "";
 		this.page_name = "";  
 	}
@@ -72,6 +78,18 @@ public class PageMasterModel {
 
 	public void setDelete(String delete) {
 		this.delete = delete;
+	}
+	public String getPagegroup_code() {
+		return pagegroup_code;
+	}
+	public void setPagegroup_code(String pagegroup_code) {
+		this.pagegroup_code = pagegroup_code;
+	}
+	public String getPagegroup_name() {
+		return pagegroup_name;
+	}
+	public void setPagegroup_name(String pagegroup_name) {
+		this.pagegroup_name = pagegroup_name;
 	}
 
 	
