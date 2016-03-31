@@ -47,5 +47,9 @@
     	<action name="window_viewDetail" class="pcpnru.masterAction.RecordApproveAction" method="window_viewDetail">
       		<result name="viewdetail">/record-approve.jsp</result>
     	</action>
+    	
+    	<action name="po_openwindowsPR" class="pcpnru.masterAction.RecordApproveAction" method="entrancSearch_byPOpage">
+      		<result name="success">/window-pr.jsp</result>
+    	</action>
     </package>
 </struts>

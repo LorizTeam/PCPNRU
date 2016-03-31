@@ -452,6 +452,65 @@ public class RecordApproveDB {
 		return ListPR;
 	}
 	
+	public List<RecordApproveModel> GetListPR_Header(String pr_number, String pr_title, String pr_date, String pr_month,
+			String pr_year, String approve_status) throws IOException, Exception{
+		
+		Validate validate = new Validate();
+		List<RecordApproveModel> ListPR = new ArrayList<RecordApproveModel>();
+		
+		String sqlQuery = "SELECT docno,`year`+543 as year,record_approve_hd,record_approve_t,"
+				+ "CONCAT(substr(record_approve_date from 9 for 2),\"-\",substr(record_approve_date from 6 for 2),\"-\",year(record_approve_date)+543) as record_approve_date,record_approve_title,record_approve_rian,"
+						+ "record_approve_des1,record_approve_des2,record_approve_des3,"
+						+ "record_approve_cen,record_approve_dep,thaidate_report,create_by,"
+						+ "CONCAT(b.name,' ',b.lastname) as create_name,approve_status "
+						+ "FROM `record_approve_hd` a "
+						+ "INNER JOIN employee b on (a.create_by = b.username)"
+
+				+ "where ";
+		
+				if(validate.Check_String_notnull_notempty(pr_number))
+					sqlQuery += "docno = '"+pr_number+"' and ";
+				
+				if(validate.Check_String_notnull_notempty(pr_title))
+					sqlQuery += "record_approve_title like '%"+pr_title+"%' and ";
+				
+				if(validate.Check_String_notnull_notempty(pr_date))
+					sqlQuery += "record_approve_date = '"+pr_date+"' and ";
+				
+				if(validate.Check_String_notnull_notempty(pr_month))
+					sqlQuery += "MONTH(record_approve_date) = '"+pr_month+"' and ";
+				
+				if(validate.Check_String_notnull_notempty(pr_year))
+					sqlQuery += "YEAR(record_approve_date) = '"+pr_year+"' and ";
+				
+				if(validate.Check_String_notnull_notempty(approve_status))
+					sqlQuery += "approve_status = '"+approve_status+"' and ";
+				
+				
+				sqlQuery += "docno != ''";
+		
+		conn = agent.getConnectMYSql();
+		pStmt = conn.createStatement();
+		rs = pStmt.executeQuery(sqlQuery);
+		
+		String forwhat = "prhd";
+		
+		while(rs.next()){
+			ListPR.add(new RecordApproveModel(forwhat, rs.getString("docno"), rs.getString("record_approve_title"), rs.getString("record_approve_cen")
+					, rs.getString("create_by"), rs.getString("year"), rs.getString("record_approve_date"), rs.getString("create_name"),
+					rs.getString("approve_status")));
+		}
+		
+		if(!rs.isClosed())
+			rs.close();
+		if(pStmt.isClosed())
+			pStmt.close();
+		if(!conn.isClosed())
+			conn.close();
+		
+		return ListPR;
+	}
+	
 	public Map GetAllValueHeader_byDocno(String docno,String year) throws IOException, Exception{
 		Map mapresultGet = new HashMap();
 		

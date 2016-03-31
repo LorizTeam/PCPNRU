@@ -213,7 +213,7 @@ String project_code = "";
 	</form>
 <script type="text/javascript">
 function getpr() {
-	var load = window.open('/pcpnru/windowsPR.action','pr',
+	var load = window.open('/pcpnru/po_openwindowsPR','pr',
 	             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
 }
 

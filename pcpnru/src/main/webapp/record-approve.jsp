@@ -83,13 +83,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<s:if test="%{#fromwindow=='true'}">
 						<a class="button success" id="back" href="windowsPR"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
 						</s:if>
+						<s:elseif test="%{#fromwindow=='po'}">
+						<a class="button success" id="back" href="po_openwindowsPR"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
+						</s:elseif>
 	         	 	</div>
 	         	 	<div class="cell align-center colspan3">
 	         	 	</div>
 		 			<div class="cell align-left colspan5"><h3>บันทึกข้อความ </h3></div>
 		 			<div class="cell align-left colspan2"><br>
 
-						<s:if test="%{#fromwindow!='true' && #fromwindow!='view' }">
+						<s:if test="%{#fromwindow!='true' && #fromwindow!='view'  && #fromwindow!='po'}">
 						<a class="button success next" id="next" href="createrecordApprove"><span class="mif-lg fg-white">ทำรายการใหม่</span></a>
 						</s:if>
 					</div>
@@ -348,10 +351,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	</div>
 			 	<div class="row cells12"> 
 	         	 	<div class="cell align-center colspan2">
-
 						<s:if test="%{#fromwindow=='true'}">
-						<a class="button success" id="back" href="windowsPR"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
+							<a class="button success" id="back" href="windowsPR"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
 						</s:if>
+						<s:elseif test="%{#fromwindow=='po'}">
+							<a class="button success" id="back" href="po_openwindowsPR"><span class="mif-lg fg-white">ย้อนกลับ</span></a>
+						</s:elseif>
 	         	 	</div>
 	         	 	<div class="cell align-center colspan3">
 	         	 	</div>  
@@ -366,7 +371,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="cell align-right colspan2"><br>
 
-						<s:if test="%{#fromwindow!='true' && #fromwindow!='view' }">
+						<s:if test="%{#fromwindow!='true' && #fromwindow!='view' && #fromwindow!='po'}">
 						<a class="button success next" id="next" href="createrecordApprove"><span class="mif-lg fg-white">ทำรายการใหม่</span></a>
 						</s:if>
 					</div>

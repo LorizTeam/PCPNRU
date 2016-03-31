@@ -247,6 +247,19 @@ public class RecordApproveAction extends ActionSupport {
 		DateUtil dateutil = new DateUtil();
 		
 		request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header("", "", "",dateutil.curMonth(), dateutil.curYear()));
+		recordApproveModel = new RecordApproveModel();
+		recordApproveModel.setFromwindow("true");
+		
+		return SUCCESS;
+	}
+	
+public String entrancSearch_byPOpage() throws IOException, Exception{
+		
+		HttpServletRequest request = ServletActionContext.getRequest(); 
+		
+		request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header("", "", "","", "","WA"));
+		recordApproveModel = new RecordApproveModel();
+		recordApproveModel.setFromwindow("po");
 		
 		return SUCCESS;
 	}
@@ -264,22 +277,45 @@ public class RecordApproveAction extends ActionSupport {
 			forwardText = "create";
 		}else if(search != null){//Check Submit By button
 			
-			boolean passvalidate = true;
-			Validate validate = new Validate();
 			
-			if(!validate.CheckRegexNumberOnly(recordApproveModel.getDocno())){
-				passvalidate = false;
-			}
-			String year = recordApproveModel.getYear();
-			if(!year.equals("")){
-				year = String.valueOf(Integer.parseInt(year)-543);
-			}
 			
-			if(passvalidate){
-				request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header(recordApproveModel.getDocno(), recordApproveModel.getRecord_approve_title()
-						, new DateUtil().CnvToYYYYMMDDEngYear(recordApproveModel.getRecord_approve_date(),'-'), recordApproveModel.getRecord_approve_month()
-						, year));
-			}
+				boolean passvalidate = true;
+				Validate validate = new Validate();
+				
+				if(!validate.CheckRegexNumberOnly(recordApproveModel.getDocno())){
+					passvalidate = false;
+				}
+				String year = recordApproveModel.getYear();
+				if(!year.equals("")){
+					year = String.valueOf(Integer.parseInt(year)-543);
+				}
+				
+				if(passvalidate){
+					
+					if(recordApproveModel.getFromwindow().equals("po")){
+						
+						request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header(recordApproveModel.getDocno(), recordApproveModel.getRecord_approve_title()
+								, new DateUtil().CnvToYYYYMMDDEngYear(recordApproveModel.getRecord_approve_date(),'-'), recordApproveModel.getRecord_approve_month()
+								, year,"WA"));
+						
+				        List ResultImageList = new RecordApproveDB().GET_PurchaseRequest_Image(recordApproveModel.getDocno(), year, "");
+						request.setAttribute("ResultImageList", ResultImageList);
+						
+					}else{
+						
+						request.setAttribute("ListResultPRSearch", new RecordApproveDB().GetListPR_Header(recordApproveModel.getDocno(), recordApproveModel.getRecord_approve_title()
+								, new DateUtil().CnvToYYYYMMDDEngYear(recordApproveModel.getRecord_approve_date(),'-'), recordApproveModel.getRecord_approve_month()
+								, year));
+						
+						List ResultImageList = new RecordApproveDB().GET_PurchaseRequest_Image(recordApproveModel.getDocno(), year, "");
+						request.setAttribute("ResultImageList", ResultImageList);
+						
+					}
+					
+				}
+				
+			
+			
 			
 		}else if(viewdetail != null){
 			RecordApproveDB ra = new RecordApproveDB();

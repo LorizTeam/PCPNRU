@@ -95,16 +95,17 @@
 				<div class="cell colspan5"></div>		
 		 	</div>
 		</div>
-		<s:hidden name="recordApproveModel.fromwindow" id="fromwindow" value="true"/>
+		<s:hidden name="recordApproveModel.fromwindow" id="fromwindow"/>
 	</div>
 	<div class="example" data-text="รายการ PR">
 		<div class="grid">
 			<div class="row cells12">
 				<div class="cell colspan12">
-					<table class="table striped hovered cell-hovered border bordered">
+					<table id="dataTable" class="cell-border hover display compact nowrap" cellspacing="0" width="100%">
 						<thead>
 							<tr>
-								<th> </th>
+								<th>เลือกรายการ</th>
+								<th>สถานะ</th>
 								<th>รหัส PR</th>
 								<th>เรื่อง</th>
 								<th>ผู้อนุมัติ</th>
@@ -124,6 +125,23 @@
 							%>
 										<tr>
 											<td align="center"><a onclick="Opener('<%=RAM.getDocno() %>')"><span class="mif-checkmark" ></span></a></td>
+											<td align="center">
+											<%
+												if(RAM.getApprove_status().equals("CC")){
+											%>
+												ยกเลิก
+											<%
+												}else if(RAM.getApprove_status().equals("WA")){
+											%>
+												รอการอนุมัติ
+											<%		
+												}else if(RAM.getApprove_status().equals("AP")){
+											%>
+												อนุมัติแล้ว
+											<%		
+												}
+											%>
+											</td>
 											<td><%=RAM.getDocno() %></td>
 											<td><%=RAM.getRecord_approve_title() %></td>
 											<td><%=RAM.getRecord_approve_cen() %></td>
@@ -151,6 +169,13 @@
 </form>
 <script>
 $(function(){
+	$("#dataTable").DataTable( { 
+      	scrollY: '50vh', 
+      	scrollX: true,
+      	scrollCollapse: true, 
+        ordering: false,
+        "lengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"] ] 
+    } );
 	$("#record_approve_date").datepicker({
 		format: "dd-mm-yyyy",todayBtn: "linked",todayHighlight: true,clearBtn: true
     });
@@ -159,7 +184,7 @@ $(function(){
 	    minViewMode: 1,
 	    maxViewMode: 1,clearBtn: true
     });
-	$("#record_approve_year").datepicker({
+	$("#year").datepicker({
 	    format: "yyyy",
 	    minViewMode: 2,
 	    maxViewMode: 2,clearBtn: true
