@@ -160,12 +160,12 @@
 	        						<label class="input-control small-check checkbox"> 
 			                			<input type="checkbox" name="archk" value="<%=y++%>" data-show="indeterminate" />
 			                		<span class="check"></span> 
-			                        </label>
+			                        </label> 
 						    		<select name="approveStatus" >
 							        	<option <% if(anInfo.getApprove_status().equals("AP")){%> selected <%} %> value="AP">อนุมัติ</option>
 							        	<option  <%if (anInfo.getApprove_status().equals("WA")){%> selected <%} %> value="WA">รอการอนุมัติ</option>
-							        	<option value="CC">ยกเลิกรายการ</option>
-						    	 	</select> 
+							        	<option value="CC">ยกเลิกรายการ</option> 
+							        </select>  
 							    <%
 							    }	 
 							  %>  
@@ -180,7 +180,7 @@
 	                    '<%=anInfo.getYear()%>','<%=anInfo.getGcostcode()%>');"> <span class="mif-search"></span></button></td>
                 	</tr>
         		<%		
-        		y++;
+        		 
         			}
         			
         		}else{

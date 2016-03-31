@@ -118,16 +118,10 @@
 			                			<input type="checkbox" name="archk" value="<%=y%>" data-show="indeterminate" />
 			                		<span class="check"></span> 
 			                        </label>
-						    		<select name="approveStatus" >
-						    	 <% if(anInfo.getApprove_status().equals("AP")){%>
-							        	<option selected value="AP">อนุมัติ</option>
-							        	<option value="WA">รอการอนุมัติ</option>
-							        	<option value="CC">ยกเลิกรายการ</option>
-						         <%} else if (anInfo.getApprove_status().equals("WA")){%>
-						        		<option value="AP">อนุมัติ</option>
-							        	<option selected value="WA">รอการอนุมัติ</option>
+						    		<select name="approveStatus" > 
+							        	<option <% if(anInfo.getApprove_status().equals("AP")){%> selected <%} %> value="AP">อนุมัติ</option>
+							        	<option <% if(anInfo.getApprove_status().equals("WA")){%> selected <%} %> value="WA">รอการอนุมัติ</option>
 							        	<option value="CC">ยกเลิกรายการ</option> 
-						        <% } %> 
 						    	 	</select> 
 							    <%
 							    }	 
