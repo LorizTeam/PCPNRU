@@ -140,7 +140,7 @@
                 <%
                 List RockingBudgetDList = (List) request.getAttribute("RockingBudgetDList");
                  
-        		int x = 1, y=0;
+        		int y=0;
         		if(RockingBudgetDList != null){
         			
         			Iterator amIterate = RockingBudgetDList.iterator();
@@ -152,25 +152,19 @@
 	        				 
 	        				<% if(anInfo.getApprove_status().equals("CC")){%>
 	        						<label class="input-control small-check checkbox"> 
-			                			<input type="checkbox" name="archk" value="<%=y%>" data-show="indeterminate" disabled />
+			                			<input type="checkbox" name="archk" value="<%=y++%>" data-show="indeterminate" disabled />
 			                		<span class="check"></span> 
 			                        </label>
 		        					<input type="hidden" name="approveStatus" value="CC" /><input type="text" value=" ยกเลิกรายการ" size="8" readonly="readonly" />
 	        				<% }else{ %>
 	        						<label class="input-control small-check checkbox"> 
-			                			<input type="checkbox" name="archk" value="<%=y%>" data-show="indeterminate" />
+			                			<input type="checkbox" name="archk" value="<%=y++%>" data-show="indeterminate" />
 			                		<span class="check"></span> 
 			                        </label>
 						    		<select name="approveStatus" >
-						    	 <% if(anInfo.getApprove_status().equals("AP")){%>
-							        	<option selected value="AP">อนุมัติ</option>
-							        	<option value="WA">รอการอนุมัติ</option>
+							        	<option <% if(anInfo.getApprove_status().equals("AP")){%> selected <%} %> value="AP">อนุมัติ</option>
+							        	<option  <%if (anInfo.getApprove_status().equals("WA")){%> selected <%} %> value="WA">รอการอนุมัติ</option>
 							        	<option value="CC">ยกเลิกรายการ</option>
-						         <%} else if (anInfo.getApprove_status().equals("WA")){%>
-						        		<option value="AP">อนุมัติ</option>
-							        	<option selected value="WA">รอการอนุมัติ</option>
-							        	<option value="CC">ยกเลิกรายการ</option> 
-						        <% } %> 
 						    	 	</select> 
 							    <%
 							    }	 
@@ -186,7 +180,7 @@
 	                    '<%=anInfo.getYear()%>','<%=anInfo.getGcostcode()%>');"> <span class="mif-search"></span></button></td>
                 	</tr>
         		<%		
-        		x++;y++;
+        		y++;
         			}
         			
         		}else{
