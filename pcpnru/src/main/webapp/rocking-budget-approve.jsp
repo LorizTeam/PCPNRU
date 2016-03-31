@@ -158,10 +158,10 @@
 		        					<input type="hidden" name="approveStatus" value="CC" /><input type="text" value=" ยกเลิกรายการ" size="8" readonly="readonly" />
 	        				<% }else{ %>
 	        						<label class="input-control small-check checkbox"> 
-			                			<input type="checkbox" name="archk" value="<%=y++%>" data-show="indeterminate" />
+			                			<input type="checkbox" name="archk" id="archk" value="<%=y++%>" data-show="indeterminate" />
 			                		<span class="check"></span> 
 			                        </label> 
-						    		<select name="approveStatus" >
+						    		<select name="approveStatus" id="approvestatus" >
 							        	<option <% if(anInfo.getApprove_status().equals("AP")){%> selected <%} %> value="AP">อนุมัติ</option>
 							        	<option  <%if (anInfo.getApprove_status().equals("WA")){%> selected <%} %> value="WA">รอการอนุมัติ</option>
 							        	<option value="CC">ยกเลิกรายการ</option> 
@@ -203,6 +203,7 @@
 		}
    		
         $(function(){
+        	 
         	$("#gcostcode").change(function () {
         		
         		$("#rbaAction").submit();
@@ -220,13 +221,13 @@
        		});
 			
         	var table = $('#table_authen').DataTable( { 
-              	scrollY: '50vh', 
+              	scrollY: '60vh', 
               	scrollX: true,
               	scrollCollapse: true, 
                 ordering: false,
-                "lengthMenu": [[14, 25, 50, 100, -1], [14, 25, 50, 100, "All"]] 
+                "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]] 
             } );
-        	
+        	 
             
         });
     	</script>

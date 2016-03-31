@@ -71,8 +71,8 @@ public class RockingBudgetApproveAction extends ActionSupport{
 				j = Integer.parseInt(archk[i]);
 				rbga.UpdateStatusRockingBudget(arDocno[j], project_code, year, arGcostCode[j], approveStatus[j]);
 			}
-		}	 
-		} 
+		  } 
+		}
 		
 		extendsprojectmaster ext = new extendsprojectmaster();
 		List projectMasterList = ext.getListProject_Join_Projecthead("", "","","");
