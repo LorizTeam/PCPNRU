@@ -355,4 +355,42 @@ public class RecordApproveAction extends ActionSupport {
 		
 		return SUCCESS;
 	}
+	
+	public String window_viewDetail() throws IOException, Exception{
+		HttpServletRequest request = ServletActionContext.getRequest();
+		RecordApproveDB ra = new RecordApproveDB();
+		String year = request.getParameter("year");
+		if(new Validate().Check_String_notnull_notempty(year)){
+			year = String.valueOf(Integer.parseInt(year)-543);
+		}
+		Map MapResultValue = ra.GetAllValueHeader_byDocno(request.getParameter("docno"),year);
+		
+		String fromwindow = "view";
+		
+		recordApproveModel = new RecordApproveModel();
+		recordApproveModel.setDocno(MapResultValue.get("docno").toString());
+		recordApproveModel.setYear(year);
+		recordApproveModel.setRecord_approve_hd(MapResultValue.get("record_approve_hd").toString());
+		recordApproveModel.setRecord_approve_t(MapResultValue.get("record_approve_t").toString());
+		recordApproveModel.setRecord_approve_date(MapResultValue.get("record_approve_date").toString());
+		recordApproveModel.setRecord_approve_title(MapResultValue.get("record_approve_title").toString());
+		recordApproveModel.setRecord_approve_rian(MapResultValue.get("record_approve_rian").toString());
+		recordApproveModel.setRecord_approve_des1(MapResultValue.get("record_approve_des1").toString());
+		recordApproveModel.setRecord_approve_des2(MapResultValue.get("record_approve_des2").toString());
+		recordApproveModel.setRecord_approve_des3(MapResultValue.get("record_approve_des3").toString());
+		recordApproveModel.setRecord_approve_cen(MapResultValue.get("record_approve_cen").toString());
+		recordApproveModel.setRecord_approve_dep(MapResultValue.get("record_approve_dep").toString());
+		recordApproveModel.setCreate_by(MapResultValue.get("create_by").toString());
+		recordApproveModel.setVendor_id(MapResultValue.get("vendor_id").toString());
+		recordApproveModel.setTotal_amount((Double) MapResultValue.get("total_amount"));
+		recordApproveModel.setVendor_name(MapResultValue.get("vendor_name").toString());
+		recordApproveModel.setApprove_status(MapResultValue.get("approve_status").toString());
+		recordApproveModel.setFromwindow(fromwindow);
+		List ListRecordApproveDT =  ra.ListRecordApproveDT(recordApproveModel.getDocno(),"", year);
+		request.setAttribute("ListRecordApproveDT", ListRecordApproveDT);
+		
+		List ResultImageList = ra.GET_PurchaseRequest_Image(recordApproveModel.getDocno(), year, "");
+		request.setAttribute("ResultImageList", ResultImageList);
+		return "viewdetail";
+	}
 }

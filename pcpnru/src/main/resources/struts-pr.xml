@@ -12,7 +12,6 @@
 		    <result name="nologin">/login.jsp</result>
 		</global-results>
 		
-		<!-- ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss -->
 		<action name="createrecordApprove" class="pcpnru.masterAction.RecordApproveAction" method="create">
       		<result name="success">/record-approve.jsp</result>
     	</action>
@@ -45,5 +44,8 @@
       		<result name="success">/pr-approve.jsp</result>
     	</action>
     	
+    	<action name="window_viewDetail" class="pcpnru.masterAction.RecordApproveAction" method="window_viewDetail">
+      		<result name="viewdetail">/record-approve.jsp</result>
+    	</action>
     </package>
 </struts>
