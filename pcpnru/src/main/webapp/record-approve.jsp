@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<body>
 		<s:set name="fromwindow" value="recordApproveModel.fromwindow"/>
 		<s:set name="approve_status" value="recordApproveModel.approve_status"/>
-		<s:if test="%{#fromwindow=='true'}">
+		<s:if test="%{#fromwindow=='true' || #fromwindow=='view'}">
 			<div><%@include file="window-topmenu.jsp" %></div>
 		</s:if>
 		<s:else>
@@ -89,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 			<div class="cell align-left colspan5"><h3>บันทึกข้อความ </h3></div>
 		 			<div class="cell align-left colspan2"><br>
 
-						<s:if test="%{#fromwindow!='true'}">
+						<s:if test="%{#fromwindow!='true' && #fromwindow!='view' }">
 						<a class="button success next" id="next" href="createrecordApprove"><span class="mif-lg fg-white">ทำรายการใหม่</span></a>
 						</s:if>
 					</div>
@@ -366,7 +366,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<div class="cell align-right colspan2"><br>
 
-						<s:if test="%{#fromwindow!='true'}">
+						<s:if test="%{#fromwindow!='true' && #fromwindow!='view' }">
 						<a class="button success next" id="next" href="createrecordApprove"><span class="mif-lg fg-white">ทำรายการใหม่</span></a>
 						</s:if>
 					</div>

@@ -44,7 +44,7 @@
 <body>
 <div><%@include file="window-topmenu.jsp" %></div>
 <h3 class="align-center">รายการใบ PR</h3>
-<form action="searchPR.action" method="post">
+<form action="searchPR" method="post">
 	<div class="example" data-text="กรองข้อมูลที่ต้องการ"> 
 	
          <div class="grid">

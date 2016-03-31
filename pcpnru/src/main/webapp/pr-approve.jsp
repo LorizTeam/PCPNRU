@@ -120,11 +120,13 @@
 						                			<input type="checkbox" name="chkrow" value="<%=i++ %>" data-show="indeterminate" />
 						                		<span class="check"></span> 
 						                        </label>
+						                        
 						                        <select name="approveStatus" >
 							                        <option <%if(RAM.getApprove_status().equals("AP")){ %>selected <%} %> value="AP">อนุมัติ</option>
 										        	<option <%if(RAM.getApprove_status().equals("WA")){ %>selected <%} %> value="WA">รอการอนุมัติ</option>
 										        	<option value="CC">ยกเลิกรายการ</option>
 									        	</select>
+									        	
 											<%	
 												
 												}
@@ -139,7 +141,7 @@
 											<td><%=RAM.getCreate_name() %></td>
 											<td><%=RAM.getYear() %></td>
 											<td><%=RAM.getRecord_approve_date() %></td>
-											<td><button class="button primary" type="submit" name="viewdetail" onclick="viewDetail('<%=RAM.getDocno() %>','<%=RAM.getYear() %>')"> <span class="mif-search"></span></button></td>
+											<td><button class="button primary" type="button" onclick="getDetail('<%=RAM.getDocno() %>','<%=RAM.getYear() %>')" id="viewDetail"> <span class="mif-search"></span></button></td>
 										</tr>
 							<%
 									}
@@ -157,6 +159,10 @@
 			</div>	
 		</form>
 		<script>
+		function getDetail(docno,year) {
+   			var load = window.open('/pcpnru/window_viewDetail?docno='+docno+'&year='+year,'pr',
+   			             'scrollbars=yes,menubar=no,height=700,width=1280,resizable=yes,toolbar=no,location=yes,status=no');
+   		}
 		$(function(){
 			var table = $("#pr_table").DataTable( { 
               	scrollY: '50vh', 
@@ -165,6 +171,9 @@
                 ordering: false,
                 "lengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"] ] 
             } );
+			$("#checkAll").change(function () {
+       		    $("input:checkbox").prop('checked', $(this).prop("checked"));
+       		});
 			$("#record_approve_date").datepicker({
 				format: "dd-mm-yyyy",todayBtn: "linked",todayHighlight: true,clearBtn: true
 		    });
@@ -181,10 +190,7 @@
 			
 		
 		});
-		function viewDetail(docno,year){
-			document.getElementById("docno").value=docno;
-			document.getElementById("year").value=year;
-		}
+		
 		</script>
 	</body>
 </html>
