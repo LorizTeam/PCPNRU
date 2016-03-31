@@ -108,7 +108,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    	<div class="cell colspan1"> 
 			    		<h4>
 			    		<small class="input-control full-size"> 
-						    <input id="day" name="rockingBudgetForm.docdate" ng-model="day" required/>
+						    <input type="text" id="day" name="rockingBudgetForm.docdate" ng-model="day" required/>
+						    <span class="input-state-success mif-checkmark"></span>
 						</small>
 						</h4>
 			    	</div>
@@ -130,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="flex-grid" >
 			  	<div class="row flex-just-left">
 			        <div class="cell colspan1"> 
-			       		<h4 align="right">ค่าใช้จ่าย&nbsp;</h4> 	  
+			       		<h4 align="right">รับงบ&nbsp;</h4> 	  
 			    	</div> 
 			    	<div class="cell colspan6">
 			    		<h4><small class="input-control full-size">
@@ -164,15 +165,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    		<h4><small class="input-control full-size"> 
 			       			<s:textfield dir="rtl" id="frombalance" name="rockingBudgetForm.frombalance" value="{{ frombalance | currency:'฿' }}" />
 			       		</small></h4>
-			    	</div> 
-			    	<div class="cell colspan1"> 
-			       		<h4 align="right">คงเหลือ ยกไป</h4> 	  
-			    	</div> 
-			    	<div class="cell colspan1"> 
-			    		<h4><small class="input-control full-size">
-			       			<input dir="rtl" type="text" id="tobalance" name="tobalance" value="{{ tobalance | currency:'฿' }}" readonly="readonly"> 
-			       		</small></h4>
-			    	</div> 
+			    	</div>  
 				</div>
 			</div>   
 		
@@ -183,7 +176,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="flex-grid">
 			  	<div class="row flex-just-left">
 			        <div class="cell colspan1"> 
-			       		<h4 align="right">ค่าใช้จ่าย&nbsp;</h4> 	  
+			       		<h4 align="right">จัดสรรงบ&nbsp;</h4> 	  
 			    	</div> 
 			    	<div class="cell colspan6">
 			    		<h4><small class="input-control full-size">
@@ -220,15 +213,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			    		<h4><small class="input-control full-size"> 
 			       			<s:textfield dir="rtl" id="frombalance_rock" name="rockingBudgetForm.frombalance_rock" value="{{ frombalance_rock | currency:'฿' }}" />
 			       		</small></h4>
-			    	</div> 
-			    	<div class="cell colspan1"> 
-			       		<h4 align="right">คงเหลือ ยกไป</h4> 	  
-			    	</div> 
-			    	<div class="cell colspan1"> 
-			    		<h4><small class="input-control full-size">
-			       			<input dir="rtl" type="text" id="tobalance" name="tobalance" value="{{ tobalance | currency:'฿' }}" readonly="readonly"> 
-			       		</small></h4>
-			    	</div> 
+			    	</div>
 				</div>
 				
 				<div class="row flex-just-left">
@@ -401,8 +386,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	}); 
 			
 			$("#day").datepicker({
-			    format: "dd/mm/yyyy",
-		        todayBtn: true,
+			    format: "dd-mm-yyyy",
+			    todayBtn: "linked",
 		        clearBtn: true,
 		        autoclose: true,
 		        todayHighlight: true

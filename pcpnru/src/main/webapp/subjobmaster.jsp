@@ -50,7 +50,7 @@
 	<body>
 		 <div><%@include file="topmenu.jsp" %></div>
 		 <h3 class="align-center">สร้างชื่อกิจกรรม</h3>
-		 <form action="subjobMaster.action" method="post">
+		 <form action="subjobMaster" method="post">
 		 <div class="example" data-text="รายละเอียด">
          <div class="grid">
 		  	<div class="row cells12">
