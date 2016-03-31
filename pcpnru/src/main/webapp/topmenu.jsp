@@ -77,7 +77,7 @@
 			                        <li class="divider"></li>
 			                        <li><a href="createRockingBudget">โยกงบประมาณ</a></li>
 			                        <li class="divider"></li>
-			                        <li><a href="createCentralBudget">งบกลาง</a></li>
+			                        <li><a href="createCentralBudget">โยกงบกลาง</a></li>
 			                        <li class="divider"></li>
 			                        <li><a href="manage-approve-requisition.jsp">จัดการ ผู้มีอำนาจการอนุมัติ</a></li> 
 			                 </ul>
@@ -117,7 +117,7 @@
 		                <li><a href="personnel.jsp">จัดการข้อมูลบุคลากร</a>
 		                </li> 
 		                <li class="divider"></li>
-		                <li><a href="authen_page2.jsp">กำหนดสิทธิ์การใช้งาน</a> 
+		                <li><a href="authen_page.jsp">กำหนดสิทธิ์การใช้งาน</a> 
 		                </li>
 		              	<li class="divider"></li>
 		                <li><a href="authen.jsp">จัดการสิทธิ์การใช้งาน</a> 
