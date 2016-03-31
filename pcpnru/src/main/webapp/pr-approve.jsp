@@ -109,7 +109,7 @@
 												if(RAM.getApprove_status().equals("CC")){
 											%>
 												<label class="input-control small-check checkbox"> 
-						                			<input type="checkbox" name="chkrow" value="<%=i++ %>" data-show="indeterminate" disabled />
+						                			<input type="checkbox" class="chkrow" name="chkrow" value="<%=i++ %>" data-show="indeterminate" disabled />
 						                		<span class="check"></span> 
 						                        </label>
 						                        <input type="hidden" name="approveStatus" value="CC" /><input type="text" value=" ยกเลิกรายการ" size="8" readonly="readonly" />
@@ -117,11 +117,11 @@
 												}else{
 											%>
 												<label class="input-control small-check checkbox"> 
-						                			<input type="checkbox" name="chkrow" value="<%=i++ %>" data-show="indeterminate" />
+						                			<input type="checkbox" class="chkrow" name="chkrow" value="<%=RAM.getDocno() %>-<%=RAM.getYear() %>" data-show="indeterminate" />
 						                		<span class="check"></span> 
 						                        </label>
 						                        
-						                        <select name="approveStatus" >
+						                        <select name="approveStatus" id="approveStatus" class="approveStatus">
 							                        <option <%if(RAM.getApprove_status().equals("AP")){ %>selected <%} %> value="AP">อนุมัติ</option>
 										        	<option <%if(RAM.getApprove_status().equals("WA")){ %>selected <%} %> value="WA">รอการอนุมัติ</option>
 										        	<option value="CC">ยกเลิกรายการ</option>
@@ -132,8 +132,6 @@
 												}
 											%>
 												
-						                        <input type="hidden" name="approve_docno" value="<%=RAM.getDocno() %>" />
-						                        <input type="hidden" name="approve_year" value="<%=RAM.getYear() %>" />
 											</td>
 											<td><%=RAM.getDocno() %>  </td>
 											<td><%=RAM.getRecord_approve_title() %></td>
@@ -171,6 +169,8 @@
                 ordering: false,
                 "lengthMenu": [[10, 25, 50, 100, -1],[10, 25, 50, 100, "All"] ] 
             } );
+			
+			
 			$("#checkAll").change(function () {
        		    $("input:checkbox").prop('checked', $(this).prop("checked"));
        		});
@@ -187,7 +187,24 @@
 			    minViewMode: 2,
 			    maxViewMode: 2,clearBtn: true
 		    });
-			
+			$('#pr_table tbody').on( 'click', 'tr', function () { 
+    	        //if ( $(this).hasClass('selected') ) {
+    	        	var $index = $(this).index();
+    	        	var data_chkrow = $(".chkrow").eq($index).val().substr(0,10);
+    	        	$(".chkrow").eq($index).val(data_chkrow+"-"+$index);
+    	        	//    $(this).removeClass('selected');
+    	        //   var data_chkrow = $(".chkrow").eq($index).val();
+    	        //   $(".chkrow").eq($index).val(data_chkrow+"-"+$(".approveStatus").eq($index).val());
+    	        //   alert($(".chkrow").eq($index).val() );
+    	           // alert($("input[type='checkbox']").eq($index).val());
+    	            
+    	        //}
+    	       // else {
+    	       // 	table.$('tr.selected').removeClass('selected');
+    	       //     $(this).addClass('selected');
+    	       //     var $index = $(this).index();
+    	       // }
+    	    });
 		
 		});
 		

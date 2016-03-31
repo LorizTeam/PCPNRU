@@ -117,7 +117,7 @@ public class RecordApproveAction extends ActionSupport {
 		            ra.Add_PurchaseRequest_Image(docno,year,pathimg_todb);
 		            
 	            }
-	            
+	            recordApproveModel.setApprove_status("CA");
 				recordApproveModel.setImg_path(pathimg_todb);
 		 		recordApproveModel.reset_ListItem();
 		 		recordApproveModel.reset_alert();
@@ -374,12 +374,14 @@ public String entrancSearch_byPOpage() throws IOException, Exception{
 			
 			if(request.getParameterValues("chkrow") != null){
 				String[] chkrow = request.getParameterValues("chkrow");
-				String[] docno = request.getParameterValues("approve_docno");
-				String[] year = request.getParameterValues("approve_year");
 				String[] approveStatus = request.getParameterValues("approveStatus");
 				
 				for(String data_row:chkrow){
-					new RecordApproveDB().approve_pr(docno[Integer.parseInt(data_row)], String.valueOf(Integer.parseInt(year[Integer.parseInt(data_row)])-543) , approveStatus[Integer.parseInt(data_row)]);
+					String[] split_value = data_row.split("-");
+					String docno = split_value[0];
+					String year = split_value[1];
+					int array = Integer.parseInt(split_value[2]) ;
+					new RecordApproveDB().approve_pr(docno, year , approveStatus[array]);
 				}
 				
 			}
