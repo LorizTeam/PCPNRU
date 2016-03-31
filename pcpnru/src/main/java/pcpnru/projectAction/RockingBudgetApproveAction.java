@@ -59,17 +59,20 @@ public class RockingBudgetApproveAction extends ActionSupport{
 		
 		List RockingBudgetDList = rbga.GetRockingBudgetDList("", project_code, dateUtil.curTHYear(), gcostcode); 
 		
-		if(save!=null){
+		if(save!=null){ 
 			
-			if(request.getParameterValues("archk")!=null){
-			String[] archk = request.getParameterValues("archk");
-			String[] arDocno = request.getParameterValues("arDocno");
-			String[] arGcostCode = request.getParameterValues("arGcostcode"); 
-			String[] approveStatus = request.getParameterValues("approveStatus");
-			
-			for(int i=0,j=0; i<archk.length; i++){
-				j = Integer.parseInt(archk[i]);
-				rbga.UpdateStatusRockingBudget(arDocno[j], project_code, year, arGcostCode[j], approveStatus[j]);
+			if(request.getParameterValues("archk") != null){
+				String[] archk = request.getParameterValues("archk");
+				String[] approveStatus = request.getParameterValues("approveStatus");
+				
+				for(String data_row:archk){
+					String[] split_value = data_row.split("-");
+					String arDocno = split_value[0];
+					String arGcostCode = split_value[1];
+					 
+					int array = Integer.parseInt(split_value[2]) ;
+					 
+				rbga.UpdateStatusRockingBudget(arDocno, project_code, year, arGcostCode, approveStatus[array]);
 			}
 		  } 
 		}
