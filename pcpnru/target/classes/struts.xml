@@ -183,6 +183,7 @@
     	
     	<action name="rockingBudgetApprove" class="pcpnru.projectAction.RockingBudgetApproveAction" method="execute">
       		<result name="success">/rocking-budget-approve.jsp</result>
+      		<result name="authen">/no-authen.jsp</result>
     	</action> 
     	
     	<action name="windowRockingBudgetApprove" class="pcpnru.projectAction.WindowRockingBudgetApproveAction" method="execute">
