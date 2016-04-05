@@ -12,6 +12,12 @@ public class PurchaseOrderModel extends RecordApproveModel {
 	private double penaltype_perday;
 	private int credit_day;
 	
+	private double mulct_day;
+	private String vender;
+	
+	private String quotation_number;
+	private String quotation_date;
+	
 	public PurchaseOrderModel(){}
 	public String getProject_code() {
 		return project_code;
@@ -91,5 +97,29 @@ public class PurchaseOrderModel extends RecordApproveModel {
 	}
 	public void setCredit_day(int credit_day) {
 		this.credit_day = credit_day;
+	}
+	public String getVender() {
+		return vender;
+	}
+	public void setVender(String vender) {
+		this.vender = vender;
+	} 
+	public String getQuotation_number() {
+		return quotation_number;
+	}
+	public void setQuotation_number(String quotation_number) {
+		this.quotation_number = quotation_number;
+	}
+	public String getQuotation_date() {
+		return quotation_date;
+	}
+	public void setQuotation_date(String quotation_date) {
+		this.quotation_date = quotation_date;
+	}
+	public double getMulct_day() {
+		return mulct_day;
+	}
+	public void setMulct_day(double mulct_day) {
+		this.mulct_day = mulct_day;
 	}
 }

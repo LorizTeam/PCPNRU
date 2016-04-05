@@ -45,7 +45,7 @@ String project_code = "";
 <body>
 	<div><%@include file="topmenu.jsp" %></div>
 	<h3 class="align-center">ทำรายการสั่งซื้อ/สั่งจ้าง</h3>
-	<form action="">
+	<form action="poche" method="post" >
 		<div class="example" data-text="ข้อมูลใบ PR"> 
 	         <div class="grid">
 	         	<div class="row cells12">
@@ -57,7 +57,7 @@ String project_code = "";
 						    <div class="button-group">
 						    <button class="button primary" type="button" onclick="getpr()"> <span class="mif-search"></span></button>
 							<button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
-				 	 		<button class="button success" type="submit" name="pull_detailpr"><span class="mif-download"></span></button>
+				 	 		<button class="button success" type="button" id="pull_detailpr" name="pull_detailpr"><span class="mif-download"></span></button>
 				 	 		</div>
 						</div>
 					</div>
@@ -123,15 +123,15 @@ String project_code = "";
 					<div class="cell colspan3 "> 
 			        	รหัส PO
 				        <div class="input-control text full-size"  data-role="input">
-				        	<s:property value="pomodel.po_number" />
-				        	<s:hidden name="pomodel.po_number" id="po_number"/>
+				        	<s:property value="pomodel.po_docno" />
+				        	<s:hidden name="pomodel.po_docno" id="po_docno"/>
 				        	<s:hidden name="pomodel.project_code" id="project_code"/>
 						</div>
 					</div>
 					<div class="cell colspan3"> 
 						วันที่ทำรายการ PO
 						<div class="input-control text full-size">
-						    <s:textfield name="pomodel.pocreate_date" id="pocreate_date" required=""/>
+						    <s:textfield name="pomodel.po_docdate" id="po_docdate" required=""/>
 						</div>
 					</div>
 					<div class="cell colspan3"> </div>
@@ -140,13 +140,18 @@ String project_code = "";
 	         		<div class="cell colspan3"> </div> 
 	         		<div class="cell colspan3"> 
 						ประเภท
+						<%  String type = "";
+							if(request.getAttribute("type")!=null){
+							type = (String) request.getAttribute("type"); 
+						}
+						%>
 						<label class="input-control radio">
-						    <input type="radio" name="type_po" value="purchase1">
+						    <input type="radio" name="pomodel.type" <%if(type.equals("P")){%>checked="checked"<%}%> value="P">
 						    <span class="check"></span>
 						    <span class="caption">จัดซื้อ</span>
 						</label>
 						<label class="input-control radio">
-						    <input type="radio" name="type_po" value="purchase2">
+						    <input type="radio" name="pomodel.type" <%if(type.equals("H")){%>checked="checked"<%}%> value="H">
 						    <span class="check"></span>
 						    <span class="caption">จัดจ้าง</span>
 						</label>
@@ -154,7 +159,7 @@ String project_code = "";
 					<div class="cell colspan3 "> 
 			        	เรียนผู้ขาย
 				        <div class="input-control text full-size"  data-role="input">
-						    <s:textfield name="pomodel.vender" id="description" required=""/>
+						    <s:textfield name="pomodel.vender" id="vender" required=""/>
 						</div>
 					</div>
 					<div class="cell colspan3"> </div>
@@ -164,14 +169,14 @@ String project_code = "";
 	         		<div class="cell colspan3"> 
 						จะส่งมอบงานจ้างหรือสิ่งของภายใน
 						<div class="input-control text full-size"  data-role="input">
-						    <s:textfield type="number" name="pomodel.credit_date" id="description" required=""/>
+						    <s:textfield type="number" name="pomodel.credit_day" id="credit_day" required=""/>
 						</div>
 						วัน
 					</div>
 					<div class="cell colspan3 "> 
 			        	ค่าปรับวันละ
 				        <div class="input-control text full-size"  data-role="input">
-						    <input type="number" step="0.01" name="pomodel.vender" id="description" required value="100"/>
+						    <s:textfield type="number" step="0.01" name="pomodel.mulct_day" id="mulct_day" required="" />
 						</div>
 						หากส่งของช้า
 					</div>
@@ -203,7 +208,7 @@ String project_code = "";
          	<div class="row cells12">
 	       		<div class="cell colspan5"> </div> 
 				<div class="cell colspan2"> 
-		        	<button class="button success" type="submit" name="pull_detailpr"><span class="mif-floppy-disk mif-lg fg-white"></span></button>
+		        	<button class="button success savehd" type="submit" id="savehd"><span class="mif-floppy-disk mif-lg fg-white"></span></button>
 		        	<a class="button danger" type="submit" href=""><span class="mif-cross mif-lg fg-white"></span></a>
 				</div>
 				<div class="cell colspan5"> 
@@ -218,7 +223,13 @@ function getpr() {
 }
 
 $(function(){
-	$("#pocreate_date").datepicker({
+	 
+	$("#savehd").click(function(){
+		 
+		$("#pre_loadpr").val("-");
+	});
+	
+	$("#po_docdate").datepicker({
     	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
     });
 	$("#quotation_date").datepicker({
