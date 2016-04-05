@@ -60,13 +60,18 @@ public class CentralBudgetApproveAction extends ActionSupport{
 		if(save!=null){
 			
 			if(request.getParameterValues("archk")!=null){
-			String[] archk = request.getParameterValues("archk");
-			String[] arDocno = request.getParameterValues("arDocno"); 
+			String[] archk = request.getParameterValues("archk"); 
 			String[] approveStatus = request.getParameterValues("approveStatus");
 			
-			for(int i=0,j=0; i<archk.length; i++){
-				j = Integer.parseInt(archk[i]);
-				cbga.UpdateStatusCentralBudget(arDocno[j], year, approveStatus[j]);
+			for(String data_row:archk){
+				
+				String[] split_value = data_row.split("-");
+				String arDocno = split_value[0];
+				String arYear = split_value[1];
+				 
+				int array = Integer.parseInt(split_value[2]) ;
+				
+				cbga.UpdateStatusCentralBudget(arDocno, arYear, approveStatus[array]);
 			}
 		}	 
 		} 

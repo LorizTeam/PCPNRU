@@ -109,13 +109,13 @@
 	        				 
 	        				<% if(anInfo.getApprove_status().equals("CC")){%>
 	        						<label class="input-control small-check checkbox"> 
-			                			<input type="checkbox" name="archk" value="<%=y%>" data-show="indeterminate" disabled />
+			                			<input class="archk" type="checkbox" name="archk" value="<%=anInfo.getDocno()%>-<%=anInfo.getYear()%>" data-show="indeterminate" disabled />
 			                		<span class="check"></span> 
 			                        </label>
 		        					<input type="hidden" name="approveStatus" value="CC" /><input type="text" value=" ยกเลิกรายการ" size="8" readonly="readonly" />
 	        				<% }else{ %>
 	        						<label class="input-control small-check checkbox"> 
-			                			<input type="checkbox" name="archk" value="<%=y%>" data-show="indeterminate" />
+			                			<input class="archk" type="checkbox" name="archk" value="<%=anInfo.getDocno()%>-<%=anInfo.getYear()%>" data-show="indeterminate" />
 			                		<span class="check"></span> 
 			                        </label>
 						    		<select name="approveStatus" > 
@@ -183,7 +183,15 @@
                 "lengthMenu": [[14, 25, 50, 100, -1], [14, 25, 50, 100, "All"]] 
             } );
         	
-            
+        	$('#table_authen tbody').on( 'click', 'tr', function () { 
+    	        //if ( $(this).hasClass('selected') ) {
+    	        	 
+    	        	var $index = $(this).index();
+    	        	var data_chkrow = $(".archk").eq($index).val().substr(0,10);
+    	        	$(".archk").eq($index).val(data_chkrow+"-"+$index);
+    	     
+    	    });
+        	
         });
     	</script>
 	</body>
