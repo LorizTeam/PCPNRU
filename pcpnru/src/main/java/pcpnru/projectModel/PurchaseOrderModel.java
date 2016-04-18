@@ -18,7 +18,27 @@ public class PurchaseOrderModel extends RecordApproveModel {
 	private String quotation_number;
 	private String quotation_date;
 	
+	private String docno;
+	private String itemno;
+	private String year;
+	private String description;
+	private String qty;
+	private String amount;
+	private String amounttotal; 
+	private String remark;
+	
 	public PurchaseOrderModel(){}
+	public PurchaseOrderModel(String docno, String itemno, String year, String description, String qty, String amount, String amounttotal, String remark) {
+		super();
+		this.docno = docno;
+		this.itemno = itemno;
+		this.year = year;
+		this.description = description;
+		this.qty = qty;
+		this.amount = amount;
+		this.amounttotal = amounttotal;
+		this.remark = remark;
+	}
 	public String getProject_code() {
 		return project_code;
 	}
@@ -121,5 +141,53 @@ public class PurchaseOrderModel extends RecordApproveModel {
 	}
 	public void setMulct_day(double mulct_day) {
 		this.mulct_day = mulct_day;
+	}
+	public String getDocno() {
+		return docno;
+	}
+	public void setDocno(String docno) {
+		this.docno = docno;
+	}
+	public String getItemno() {
+		return itemno;
+	}
+	public void setItemno(String itemno) {
+		this.itemno = itemno;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getQty() {
+		return qty;
+	}
+	public void setQty(String qty) {
+		this.qty = qty;
+	}
+	public String getAmount() {
+		return amount;
+	}
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+	public String getAmounttotal() {
+		return amounttotal;
+	}
+	public void setAmounttotal(String amounttotal) {
+		this.amounttotal = amounttotal;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 }

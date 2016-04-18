@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*,java.text.DecimalFormat" pageEncoding="utf-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page import="pcpnru.utilities.*" %>
+<%@ page import="pcpnru.projectModel.*" %>
 <%
 String project_code = "";
 	if(session.getAttribute("username") == null){
@@ -56,8 +57,8 @@ String project_code = "";
 						    <s:textfield name="pomodel.pre_loadpr" id="pre_loadpr" required="" />
 						    <div class="button-group">
 						    <button class="button primary" type="button" onclick="getpr()"> <span class="mif-search"></span></button>
-							<button class="button danger" type="button" id="delete"><span class="mif-bin"></span></button>
-				 	 		<button class="button success" type="button" id="pull_detailpr" name="pull_detailpr"><span class="mif-download"></span></button>
+							<button class="button danger" type="submit" id="delete_detailpr" name="delete_detailpr"><span class="mif-bin"></span></button>
+				 	 		<button class="button success" type="submit" id="pull_detailpr" name="pull_detailpr"><span class="mif-download"></span></button>
 				 	 		</div>
 						</div>
 					</div>
@@ -73,13 +74,13 @@ String project_code = "";
 					<div class="cell colspan3 "> 
 			        	รหัส PR
 				        <div class="input-control text full-size"  data-role="input">
-						    <s:textfield name="pomodel.description" id="description" required="" readonly="true" />
+						    <s:textfield readonly="true" />
 						</div>
 					</div>
 					<div class="cell colspan3"> 
 						วันที่สร้าง PR
 				        <div class="input-control text full-size"  data-role="input">
-						    <s:textfield name="pomodel.description" id="description" required="" readonly="true"/>
+						    <s:textfield readonly="true"/>
 						</div>
 					</div>
 					<div class="cell colspan3"> </div>
@@ -87,7 +88,7 @@ String project_code = "";
 			 	<div class="row cells12">
 					<div class="cell colspan12"> 
 			 		
-			 			<table class="table striped hovered cell-hovered border bordered" >
+			 			<table id="table_po" class="cell-border hover display compact nowrap" cellspacing="0" width="100%" >
 			 				<thead>
 			 					<tr>
 			 						<th>ลำดับ</th>
@@ -99,14 +100,26 @@ String project_code = "";
 			 					</tr>
 			 				</thead>
 			 				<tbody>
+			 					 <%	 List PRList = null;
+			 						if(request.getAttribute("PRList")!=null) PRList = (List) request.getAttribute("PRList"); 
+			 					  
+			 					 	if (PRList != null) { 
+										int x = 0;
+										for (Iterator iter = PRList.iterator(); iter.hasNext();) {
+										x++; 
+										PurchaseOrderModel poMaster = (PurchaseOrderModel) iter.next(); 
+								%>
 			 					<tr>
-			 						<td width="70%"><input type="text" name="itemno" value="1" readonly="readonly"/></td>
-			 						<td><input type="text" name="description" value="ค่าสัญญา" readonly="readonly"/></td>
-			 						<td><input type="text" value="1"/></td>
-			 						<td><input type="text" value="5"/></td>
-			 						<td><input type="text" name="description" value="5,000" readonly="readonly"/></td>
-			 						<td><input type="text" name="remark" value="หมายเหตุ"/></td>
+			 						<td><div class="input-control text full-size"  data-role="input"><input type="text" name="itemno" id="itemno" value="<%=poMaster.getItemno()%>"  size="2" dir="rtl" readonly="readonly"  /></div></td>
+			 						<td><div class="input-control text full-size"  data-role="input"><input type="text" name="description" id="description" value="<%=poMaster.getDescription()%>" size="25"  readonly="readonly" /></div></td>
+			 						<td><div class="input-control text full-size"  data-role="input"><input type="text" name="qty" id="qty" value="<%=poMaster.getQty()%>" size="8" dir="rtl" /></div></td>
+			 						<td><div class="input-control text full-size"  data-role="input"><input type="text" name="amount" id="amount" value="<%=poMaster.getAmount()%>" size="8" dir="rtl" required="required" /></div></td>
+			 						<td><div class="input-control text full-size"  data-role="input"><input type="text" name="amounttotal" id="amounttotal" value="<%=poMaster.getAmounttotal()%>" size="10" dir="rtl" readonly="readonly" /></div></td>
+			 						<td><div class="input-control text full-size"  data-role="input"><input type="text" name="remark" id="remark" value="<%=poMaster.getRemark()%>" size="10" /></div></td> 
 			 					</tr>
+			 					<% 	} %>
+                
+                				<%}  %> 
 			 				</tbody>
 			 			</table>
 			 		</div>
@@ -208,7 +221,7 @@ String project_code = "";
          	<div class="row cells12">
 	       		<div class="cell colspan5"> </div> 
 				<div class="cell colspan2"> 
-		        	<button class="button success savehd" type="submit" id="savehd"><span class="mif-floppy-disk mif-lg fg-white"></span></button>
+		        	<button class="button success savehd" type="submit" id="savehd" name="savehd" ><span class="mif-floppy-disk mif-lg fg-white"></span></button>
 		        	<a class="button danger" type="submit" href=""><span class="mif-cross mif-lg fg-white"></span></a>
 				</div>
 				<div class="cell colspan5"> 
@@ -223,12 +236,52 @@ function getpr() {
 }
 
 $(function(){
-	 
+	var table = $('#table_po').DataTable( {
+    	scrollY:        '47.5vh', 
+    	scrollX: true,
+    	scrollCollapse: true,
+      	ordering: false,
+      	"lengthMenu": [[-1], [ "All" ]] 
+  	});
+	
 	$("#savehd").click(function(){
 		 
 		$("#pre_loadpr").val("-");
 	});
 	
+	$("#pull_detailpr").click(function(){
+		var po_docdate 			= $("#po_docdate").val();
+		var vender 				= $("#vender").val();
+		var quotation_number	= $("#quotation_number").val();
+		var quotation_date 		= $("#quotation_date").val(); 
+		var mulct_day			= $("#mulct_day").val(); 
+		var credit_day			= $("#credit_day").val(); 
+		
+		if(po_docdate == '') 		$("#po_docdate").val("-");  
+		if(vender == '') 			$("#vender").val("-");
+		if(quotation_number == '') 	$("#quotation_number").val("-");
+		if(quotation_date == '') 	$("#quotation_date").val("-");
+		if(mulct_day == '') 		$("#mulct_day").val("0");
+		if(credit_day == '') 		$("#credit_day").val("0");
+	});
+	$("#delete_detailpr").click(function(){
+		var po_docdate 			= $("#po_docdate").val();
+		var vender 				= $("#vender").val();
+		var quotation_number	= $("#quotation_number").val();
+		var quotation_date 		= $("#quotation_date").val(); 
+		var mulct_day			= $("#mulct_day").val(); 
+		var credit_day			= $("#credit_day").val(); 
+		
+		if(po_docdate == '') 		$("#po_docdate").val("-");  
+		if(vender == '') 			$("#vender").val("-");
+		if(quotation_number == '') 	$("#quotation_number").val("-");
+		if(quotation_date == '') 	$("#quotation_date").val("-");
+		if(mulct_day == '') 		$("#mulct_day").val("0");
+		if(credit_day == '') 		$("#credit_day").val("0");
+	});
+	$("#pr_docdate").datepicker({
+    	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
+    });
 	$("#po_docdate").datepicker({
     	format: "dd-mm-yyyy",autoclose:true,todayBtn: "linked",todayHighlight: true
     });
