@@ -68,7 +68,7 @@ public class TestAddDataPR {
 		jsonobjdetail = AddDetail(docno,year,product_code,qty,unit_id,create_by);
 		Assert.assertTrue((Integer) jsonobjdetail.get("rowsupdate") > 0);
 		
-		String record_approve_hd = "TestUpdateHD",record_approve_t = "Test_Updateapprovet", record_approve_date = "05-03-2559"
+		String record_approve_hd = "TestUpdateHD",record_approve_t = "Test_Updateapprovet", record_approve_date = "04-01-2559"
 				, record_approve_title = "Updateขออนุมัติเบิกจ่าย งานจ้างทำ ตู้เมนแบบเคลื่อนที่ ขนาด 100 A. 380V.", record_approve_rian = "อธิการบดี",
 				  record_approve_des1 = "Updateด้วยทางศูนย์วัฒนธรรมพระนครได้รับหนังสือแจ้งจาก บริษัท เวิร์ล พริ้นท์ แอน ดีไซน์ จำกัด ว่าได้เคยรับจ้างงานให้ดำเนินการทำตู้ไฟฟ้าเคลื่อนที่ และส่งมอบงานมาแล้ว แต่ยังไม่ได้รับการเบิกจ่าย จากทางศูนย์วัฒนธรรมพระนคร",
 				  record_approve_des2 = "Updateจากการตรวจสอบเอกสารและผลการเนินการพบว่า มีการทำงานดังกล่าวจริงและทำให้ศูนย์มีตู้ไฟฟ้าเคลื่อนที่ไว้บริการแก่ลูกค้าที่มาเช่าพื้นที่ใช้งาน และได้เคยสอบถามกับเจ้าหน้าที่โสตทัศนศึกษา ว่าได้ดำเนินการจริง และยังไม่ได้ทำเรื่องเบิกจ่าย ค่าจ้างเหมาดำเนินการ",
@@ -181,7 +181,7 @@ public class TestAddDataPR {
 	}
 	
 	public static JSONObject AddHD() throws Exception{
-		String record_approve_hd = "TestHD",record_approve_t = "Test_approvet", record_approve_date = "04-03-2559", record_approve_title = "ขออนุมัติเบิกจ่าย งานจ้างทำ ตู้เมนแบบเคลื่อนที่ ขนาด 100 A. 380V.", record_approve_rian = "อธิการบดี",
+		String record_approve_hd = "TestHD",record_approve_t = "Test_approvet", record_approve_date = "01-04-2559", record_approve_title = "ขออนุมัติเบิกจ่าย งานจ้างทำ ตู้เมนแบบเคลื่อนที่ ขนาด 100 A. 380V.", record_approve_rian = "อธิการบดี",
 		  record_approve_des1 = "ด้วยทางศูนย์วัฒนธรรมพระนครได้รับหนังสือแจ้งจาก บริษัท เวิร์ล พริ้นท์ แอน ดีไซน์ จำกัด ว่าได้เคยรับจ้างงานให้ดำเนินการทำตู้ไฟฟ้าเคลื่อนที่ และส่งมอบงานมาแล้ว แต่ยังไม่ได้รับการเบิกจ่าย จากทางศูนย์วัฒนธรรมพระนคร",
 		  record_approve_des2 = "จากการตรวจสอบเอกสารและผลการเนินการพบว่า มีการทำงานดังกล่าวจริงและทำให้ศูนย์มีตู้ไฟฟ้าเคลื่อนที่ไว้บริการแก่ลูกค้าที่มาเช่าพื้นที่ใช้งาน และได้เคยสอบถามกับเจ้าหน้าที่โสตทัศนศึกษา ว่าได้ดำเนินการจริง และยังไม่ได้ทำเรื่องเบิกจ่าย ค่าจ้างเหมาดำเนินการ",
 		  record_approve_des3 = "จากการตรวจสอบเอกสารและผลการเนินการพบว่า มีการทำงานดังกล่าวจริงและทำให้ศูนย์มีตู้ไฟฟ้าเคลื่อนที่ไว้บริการแก่ลูกค้าที่มาเช่าพื้นที่ใช้งาน และได้เคยสอบถามกับเจ้าหน้าที่โสตทัศนศึกษา ว่าได้ดำเนินการจริง และยังไม่ได้ทำเรื่องเบิกจ่าย ค่าจ้างเหมาดำเนินการ",

@@ -253,7 +253,7 @@ public class RecordApproveAction extends ActionSupport {
 		return SUCCESS;
 	}
 	
-public String entrancSearch_byPOpage() throws IOException, Exception{
+	public String entrancSearch_byPOpage() throws IOException, Exception{
 		
 		HttpServletRequest request = ServletActionContext.getRequest(); 
 		
@@ -379,7 +379,7 @@ public String entrancSearch_byPOpage() throws IOException, Exception{
 				for(String data_row:chkrow){
 					String[] split_value = data_row.split("-");
 					String docno = split_value[0];
-					String year = split_value[1];
+					String year = String.valueOf(Integer.parseInt(split_value[1])-543)  ;
 					int array = Integer.parseInt(split_value[2]) ;
 					new RecordApproveDB().approve_pr(docno, year , approveStatus[array]);
 				}

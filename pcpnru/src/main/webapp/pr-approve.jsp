@@ -100,7 +100,6 @@
 							<%
 								List<RecordApproveModel> ListResultPRSearch = (List) request.getAttribute("ListResultPRSearch");
 								if(new Validate().CheckListNotNull(ListResultPRSearch)){
-									int i = 0;
 									for(RecordApproveModel RAM:ListResultPRSearch){
 							%>
 										<tr>
@@ -109,7 +108,7 @@
 												if(RAM.getApprove_status().equals("CC")){
 											%>
 												<label class="input-control small-check checkbox"> 
-						                			<input type="checkbox" class="chkrow" name="chkrow" value="<%=i++ %>" data-show="indeterminate" disabled />
+						                			<input type="checkbox" class="chkrow" name="chkrow" value="<%=RAM.getDocno() %>-<%=RAM.getYear() %>" data-show="indeterminate" disabled />
 						                		<span class="check"></span> 
 						                        </label>
 						                        <input type="hidden" name="approveStatus" value="CC" /><input type="text" value=" ยกเลิกรายการ" size="8" readonly="readonly" />

@@ -53,7 +53,7 @@
                         	<ul class="d-menu" data-role="dropdown">  
 			                        <li><a href="createrecordApprove">สร้างรายการ</a></li>
 			                        <li class="divider"></li>
-			                        <li><a href="windowsPR">ดูประวัติ</a></li> 
+			                        <li><a href="searchPR">ดูประวัติ</a></li> 
 			                        <li class="divider"></li>
 			                        <li><a href="">จัดการ ผู้มีอำนาจการอนุมัติ</a></li> 
 			                 </ul>

@@ -42,7 +42,14 @@
 <title>PR</title>
 </head>
 <body>
-<div><%@include file="window-topmenu.jsp" %></div>
+<s:set name="fromwindow" value="recordApproveModel.fromwindow"/>
+<s:if test="%{#fromwindow == 'true'}">
+	<div><%@include file="window-topmenu.jsp" %></div>
+</s:if>
+<s:else>
+	<div><%@include file="topmenu.jsp" %></div>
+</s:else>
+
 <h3 class="align-center">รายการใบ PR</h3>
 <form action="searchPR" method="post">
 	<div class="example" data-text="กรองข้อมูลที่ต้องการ"> 

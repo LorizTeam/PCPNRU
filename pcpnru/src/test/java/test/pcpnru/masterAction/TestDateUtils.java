@@ -8,7 +8,7 @@ public class TestDateUtils {
 	
 	@Test
 	public void TestCurMonth(){
-		Assert.assertEquals("03", dateutil.curMonth());
+		Assert.assertEquals("04", dateutil.curMonth());
 	}
 	
 	@Test

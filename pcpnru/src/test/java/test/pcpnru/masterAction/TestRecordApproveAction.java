@@ -10,7 +10,7 @@ import test.pcpnru.masterData.TestRecordApproveDB;;
 
 public class TestRecordApproveAction {
 	
-	String docno="00003",title="ขออนุมัติเบิกจ่าย ",date="2016-03-04",month="03",year="2016",thaidate="2559-03-04",thaidateAndformat="04-03-2559";
+	String docno="00003",title="ขออนุมัติเบิกจ่าย ",date="2016-04-01",month="03",year="2016",thaidate="2559-04-01",thaidateAndformat="01-04-2559";
 	
 	@Test
 	public void Select_List_PR_CurrentMonth() throws IOException, Exception{
@@ -88,7 +88,7 @@ public class TestRecordApproveAction {
 		
 		String FormatThaidate =this.thaidate;
 		String FormatEngDate = new DateUtil().CnvFROMYYYYMMDDTHyear_ToYYYYMMDDEngYear(FormatThaidate, '-');
-		Assert.assertEquals("2016-03-04", FormatEngDate);
+		Assert.assertEquals("2016-04-01", FormatEngDate);
 		List ListPr = new TestRecordApproveDB().GetListPR_Header("", "",FormatEngDate, "", "");
 		Assert.assertTrue(!ListPr.isEmpty());
 	}
@@ -98,7 +98,7 @@ public class TestRecordApproveAction {
 		
 		String FormatThaidate =this.thaidateAndformat;
 		String FormatEngDate = new DateUtil().CnvToYYYYMMDDEngYear(FormatThaidate, '-');
-		Assert.assertEquals("2016-03-04", FormatEngDate);
+		Assert.assertEquals("2016-04-01", FormatEngDate);
 		List ListPr = new TestRecordApproveDB().GetListPR_Header("", "",FormatEngDate, "", "");
 		Assert.assertTrue(!ListPr.isEmpty());
 	}
